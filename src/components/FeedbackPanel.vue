@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { CircleCheckFilled, WarningFilled, CircleCloseFilled, Headset } from "@element-plus/icons-vue";
+import { CircleCheckFilled, WarningFilled, CircleCloseFilled } from "@element-plus/icons-vue";
 import type { AnswerFeedback } from "../types/practice";
 
-defineProps<{ feedback: AnswerFeedback; reference: string }>();
-defineEmits<{ speak: [] }>();
+defineProps<{ feedback: AnswerFeedback }>();
 </script>
 
 <template>
@@ -22,14 +21,6 @@ defineEmits<{ speak: [] }>();
     <div v-if="feedback.missing.length || feedback.extra.length" class="word-diff">
       <div v-if="feedback.missing.length"><span>可能遗漏</span><b v-for="word in feedback.missing" :key="`m-${word}`">{{ word }}</b></div>
       <div v-if="feedback.extra.length"><span>多出/不同</span><b v-for="word in feedback.extra" :key="`e-${word}`">{{ word }}</b></div>
-    </div>
-
-    <div class="reference-answer">
-      <div>
-        <span>参考答案</span>
-        <p>{{ reference }}</p>
-      </div>
-      <el-button circle :icon="Headset" aria-label="朗读参考答案" @click="$emit('speak')" />
     </div>
   </div>
 </template>

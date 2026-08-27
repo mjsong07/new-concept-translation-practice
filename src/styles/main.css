@@ -71,26 +71,29 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .prompt-label .el-tag { --el-tag-text-color: var(--green); --el-tag-border-color: #c4d5cf; --el-tag-bg-color: #edf5f1; }
 .chinese-prompt { margin: 18px 0 0; color: #172b28; font-family: "Noto Sans SC", sans-serif; font-size: clamp(21px, 2.6vw, 29px); font-weight: 600; line-height: 1.65; letter-spacing: .015em; }
 .speaker-tip { margin: 12px 0 0; color: #89938f; font-size: 11px; }
+.inline-reference { margin-top: 16px; padding-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px; border-top: 1px solid #ddd9c9; }
+.inline-reference > div { min-width: 0; }
+.inline-reference span { color: #8b948f; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+.inline-reference p { margin: 4px 0 0; color: var(--green-dark); font-size: 17px; font-weight: 700; line-height: 1.45; }
+.inline-reference .el-button { flex: 0 0 auto; color: var(--green); border-color: #c9d9d3; background: rgba(255,255,255,.7); }
 .answer-area .el-textarea__inner { padding: 18px; border: 1px solid #cfd8d3; box-shadow: none; background: #fff; color: #203330; font-size: 17px; line-height: 1.6; }
 .answer-area .el-textarea__inner:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(23,88,79,.1); }
 .input-caption { display: flex; justify-content: space-between; margin-top: 8px; color: #8d9895; font-size: 11px; }
-.feedback-panel { margin-top: 22px; padding: 20px; border-radius: 16px; }
+.feedback-panel { margin-top: 12px; padding: 12px 14px; border-radius: 12px; }
 .feedback-panel.is-correct { color: #145746; background: #eaf6ef; border: 1px solid #bfdfcd; }
 .feedback-panel.is-close { color: #7c5910; background: #fff7df; border: 1px solid #ecd58f; }
 .feedback-panel.is-wrong { color: #8b3d32; background: #fff0ed; border: 1px solid #edc3ba; }
-.feedback-title-row { display: flex; align-items: flex-start; gap: 12px; }
-.feedback-icon { flex: 0 0 25px; width: 25px; height: 25px; margin-top: 2px; font-size: 25px; }
-.feedback-title-row h3 { margin: 0; font-size: 17px; }
-.feedback-title-row p { margin: 4px 0 0; color: currentColor; opacity: .75; font-size: 12px; }
-.similarity { margin-left: auto; padding: 4px 8px; border-radius: 20px; background: rgba(255,255,255,.55); font-size: 11px; font-weight: 700; white-space: nowrap; }
-.word-diff { margin: 15px 0; padding: 12px 14px; border-radius: 10px; background: rgba(255,255,255,.5); font-size: 11px; }
+.feedback-title-row { display: flex; align-items: center; gap: 8px; }
+.feedback-title-row > div { min-width: 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.feedback-icon { flex: 0 0 20px; width: 20px; height: 20px; font-size: 20px; }
+.feedback-title-row h3 { margin: 0; font-size: 14px; }
+.feedback-title-row p { margin: 0; color: currentColor; opacity: .7; font-size: 10px; }
+.similarity { margin-left: auto; padding: 3px 7px; border-radius: 20px; background: rgba(255,255,255,.55); font-size: 10px; font-weight: 700; white-space: nowrap; }
+.word-diff { margin: 9px 0 0; padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,.5); font-size: 10px; }
 .word-diff > div { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.word-diff > div + div { margin-top: 7px; }
-.word-diff span { min-width: 58px; opacity: .65; }
+.word-diff > div + div { margin-top: 5px; }
+.word-diff span { min-width: 52px; opacity: .65; }
 .word-diff b { padding: 2px 7px; border-radius: 5px; background: rgba(255,255,255,.8); font-weight: 600; }
-.reference-answer { margin-top: 15px; padding-top: 15px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid currentColor; border-color: color-mix(in srgb, currentColor 18%, transparent); }
-.reference-answer span { font-size: 10px; font-weight: 700; letter-spacing: .08em; opacity: .65; }
-.reference-answer p { margin: 5px 0 0; color: var(--ink); font-size: 15px; font-weight: 600; line-height: 1.55; }
 .exercise-actions { margin-top: 26px; display: flex; justify-content: space-between; gap: 16px; }
 .primary-actions { display: flex; gap: 9px; }
 .el-button--primary { --el-button-bg-color: var(--green); --el-button-border-color: var(--green); --el-button-hover-bg-color: var(--green-dark); --el-button-hover-border-color: var(--green-dark); }
@@ -125,7 +128,11 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
   .prompt-area { margin: 0 0 12px; padding: 15px 16px; border-left-width: 3px; border-radius: 4px 13px 13px 4px; }
   .prompt-label, .speaker-tip { display: none; }
   .chinese-prompt { margin: 0; overflow: hidden; color: #172b28; font-size: 18px; line-height: 1.55; text-overflow: ellipsis; white-space: nowrap; }
+  .inline-reference { margin-top: 10px; padding-top: 10px; }
+  .inline-reference p { font-size: 14px; line-height: 1.4; }
+  .inline-reference .el-button { width: 32px; height: 32px; min-height: 32px; }
   .answer-area .el-textarea__inner { min-height: 120px !important; padding: 15px; font-size: 16px; }
+  .feedback-panel { margin-top: 8px; padding: 10px 11px; }
   .exercise-actions { align-items: stretch; }
   .primary-actions { flex: 1; justify-content: flex-end; flex-wrap: wrap; }
   .exercise-actions .el-button { margin-left: 0; }

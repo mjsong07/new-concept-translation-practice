@@ -69,6 +69,13 @@ function onKeydown(event: KeyboardEvent) {
       </div>
       <p class="chinese-prompt">{{ item.prompt }}</p>
       <p v-if="item.speakerEn" class="speaker-tip">英文角色：{{ item.speakerEn }}（无需输入角色名）</p>
+      <div v-if="submitted" class="inline-reference">
+        <div>
+          <span>参考英文</span>
+          <p>{{ item.answer }}</p>
+        </div>
+        <el-button circle :icon="Headset" aria-label="朗读参考答案" @click="emit('speak')" />
+      </div>
     </section>
 
     <section class="answer-area">
@@ -87,7 +94,7 @@ function onKeydown(event: KeyboardEvent) {
       <div class="input-caption"><span>忽略大小写和标点，常见缩写与完整形式均可</span><span>{{ answer.length }} 字符</span></div>
     </section>
 
-    <FeedbackPanel v-if="submitted" :feedback="feedback" :reference="item.answer" @speak="emit('speak')" />
+    <FeedbackPanel v-if="submitted" :feedback="feedback" />
 
     <div class="exercise-actions">
       <el-button :icon="ArrowLeft" @click="emit('previous')">上一题</el-button>
