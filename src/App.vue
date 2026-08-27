@@ -2,6 +2,7 @@
 import { computed, onMounted, onUnmounted } from "vue";
 import { TrophyBase, CircleCheck, EditPen } from "@element-plus/icons-vue";
 import PracticeControls from "./components/PracticeControls.vue";
+import MobileSettings from "./components/MobileSettings.vue";
 import TranslationExercise from "./components/TranslationExercise.vue";
 import { useTranslationPractice } from "./composables/useTranslationPractice";
 import { speakEnglish } from "./services/speech";
@@ -40,6 +41,25 @@ onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
     />
 
     <div class="workspace">
+      <MobileSettings
+        :lessons="practice.lessons"
+        :lesson-number="practice.selectedLesson.value"
+        :lesson-title="practice.lesson.value.title"
+        :filter="practice.filter.value"
+        :order="practice.order.value"
+        :position="practice.itemIndex.value"
+        :question-count="practice.filteredItems.value.length"
+        :lesson-completed="practice.lessonCompleted.value"
+        :lesson-count="practice.lesson.value.items.length"
+        :lesson-percent="practice.lessonPercent.value"
+        :total-completed="practice.totalCompleted.value"
+        :accuracy="practice.accuracy.value"
+        :total-items="practice.totalItems"
+        @update:lesson-number="practice.selectedLesson.value = $event"
+        @update:filter="practice.filter.value = $event"
+        @update:order="practice.order.value = $event"
+      />
+
       <header class="workspace-header">
         <div>
           <span class="eyebrow">新概念英语第一册 · 奇数课</span>

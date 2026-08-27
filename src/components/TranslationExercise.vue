@@ -50,6 +50,18 @@ function onKeydown(event: KeyboardEvent) {
     </div>
     <el-progress :percentage="progress" :show-text="false" :stroke-width="5" />
 
+    <div class="mobile-check-action">
+      <el-button
+        v-if="!submitted"
+        type="primary"
+        size="large"
+        :icon="Check"
+        :disabled="!answer.trim()"
+        @click="emit('submit')"
+      >检查答案</el-button>
+      <el-button v-else type="primary" size="large" :icon="ArrowRight" @click="emit('next')">下一题</el-button>
+    </div>
+
     <section class="prompt-area">
       <div class="prompt-label">
         <span>把下面这句话译成英文</span>
