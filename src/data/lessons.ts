@@ -5,6 +5,9 @@ export const lessons: Lesson[] = [
   {
     "number": 1,
     "title": "Excuse me!",
+    "titleZh": "对不起！",
+    "questionEn": "Whose handbag is it?",
+    "questionZh": "这是谁的手袋？",
     "items": [
       {
         "id": "lesson-1-1",
@@ -74,6 +77,9 @@ export const lessons: Lesson[] = [
   {
     "number": 3,
     "title": "Sorry, sir.",
+    "titleZh": "对不起，先生。",
+    "questionEn": "Does the man get his umbrella back?",
+    "questionZh": "这位男士有没有要回他的雨伞？",
     "items": [
       {
         "id": "lesson-3-1",
@@ -188,6 +194,9 @@ export const lessons: Lesson[] = [
   {
     "number": 5,
     "title": "Nice to meet you.",
+    "titleZh": "很高兴见到你。",
+    "questionEn": "Is Chang-woo Chinese?",
+    "questionZh": "昌宇是中国人吗？",
     "items": [
       {
         "id": "lesson-5-1",
@@ -311,6 +320,9 @@ export const lessons: Lesson[] = [
   {
     "number": 7,
     "title": "Are you a teacher?",
+    "titleZh": "你是教师吗？",
+    "questionEn": "What is Robert's job?",
+    "questionZh": "罗伯特是做什么工作的？",
     "items": [
       {
         "id": "lesson-7-1",
@@ -443,6 +455,9 @@ export const lessons: Lesson[] = [
   {
     "number": 9,
     "title": "How are you today?",
+    "titleZh": "你今天好吗？",
+    "questionEn": "How is Emma?",
+    "questionZh": "埃玛身体好吗？",
     "items": [
       {
         "id": "lesson-9-1",
@@ -539,6 +554,9 @@ export const lessons: Lesson[] = [
   {
     "number": 11,
     "title": "Is this your shirt?",
+    "titleZh": "这是你的衬衫吗？",
+    "questionEn": "Whose shirt is white?",
+    "questionZh": "谁的衬衣是白色的？",
     "items": [
       {
         "id": "lesson-11-1",
@@ -653,6 +671,9 @@ export const lessons: Lesson[] = [
   {
     "number": 13,
     "title": "A new dress",
+    "titleZh": "一件新连衣裙",
+    "questionEn": "What colour is Anna's hat?",
+    "questionZh": "安娜的帽子是什么颜色的？",
     "items": [
       {
         "id": "lesson-13-1",
@@ -749,6 +770,9 @@ export const lessons: Lesson[] = [
   {
     "number": 15,
     "title": "Your passports, please.",
+    "titleZh": "请出示你们的护照。",
+    "questionEn": "Is there a problem with the Customs officer?",
+    "questionZh": "海关官员有什么疑问吗？",
     "items": [
       {
         "id": "lesson-15-1",
@@ -890,6 +914,9 @@ export const lessons: Lesson[] = [
   {
     "number": 17,
     "title": "How do you do?",
+    "titleZh": "你好！",
+    "questionEn": "What are Michael Baker and Jeremy Short's jobs?",
+    "questionZh": "迈克尔·贝克和杰里米·肖特是做什么工作的？",
     "items": [
       {
         "id": "lesson-17-1",
@@ -1004,6 +1031,9 @@ export const lessons: Lesson[] = [
   {
     "number": 19,
     "title": "Tired and thirsty",
+    "titleZh": "又累又渴",
+    "questionEn": "Why do the children thank their mother?",
+    "questionZh": "为什么孩子们向母亲致谢？",
     "items": [
       {
         "id": "lesson-19-1",
@@ -1127,6 +1157,9 @@ export const lessons: Lesson[] = [
   {
     "number": 21,
     "title": "Which book?",
+    "titleZh": "哪一本书？",
+    "questionEn": "Which book does the man want?",
+    "questionZh": "这位男士要哪本书？",
     "items": [
       {
         "id": "lesson-21-1",
@@ -1205,6 +1238,9 @@ export const lessons: Lesson[] = [
   {
     "number": 23,
     "title": "Which glasses?",
+    "titleZh": "哪几只杯子？",
+    "questionEn": "Which glasses does the man want?",
+    "questionZh": "这位男士要哪些杯子？",
     "items": [
       {
         "id": "lesson-23-1",
@@ -1283,6 +1319,9 @@ export const lessons: Lesson[] = [
   {
     "number": 25,
     "title": "Mrs. Smith's kitchen",
+    "titleZh": "史密斯夫人的厨房",
+    "questionEn": "What colour is the electric cooker?",
+    "questionZh": "电灶是什么颜色的？",
     "items": [
       {
         "id": "lesson-25-1",
@@ -1397,6 +1436,9 @@ export const lessons: Lesson[] = [
   {
     "number": 27,
     "title": "Mrs. Smith's living room",
+    "titleZh": "史密斯夫人的客厅",
+    "questionEn": "Where are the books?",
+    "questionZh": "书在哪里？",
     "items": [
       {
         "id": "lesson-27-1",
@@ -1511,6 +1553,9 @@ export const lessons: Lesson[] = [
   {
     "number": 29,
     "title": "Come in, Amy.",
+    "titleZh": "进来，艾米。",
+    "questionEn": "How must Amy clean the floor?",
+    "questionZh": "艾米需要如何来清扫地面？",
     "items": [
       {
         "id": "lesson-29-1",
@@ -1598,6 +1643,9 @@ export const lessons: Lesson[] = [
   {
     "number": 31,
     "title": "Where's Sally?",
+    "titleZh": "莎莉在哪里？",
+    "questionEn": "Is the cat climbing the tree?",
+    "questionZh": "猫正在爬树吗？",
     "items": [
       {
         "id": "lesson-31-1",
@@ -1694,6 +1742,9 @@ export const lessons: Lesson[] = [
   {
     "number": 33,
     "title": "A fine day",
+    "titleZh": "晴天",
+    "questionEn": "Where is the Jones family?",
+    "questionZh": "琼斯一家人在哪里？",
     "items": [
       {
         "id": "lesson-33-1",
@@ -1790,6 +1841,9 @@ export const lessons: Lesson[] = [
   {
     "number": 35,
     "title": "Our village",
+    "titleZh": "我们的村庄",
+    "questionEn": "Are the children coming out of the park or going into it?",
+    "questionZh": "孩子们是正从公园里出来还正在往里走？",
     "items": [
       {
         "id": "lesson-35-1",
@@ -1922,6 +1976,9 @@ export const lessons: Lesson[] = [
   {
     "number": 37,
     "title": "Making a bookcase",
+    "titleZh": "做书架",
+    "questionEn": "What is Susan's favourite colour?",
+    "questionZh": "苏珊最喜欢哪种颜色？",
     "items": [
       {
         "id": "lesson-37-1",
@@ -2045,6 +2102,9 @@ export const lessons: Lesson[] = [
   {
     "number": 39,
     "title": "Don't drop it!",
+    "titleZh": "别摔了！",
+    "questionEn": "Where does Sam put the vase in the end?",
+    "questionZh": "萨姆把花瓶放在什么地方？",
     "items": [
       {
         "id": "lesson-39-1",
@@ -2132,6 +2192,9 @@ export const lessons: Lesson[] = [
   {
     "number": 41,
     "title": "Penny's bag",
+    "titleZh": "彭妮的提包",
+    "questionEn": "Who is the tin of tobacco for?",
+    "questionZh": "那听烟丝是给谁买的？",
     "items": [
       {
         "id": "lesson-41-1",
@@ -2192,6 +2255,9 @@ export const lessons: Lesson[] = [
   {
     "number": 43,
     "title": "Hurry up!",
+    "titleZh": "快点！",
+    "questionEn": "How do you know Sam doesn't make the tea very often?",
+    "questionZh": "你怎么知道萨姆不常沏茶？",
     "items": [
       {
         "id": "lesson-43-1",
@@ -2333,6 +2399,9 @@ export const lessons: Lesson[] = [
   {
     "number": 45,
     "title": "The boss's letter",
+    "titleZh": "老板的信",
+    "questionEn": "Why can't Pamela type the letter?",
+    "questionZh": "帕梅拉为什么无法打信？",
     "items": [
       {
         "id": "lesson-45-1",
@@ -2465,6 +2534,9 @@ export const lessons: Lesson[] = [
   {
     "number": 47,
     "title": "A cup of coffee",
+    "titleZh": "一杯咖啡",
+    "questionEn": "How does Ann like her coffee?",
+    "questionZh": "安想要什么样的咖啡？",
     "items": [
       {
         "id": "lesson-47-1",
@@ -2579,6 +2651,9 @@ export const lessons: Lesson[] = [
   {
     "number": 49,
     "title": "At the butcher's",
+    "titleZh": "在肉店",
+    "questionEn": "What does Mr. Bird like?",
+    "questionZh": "伯德先生喜欢什么？",
     "items": [
       {
         "id": "lesson-49-1",
@@ -2702,6 +2777,9 @@ export const lessons: Lesson[] = [
   {
     "number": 51,
     "title": "A pleasant climate",
+    "titleZh": "宜人的气候",
+    "questionEn": "Does it ever snow in Greece?",
+    "questionZh": "希腊下过雪吗？",
     "items": [
       {
         "id": "lesson-51-1",
@@ -2816,6 +2894,9 @@ export const lessons: Lesson[] = [
   {
     "number": 53,
     "title": "An interesting climate",
+    "titleZh": "有趣的气候",
+    "questionEn": "What is the favourite subject of conversation in England?",
+    "questionZh": "在英国最受欢迎的话题是什么？",
     "items": [
       {
         "id": "lesson-53-1",
@@ -2894,6 +2975,9 @@ export const lessons: Lesson[] = [
   {
     "number": 55,
     "title": "The Sawyer family",
+    "titleZh": "索耶一家人",
+    "questionEn": "When do the children do their homework?",
+    "questionZh": "孩子们什么时候做功课？",
     "items": [
       {
         "id": "lesson-55-1",
@@ -3026,6 +3110,9 @@ export const lessons: Lesson[] = [
   {
     "number": 57,
     "title": "An unusual day",
+    "titleZh": "很不平常的一天",
+    "questionEn": "What is Mr. Sawyer doing tonight?",
+    "questionZh": "索耶先生今晚正在做什么？",
     "items": [
       {
         "id": "lesson-57-1",
@@ -3131,6 +3218,9 @@ export const lessons: Lesson[] = [
   {
     "number": 59,
     "title": "Is that all?",
+    "titleZh": "就这些吗？",
+    "questionEn": "Does the lady buy any chalk?",
+    "questionZh": "这位女士有没有买粉笔？",
     "items": [
       {
         "id": "lesson-59-1",
@@ -3281,6 +3371,9 @@ export const lessons: Lesson[] = [
   {
     "number": 61,
     "title": "A bad cold",
+    "titleZh": "重感冒",
+    "questionEn": "What is good news for Jimmy?",
+    "questionZh": "吉米有什么好消息？",
     "items": [
       {
         "id": "lesson-61-1",
@@ -3422,6 +3515,9 @@ export const lessons: Lesson[] = [
   {
     "number": 63,
     "title": "Thank you, doctor.",
+    "titleZh": "谢谢你，医生。",
+    "questionEn": "Who else is in bed today? Why?",
+    "questionZh": "还有谁今天也卧床休息？为什么？",
     "items": [
       {
         "id": "lesson-63-1",
@@ -3536,6 +3632,9 @@ export const lessons: Lesson[] = [
   {
     "number": 65,
     "title": "Not a baby",
+    "titleZh": "不是一个孩子",
+    "questionEn": "Does Jill take the key to the front door?",
+    "questionZh": "吉尔有没有拿到大门的钥匙？",
     "items": [
       {
         "id": "lesson-65-1",
@@ -3659,6 +3758,9 @@ export const lessons: Lesson[] = [
   {
     "number": 67,
     "title": "The weekend",
+    "titleZh": "周末",
+    "questionEn": "What are the Johnsons going to do at the weekend?",
+    "questionZh": "约翰逊夫妇周末准备做什么？",
     "items": [
       {
         "id": "lesson-67-1",
@@ -3737,6 +3839,9 @@ export const lessons: Lesson[] = [
   {
     "number": 69,
     "title": "The car race",
+    "titleZh": "汽车比赛",
+    "questionEn": "Which car was the winner in 1995?",
+    "questionZh": "哪辆车在1995年的比赛中获胜？",
     "items": [
       {
         "id": "lesson-69-1",
@@ -3869,6 +3974,9 @@ export const lessons: Lesson[] = [
   {
     "number": 71,
     "title": "He's awful!",
+    "titleZh": "他讨厌透了！",
+    "questionEn": "How did Pauline answer the telephone at nine o'clock?",
+    "questionZh": "波琳在9点接电话时是如何说的？",
     "items": [
       {
         "id": "lesson-71-1",
@@ -3983,6 +4091,9 @@ export const lessons: Lesson[] = [
   {
     "number": 73,
     "title": "The way to King Street",
+    "titleZh": "到国王街的走法",
+    "questionEn": "Why did the man need a phrasebook?",
+    "questionZh": "为什么这位男士需要一本常用语手册？",
     "items": [
       {
         "id": "lesson-73-1",
@@ -4115,6 +4226,9 @@ export const lessons: Lesson[] = [
   {
     "number": 75,
     "title": "Uncomfortable shoes",
+    "titleZh": "不舒适的鞋子",
+    "questionEn": "What's wrong with the fashionable shoes?",
+    "questionZh": "这些时髦的鞋有什么毛病？",
     "items": [
       {
         "id": "lesson-75-1",
@@ -4256,6 +4370,9 @@ export const lessons: Lesson[] = [
   {
     "number": 77,
     "title": "Terrible toothache",
+    "titleZh": "要命的牙痛",
+    "questionEn": "What time of day is it, do you think? How do you know?",
+    "questionZh": "你认为现在是几点钟？你怎么知道的？",
     "items": [
       {
         "id": "lesson-77-1",
@@ -4370,6 +4487,9 @@ export const lessons: Lesson[] = [
   {
     "number": 79,
     "title": "Carol's shopping list",
+    "titleZh": "卡罗尔的购物单",
+    "questionEn": "What is Carol not going to buy?",
+    "questionZh": "卡罗尔不准备买什么？",
     "items": [
       {
         "id": "lesson-79-1",
@@ -4493,6 +4613,9 @@ export const lessons: Lesson[] = [
   {
     "number": 81,
     "title": "Roast beef and potatoes",
+    "titleZh": "烤牛肉和土豆",
+    "questionEn": "Why is Carol disappointed?",
+    "questionZh": "为什么卡罗尔感到失望？",
     "items": [
       {
         "id": "lesson-81-1",
@@ -4661,6 +4784,9 @@ export const lessons: Lesson[] = [
   {
     "number": 83,
     "title": "Going on holiday",
+    "titleZh": "度假",
+    "questionEn": "Where did Sam go for his holiday this year?",
+    "questionZh": "今年萨姆去了什么地方度假？",
     "items": [
       {
         "id": "lesson-83-1",
@@ -4775,6 +4901,9 @@ export const lessons: Lesson[] = [
   {
     "number": 85,
     "title": "Paris in the spring",
+    "titleZh": "巴黎之春",
+    "questionEn": "At what time of year did Ken visit Paris?",
+    "questionZh": "肯是在什么季节访问巴黎的？",
     "items": [
       {
         "id": "lesson-85-1",
@@ -4898,6 +5027,9 @@ export const lessons: Lesson[] = [
   {
     "number": 87,
     "title": "A car crash",
+    "titleZh": "车祸",
+    "questionEn": "Can the mechanics repair Mr. Wood's car?",
+    "questionZh": "修理工能否修复伍德先生的汽车？",
     "items": [
       {
         "id": "lesson-87-1",
@@ -5021,6 +5153,9 @@ export const lessons: Lesson[] = [
   {
     "number": 89,
     "title": "For sale",
+    "titleZh": "待售",
+    "questionEn": "Why couldn't Nigel decide?",
+    "questionZh": "为什么奈杰尔作不了决定？",
     "items": [
       {
         "id": "lesson-89-1",
@@ -5171,6 +5306,9 @@ export const lessons: Lesson[] = [
   {
     "number": 91,
     "title": "Poor Ian!",
+    "titleZh": "可怜的伊恩！",
+    "questionEn": "Who wanted to sell the house?",
+    "questionZh": "谁想卖房？",
     "items": [
       {
         "id": "lesson-91-1",
@@ -5303,6 +5441,9 @@ export const lessons: Lesson[] = [
   {
     "number": 93,
     "title": "Our new neighbour",
+    "titleZh": "我们的新邻居",
+    "questionEn": "Why is Nigel a lucky man?",
+    "questionZh": "为什么说奈杰尔很幸运？",
     "items": [
       {
         "id": "lesson-93-1",
@@ -5408,6 +5549,9 @@ export const lessons: Lesson[] = [
   {
     "number": 95,
     "title": "Tickets, please.",
+    "titleZh": "请把车票拿出来。",
+    "questionEn": "Why did George and Ken miss the train?",
+    "questionZh": "为什么乔治和肯误了火车？",
     "items": [
       {
         "id": "lesson-95-1",
@@ -5567,6 +5711,9 @@ export const lessons: Lesson[] = [
   {
     "number": 97,
     "title": "A small blue case",
+    "titleZh": "一只蓝色的小箱子",
+    "questionEn": "Does Mr. Hall get his case back?",
+    "questionZh": "霍尔先生有没有要回他的提箱？",
     "items": [
       {
         "id": "lesson-97-1",
@@ -5717,6 +5864,9 @@ export const lessons: Lesson[] = [
   {
     "number": 99,
     "title": "Ow!",
+    "titleZh": "啊哟！",
+    "questionEn": "Must Andy go to see the doctor?",
+    "questionZh": "安迪需要去看医生吗？",
     "items": [
       {
         "id": "lesson-99-1",
@@ -5804,6 +5954,9 @@ export const lessons: Lesson[] = [
   {
     "number": 101,
     "title": "A card from Jimmy",
+    "titleZh": "吉米的明信片",
+    "questionEn": "Does Grandmother seem pleased to get a card from Jimmy? Why/Why not?",
+    "questionZh": "收到吉米寄来的一张明信片，祖母是否显得高兴？为什么/为什么不高兴？",
     "items": [
       {
         "id": "lesson-101-1",
@@ -5918,6 +6071,9 @@ export const lessons: Lesson[] = [
   {
     "number": 103,
     "title": "The French test",
+    "titleZh": "法语考试",
+    "questionEn": "How long did the exam last?",
+    "questionZh": "考试持续了多长时间？",
     "items": [
       {
         "id": "lesson-103-1",
@@ -6005,6 +6161,9 @@ export const lessons: Lesson[] = [
   {
     "number": 105,
     "title": "Full of mistakes",
+    "titleZh": "错误百出",
+    "questionEn": "What was Sandra's present?",
+    "questionZh": "给桑德拉的礼物是什么？",
     "items": [
       {
         "id": "lesson-105-1",
@@ -6110,6 +6269,9 @@ export const lessons: Lesson[] = [
   {
     "number": 107,
     "title": "It's too small.",
+    "titleZh": "太小了。",
+    "questionEn": "What kind of dress does the lady want?",
+    "questionZh": "这位女士想要什么样的服装？",
     "items": [
       {
         "id": "lesson-107-1",
@@ -6188,6 +6350,9 @@ export const lessons: Lesson[] = [
   {
     "number": 109,
     "title": "A good idea",
+    "titleZh": "好主意",
+    "questionEn": "What does Jane have with her coffee?",
+    "questionZh": "喝咖啡时简吃了什么？",
     "items": [
       {
         "id": "lesson-109-1",
@@ -6338,6 +6503,9 @@ export const lessons: Lesson[] = [
   {
     "number": 111,
     "title": "The most expensive model",
+    "titleZh": "最昂贵的型号",
+    "questionEn": "Can Mr. Frith buy the television on instalments? How does it work?",
+    "questionZh": "弗里斯先生可以用分期付款方式购买电视机吗？如何操作呢？",
     "items": [
       {
         "id": "lesson-111-1",
@@ -6434,6 +6602,9 @@ export const lessons: Lesson[] = [
   {
     "number": 113,
     "title": "Small change",
+    "titleZh": "零钱",
+    "questionEn": "Who has got some small change?",
+    "questionZh": "谁有零钱？",
     "items": [
       {
         "id": "lesson-113-1",
@@ -6575,6 +6746,9 @@ export const lessons: Lesson[] = [
   {
     "number": 115,
     "title": "Knock, knock!",
+    "titleZh": "敲敲门！",
+    "questionEn": "What does Jim have to drink?",
+    "questionZh": "吉姆只能喝什么饮料？",
     "items": [
       {
         "id": "lesson-115-1",
@@ -6707,6 +6881,9 @@ export const lessons: Lesson[] = [
   {
     "number": 117,
     "title": "Tommy's breakfast",
+    "titleZh": "汤米的早餐",
+    "questionEn": "What does she mean by 'change' in the last sentence?",
+    "questionZh": "最后一句话中的“change”是什么意思？",
     "items": [
       {
         "id": "lesson-117-1",
@@ -6812,6 +6989,9 @@ export const lessons: Lesson[] = [
   {
     "number": 119,
     "title": "A true story",
+    "titleZh": "一个真实的故事",
+    "questionEn": "Who called out to the thieves in the dark?",
+    "questionZh": "谁在暗处对窃贼喊了一声？",
     "items": [
       {
         "id": "lesson-119-1",
@@ -6962,6 +7142,9 @@ export const lessons: Lesson[] = [
   {
     "number": 121,
     "title": "The man in a hat",
+    "titleZh": "戴帽子的男士",
+    "questionEn": "Why didn't Caroline recognize the customer straight away?",
+    "questionZh": "为什么卡罗琳没有马上认出那位顾客？",
     "items": [
       {
         "id": "lesson-121-1",
@@ -7085,6 +7268,9 @@ export const lessons: Lesson[] = [
   {
     "number": 123,
     "title": "A trip to Australia",
+    "titleZh": "澳大利亚之行",
+    "questionEn": "Who is the man with the beard?",
+    "questionZh": "那个长着络腮胡子的人是谁？",
     "items": [
       {
         "id": "lesson-123-1",
@@ -7244,6 +7430,9 @@ export const lessons: Lesson[] = [
   {
     "number": 125,
     "title": "Tea for two",
+    "titleZh": "两个人一起喝茶",
+    "questionEn": "Does Susan have tea by herself?",
+    "questionZh": "苏珊是一个人喝茶吗？",
     "items": [
       {
         "id": "lesson-125-1",
@@ -7349,6 +7538,9 @@ export const lessons: Lesson[] = [
   {
     "number": 127,
     "title": "A famous actress",
+    "titleZh": "著名的女演员",
+    "questionEn": "Who is only twenty-nine, and why is it so unclear?",
+    "questionZh": "谁只有29岁？为什么这件事如此含糊不清？",
     "items": [
       {
         "id": "lesson-127-1",
@@ -7463,6 +7655,9 @@ export const lessons: Lesson[] = [
   {
     "number": 129,
     "title": "Seventy miles an hour",
+    "titleZh": "时速70英里",
+    "questionEn": "What does Ann advise her husband to do next time?",
+    "questionZh": "安建议她的丈夫下次做什么？",
     "items": [
       {
         "id": "lesson-129-1",
@@ -7595,6 +7790,9 @@ export const lessons: Lesson[] = [
   {
     "number": 131,
     "title": "Don't be so sure!",
+    "titleZh": "别那么肯定！",
+    "questionEn": "What's the problem about deciding on a holiday?",
+    "questionZh": "决定如何度假有什么为难的地方？",
     "items": [
       {
         "id": "lesson-131-1",
@@ -7673,6 +7871,9 @@ export const lessons: Lesson[] = [
   {
     "number": 133,
     "title": "Sensational news!",
+    "titleZh": "爆炸性新闻！",
+    "questionEn": "What reasons did Karen Marsh give for wanting to retire?",
+    "questionZh": "卡伦·马什说她为什么想要退休？",
     "items": [
       {
         "id": "lesson-133-1",
@@ -7733,6 +7934,9 @@ export const lessons: Lesson[] = [
   {
     "number": 135,
     "title": "The latest report",
+    "titleZh": "最新消息",
+    "questionEn": "Is Karen Marsh going to retire, do you think?",
+    "questionZh": "你认为卡伦·马什会退休吗？",
     "items": [
       {
         "id": "lesson-135-1",
@@ -7802,6 +8006,9 @@ export const lessons: Lesson[] = [
   {
     "number": 137,
     "title": "A pleasant dream",
+    "titleZh": "美好的梦",
+    "questionEn": "What would Julie like to do, if she had the money?",
+    "questionZh": "如果朱莉有那笔钱，她想做什么呢？",
     "items": [
       {
         "id": "lesson-137-1",
@@ -7889,11 +8096,17 @@ export const lessons: Lesson[] = [
   {
     "number": 139,
     "title": "Is that you, John?",
+    "titleZh": "是你吗，约翰？",
+    "questionEn": "Which John Smith does Graham Turner think he is talking to?",
+    "questionZh": "格雷厄姆·特纳以为他在和哪一个约翰·史密斯通话？",
     "items": []
   },
   {
     "number": 141,
     "title": "Sally's first train ride",
+    "titleZh": "莎莉第一次乘火车旅行",
+    "questionEn": "Why was the mother embarrassed?",
+    "questionZh": "为什么母亲感到尴尬？",
     "items": [
       {
         "id": "lesson-141-1",
@@ -8044,6 +8257,9 @@ export const lessons: Lesson[] = [
   {
     "number": 143,
     "title": "A walk through the woods",
+    "titleZh": "林中散步",
+    "questionEn": "What was so funny about the words on the sign?",
+    "questionZh": "牌子上的字有什么可笑的地方？",
     "items": [
       {
         "id": "lesson-143-1",

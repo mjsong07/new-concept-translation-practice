@@ -1,6 +1,6 @@
 export type ResultLevel = "idle" | "correct" | "close" | "wrong";
 export type PracticeFilter = "all" | "unfinished" | "mistakes";
-export type PracticeOrder = "sequential" | "random";
+export type DisplayMode = "translation" | "original" | "bilingual";
 
 export interface ExerciseItem {
   id: string;
@@ -15,6 +15,9 @@ export interface ExerciseItem {
 export interface Lesson {
   number: number;
   title: string;
+  titleZh: string;
+  questionEn: string;
+  questionZh: string;
   items: ExerciseItem[];
 }
 
@@ -25,6 +28,13 @@ export interface AnswerFeedback {
   similarity: number;
   missing: string[];
   extra: string[];
+  referenceParts: AnswerDiffPart[];
+  explanation: string;
+}
+
+export interface AnswerDiffPart {
+  text: string;
+  state: "correct" | "wrong" | "neutral";
 }
 
 export interface StoredProgress {

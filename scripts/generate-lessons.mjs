@@ -19,7 +19,15 @@ for (let index = 0; index < matches.length; index += 1) {
   const title = current[2].trim();
   const block = source.slice(current.index, next?.index ?? source.length);
   let english = block.match(/### English\s*\n([\s\S]*?)\n### 参考译文/)?.[1].trim() ?? "";
-  const chinese = block.match(/### 参考译文\s*\n([\s\S]*)$/)?.[1].trim() ?? "";
+  let chinese = block.match(/### 参考译文\s*\n([\s\S]*)$/)?.[1].trim() ?? "";
+  const questionEn = english.match(/^\*\*Question:\*\*\s*(.+)$/m)?.[1].trim() ?? "";
+  const titleZh = chinese.match(/^\*\*标题：\*\*\s*(.+)$/m)?.[1].trim() ?? "";
+  const questionZh = chinese.match(/^\*\*问题：\*\*\s*(.+)$/m)?.[1].trim() ?? "";
+  if (!questionEn || !titleZh || !questionZh) {
+    throw new Error(`第 ${number} 课缺少英文问题、中文标题或中文问题`);
+  }
+  english = english.replace(/^\*\*Question:\*\*.*(?:\r?\n)?/gm, "").trim();
+  chinese = chinese.replace(/^\*\*(?:标题|问题)：\*\*.*(?:\r?\n)?/gm, "").trim();
   english = repairKnownOcrGaps(number, english);
   const englishTurns = parseTurns(english);
   const chineseTurns = parseTurns(chinese);
@@ -43,7 +51,7 @@ for (let index = 0; index < matches.length; index += 1) {
       answer: cleanEnglish(pair.english.text)
     }));
 
-  lessons.push({ number, title, items });
+  lessons.push({ number, title, titleZh, questionEn, questionZh, items });
   reports.push({ number, englishTurns: englishTurns.length, chineseTurns: chineseTurns.length, items: items.length });
 }
 

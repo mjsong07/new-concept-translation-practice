@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { Lesson, PracticeFilter, PracticeOrder } from "../types/practice";
+import type { Lesson, PracticeFilter } from "../types/practice";
 
 defineProps<{
   lessons: Lesson[];
   lessonNumber: number;
   filter: PracticeFilter;
-  order: PracticeOrder;
   lessonCompleted: number;
   lessonCount: number;
   lessonPercent: number;
@@ -14,7 +13,6 @@ defineProps<{
 const emit = defineEmits<{
   "update:lessonNumber": [value: number];
   "update:filter": [value: PracticeFilter];
-  "update:order": [value: PracticeOrder];
 }>();
 </script>
 
@@ -58,14 +56,6 @@ const emit = defineEmits<{
       />
     </section>
 
-    <section class="control-section">
-      <label class="control-label">出题顺序</label>
-      <el-radio-group :model-value="order" @update:model-value="emit('update:order', $event as PracticeOrder)">
-        <el-radio-button value="sequential">顺序</el-radio-button>
-        <el-radio-button value="random">随机</el-radio-button>
-      </el-radio-group>
-    </section>
-
     <section class="lesson-progress">
       <div class="progress-heading">
         <span>本课进度</span>
@@ -77,8 +67,7 @@ const emit = defineEmits<{
 
     <div class="keyboard-hint">
       <span>快捷键</span>
-      <div><kbd>Enter</kbd> 检查 / 下一题</div>
-      <div><kbd>⌥ ← →</kbd> 上一题 / 下一题</div>
+      <div><kbd>Enter</kbd> 校验并跳到下一句</div>
     </div>
   </aside>
 </template>

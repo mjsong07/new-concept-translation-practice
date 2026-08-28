@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from "vue";
+import { computed } from "vue";
 import { TrophyBase, CircleCheck, EditPen } from "@element-plus/icons-vue";
 import PracticeControls from "./components/PracticeControls.vue";
 import MobileSettings from "./components/MobileSettings.vue";
@@ -10,19 +10,6 @@ import { speakEnglish } from "./services/speech";
 const practice = useTranslationPractice();
 const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "本课还没有错题，继续保持！" : "本课题目已经全部完成。" );
 
-function handleKeydown(event: KeyboardEvent) {
-  if (event.altKey && event.key === "ArrowLeft") {
-    event.preventDefault();
-    practice.previous();
-  }
-  if (event.altKey && event.key === "ArrowRight") {
-    event.preventDefault();
-    practice.next();
-  }
-}
-
-onMounted(() => window.addEventListener("keydown", handleKeydown));
-onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
 </script>
 
 <template>
@@ -31,13 +18,11 @@ onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
       :lessons="practice.lessons"
       :lesson-number="practice.selectedLesson.value"
       :filter="practice.filter.value"
-      :order="practice.order.value"
       :lesson-completed="practice.lessonCompleted.value"
       :lesson-count="practice.lesson.value.items.length"
       :lesson-percent="practice.lessonPercent.value"
       @update:lesson-number="practice.selectedLesson.value = $event"
       @update:filter="practice.filter.value = $event"
-      @update:order="practice.order.value = $event"
     />
 
     <div class="workspace">
@@ -46,9 +31,6 @@ onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
         :lesson-number="practice.selectedLesson.value"
         :lesson-title="practice.lesson.value.title"
         :filter="practice.filter.value"
-        :order="practice.order.value"
-        :position="practice.itemIndex.value"
-        :question-count="practice.filteredItems.value.length"
         :lesson-completed="practice.lessonCompleted.value"
         :lesson-count="practice.lesson.value.items.length"
         :lesson-percent="practice.lessonPercent.value"
@@ -57,7 +39,6 @@ onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
         :total-items="practice.totalItems"
         @update:lesson-number="practice.selectedLesson.value = $event"
         @update:filter="practice.filter.value = $event"
-        @update:order="practice.order.value = $event"
       />
 
       <header class="workspace-header">
@@ -74,18 +55,20 @@ onUnmounted(() => window.removeEventListener("keydown", handleKeydown));
 
       <TranslationExercise
         v-if="practice.filteredItems.value.length"
-        :item="practice.currentItem.value"
-        :position="practice.itemIndex.value"
-        :count="practice.filteredItems.value.length"
-        :answer="practice.answer.value"
-        :submitted="practice.submitted.value"
-        :feedback="practice.feedback.value"
-        @update:answer="practice.answer.value = $event"
+        :lesson-number="practice.lesson.value.number"
+        :lesson-title="practice.lesson.value.title"
+        :lesson-title-zh="practice.lesson.value.titleZh"
+        :question-en="practice.lesson.value.questionEn"
+        :question-zh="practice.lesson.value.questionZh"
+        :items="practice.filteredItems.value"
+        :answers="practice.answers.value"
+        :results="practice.results.value"
+        :completed-ids="practice.progress.value.completed"
+        :display-mode="practice.displayMode.value"
+        @update:display-mode="practice.displayMode.value = $event"
+        @update:answer="practice.updateAnswer"
         @submit="practice.submit"
-        @next="practice.next"
-        @previous="practice.previous"
-        @retry="practice.retry"
-        @speak="speakEnglish(practice.currentItem.value.answer)"
+        @speak="speakEnglish"
       />
       <el-empty v-else :description="emptyMessage" class="empty-state">
         <el-button type="primary" @click="practice.filter.value = 'all'">查看全部题目</el-button>

@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { ArrowRight, Setting } from "@element-plus/icons-vue";
-import type { Lesson, PracticeFilter, PracticeOrder } from "../types/practice";
+import type { Lesson, PracticeFilter } from "../types/practice";
 
 defineProps<{
   lessons: Lesson[];
   lessonNumber: number;
   lessonTitle: string;
   filter: PracticeFilter;
-  order: PracticeOrder;
-  position: number;
-  questionCount: number;
   lessonCompleted: number;
   lessonCount: number;
   lessonPercent: number;
@@ -22,7 +19,6 @@ defineProps<{
 const emit = defineEmits<{
   "update:lessonNumber": [value: number];
   "update:filter": [value: PracticeFilter];
-  "update:order": [value: PracticeOrder];
 }>();
 
 const visible = ref(false);
@@ -33,10 +29,6 @@ const filterLabels: Record<PracticeFilter, string> = {
   mistakes: "错题"
 };
 
-const orderLabels: Record<PracticeOrder, string> = {
-  sequential: "顺序",
-  random: "随机"
-};
 </script>
 
 <template>
@@ -45,7 +37,7 @@ const orderLabels: Record<PracticeOrder, string> = {
       <span class="mobile-settings-icon"><el-icon><Setting /></el-icon></span>
       <span class="mobile-settings-copy">
         <strong>Lesson {{ lessonNumber }} · {{ lessonTitle }}</strong>
-        <small>第 {{ position + 1 }}/{{ questionCount }} 题 · {{ filterLabels[filter] }} · {{ orderLabels[order] }}</small>
+        <small>已掌握 {{ lessonCompleted }}/{{ lessonCount }} · {{ filterLabels[filter] }}</small>
       </span>
       <el-icon class="mobile-settings-arrow"><ArrowRight /></el-icon>
     </button>
@@ -87,14 +79,6 @@ const orderLabels: Record<PracticeOrder, string> = {
             ]"
             @update:model-value="emit('update:filter', $event as PracticeFilter)"
           />
-        </section>
-
-        <section>
-          <label>出题顺序</label>
-          <el-radio-group :model-value="order" @update:model-value="emit('update:order', $event as PracticeOrder)">
-            <el-radio-button value="sequential">顺序</el-radio-button>
-            <el-radio-button value="random">随机</el-radio-button>
-          </el-radio-group>
         </section>
 
         <section class="mobile-dialog-progress">
