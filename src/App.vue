@@ -61,6 +61,7 @@ const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "æœ¬è
         :question-en="practice.lesson.value.questionEn"
         :question-zh="practice.lesson.value.questionZh"
         :items="practice.filteredItems.value"
+        :all-items="practice.lesson.value.items"
         :answers="practice.answers.value"
         :results="practice.results.value"
         :completed-ids="practice.progress.value.completed"

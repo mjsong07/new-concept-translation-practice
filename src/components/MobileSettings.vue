@@ -56,7 +56,6 @@ const filterLabels: Record<PracticeFilter, string> = {
           <el-select
             :model-value="lessonNumber"
             size="large"
-            filterable
             @update:model-value="emit('update:lessonNumber', Number($event))"
           >
             <el-option

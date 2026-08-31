@@ -10,6 +10,7 @@ const props = defineProps<{
   questionEn: string;
   questionZh: string;
   items: ExerciseItem[];
+  allItems: ExerciseItem[];
   answers: Record<string, string>;
   results: Record<string, AnswerFeedback>;
   completedIds: string[];
@@ -30,14 +31,24 @@ const visibleTitle = computed(() => {
   if (props.displayMode === "original") return props.lessonTitle;
   return `${props.lessonTitleZh} · ${props.lessonTitle}`;
 });
+const lessonSpeechText = computed(() => [
+  props.lessonTitle,
+  props.questionEn,
+  ...props.allItems.map((item) => item.speakerEn ? `${item.speakerEn}. ${item.answer}` : item.answer)
+].filter(Boolean).join(" "));
+
+function shouldAutoFocus() {
+  return !window.matchMedia("(max-width: 640px)").matches;
+}
 
 watch(() => props.lessonNumber, async () => {
+  if (!shouldAutoFocus()) return;
   await nextTick();
   focusItem(props.items[0]?.id);
 });
 
 watch(() => props.displayMode, async (mode) => {
-  if (mode !== "translation") return;
+  if (mode !== "translation" || !shouldAutoFocus()) return;
   await nextTick();
   const firstPending = props.items.find((item) => !props.results[item.id]);
   focusItem(firstPending?.id);
@@ -60,7 +71,7 @@ function submitAndAdvance(item: ExerciseItem) {
 }
 
 function onKeydown(event: KeyboardEvent, item: ExerciseItem) {
-  if (event.key !== "Enter" || event.isComposing) return;
+  if (event.key !== "Enter" || event.isComposing || event.shiftKey) return;
   event.preventDefault();
   submitAndAdvance(item);
 }
@@ -78,7 +89,10 @@ function rowState(item: ExerciseItem) {
     <div class="exercise-topline">
       <div>
         <span class="lesson-kicker">LESSON {{ lessonNumber }}</span>
-        <h1>{{ visibleTitle }}</h1>
+        <div class="lesson-title-row">
+          <h1>{{ visibleTitle }}</h1>
+          <el-button circle text :icon="Headset" aria-label="朗读课程标题" @click="emit('speak', lessonTitle)" />
+        </div>
       </div>
       <div class="lesson-sentence-count">共 {{ items.length }} 句</div>
     </div>
@@ -91,8 +105,15 @@ function rowState(item: ExerciseItem) {
     >
       <el-tab-pane label="译文" name="translation">
         <section class="lesson-question">
-          <strong class="mobile-lesson-title">{{ lessonTitleZh }}</strong>
-          <p>{{ questionZh }}</p>
+          <div class="lesson-question-copy">
+            <strong class="mobile-lesson-title">{{ lessonTitleZh }}</strong>
+            <p>{{ questionZh }}</p>
+          </div>
+          <div class="lesson-speech-actions">
+            <el-button circle text :icon="Headset" aria-label="朗读课程标题" title="朗读标题" @click="emit('speak', lessonTitle)" />
+            <el-button circle text :icon="Headset" aria-label="朗读课文问题" title="朗读问题" @click="emit('speak', questionEn)" />
+            <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">全文</el-button>
+          </div>
         </section>
         <div class="sentence-list translation-list">
           <article v-for="(item, index) in items" :key="item.id" class="sentence-row" :class="rowState(item)">
@@ -126,23 +147,24 @@ function rowState(item: ExerciseItem) {
                 </p>
               </div>
 
-              <el-input
-                :ref="(instance: unknown) => setInputRef(item.id, instance)"
-                :model-value="answers[item.id] || ''"
-                :class="{ 'has-result': Boolean(results[item.id]) }"
-                autocomplete="off"
-                enterkeyhint="next"
-                placeholder="输入对应的英文，按 Enter 校验"
-                :aria-label="`第 ${index + 1} 句英文译文`"
-                @update:model-value="emit('update:answer', item.id, $event)"
-                @keydown="onKeydown($event, item)"
-              >
-                <template #suffix>
-                  <span v-if="results[item.id]" class="input-result-label">
-                    {{ results[item.id].level === 'correct' ? '正确' : '有误' }}
-                  </span>
-                </template>
-              </el-input>
+              <div class="sentence-answer-row">
+                <el-input
+                  :ref="(instance: unknown) => setInputRef(item.id, instance)"
+                  :model-value="answers[item.id] || ''"
+                  :class="{ 'has-result': Boolean(results[item.id]) }"
+                  type="textarea"
+                  :autosize="{ minRows: 1, maxRows: 5 }"
+                  resize="none"
+                  autocomplete="off"
+                  enterkeyhint="next"
+                  :aria-label="`第 ${index + 1} 句英文译文`"
+                  @update:model-value="emit('update:answer', item.id, $event)"
+                  @keydown="onKeydown($event, item)"
+                />
+                <span v-if="results[item.id]" class="input-result-label">
+                  {{ results[item.id].level === 'correct' ? '正确' : '有误' }}
+                </span>
+              </div>
             </div>
           </article>
         </div>
@@ -150,8 +172,17 @@ function rowState(item: ExerciseItem) {
 
       <el-tab-pane label="原文" name="original">
         <section class="lesson-question is-english">
-          <strong class="mobile-lesson-title">{{ lessonTitle }}</strong>
-          <p>{{ questionEn }}</p>
+          <div class="lesson-question-copy">
+            <div class="mobile-title-with-speech">
+              <strong class="mobile-lesson-title">{{ lessonTitle }}</strong>
+              <el-button circle text :icon="Headset" aria-label="朗读课程标题" @click="emit('speak', lessonTitle)" />
+            </div>
+            <div class="question-with-speech">
+              <p>{{ questionEn }}</p>
+              <el-button circle text :icon="Headset" aria-label="朗读课文问题" @click="emit('speak', questionEn)" />
+            </div>
+          </div>
+          <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">全文</el-button>
         </section>
         <div class="sentence-list reading-list">
           <article v-for="(item, index) in items" :key="item.id" class="sentence-row">
@@ -166,9 +197,18 @@ function rowState(item: ExerciseItem) {
 
       <el-tab-pane label="译文+原文" name="bilingual">
         <section class="lesson-question is-bilingual">
-          <strong class="mobile-lesson-title">{{ lessonTitleZh }} · {{ lessonTitle }}</strong>
-          <div><p>{{ questionZh }}</p></div>
-          <div><p>{{ questionEn }}</p></div>
+          <div class="bilingual-question-copy">
+            <div class="mobile-title-with-speech">
+              <strong class="mobile-lesson-title">{{ lessonTitleZh }} · {{ lessonTitle }}</strong>
+              <el-button circle text :icon="Headset" aria-label="朗读课程标题" @click="emit('speak', lessonTitle)" />
+            </div>
+            <div><p>{{ questionZh }}</p></div>
+            <div class="question-with-speech">
+              <p>{{ questionEn }}</p>
+              <el-button circle text :icon="Headset" aria-label="朗读课文问题" @click="emit('speak', questionEn)" />
+            </div>
+          </div>
+          <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">全文</el-button>
         </section>
         <div class="sentence-list reading-list bilingual-list">
           <article v-for="(item, index) in items" :key="item.id" class="sentence-row">

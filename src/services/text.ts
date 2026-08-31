@@ -18,15 +18,6 @@ const contractionRules: Array<[RegExp, string]> = [
   [/\byou're\b/g, "you are"],
   [/\bwe're\b/g, "we are"],
   [/\bthey're\b/g, "they are"],
-  [/\bhe's\b/g, "he is"],
-  [/\bshe's\b/g, "she is"],
-  [/\bit's\b/g, "it is"],
-  [/\bthat's\b/g, "that is"],
-  [/\bthere's\b/g, "there is"],
-  [/\bi've\b/g, "i have"],
-  [/\byou've\b/g, "you have"],
-  [/\bwe've\b/g, "we have"],
-  [/\bthey've\b/g, "they have"],
   [/\bi'll\b/g, "i will"],
   [/\byou'll\b/g, "you will"],
   [/\bwe'll\b/g, "we will"],
@@ -35,8 +26,8 @@ const contractionRules: Array<[RegExp, string]> = [
   [/\byou'd\b/g, "you would"]
 ];
 
-export function normalizeText(value: string) {
-  let result = String(value || "")
+function normalizeBase(value: string) {
+  let result = value
     .toLowerCase()
     .replace(/[’‘`]/g, "'")
     .replace(/£/g, " pounds ");
@@ -48,16 +39,45 @@ export function normalizeText(value: string) {
     .trim();
 }
 
+function expandAmbiguousContractions(value: string) {
+  const source = String(value || "").toLowerCase().replace(/[’‘`]/g, "'");
+  let variants = [source];
+  const rules: Array<[RegExp, string[]]> = [
+    [/\b([a-z0-9]+)'s\b/, ["$1 is", "$1 has"]],
+    [/\b([a-z0-9]+)'ve\b/, ["$1 have"]]
+  ];
+  for (const [pattern, replacements] of rules) {
+    let pending = variants;
+    variants = [];
+    while (pending.length) {
+      const current = pending.shift()!;
+      if (!pattern.test(current)) {
+        variants.push(current);
+        continue;
+      }
+      pattern.lastIndex = 0;
+      replacements.forEach((replacement) => pending.push(current.replace(pattern, replacement)));
+    }
+  }
+  return [...new Set(variants.map(normalizeBase))];
+}
+
+export function normalizeText(value: string) {
+  return expandAmbiguousContractions(value)[0] || "";
+}
+
 export function evaluateAnswer(input: string, answer: string): AnswerFeedback {
-  const actual = normalizeText(input);
-  const expected = normalizeText(answer);
+  const actualVariants = expandAmbiguousContractions(input);
+  const expectedVariants = expandAmbiguousContractions(answer);
+  const actual = actualVariants[0] || "";
+  const expected = expectedVariants[0] || "";
   if (!actual) {
     return {
       level: "idle", title: "先写下你的译文", message: "输入英文后再检查答案。", similarity: 0,
       missing: [], extra: [], referenceParts: [], explanation: "请先输入英文译文。"
     };
   }
-  if (actual === expected) {
+  if (actualVariants.some((variant) => expectedVariants.includes(variant))) {
     return {
       level: "correct", title: "完全正确", message: "大小写、标点和缩写形式不会影响判定。", similarity: 1,
       missing: [], extra: [], referenceParts: buildReferenceParts(answer, input), explanation: "单词、语序和语法均匹配。"

@@ -42,4 +42,5 @@ export interface StoredProgress {
   mistakes: Record<string, number>;
   attempts: number;
   correct: number;
+  answers: Record<string, string>;
 }

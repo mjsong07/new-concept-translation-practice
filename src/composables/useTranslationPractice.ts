@@ -8,9 +8,15 @@ const storageKey = "new-concept-translation-progress-v1";
 function loadProgress(): StoredProgress {
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
-    return { completed: saved.completed || [], mistakes: saved.mistakes || {}, attempts: saved.attempts || 0, correct: saved.correct || 0 };
+    return {
+      completed: saved.completed || [],
+      mistakes: saved.mistakes || {},
+      attempts: saved.attempts || 0,
+      correct: saved.correct || 0,
+      answers: saved.answers || {}
+    };
   } catch {
-    return { completed: [], mistakes: {}, attempts: 0, correct: 0 };
+    return { completed: [], mistakes: {}, attempts: 0, correct: 0, answers: {} };
   }
 }
 
@@ -18,9 +24,9 @@ export function useTranslationPractice() {
   const selectedLesson = ref(lessons[0].number);
   const filter = ref<PracticeFilter>("all");
   const displayMode = ref<DisplayMode>("translation");
-  const answers = ref<Record<string, string>>({});
-  const results = ref<Record<string, AnswerFeedback>>({});
   const progress = ref(loadProgress());
+  const answers = ref<Record<string, string>>({ ...progress.value.answers });
+  const results = ref<Record<string, AnswerFeedback>>({});
 
   const lesson = computed(() => lessons.find((item) => item.number === selectedLesson.value) || lessons[0]);
   const filteredItems = computed(() => {
@@ -40,6 +46,7 @@ export function useTranslationPractice() {
 
   function updateAnswer(id: string, value: string) {
     answers.value[id] = value;
+    progress.value.answers[id] = value;
     if (results.value[id]) {
       const nextResults = { ...results.value };
       delete nextResults[id];
@@ -64,7 +71,6 @@ export function useTranslationPractice() {
   }
 
   function resetLessonSession() {
-    answers.value = {};
     results.value = {};
   }
 
