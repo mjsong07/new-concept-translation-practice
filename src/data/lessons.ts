@@ -222,8 +222,8 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Nice to meet you.",
         "speakerZh": "布莱克先生",
         "speakerEn": "MR. BLAKE",
-        "prompt": "这位是索菲娅·杜邦小姐。索菲娅是个新学生。她是法国人。",
-        "answer": "This is Miss Sophie Dupont. Sophie is a new student. She is French."
+        "prompt": "这位是索菲娅·杜邦小姐。",
+        "answer": "This is Miss Sophie Dupont."
       },
       {
         "id": "lesson-5-4",
@@ -231,11 +231,38 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Nice to meet you.",
         "speakerZh": "布莱克先生",
         "speakerEn": "MR. BLAKE",
-        "prompt": "索菲娅，这位是汉斯。他是德国人。",
-        "answer": "Sophie, this is Hans. He is German."
+        "prompt": "索菲娅是个新学生。",
+        "answer": "Sophie is a new student."
       },
       {
         "id": "lesson-5-5",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "布莱克先生",
+        "speakerEn": "MR. BLAKE",
+        "prompt": "她是法国人。",
+        "answer": "She is French."
+      },
+      {
+        "id": "lesson-5-6",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "布莱克先生",
+        "speakerEn": "MR. BLAKE",
+        "prompt": "索菲娅，这位是汉斯。",
+        "answer": "Sophie, this is Hans."
+      },
+      {
+        "id": "lesson-5-7",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "布莱克先生",
+        "speakerEn": "MR. BLAKE",
+        "prompt": "他是德国人。",
+        "answer": "He is German."
+      },
+      {
+        "id": "lesson-5-8",
         "lesson": 5,
         "lessonTitle": "Nice to meet you.",
         "speakerZh": "汉斯",
@@ -244,40 +271,13 @@ export const lessons: Lesson[] = [
         "answer": "Nice to meet you."
       },
       {
-        "id": "lesson-5-6",
-        "lesson": 5,
-        "lessonTitle": "Nice to meet you.",
-        "speakerZh": "布莱克先生",
-        "speakerEn": "MR. BLAKE",
-        "prompt": "这位是直子。她是日本人。",
-        "answer": "And this is Naoko. She's Japanese."
-      },
-      {
-        "id": "lesson-5-7",
-        "lesson": 5,
-        "lessonTitle": "Nice to meet you.",
-        "speakerZh": "直子",
-        "speakerEn": "NAOKO",
-        "prompt": "很高兴见到你。",
-        "answer": "Nice to meet you."
-      },
-      {
-        "id": "lesson-5-8",
-        "lesson": 5,
-        "lessonTitle": "Nice to meet you.",
-        "speakerZh": "布莱克先生",
-        "speakerEn": "MR. BLAKE",
-        "prompt": "这位是昌宇。他是韩国人。",
-        "answer": "And this is Chang-woo. He's Korean."
-      },
-      {
         "id": "lesson-5-9",
         "lesson": 5,
         "lessonTitle": "Nice to meet you.",
-        "speakerZh": "昌宇",
-        "speakerEn": "CHANG-WOO",
-        "prompt": "很高兴见到你。",
-        "answer": "Nice to meet you."
+        "speakerZh": "布莱克先生",
+        "speakerEn": "MR. BLAKE",
+        "prompt": "这位是直子。",
+        "answer": "And this is Naoko."
       },
       {
         "id": "lesson-5-10",
@@ -285,15 +285,15 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Nice to meet you.",
         "speakerZh": "布莱克先生",
         "speakerEn": "MR. BLAKE",
-        "prompt": "这位是鲁明。他是中国人。",
-        "answer": "And this is Luming. He's Chinese."
+        "prompt": "她是日本人。",
+        "answer": "She's Japanese."
       },
       {
         "id": "lesson-5-11",
         "lesson": 5,
         "lessonTitle": "Nice to meet you.",
-        "speakerZh": "鲁明",
-        "speakerEn": "LUMING",
+        "speakerZh": "直子",
+        "speakerEn": "NAOKO",
         "prompt": "很高兴见到你。",
         "answer": "Nice to meet you."
       },
@@ -303,11 +303,74 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Nice to meet you.",
         "speakerZh": "布莱克先生",
         "speakerEn": "MR. BLAKE",
-        "prompt": "这位是晓惠。她也是中国人。",
-        "answer": "And this is Xiaohui. She's Chinese, too."
+        "prompt": "这位是昌宇。",
+        "answer": "And this is Chang-woo."
       },
       {
         "id": "lesson-5-13",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "布莱克先生",
+        "speakerEn": "MR. BLAKE",
+        "prompt": "他是韩国人。",
+        "answer": "He's Korean."
+      },
+      {
+        "id": "lesson-5-14",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "昌宇",
+        "speakerEn": "CHANG-WOO",
+        "prompt": "很高兴见到你。",
+        "answer": "Nice to meet you."
+      },
+      {
+        "id": "lesson-5-15",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "布莱克先生",
+        "speakerEn": "MR. BLAKE",
+        "prompt": "这位是鲁明。",
+        "answer": "And this is Luming."
+      },
+      {
+        "id": "lesson-5-16",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "布莱克先生",
+        "speakerEn": "MR. BLAKE",
+        "prompt": "他是中国人。",
+        "answer": "He's Chinese."
+      },
+      {
+        "id": "lesson-5-17",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "鲁明",
+        "speakerEn": "LUMING",
+        "prompt": "很高兴见到你。",
+        "answer": "Nice to meet you."
+      },
+      {
+        "id": "lesson-5-18",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "布莱克先生",
+        "speakerEn": "MR. BLAKE",
+        "prompt": "这位是晓惠。",
+        "answer": "And this is Xiaohui."
+      },
+      {
+        "id": "lesson-5-19",
+        "lesson": 5,
+        "lessonTitle": "Nice to meet you.",
+        "speakerZh": "布莱克先生",
+        "speakerEn": "MR. BLAKE",
+        "prompt": "她也是中国人。",
+        "answer": "She's Chinese, too."
+      },
+      {
+        "id": "lesson-5-20",
         "lesson": 5,
         "lessonTitle": "Nice to meet you.",
         "speakerZh": "晓惠",
@@ -339,11 +402,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "索菲娅",
         "speakerEn": "SOPHIE",
-        "prompt": "很高兴见到你。我的名字叫索菲娅。",
-        "answer": "Nice to meet you. My name's Sophie."
+        "prompt": "很高兴见到你。",
+        "answer": "Nice to meet you."
       },
       {
         "id": "lesson-7-3",
+        "lesson": 7,
+        "lessonTitle": "Are you a teacher?",
+        "speakerZh": "索菲娅",
+        "speakerEn": "SOPHIE",
+        "prompt": "我的名字叫索菲娅。",
+        "answer": "My name's Sophie."
+      },
+      {
+        "id": "lesson-7-4",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "罗伯特",
@@ -352,7 +424,7 @@ export const lessons: Lesson[] = [
         "answer": "Are you French?"
       },
       {
-        "id": "lesson-7-4",
+        "id": "lesson-7-5",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "索菲娅",
@@ -361,7 +433,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes, I am."
       },
       {
-        "id": "lesson-7-5",
+        "id": "lesson-7-6",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "索菲娅",
@@ -370,7 +442,7 @@ export const lessons: Lesson[] = [
         "answer": "Are you French, too?"
       },
       {
-        "id": "lesson-7-6",
+        "id": "lesson-7-7",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "罗伯特",
@@ -379,7 +451,7 @@ export const lessons: Lesson[] = [
         "answer": "No, I am not."
       },
       {
-        "id": "lesson-7-7",
+        "id": "lesson-7-8",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "索菲娅",
@@ -388,7 +460,7 @@ export const lessons: Lesson[] = [
         "answer": "What nationality are you?"
       },
       {
-        "id": "lesson-7-8",
+        "id": "lesson-7-9",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "罗伯特",
@@ -397,7 +469,7 @@ export const lessons: Lesson[] = [
         "answer": "I'm Italian."
       },
       {
-        "id": "lesson-7-9",
+        "id": "lesson-7-10",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "罗伯特",
@@ -406,7 +478,7 @@ export const lessons: Lesson[] = [
         "answer": "Are you a teacher?"
       },
       {
-        "id": "lesson-7-10",
+        "id": "lesson-7-11",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "索菲娅",
@@ -415,7 +487,7 @@ export const lessons: Lesson[] = [
         "answer": "No, I'm not."
       },
       {
-        "id": "lesson-7-11",
+        "id": "lesson-7-12",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "罗伯特",
@@ -424,7 +496,7 @@ export const lessons: Lesson[] = [
         "answer": "What's your job?"
       },
       {
-        "id": "lesson-7-12",
+        "id": "lesson-7-13",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "索菲娅",
@@ -433,7 +505,7 @@ export const lessons: Lesson[] = [
         "answer": "I'm a keyboard operator."
       },
       {
-        "id": "lesson-7-13",
+        "id": "lesson-7-14",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "索菲娅",
@@ -442,7 +514,7 @@ export const lessons: Lesson[] = [
         "answer": "What's your job?"
       },
       {
-        "id": "lesson-7-14",
+        "id": "lesson-7-15",
         "lesson": 7,
         "lessonTitle": "Are you a teacher?",
         "speakerZh": "罗伯特",
@@ -492,11 +564,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "How are you today?",
         "speakerZh": "海伦",
         "speakerEn": "HELEN",
-        "prompt": "很好，谢谢你：你好吗？",
-        "answer": "I'm very well, thank you. And you?"
+        "prompt": "很好，谢谢你。",
+        "answer": "I'm very well, thank you."
       },
       {
         "id": "lesson-9-5",
+        "lesson": 9,
+        "lessonTitle": "How are you today?",
+        "speakerZh": "海伦",
+        "speakerEn": "HELEN",
+        "prompt": "你好吗？",
+        "answer": "And you?"
+      },
+      {
+        "id": "lesson-9-6",
         "lesson": 9,
         "lessonTitle": "How are you today?",
         "speakerZh": "史蒂文",
@@ -505,7 +586,7 @@ export const lessons: Lesson[] = [
         "answer": "I'm fine, thanks."
       },
       {
-        "id": "lesson-9-6",
+        "id": "lesson-9-7",
         "lesson": 9,
         "lessonTitle": "How are you today?",
         "speakerZh": "史蒂文",
@@ -514,16 +595,25 @@ export const lessons: Lesson[] = [
         "answer": "How is Tony?"
       },
       {
-        "id": "lesson-9-7",
+        "id": "lesson-9-8",
         "lesson": 9,
         "lessonTitle": "How are you today?",
         "speakerZh": "海伦",
         "speakerEn": "HELEN",
-        "prompt": "他很好，谢谢。埃玛好吗？",
-        "answer": "He's fine, thanks. How's Emma?"
+        "prompt": "他很好，谢谢。",
+        "answer": "He's fine, thanks."
       },
       {
-        "id": "lesson-9-8",
+        "id": "lesson-9-9",
+        "lesson": 9,
+        "lessonTitle": "How are you today?",
+        "speakerZh": "海伦",
+        "speakerEn": "HELEN",
+        "prompt": "埃玛好吗？",
+        "answer": "How's Emma?"
+      },
+      {
+        "id": "lesson-9-10",
         "lesson": 9,
         "lessonTitle": "How are you today?",
         "speakerZh": "史蒂文",
@@ -532,22 +622,40 @@ export const lessons: Lesson[] = [
         "answer": "She's very well, too, Helen."
       },
       {
-        "id": "lesson-9-9",
+        "id": "lesson-9-11",
         "lesson": 9,
         "lessonTitle": "How are you today?",
         "speakerZh": "史蒂文",
         "speakerEn": "STEVEN",
-        "prompt": "再见，海伦。见到你真高兴。",
-        "answer": "Goodbye, Helen. Nice to see you."
+        "prompt": "再见，海伦。",
+        "answer": "Goodbye, Helen."
       },
       {
-        "id": "lesson-9-10",
+        "id": "lesson-9-12",
+        "lesson": 9,
+        "lessonTitle": "How are you today?",
+        "speakerZh": "史蒂文",
+        "speakerEn": "STEVEN",
+        "prompt": "见到你真高兴。",
+        "answer": "Nice to see you."
+      },
+      {
+        "id": "lesson-9-13",
         "lesson": 9,
         "lessonTitle": "How are you today?",
         "speakerZh": "海伦",
         "speakerEn": "HELEN",
-        "prompt": "我见到你也很高兴，史蒂文。再见。",
-        "answer": "Nice to see you, too, Steven. Goodbye."
+        "prompt": "我见到你也很高兴，史蒂文。",
+        "answer": "Nice to see you, too, Steven."
+      },
+      {
+        "id": "lesson-9-14",
+        "lesson": 9,
+        "lessonTitle": "How are you today?",
+        "speakerZh": "海伦",
+        "speakerEn": "HELEN",
+        "prompt": "再见。",
+        "answer": "Goodbye."
       }
     ]
   },
@@ -582,8 +690,8 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "戴夫",
         "speakerEn": "DAVE",
-        "prompt": "不，先生。这不是我的衬衫。",
-        "answer": "No, sir. It's not my shirt."
+        "prompt": "不，先生。",
+        "answer": "No, sir."
       },
       {
         "id": "lesson-11-4",
@@ -591,11 +699,29 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "戴夫",
         "speakerEn": "DAVE",
-        "prompt": "这是我的衬衫。我的衬衫是蓝色的。",
-        "answer": "This is my shirt. My shirt's blue."
+        "prompt": "这不是我的衬衫。",
+        "answer": "It's not my shirt."
       },
       {
         "id": "lesson-11-5",
+        "lesson": 11,
+        "lessonTitle": "Is this your shirt?",
+        "speakerZh": "戴夫",
+        "speakerEn": "DAVE",
+        "prompt": "这是我的衬衫。",
+        "answer": "This is my shirt."
+      },
+      {
+        "id": "lesson-11-6",
+        "lesson": 11,
+        "lessonTitle": "Is this your shirt?",
+        "speakerZh": "戴夫",
+        "speakerEn": "DAVE",
+        "prompt": "我的衬衫是蓝色的。",
+        "answer": "My shirt's blue."
+      },
+      {
+        "id": "lesson-11-7",
         "lesson": 11,
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "老师",
@@ -604,16 +730,25 @@ export const lessons: Lesson[] = [
         "answer": "Is this shirt Tim's?"
       },
       {
-        "id": "lesson-11-6",
+        "id": "lesson-11-8",
         "lesson": 11,
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "戴夫",
         "speakerEn": "DAVE",
-        "prompt": "也许是，先生。蒂姆的衬衫是白色的。",
-        "answer": "Perhaps it is, sir. Tim's shirt's white."
+        "prompt": "也许是，先生。",
+        "answer": "Perhaps it is, sir."
       },
       {
-        "id": "lesson-11-7",
+        "id": "lesson-11-9",
+        "lesson": 11,
+        "lessonTitle": "Is this your shirt?",
+        "speakerZh": "戴夫",
+        "speakerEn": "DAVE",
+        "prompt": "蒂姆的衬衫是白色的。",
+        "answer": "Tim's shirt's white."
+      },
+      {
+        "id": "lesson-11-10",
         "lesson": 11,
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "老师",
@@ -622,7 +757,7 @@ export const lessons: Lesson[] = [
         "answer": "Tim!"
       },
       {
-        "id": "lesson-11-8",
+        "id": "lesson-11-11",
         "lesson": 11,
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "蒂姆",
@@ -631,7 +766,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes, sir?"
       },
       {
-        "id": "lesson-11-9",
+        "id": "lesson-11-12",
         "lesson": 11,
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "老师",
@@ -640,7 +775,7 @@ export const lessons: Lesson[] = [
         "answer": "Is this your shirt?"
       },
       {
-        "id": "lesson-11-10",
+        "id": "lesson-11-13",
         "lesson": 11,
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "蒂姆",
@@ -649,16 +784,25 @@ export const lessons: Lesson[] = [
         "answer": "Yes, sir."
       },
       {
-        "id": "lesson-11-11",
+        "id": "lesson-11-14",
         "lesson": 11,
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "老师",
         "speakerEn": "TEACHER",
-        "prompt": "给你。接着！",
-        "answer": "Here you are. Catch!"
+        "prompt": "给你。",
+        "answer": "Here you are."
       },
       {
-        "id": "lesson-11-12",
+        "id": "lesson-11-15",
+        "lesson": 11,
+        "lessonTitle": "Is this your shirt?",
+        "speakerZh": "老师",
+        "speakerEn": "TEACHER",
+        "prompt": "接着！",
+        "answer": "Catch!"
+      },
+      {
+        "id": "lesson-11-16",
         "lesson": 11,
         "lessonTitle": "Is this your shirt?",
         "speakerZh": "蒂姆",
@@ -789,11 +933,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Your passports, please.",
         "speakerZh": "姑娘",
         "speakerEn": "GIRLS",
-        "prompt": "不，我们不是瑞典人。我们是丹麦人。",
-        "answer": "No, we are not. We are Danish."
+        "prompt": "不，我们不是瑞典人。",
+        "answer": "No, we are not."
       },
       {
         "id": "lesson-15-3",
+        "lesson": 15,
+        "lessonTitle": "Your passports, please.",
+        "speakerZh": "姑娘",
+        "speakerEn": "GIRLS",
+        "prompt": "我们是丹麦人。",
+        "answer": "We are Danish."
+      },
+      {
+        "id": "lesson-15-4",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "海关官员",
@@ -802,25 +955,34 @@ export const lessons: Lesson[] = [
         "answer": "Are your friends Danish, too?"
       },
       {
-        "id": "lesson-15-4",
+        "id": "lesson-15-5",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "姑娘们",
         "speakerEn": "GIRLS",
-        "prompt": "不，他们不是丹麦人。他们是挪威人。",
-        "answer": "No, they aren't. They are Norwegian."
+        "prompt": "不，他们不是丹麦人。",
+        "answer": "No, they aren't."
       },
       {
-        "id": "lesson-15-5",
+        "id": "lesson-15-6",
+        "lesson": 15,
+        "lessonTitle": "Your passports, please.",
+        "speakerZh": "姑娘们",
+        "speakerEn": "GIRLS",
+        "prompt": "他们是挪威人。",
+        "answer": "They are Norwegian."
+      },
+      {
+        "id": "lesson-15-7",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "海关官员",
-        "speakerEn": "CUSTOMS OFFiCER",
+        "speakerEn": "CUSTOMS OFFICER",
         "prompt": "请出示你们的护照",
         "answer": "Your passports, please."
       },
       {
-        "id": "lesson-15-6",
+        "id": "lesson-15-8",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "姑娘们",
@@ -829,7 +991,7 @@ export const lessons: Lesson[] = [
         "answer": "Here they are."
       },
       {
-        "id": "lesson-15-7",
+        "id": "lesson-15-9",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "海关官员",
@@ -838,7 +1000,7 @@ export const lessons: Lesson[] = [
         "answer": "Are these your cases?"
       },
       {
-        "id": "lesson-15-8",
+        "id": "lesson-15-10",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "姑娘们",
@@ -847,34 +1009,52 @@ export const lessons: Lesson[] = [
         "answer": "No, they aren't."
       },
       {
-        "id": "lesson-15-9",
-        "lesson": 15,
-        "lessonTitle": "Your passports, please.",
-        "speakerZh": "姑娘们",
-        "speakerEn": "GIRLS",
-        "prompt": "我们的箱子是棕色的。在这儿呢。",
-        "answer": "Our cases are brown. Here they are."
-      },
-      {
-        "id": "lesson-15-10",
-        "lesson": 15,
-        "lessonTitle": "Your passports, please.",
-        "speakerZh": "海关官员",
-        "speakerEn": "CUSTOMS OFFICER",
-        "prompt": "你们是米旅游的吗？",
-        "answer": "Are you tourists?"
-      },
-      {
         "id": "lesson-15-11",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "姑娘们",
         "speakerEn": "GIRLS",
-        "prompt": "是的。我们是来旅游的。",
-        "answer": "Yes, we are."
+        "prompt": "我们的箱子是棕色的。",
+        "answer": "Our cases are brown."
       },
       {
         "id": "lesson-15-12",
+        "lesson": 15,
+        "lessonTitle": "Your passports, please.",
+        "speakerZh": "姑娘们",
+        "speakerEn": "GIRLS",
+        "prompt": "在这儿呢。",
+        "answer": "Here they are."
+      },
+      {
+        "id": "lesson-15-13",
+        "lesson": 15,
+        "lessonTitle": "Your passports, please.",
+        "speakerZh": "海关官员",
+        "speakerEn": "CUSTOMS OFFICER",
+        "prompt": "你们是来旅游的吗？",
+        "answer": "Are you tourists?"
+      },
+      {
+        "id": "lesson-15-14",
+        "lesson": 15,
+        "lessonTitle": "Your passports, please.",
+        "speakerZh": "姑娘们",
+        "speakerEn": "GIRLS",
+        "prompt": "是的。",
+        "answer": "Yes,"
+      },
+      {
+        "id": "lesson-15-15",
+        "lesson": 15,
+        "lessonTitle": "Your passports, please.",
+        "speakerZh": "姑娘们",
+        "speakerEn": "GIRLS",
+        "prompt": "我们是来旅游的。",
+        "answer": "we are."
+      },
+      {
+        "id": "lesson-15-16",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "海关官员",
@@ -883,16 +1063,25 @@ export const lessons: Lesson[] = [
         "answer": "Are your friends tourists too?"
       },
       {
-        "id": "lesson-15-13",
+        "id": "lesson-15-17",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "姑娘们",
         "speakerEn": "GIRLS",
-        "prompt": "是的。他们也是。",
-        "answer": "Yes, they are."
+        "prompt": "是的。",
+        "answer": "Yes,"
       },
       {
-        "id": "lesson-15-14",
+        "id": "lesson-15-18",
+        "lesson": 15,
+        "lessonTitle": "Your passports, please.",
+        "speakerZh": "姑娘们",
+        "speakerEn": "GIRLS",
+        "prompt": "他们也是。",
+        "answer": "they are."
+      },
+      {
+        "id": "lesson-15-19",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "海关官员",
@@ -901,7 +1090,7 @@ export const lessons: Lesson[] = [
         "answer": "That's fine."
       },
       {
-        "id": "lesson-15-15",
+        "id": "lesson-15-20",
         "lesson": 15,
         "lessonTitle": "Your passports, please.",
         "speakerZh": "姑娘们",
@@ -960,11 +1149,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "How do you do?",
         "speakerZh": "理查兹先生",
         "speakerEn": "MR. RICHARDS",
-        "prompt": "那些姑娘很勤快。她们是做什么工作的？",
-        "answer": "Those women are very hard-working. What are their jobs?"
+        "prompt": "那些姑娘很勤快。",
+        "answer": "Those women are very hard-working."
       },
       {
         "id": "lesson-17-6",
+        "lesson": 17,
+        "lessonTitle": "How do you do?",
+        "speakerZh": "理查兹先生",
+        "speakerEn": "MR. RICHARDS",
+        "prompt": "她们是做什么工作的？",
+        "answer": "What are their jobs?"
+      },
+      {
+        "id": "lesson-17-7",
         "lesson": 17,
         "lessonTitle": "How do you do?",
         "speakerZh": "杰克逊先生",
@@ -973,7 +1171,7 @@ export const lessons: Lesson[] = [
         "answer": "They're keyboard operators."
       },
       {
-        "id": "lesson-17-7",
+        "id": "lesson-17-8",
         "lesson": 17,
         "lessonTitle": "How do you do?",
         "speakerZh": "杰克逊先生",
@@ -982,7 +1180,7 @@ export const lessons: Lesson[] = [
         "answer": "This is Michael Baker, and this is Jeremy Short."
       },
       {
-        "id": "lesson-17-8",
+        "id": "lesson-17-9",
         "lesson": 17,
         "lessonTitle": "How do you do?",
         "speakerZh": "理查兹先生",
@@ -991,16 +1189,25 @@ export const lessons: Lesson[] = [
         "answer": "How do you do?"
       },
       {
-        "id": "lesson-17-9",
+        "id": "lesson-17-10",
         "lesson": 17,
         "lessonTitle": "How do you do?",
         "speakerZh": "理查兹先生",
         "speakerEn": "MR. RICHARDS",
-        "prompt": "他们不很忙吧！他们是做什么工作的？",
-        "answer": "They aren't very busy! What are their jobs?"
+        "prompt": "他们不很忙吧！",
+        "answer": "They aren't very busy!"
       },
       {
-        "id": "lesson-17-10",
+        "id": "lesson-17-11",
+        "lesson": 17,
+        "lessonTitle": "How do you do?",
+        "speakerZh": "理查兹先生",
+        "speakerEn": "MR. RICHARDS",
+        "prompt": "他们是做什么工作的？",
+        "answer": "What are their jobs?"
+      },
+      {
+        "id": "lesson-17-12",
         "lesson": 17,
         "lessonTitle": "How do you do?",
         "speakerZh": "杰克逊先生",
@@ -1009,7 +1216,7 @@ export const lessons: Lesson[] = [
         "answer": "They're sales reps. They're very lazy."
       },
       {
-        "id": "lesson-17-11",
+        "id": "lesson-17-13",
         "lesson": 17,
         "lessonTitle": "How do you do?",
         "speakerZh": "理查兹先生",
@@ -1018,13 +1225,22 @@ export const lessons: Lesson[] = [
         "answer": "Who is this young man?"
       },
       {
-        "id": "lesson-17-12",
+        "id": "lesson-17-14",
         "lesson": 17,
         "lessonTitle": "How do you do?",
         "speakerZh": "杰克逊先生",
         "speakerEn": "MR. JACKSON",
-        "prompt": "他是吉姆。是我们办公室的勤杂人员",
-        "answer": "This is Jim. He's our office assistant."
+        "prompt": "他是吉姆。",
+        "answer": "This is Jim."
+      },
+      {
+        "id": "lesson-17-15",
+        "lesson": 17,
+        "lessonTitle": "How do you do?",
+        "speakerZh": "杰克逊先生",
+        "speakerEn": "MR. JACKSON",
+        "prompt": "是我们办公室的勤杂人员",
+        "answer": "He's our office assistant."
       }
     ]
   },
@@ -1095,11 +1311,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Tired and thirsty",
         "speakerZh": "母亲",
         "speakerEn": "MOTHER",
-        "prompt": "瞧！有个卖冰淇淋的。",
-        "answer": "Look! There's an ice cream man."
+        "prompt": "瞧！",
+        "answer": "Look!"
       },
       {
         "id": "lesson-19-8",
+        "lesson": 19,
+        "lessonTitle": "Tired and thirsty",
+        "speakerZh": "母亲",
+        "speakerEn": "MOTHER",
+        "prompt": "有个卖冰淇淋的。",
+        "answer": "There's an ice cream man."
+      },
+      {
+        "id": "lesson-19-9",
         "lesson": 19,
         "lessonTitle": "Tired and thirsty",
         "speakerZh": "母亲",
@@ -1108,7 +1333,7 @@ export const lessons: Lesson[] = [
         "answer": "Two ice creams please."
       },
       {
-        "id": "lesson-19-9",
+        "id": "lesson-19-10",
         "lesson": 19,
         "lessonTitle": "Tired and thirsty",
         "speakerZh": "母亲",
@@ -1117,7 +1342,7 @@ export const lessons: Lesson[] = [
         "answer": "Here you are, children."
       },
       {
-        "id": "lesson-19-10",
+        "id": "lesson-19-11",
         "lesson": 19,
         "lessonTitle": "Tired and thirsty",
         "speakerZh": "孩子们",
@@ -1126,7 +1351,7 @@ export const lessons: Lesson[] = [
         "answer": "Thanks, Mum."
       },
       {
-        "id": "lesson-19-11",
+        "id": "lesson-19-12",
         "lesson": 19,
         "lessonTitle": "Tired and thirsty",
         "speakerZh": "女孩",
@@ -1135,7 +1360,7 @@ export const lessons: Lesson[] = [
         "answer": "These ice creams are nice."
       },
       {
-        "id": "lesson-19-12",
+        "id": "lesson-19-13",
         "lesson": 19,
         "lessonTitle": "Tired and thirsty",
         "speakerZh": "母亲",
@@ -1144,7 +1369,7 @@ export const lessons: Lesson[] = [
         "answer": "Are you all right now?"
       },
       {
-        "id": "lesson-19-13",
+        "id": "lesson-19-14",
         "lesson": 19,
         "lessonTitle": "Tired and thirsty",
         "speakerZh": "孩子们",
@@ -1698,20 +1923,38 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Where's Sally?",
         "speakerZh": "杰克",
         "speakerEn": "JACK",
-        "prompt": "是的，他也在花园里。他正在爬树。",
-        "answer": "Yes, he is. He's climbing the tree."
+        "prompt": "是的，他也在花园里。",
+        "answer": "Yes, he is."
       },
       {
         "id": "lesson-31-7",
         "lesson": 31,
         "lessonTitle": "Where's Sally?",
-        "speakerZh": "琼",
-        "speakerEn": "JEAN",
-        "prompt": "你说什么？谁在爬树？",
-        "answer": "I beg your pardon? Who's climbing the tree?"
+        "speakerZh": "杰克",
+        "speakerEn": "JACK",
+        "prompt": "他正在爬树。",
+        "answer": "He's climbing the tree."
       },
       {
         "id": "lesson-31-8",
+        "lesson": 31,
+        "lessonTitle": "Where's Sally?",
+        "speakerZh": "琼",
+        "speakerEn": "JEAN",
+        "prompt": "你说什么？",
+        "answer": "I beg your pardon?"
+      },
+      {
+        "id": "lesson-31-9",
+        "lesson": 31,
+        "lessonTitle": "Where's Sally?",
+        "speakerZh": "琼",
+        "speakerEn": "JEAN",
+        "prompt": "谁在爬树？",
+        "answer": "Who's climbing the tree?"
+      },
+      {
+        "id": "lesson-31-10",
         "lesson": 31,
         "lessonTitle": "Where's Sally?",
         "speakerZh": "杰克",
@@ -1720,7 +1963,7 @@ export const lessons: Lesson[] = [
         "answer": "Tim is."
       },
       {
-        "id": "lesson-31-9",
+        "id": "lesson-31-11",
         "lesson": 31,
         "lessonTitle": "Where's Sally?",
         "speakerZh": "琼",
@@ -1729,13 +1972,22 @@ export const lessons: Lesson[] = [
         "answer": "What about the dog?"
       },
       {
-        "id": "lesson-31-10",
+        "id": "lesson-31-12",
         "lesson": 31,
         "lessonTitle": "Where's Sally?",
         "speakerZh": "杰克",
         "speakerEn": "JACK",
-        "prompt": "狗也在花园里。它正在草地上跑，在追一只猫。",
-        "answer": "The dog's in the garden, too. It's running across the grass. It's running after a cat."
+        "prompt": "狗也在花园里。",
+        "answer": "The dog's in the garden, too."
+      },
+      {
+        "id": "lesson-31-13",
+        "lesson": 31,
+        "lessonTitle": "Where's Sally?",
+        "speakerZh": "杰克",
+        "speakerEn": "JACK",
+        "prompt": "它正在草地上跑，在追一只猫。",
+        "answer": "It's running across the grass. It's running after a cat."
       }
     ]
   },
@@ -1986,11 +2238,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Making a bookcase",
         "speakerZh": "丹",
         "speakerEn": "DAN",
-        "prompt": "你干得真辛苦，乔治。你在干什么呢？",
-        "answer": "You're working hard, George. What are you doing?"
+        "prompt": "你干得真辛苦，乔治。",
+        "answer": "You're working hard, George."
       },
       {
         "id": "lesson-37-2",
+        "lesson": 37,
+        "lessonTitle": "Making a bookcase",
+        "speakerZh": "丹",
+        "speakerEn": "DAN",
+        "prompt": "你在干什么呢？",
+        "answer": "What are you doing?"
+      },
+      {
+        "id": "lesson-37-3",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "乔治",
@@ -1999,7 +2260,7 @@ export const lessons: Lesson[] = [
         "answer": "I'm making a bookcase."
       },
       {
-        "id": "lesson-37-3",
+        "id": "lesson-37-4",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "乔治",
@@ -2008,25 +2269,52 @@ export const lessons: Lesson[] = [
         "answer": "Give me that hammer please, Dan."
       },
       {
-        "id": "lesson-37-4",
+        "id": "lesson-37-5",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "丹",
         "speakerEn": "DAN",
-        "prompt": "哪一把？是这把吗？",
-        "answer": "Which hammer? This one?"
+        "prompt": "哪一把？",
+        "answer": "Which hammer?"
       },
       {
-        "id": "lesson-37-5",
+        "id": "lesson-37-6",
+        "lesson": 37,
+        "lessonTitle": "Making a bookcase",
+        "speakerZh": "丹",
+        "speakerEn": "DAN",
+        "prompt": "是这把吗？",
+        "answer": "This one?"
+      },
+      {
+        "id": "lesson-37-7",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "乔治",
         "speakerEn": "GEORGE",
-        "prompt": "不。不是那把。是那把大的。",
-        "answer": "No, not that one. The big one."
+        "prompt": "不。",
+        "answer": "No,"
       },
       {
-        "id": "lesson-37-6",
+        "id": "lesson-37-8",
+        "lesson": 37,
+        "lessonTitle": "Making a bookcase",
+        "speakerZh": "乔治",
+        "speakerEn": "GEORGE",
+        "prompt": "不是那把。",
+        "answer": "not that one."
+      },
+      {
+        "id": "lesson-37-9",
+        "lesson": 37,
+        "lessonTitle": "Making a bookcase",
+        "speakerZh": "乔治",
+        "speakerEn": "GEORGE",
+        "prompt": "是那把大的。",
+        "answer": "The big one."
+      },
+      {
+        "id": "lesson-37-10",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "丹",
@@ -2035,16 +2323,25 @@ export const lessons: Lesson[] = [
         "answer": "Here you are."
       },
       {
-        "id": "lesson-37-7",
+        "id": "lesson-37-11",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "乔治",
         "speakerEn": "GEORGE",
-        "prompt": "谢谢。丹。",
-        "answer": "Thanks, Dan."
+        "prompt": "谢谢。",
+        "answer": "Thanks,"
       },
       {
-        "id": "lesson-37-8",
+        "id": "lesson-37-12",
+        "lesson": 37,
+        "lessonTitle": "Making a bookcase",
+        "speakerZh": "乔治",
+        "speakerEn": "GEORGE",
+        "prompt": "丹。",
+        "answer": "Dan."
+      },
+      {
+        "id": "lesson-37-13",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "丹",
@@ -2053,7 +2350,7 @@ export const lessons: Lesson[] = [
         "answer": "What are you going to do now, George?"
       },
       {
-        "id": "lesson-37-9",
+        "id": "lesson-37-14",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "乔治",
@@ -2062,7 +2359,7 @@ export const lessons: Lesson[] = [
         "answer": "I'm going to paint it."
       },
       {
-        "id": "lesson-37-10",
+        "id": "lesson-37-15",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "丹",
@@ -2071,7 +2368,7 @@ export const lessons: Lesson[] = [
         "answer": "What colour are you going to paint it?"
       },
       {
-        "id": "lesson-37-11",
+        "id": "lesson-37-16",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "乔治",
@@ -2080,7 +2377,7 @@ export const lessons: Lesson[] = [
         "answer": "I'm going to paint it pink."
       },
       {
-        "id": "lesson-37-12",
+        "id": "lesson-37-17",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "丹",
@@ -2089,13 +2386,22 @@ export const lessons: Lesson[] = [
         "answer": "Pink!"
       },
       {
-        "id": "lesson-37-13",
+        "id": "lesson-37-18",
         "lesson": 37,
         "lessonTitle": "Making a bookcase",
         "speakerZh": "乔治",
         "speakerEn": "GEORGE",
-        "prompt": "这个书架不是为我做的：是为我的女儿苏珊做的。粉红色是她最喜欢的颜色。",
-        "answer": "This bookcase isn't for me. It's for my daughter, Susan. Pink's her favourite colour."
+        "prompt": "这个书架不是为我做的：是为我的女儿苏珊做的。",
+        "answer": "This bookcase isn't for me. It's for my daughter, Susan."
+      },
+      {
+        "id": "lesson-37-19",
+        "lesson": 37,
+        "lessonTitle": "Making a bookcase",
+        "speakerZh": "乔治",
+        "speakerEn": "GEORGE",
+        "prompt": "粉红色是她最喜欢的颜色。",
+        "answer": "Pink's her favourite colour."
       }
     ]
   },
@@ -2157,8 +2463,8 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Don't drop it!",
         "speakerZh": "彭妮",
         "speakerEn": "PENNY",
-        "prompt": "小心点！别摔了！",
-        "answer": "Be careful! Don't drop it!"
+        "prompt": "小心点！",
+        "answer": "Be careful!"
       },
       {
         "id": "lesson-39-7",
@@ -2166,11 +2472,29 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Don't drop it!",
         "speakerZh": "彭妮",
         "speakerEn": "PENNY",
-        "prompt": "别放在那儿，萨姆。放在这儿，这个架子上。",
-        "answer": "Don't put it there, Sam. Put it here, on this shelf."
+        "prompt": "别摔了！",
+        "answer": "Don't drop it!"
       },
       {
         "id": "lesson-39-8",
+        "lesson": 39,
+        "lessonTitle": "Don't drop it!",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "别放在那儿，萨姆。",
+        "answer": "Don't put it there, Sam."
+      },
+      {
+        "id": "lesson-39-9",
+        "lesson": 39,
+        "lessonTitle": "Don't drop it!",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "放在这儿，这个架子上。",
+        "answer": "Put it here, on this shelf."
+      },
+      {
+        "id": "lesson-39-10",
         "lesson": 39,
         "lessonTitle": "Don't drop it!",
         "speakerZh": "萨姆",
@@ -2179,7 +2503,7 @@ export const lessons: Lesson[] = [
         "answer": "There we are! It's a lovely vase."
       },
       {
-        "id": "lesson-39-9",
+        "id": "lesson-39-11",
         "lesson": 39,
         "lessonTitle": "Don't drop it!",
         "speakerZh": "彭妮",
@@ -2220,11 +2544,29 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Penny's bag",
         "speakerZh": "萨姆",
         "speakerEn": "SAM",
-        "prompt": "放这儿。把它放在这把椅子上。里面是什么东西？",
-        "answer": "Here! Put it on this chair. What's in it?"
+        "prompt": "放这儿。",
+        "answer": "Here!"
       },
       {
         "id": "lesson-41-4",
+        "lesson": 41,
+        "lessonTitle": "Penny's bag",
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "把它放在这把椅子上。",
+        "answer": "Put it on this chair."
+      },
+      {
+        "id": "lesson-41-5",
+        "lesson": 41,
+        "lessonTitle": "Penny's bag",
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "里面是什么东西？",
+        "answer": "What's in it?"
+      },
+      {
+        "id": "lesson-41-6",
         "lesson": 41,
         "lessonTitle": "Penny's bag",
         "speakerZh": "彭妮",
@@ -2233,7 +2575,7 @@ export const lessons: Lesson[] = [
         "answer": "A piece of cheese. A loaf of bread. A bar of soap. A bar of chocolate. A bottle of milk. A pound of sugar. Half a pound of coffee. A quarter of a pound of tea. And a tin of tobacco."
       },
       {
-        "id": "lesson-41-5",
+        "id": "lesson-41-7",
         "lesson": 41,
         "lessonTitle": "Penny's bag",
         "speakerZh": "萨姆",
@@ -2242,7 +2584,7 @@ export const lessons: Lesson[] = [
         "answer": "Is that tin of tobacco for me?"
       },
       {
-        "id": "lesson-41-6",
+        "id": "lesson-41-8",
         "lesson": 41,
         "lessonTitle": "Penny's bag",
         "speakerZh": "彭妮",
@@ -2337,11 +2679,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Hurry up!",
         "speakerZh": "彭妮",
         "speakerEn": "PENNY",
-        "prompt": "那不是么！就在你眼前。",
-        "answer": "There it is! It's in front of you!"
+        "prompt": "那不是么！",
+        "answer": "There it is!"
       },
       {
         "id": "lesson-43-10",
+        "lesson": 43,
+        "lessonTitle": "Hurry up!",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "就在你眼前。",
+        "answer": "It's in front of you!"
+      },
+      {
+        "id": "lesson-43-11",
         "lesson": 43,
         "lessonTitle": "Hurry up!",
         "speakerZh": "萨姆",
@@ -2350,7 +2701,7 @@ export const lessons: Lesson[] = [
         "answer": "Ah yes, I can see it now."
       },
       {
-        "id": "lesson-43-11",
+        "id": "lesson-43-12",
         "lesson": 43,
         "lessonTitle": "Hurry up!",
         "speakerZh": "萨姆",
@@ -2359,7 +2710,7 @@ export const lessons: Lesson[] = [
         "answer": "Where are the cups?"
       },
       {
-        "id": "lesson-43-12",
+        "id": "lesson-43-13",
         "lesson": 43,
         "lessonTitle": "Hurry up!",
         "speakerZh": "彭妮",
@@ -2368,7 +2719,7 @@ export const lessons: Lesson[] = [
         "answer": "There are some in the cupboard."
       },
       {
-        "id": "lesson-43-13",
+        "id": "lesson-43-14",
         "lesson": 43,
         "lessonTitle": "Hurry up!",
         "speakerZh": "彭妮",
@@ -2377,22 +2728,40 @@ export const lessons: Lesson[] = [
         "answer": "Can you find them?"
       },
       {
-        "id": "lesson-43-14",
+        "id": "lesson-43-15",
         "lesson": 43,
         "lessonTitle": "Hurry up!",
         "speakerZh": "萨姆",
         "speakerEn": "SAM",
-        "prompt": "找得到。就在这儿呢。",
-        "answer": "Yes. Here they are."
+        "prompt": "找得到。",
+        "answer": "Yes."
       },
       {
-        "id": "lesson-43-15",
+        "id": "lesson-43-16",
+        "lesson": 43,
+        "lessonTitle": "Hurry up!",
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "就在这儿呢。",
+        "answer": "Here they are."
+      },
+      {
+        "id": "lesson-43-17",
         "lesson": 43,
         "lessonTitle": "Hurry up!",
         "speakerZh": "彭妮",
         "speakerEn": "PENNY",
-        "prompt": "快，萨姆。水开了！",
-        "answer": "Hurry up, Sam! The kettle's boiling!"
+        "prompt": "快，萨姆。",
+        "answer": "Hurry up, Sam!"
+      },
+      {
+        "id": "lesson-43-18",
+        "lesson": 43,
+        "lessonTitle": "Hurry up!",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "水开了！",
+        "answer": "The kettle's boiling!"
       }
     ]
   },
@@ -2445,11 +2814,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The boss's letter",
         "speakerZh": "老板",
         "speakerEn": "THE BOSS",
-        "prompt": "她能为我打一下这封信吗？请问问她。",
-        "answer": "Can she type this letter for me? Ask her please."
+        "prompt": "她能为我打一下这封信吗？",
+        "answer": "Can she type this letter for me?"
       },
       {
         "id": "lesson-45-6",
+        "lesson": 45,
+        "lessonTitle": "The boss's letter",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "请问问她。",
+        "answer": "Ask her please."
+      },
+      {
+        "id": "lesson-45-7",
         "lesson": 45,
         "lessonTitle": "The boss's letter",
         "speakerZh": "鲍勃",
@@ -2458,7 +2836,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes, sir."
       },
       {
-        "id": "lesson-45-7",
+        "id": "lesson-45-8",
         "lesson": 45,
         "lessonTitle": "The boss's letter",
         "speakerZh": "鲍勃",
@@ -2467,7 +2845,7 @@ export const lessons: Lesson[] = [
         "answer": "Can you type this letter for the boss please, Pamela?"
       },
       {
-        "id": "lesson-45-8",
+        "id": "lesson-45-9",
         "lesson": 45,
         "lessonTitle": "The boss's letter",
         "speakerZh": "帕梅拉",
@@ -2476,7 +2854,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes, of course I can."
       },
       {
-        "id": "lesson-45-9",
+        "id": "lesson-45-10",
         "lesson": 45,
         "lessonTitle": "The boss's letter",
         "speakerZh": "鲍勃",
@@ -2485,7 +2863,7 @@ export const lessons: Lesson[] = [
         "answer": "Here you are."
       },
       {
-        "id": "lesson-45-10",
+        "id": "lesson-45-11",
         "lesson": 45,
         "lessonTitle": "The boss's letter",
         "speakerZh": "帕梅拉",
@@ -2494,7 +2872,7 @@ export const lessons: Lesson[] = [
         "answer": "Thank you, Bob."
       },
       {
-        "id": "lesson-45-11",
+        "id": "lesson-45-12",
         "lesson": 45,
         "lessonTitle": "The boss's letter",
         "speakerZh": "帕梅拉",
@@ -2503,16 +2881,25 @@ export const lessons: Lesson[] = [
         "answer": "Bob!"
       },
       {
-        "id": "lesson-45-12",
+        "id": "lesson-45-13",
         "lesson": 45,
         "lessonTitle": "The boss's letter",
         "speakerZh": "鲍勃",
         "speakerEn": "BOB",
-        "prompt": "怎么了？怎么川事？",
-        "answer": "Yes? What's the matter?"
+        "prompt": "怎么了？",
+        "answer": "Yes?"
       },
       {
-        "id": "lesson-45-13",
+        "id": "lesson-45-14",
+        "lesson": 45,
+        "lessonTitle": "The boss's letter",
+        "speakerZh": "鲍勃",
+        "speakerEn": "BOB",
+        "prompt": "怎么回事？",
+        "answer": "What's the matter?"
+      },
+      {
+        "id": "lesson-45-15",
         "lesson": 45,
         "lessonTitle": "The boss's letter",
         "speakerZh": "帕梅拉",
@@ -2521,7 +2908,7 @@ export const lessons: Lesson[] = [
         "answer": "I can't type this letter."
       },
       {
-        "id": "lesson-45-14",
+        "id": "lesson-45-16",
         "lesson": 45,
         "lessonTitle": "The boss's letter",
         "speakerZh": "帕梅拉",
@@ -2607,11 +2994,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A cup of coffee",
         "speakerZh": "安",
         "speakerEn": "ANN",
-        "prompt": "不了，谢谢。我不喜欢咖啡中放牛奶，我喜欢清咖啡。",
-        "answer": "No, thank you. I don't like milk in my coffee. I like black coffee."
+        "prompt": "不了，谢谢。",
+        "answer": "No, thank you."
       },
       {
         "id": "lesson-47-9",
+        "lesson": 47,
+        "lessonTitle": "A cup of coffee",
+        "speakerZh": "安",
+        "speakerEn": "ANN",
+        "prompt": "我不喜欢咖啡中放牛奶，我喜欢清咖啡。",
+        "answer": "I don't like milk in my coffee. I like black coffee."
+      },
+      {
+        "id": "lesson-47-10",
         "lesson": 47,
         "lessonTitle": "A cup of coffee",
         "speakerZh": "克里斯廷",
@@ -2620,7 +3016,7 @@ export const lessons: Lesson[] = [
         "answer": "Do you like biscuits?"
       },
       {
-        "id": "lesson-47-10",
+        "id": "lesson-47-11",
         "lesson": 47,
         "lessonTitle": "A cup of coffee",
         "speakerZh": "安",
@@ -2629,7 +3025,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes, I do."
       },
       {
-        "id": "lesson-47-11",
+        "id": "lesson-47-12",
         "lesson": 47,
         "lessonTitle": "A cup of coffee",
         "speakerZh": "克里斯廷",
@@ -2638,7 +3034,7 @@ export const lessons: Lesson[] = [
         "answer": "Do you want one?"
       },
       {
-        "id": "lesson-47-12",
+        "id": "lesson-47-13",
         "lesson": 47,
         "lessonTitle": "A cup of coffee",
         "speakerZh": "安",
@@ -2659,7 +3055,7 @@ export const lessons: Lesson[] = [
         "id": "lesson-49-1",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
-        "speakerZh": "肉肉商",
+        "speakerZh": "肉商",
         "speakerEn": "BUTCHER",
         "prompt": "您今天要买点肉吗，伯德夫人？",
         "answer": "Do you want any meat today, Mrs. Bird?"
@@ -2677,7 +3073,7 @@ export const lessons: Lesson[] = [
         "id": "lesson-49-3",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
-        "speakerZh": "肉肉商",
+        "speakerZh": "肉商",
         "speakerEn": "BUTCHER",
         "prompt": "您要牛肉还是要羔羊肉？",
         "answer": "Do you want beef or lamb?"
@@ -2695,7 +3091,7 @@ export const lessons: Lesson[] = [
         "id": "lesson-49-5",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
-        "speakerZh": "肉肉商",
+        "speakerZh": "肉商",
         "speakerEn": "BUTCHER",
         "prompt": "这羔羊肉很好。",
         "answer": "This lamb's very good."
@@ -2713,13 +3109,22 @@ export const lessons: Lesson[] = [
         "id": "lesson-49-7",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
-        "speakerZh": "肉肉商",
+        "speakerZh": "肉商",
         "speakerEn": "BUTCHER",
-        "prompt": "来点牛排吗？这块很好。",
-        "answer": "What about some steak? This is a nice piece."
+        "prompt": "来点牛排吗？",
+        "answer": "What about some steak?"
       },
       {
         "id": "lesson-49-8",
+        "lesson": 49,
+        "lessonTitle": "At the butcher's",
+        "speakerZh": "肉商",
+        "speakerEn": "BUTCHER",
+        "prompt": "这块很好。",
+        "answer": "This is a nice piece."
+      },
+      {
+        "id": "lesson-49-9",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
         "speakerZh": "伯德夫人",
@@ -2728,7 +3133,7 @@ export const lessons: Lesson[] = [
         "answer": "Give me that piece, please."
       },
       {
-        "id": "lesson-49-9",
+        "id": "lesson-49-10",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
         "speakerZh": "伯德夫人",
@@ -2737,16 +3142,25 @@ export const lessons: Lesson[] = [
         "answer": "And a pound of mince, too."
       },
       {
-        "id": "lesson-49-10",
+        "id": "lesson-49-11",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
         "speakerZh": "肉商",
         "speakerEn": "BUTCHER",
-        "prompt": "您要买只鸡吗，伯德夫人？这些鸡很好。",
-        "answer": "Do you want a chicken, Mrs. Bird? They're very nice."
+        "prompt": "您要买只鸡吗，伯德夫人？",
+        "answer": "Do you want a chicken, Mrs."
       },
       {
-        "id": "lesson-49-11",
+        "id": "lesson-49-12",
+        "lesson": 49,
+        "lessonTitle": "At the butcher's",
+        "speakerZh": "肉商",
+        "speakerEn": "BUTCHER",
+        "prompt": "这些鸡很好。",
+        "answer": "Bird? They're very nice."
+      },
+      {
+        "id": "lesson-49-13",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
         "speakerZh": "伯德夫人",
@@ -2755,7 +3169,7 @@ export const lessons: Lesson[] = [
         "answer": "No, thank you."
       },
       {
-        "id": "lesson-49-12",
+        "id": "lesson-49-14",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
         "speakerZh": "伯德夫人",
@@ -2764,10 +3178,10 @@ export const lessons: Lesson[] = [
         "answer": "My husband likes steak, but he doesn't like chicken."
       },
       {
-        "id": "lesson-49-13",
+        "id": "lesson-49-15",
         "lesson": 49,
         "lessonTitle": "At the butcher's",
-        "speakerZh": "肉肉商",
+        "speakerZh": "肉商",
         "speakerEn": "BUTCHER",
         "prompt": "说老实话，伯德夫人，我也不喜欢鸡。",
         "answer": "To tell you the truth, Mrs. Bird, I don't like chicken either!"
@@ -2832,11 +3246,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A pleasant climate",
         "speakerZh": "迪米特里",
         "speakerEn": "DIMITRI",
-        "prompt": "3月里常常刮风。4月和5月的天气总是暖洋洋的，但有时下雨。",
-        "answer": "It's often windy in March. It's always warm in April and May, but it rains sometimes."
+        "prompt": "3月里常常刮风。",
+        "answer": "It's often windy in March."
       },
       {
         "id": "lesson-51-7",
+        "lesson": 51,
+        "lessonTitle": "A pleasant climate",
+        "speakerZh": "迪米特里",
+        "speakerEn": "DIMITRI",
+        "prompt": "4月和5月的天气总是暖洋洋的，但有时下雨。",
+        "answer": "It's always warm in April and May, but it rains sometimes."
+      },
+      {
+        "id": "lesson-51-8",
         "lesson": 51,
         "lessonTitle": "A pleasant climate",
         "speakerZh": "汉斯",
@@ -2845,7 +3268,7 @@ export const lessons: Lesson[] = [
         "answer": "What's it like in summer?"
       },
       {
-        "id": "lesson-51-8",
+        "id": "lesson-51-9",
         "lesson": 51,
         "lessonTitle": "A pleasant climate",
         "speakerZh": "迪米特里",
@@ -2854,7 +3277,7 @@ export const lessons: Lesson[] = [
         "answer": "It's always hot in June, July and August. The sun shines every day."
       },
       {
-        "id": "lesson-51-9",
+        "id": "lesson-51-10",
         "lesson": 51,
         "lessonTitle": "A pleasant climate",
         "speakerZh": "汉斯",
@@ -2863,7 +3286,7 @@ export const lessons: Lesson[] = [
         "answer": "Is it cold or warm in autumn?"
       },
       {
-        "id": "lesson-51-10",
+        "id": "lesson-51-11",
         "lesson": 51,
         "lessonTitle": "A pleasant climate",
         "speakerZh": "迪米特里",
@@ -2872,7 +3295,7 @@ export const lessons: Lesson[] = [
         "answer": "It's always warm in September and October. It's often cold in November and it rains sometimes."
       },
       {
-        "id": "lesson-51-11",
+        "id": "lesson-51-12",
         "lesson": 51,
         "lessonTitle": "A pleasant climate",
         "speakerZh": "汉斯",
@@ -2881,7 +3304,7 @@ export const lessons: Lesson[] = [
         "answer": "Is it very cold in winter?"
       },
       {
-        "id": "lesson-51-12",
+        "id": "lesson-51-13",
         "lesson": 51,
         "lessonTitle": "A pleasant climate",
         "speakerZh": "迪米特里",
@@ -2940,11 +3363,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "An interesting climate",
         "speakerZh": "吉姆",
         "speakerEn": "JIM",
-        "prompt": "北部的天气常常寒冷，东部则常常刮风。西部常下雨，南部有时则很暖和。",
-        "answer": "The weather's often cold in the North and windy in the East. It's often wet in the West and sometimes warm in the South."
+        "prompt": "北部的天气常常寒冷，东部则常常刮风。",
+        "answer": "The weather's often cold in the North and windy in the East."
       },
       {
         "id": "lesson-53-6",
+        "lesson": 53,
+        "lessonTitle": "An interesting climate",
+        "speakerZh": "吉姆",
+        "speakerEn": "JIM",
+        "prompt": "西部常下雨，南部有时则很暖和。",
+        "answer": "It's often wet in the West and sometimes warm in the South."
+      },
+      {
+        "id": "lesson-53-7",
         "lesson": 53,
         "lessonTitle": "An interesting climate",
         "speakerZh": "汉斯",
@@ -2953,22 +3385,58 @@ export const lessons: Lesson[] = [
         "answer": "Which seasons do you like best?"
       },
       {
-        "id": "lesson-53-7",
-        "lesson": 53,
-        "lessonTitle": "An interesting climate",
-        "speakerZh": "吉姆",
-        "speakerEn": "JIM",
-        "prompt": "我最喜欢春季和夏季。因为此时白天长而夜晚短，太阳升得早而落得晚。",
-        "answer": "I like spring and summer. The days are long and the nights are short. The sun rises early and sets late."
-      },
-      {
         "id": "lesson-53-8",
         "lesson": 53,
         "lessonTitle": "An interesting climate",
         "speakerZh": "吉姆",
         "speakerEn": "JIM",
-        "prompt": "我不喜欢秋季和冬季。因为此时白天短而夜晚长，太阳升得迟而落得早。虽然我们国家的气候并不很好，但又确实很有意思。天气是我们最喜欢谈论的话题。",
-        "answer": "I don't like autumn and winter. The days are short and the nights are long. The sun rises late and sets early. Our climate is not very good, but it's certainly interesting. It's our favourite subject of conversation."
+        "prompt": "我最喜欢春季和夏季。",
+        "answer": "I like spring and summer."
+      },
+      {
+        "id": "lesson-53-9",
+        "lesson": 53,
+        "lessonTitle": "An interesting climate",
+        "speakerZh": "吉姆",
+        "speakerEn": "JIM",
+        "prompt": "因为此时白天长而夜晚短，太阳升得早而落得晚。",
+        "answer": "The days are long and the nights are short. The sun rises early and sets late."
+      },
+      {
+        "id": "lesson-53-10",
+        "lesson": 53,
+        "lessonTitle": "An interesting climate",
+        "speakerZh": "吉姆",
+        "speakerEn": "JIM",
+        "prompt": "我不喜欢秋季和冬季。",
+        "answer": "I don't like autumn and winter."
+      },
+      {
+        "id": "lesson-53-11",
+        "lesson": 53,
+        "lessonTitle": "An interesting climate",
+        "speakerZh": "吉姆",
+        "speakerEn": "JIM",
+        "prompt": "因为此时白天短而夜晚长，太阳升得迟而落得早。",
+        "answer": "The days are short and the nights are long. The sun rises late and sets early."
+      },
+      {
+        "id": "lesson-53-12",
+        "lesson": 53,
+        "lessonTitle": "An interesting climate",
+        "speakerZh": "吉姆",
+        "speakerEn": "JIM",
+        "prompt": "虽然我们国家的气候并不很好，但又确实很有意思。",
+        "answer": "Our climate is not very good, but it's certainly interesting."
+      },
+      {
+        "id": "lesson-53-13",
+        "lesson": 53,
+        "lessonTitle": "An interesting climate",
+        "speakerZh": "吉姆",
+        "speakerEn": "JIM",
+        "prompt": "天气是我们最喜欢谈论的话题。",
+        "answer": "It's our favourite subject of conversation."
       }
     ]
   },
@@ -3004,7 +3472,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "父亲每天送孩子们去上学。",
-        "answer": "Their father takes them to school every day."
+        "answer": "Their father takes them to school every day. Mrs."
       },
       {
         "id": "lesson-55-4",
@@ -3013,7 +3481,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "索耶夫人每天呆在家里。",
-        "answer": "Mrs. Sawyer stays at home every day."
+        "answer": "Sawyer stays at home every day.."
       },
       {
         "id": "lesson-55-5",
@@ -3049,7 +3517,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "她们经常在一起喝茶。",
-        "answer": "They often drink tea together. In the evening."
+        "answer": "They often drink tea together."
       },
       {
         "id": "lesson-55-9",
@@ -3058,7 +3526,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "傍晚，孩子们放学回家。",
-        "answer": "the children come home from school."
+        "answer": "In the evening. the children come home from school."
       },
       {
         "id": "lesson-55-10",
@@ -3067,7 +3535,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "他们到家很早。",
-        "answer": "They arrive home early."
+        "answer": "They arrive home early. Mr."
       },
       {
         "id": "lesson-55-11",
@@ -3076,7 +3544,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "索耶先生下班回家。",
-        "answer": "Mr. Sawyer comes home from work."
+        "answer": "Sawyer comes home from work."
       },
       {
         "id": "lesson-55-12",
@@ -3130,7 +3598,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "孩子们每天都乘小汽车去上学，而今天，他们正步行去上学。",
-        "answer": "The children go to school by car every day, but today, they are going to school on foot. It is ten o'clock. Mrs. Sawyer usually stays at home in the morning."
+        "answer": "The children go to school by car every day, but today, they are going to school on foot."
       },
       {
         "id": "lesson-57-3",
@@ -3139,7 +3607,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "现在是10点钟。",
-        "answer": "but this morning."
+        "answer": "It is ten o'clock."
       },
       {
         "id": "lesson-57-4",
@@ -3148,7 +3616,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "上午，索耶夫人通常是呆在家里的，但今天上午，她正去商店买东西。",
-        "answer": "she is going to the shops. It is four o'clock. In the afternoon, Mrs. Sawyer usually drinks tea in the living room."
+        "answer": "Mrs. Sawyer usually stays at home in the morning. but this morning. she is going to the shops."
       },
       {
         "id": "lesson-57-5",
@@ -3157,7 +3625,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "现在是+点钟，下午，索耶夫人通常是在客厅里喝茶，但今天下午，她正在花园里喝茶。",
-        "answer": "But this afternoon, she is drinking tea in the garden. It is six o'clock. In the evening. the children usually do their homework."
+        "answer": "It is four o'clock. In the afternoon, Mrs. Sawyer usually drinks tea in the living room. But this afternoon, she is drinking tea in the garden."
       },
       {
         "id": "lesson-57-6",
@@ -3166,7 +3634,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "现在是6点钟。",
-        "answer": "but this evening."
+        "answer": "It is six o'clock."
       },
       {
         "id": "lesson-57-7",
@@ -3175,7 +3643,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "晚上，孩子们通常是做作业，而今天晚上，他们没做作业。",
-        "answer": "they are not doing their homework. At the moment. they are playing in the garden."
+        "answer": "In the evening. the children usually do their homework. but this evening. they are not doing their homework. At the moment. they are playing in the garden."
       },
       {
         "id": "lesson-57-8",
@@ -3184,7 +3652,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "此刻，他们正在花园里玩。",
-        "answer": "It is nine o'clock."
+        "answer": "It is nine o'clock.."
       },
       {
         "id": "lesson-57-9",
@@ -3273,11 +3741,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Is that all?",
         "speakerZh": "售货员",
         "speakerEn": "SHOP ASSISTANT",
-        "prompt": "我没有小本的信纸，只有大本的。您要一本吗？",
-        "answer": "I don't have any small pads. I only have large ones. Do you want a pad?"
+        "prompt": "我没有小本的信纸，只有大本的。",
+        "answer": "I don't have any small pads. I only have large ones."
       },
       {
         "id": "lesson-59-7",
+        "lesson": 59,
+        "lessonTitle": "Is that all?",
+        "speakerZh": "售货员",
+        "speakerEn": "SHOP ASSISTANT",
+        "prompt": "您要一本吗？",
+        "answer": "Do you want a pad?"
+      },
+      {
+        "id": "lesson-59-8",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "女士",
@@ -3286,7 +3763,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes, please."
       },
       {
-        "id": "lesson-59-8",
+        "id": "lesson-59-9",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "女士",
@@ -3295,7 +3772,7 @@ export const lessons: Lesson[] = [
         "answer": "And I want some glue."
       },
       {
-        "id": "lesson-59-9",
+        "id": "lesson-59-10",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "售货员",
@@ -3304,7 +3781,7 @@ export const lessons: Lesson[] = [
         "answer": "A bottle of glue."
       },
       {
-        "id": "lesson-59-10",
+        "id": "lesson-59-11",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "女士",
@@ -3313,16 +3790,25 @@ export const lessons: Lesson[] = [
         "answer": "And I want a large box of chalk, too."
       },
       {
-        "id": "lesson-59-11",
+        "id": "lesson-59-12",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "售货员",
         "speakerEn": "SHOP ASSISTANT",
-        "prompt": "我只有小盒的。您要一盒吗？",
-        "answer": "I only have small boxes. Do you want one?"
+        "prompt": "我只有小盒的。",
+        "answer": "I only have small boxes."
       },
       {
-        "id": "lesson-59-12",
+        "id": "lesson-59-13",
+        "lesson": 59,
+        "lessonTitle": "Is that all?",
+        "speakerZh": "售货员",
+        "speakerEn": "SHOP ASSISTANT",
+        "prompt": "您要一盒吗？",
+        "answer": "Do you want one?"
+      },
+      {
+        "id": "lesson-59-14",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "女士",
@@ -3331,7 +3817,7 @@ export const lessons: Lesson[] = [
         "answer": "No, thank you."
       },
       {
-        "id": "lesson-59-13",
+        "id": "lesson-59-15",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "售货员",
@@ -3340,7 +3826,7 @@ export const lessons: Lesson[] = [
         "answer": "Is that all?"
       },
       {
-        "id": "lesson-59-14",
+        "id": "lesson-59-16",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "女士",
@@ -3349,7 +3835,7 @@ export const lessons: Lesson[] = [
         "answer": "That's all, thank you."
       },
       {
-        "id": "lesson-59-15",
+        "id": "lesson-59-17",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "售货员",
@@ -3358,7 +3844,7 @@ export const lessons: Lesson[] = [
         "answer": "What else do you want?"
       },
       {
-        "id": "lesson-59-16",
+        "id": "lesson-59-18",
         "lesson": 59,
         "lessonTitle": "Is that all?",
         "speakerZh": "女士",
@@ -3453,20 +3939,47 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A bad cold",
         "speakerZh": "威廉斯夫人",
         "speakerEn": "MRS. WILLIAMS",
-        "prompt": "记得。是09754。",
-        "answer": "Yes. It's 09754."
+        "prompt": "记得。",
+        "answer": "Yes."
       },
       {
         "id": "lesson-61-10",
         "lesson": 61,
         "lessonTitle": "A bad cold",
-        "speakerZh": "医生",
-        "speakerEn": "DOCTOR",
-        "prompt": "把嘴张开，吉米。让我看看你的舌头。说啊",
-        "answer": "Open your mouth, Jimmy. Show me your tongue. Say, 'Ah'."
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "是09754。",
+        "answer": "It's 09754."
       },
       {
         "id": "lesson-61-11",
+        "lesson": 61,
+        "lessonTitle": "A bad cold",
+        "speakerZh": "医生",
+        "speakerEn": "DOCTOR",
+        "prompt": "把嘴张开，吉米。",
+        "answer": "Open your mouth, Jimmy."
+      },
+      {
+        "id": "lesson-61-12",
+        "lesson": 61,
+        "lessonTitle": "A bad cold",
+        "speakerZh": "医生",
+        "speakerEn": "DOCTOR",
+        "prompt": "让我看看你的舌头。",
+        "answer": "Show me your tongue."
+      },
+      {
+        "id": "lesson-61-13",
+        "lesson": 61,
+        "lessonTitle": "A bad cold",
+        "speakerZh": "医生",
+        "speakerEn": "DOCTOR",
+        "prompt": "说啊",
+        "answer": "Say, 'Ah'."
+      },
+      {
+        "id": "lesson-61-14",
         "lesson": 61,
         "lessonTitle": "A bad cold",
         "speakerZh": "威廉斯先生",
@@ -3475,7 +3988,7 @@ export const lessons: Lesson[] = [
         "answer": "What's the matter with him, doctor?"
       },
       {
-        "id": "lesson-61-12",
+        "id": "lesson-61-15",
         "lesson": 61,
         "lessonTitle": "A bad cold",
         "speakerZh": "医生",
@@ -3484,7 +3997,7 @@ export const lessons: Lesson[] = [
         "answer": "He has a bad cold, Mr. Williams, so he must stay in bed for a week."
       },
       {
-        "id": "lesson-61-13",
+        "id": "lesson-61-16",
         "lesson": 61,
         "lessonTitle": "A bad cold",
         "speakerZh": "威廉斯夫人",
@@ -3493,16 +4006,25 @@ export const lessons: Lesson[] = [
         "answer": "That's good news for Jimmy."
       },
       {
-        "id": "lesson-61-14",
+        "id": "lesson-61-17",
         "lesson": 61,
         "lessonTitle": "A bad cold",
         "speakerZh": "医生",
         "speakerEn": "DOCTOR",
-        "prompt": "好消息？为什么？",
-        "answer": "Good news? Why?"
+        "prompt": "好消息？",
+        "answer": "Good news?"
       },
       {
-        "id": "lesson-61-15",
+        "id": "lesson-61-18",
+        "lesson": 61,
+        "lessonTitle": "A bad cold",
+        "speakerZh": "医生",
+        "speakerEn": "DOCTOR",
+        "prompt": "为什么？",
+        "answer": "Why?"
+      },
+      {
+        "id": "lesson-61-19",
         "lesson": 61,
         "lessonTitle": "A bad cold",
         "speakerZh": "威廉斯先生",
@@ -3534,11 +4056,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "威廉斯夫人",
         "speakerEn": "MRS. WILLIAMS",
-        "prompt": "他好些了。谢谢您，医生。",
-        "answer": "Better. Thank you, doctor."
+        "prompt": "他好些了。",
+        "answer": "Better."
       },
       {
         "id": "lesson-63-3",
+        "lesson": 63,
+        "lessonTitle": "Thank you, doctor.",
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "谢谢您，医生。",
+        "answer": "Thank you, doctor."
+      },
+      {
+        "id": "lesson-63-4",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "医生",
@@ -3547,25 +4078,52 @@ export const lessons: Lesson[] = [
         "answer": "Can I see him please, Mrs. Williams?"
       },
       {
-        "id": "lesson-63-4",
+        "id": "lesson-63-5",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "威廉斯夫人",
         "speakerEn": "MRS. WILLIAMS",
-        "prompt": "当然可以，医生。上楼吧。",
-        "answer": "Certainly, doctor. Come upstairs."
+        "prompt": "当然可以，医生。",
+        "answer": "Certainly, doctor."
       },
       {
-        "id": "lesson-63-5",
+        "id": "lesson-63-6",
+        "lesson": 63,
+        "lessonTitle": "Thank you, doctor.",
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "上楼吧。",
+        "answer": "Come upstairs."
+      },
+      {
+        "id": "lesson-63-7",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "医生",
         "speakerEn": "DOCTOR",
-        "prompt": "你看上去很好，吉米。你现在好些了，但你还不应该起床。你必须再卧床两天。",
-        "answer": "You look very well, Jimmy. You are better now, but you mustn't get up yet. You must stay in bed for another two days."
+        "prompt": "你看上去很好，吉米。",
+        "answer": "You look very well, Jimmy."
       },
       {
-        "id": "lesson-63-6",
+        "id": "lesson-63-8",
+        "lesson": 63,
+        "lessonTitle": "Thank you, doctor.",
+        "speakerZh": "医生",
+        "speakerEn": "DOCTOR",
+        "prompt": "你现在好些了，但你还不应该起床。",
+        "answer": "You are better now, but you mustn't get up yet."
+      },
+      {
+        "id": "lesson-63-9",
+        "lesson": 63,
+        "lessonTitle": "Thank you, doctor.",
+        "speakerZh": "医生",
+        "speakerEn": "DOCTOR",
+        "prompt": "你必须再卧床两天。",
+        "answer": "You must stay in bed for another two days.."
+      },
+      {
+        "id": "lesson-63-10",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "医生",
@@ -3574,7 +4132,7 @@ export const lessons: Lesson[] = [
         "answer": "The boy mustn't go to school yet, Mrs. Williams.. And he mustn't eat rich food."
       },
       {
-        "id": "lesson-63-7",
+        "id": "lesson-63-11",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "威廉斯夫人",
@@ -3583,7 +4141,7 @@ export const lessons: Lesson[] = [
         "answer": "Does he have a temperature, doctor?"
       },
       {
-        "id": "lesson-63-8",
+        "id": "lesson-63-12",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "医生",
@@ -3592,7 +4150,7 @@ export const lessons: Lesson[] = [
         "answer": "No, he doesn't."
       },
       {
-        "id": "lesson-63-9",
+        "id": "lesson-63-13",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "威廉斯夫人",
@@ -3601,31 +4159,58 @@ export const lessons: Lesson[] = [
         "answer": "Must he stay in bed?"
       },
       {
-        "id": "lesson-63-10",
+        "id": "lesson-63-14",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "医生",
         "speakerEn": "DOCTOR",
-        "prompt": "是的，他还必须卧床两天。他每天可以起来两个小时，但您必须保持房间温暖。",
-        "answer": "Yes. He must remain in bed for another two days. He can get up for about two hours each day, but you must keep the room warm."
+        "prompt": "是的，他还必须卧床两天。",
+        "answer": "Yes. He must remain in bed for another two days."
       },
       {
-        "id": "lesson-63-11",
+        "id": "lesson-63-15",
+        "lesson": 63,
+        "lessonTitle": "Thank you, doctor.",
+        "speakerZh": "医生",
+        "speakerEn": "DOCTOR",
+        "prompt": "他每天可以起来两个小时，但您必须保持房间温暖。",
+        "answer": "He can get up for about two hours each day, but you must keep the room warm. Where's Mr."
+      },
+      {
+        "id": "lesson-63-16",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "医生",
         "speakerEn": "DOCTOR",
         "prompt": "威廉斯先生今晚去哪儿了？",
-        "answer": "Where's Mr. Williams this evening?"
+        "answer": "Williams this evening?"
       },
       {
-        "id": "lesson-63-12",
+        "id": "lesson-63-17",
         "lesson": 63,
         "lessonTitle": "Thank you, doctor.",
         "speakerZh": "威廉斯夫人",
         "speakerEn": "MRS. WILLIAMS",
-        "prompt": "他在床上呢，医生。您能看看他吗？他也得了重感冒！",
-        "answer": "He's in bed, doctor. Can you see him please? He has a bad cold, too!"
+        "prompt": "他在床上呢，医生。",
+        "answer": "He's in bed, doctor."
+      },
+      {
+        "id": "lesson-63-18",
+        "lesson": 63,
+        "lessonTitle": "Thank you, doctor.",
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "您能看看他吗？",
+        "answer": "Can you see him please?"
+      },
+      {
+        "id": "lesson-63-19",
+        "lesson": 63,
+        "lessonTitle": "Thank you, doctor.",
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "他也得了重感冒！",
+        "answer": "He has a bad cold, too!"
       }
     ]
   },
@@ -3696,11 +4281,38 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Not a baby",
         "speakerZh": "母亲",
         "speakerEn": "MOTHER",
-        "prompt": "吉尔都18岁了，汤姆。她不是小孩子了。把钥匙给她吧。她总是早早回家的。",
-        "answer": "Jill's eighteen years old, Tom. She's not a baby. Give her the key. She always comes home early."
+        "prompt": "吉尔都18岁了，汤姆。",
+        "answer": "Jill's eighteen years old, Tom."
       },
       {
         "id": "lesson-65-8",
+        "lesson": 65,
+        "lessonTitle": "Not a baby",
+        "speakerZh": "母亲",
+        "speakerEn": "MOTHER",
+        "prompt": "她不是小孩子了。",
+        "answer": "She's not a baby."
+      },
+      {
+        "id": "lesson-65-9",
+        "lesson": 65,
+        "lessonTitle": "Not a baby",
+        "speakerZh": "母亲",
+        "speakerEn": "MOTHER",
+        "prompt": "把钥匙给她吧。",
+        "answer": "Give her the key."
+      },
+      {
+        "id": "lesson-65-10",
+        "lesson": 65,
+        "lessonTitle": "Not a baby",
+        "speakerZh": "母亲",
+        "speakerEn": "MOTHER",
+        "prompt": "她总是早早回家的。",
+        "answer": "She always comes home early."
+      },
+      {
+        "id": "lesson-65-11",
         "lesson": 65,
         "lessonTitle": "Not a baby",
         "speakerZh": "父亲",
@@ -3709,16 +4321,34 @@ export const lessons: Lesson[] = [
         "answer": "Oh, all right!"
       },
       {
-        "id": "lesson-65-9",
+        "id": "lesson-65-12",
         "lesson": 65,
         "lessonTitle": "Not a baby",
         "speakerZh": "父亲",
         "speakerEn": "FATHER",
-        "prompt": "拿去。但你不能超过11点1刻回家。听见了吗？",
-        "answer": "Here you are. But you mustn't come home after a quarter past eleven. Do you hear?"
+        "prompt": "拿去。",
+        "answer": "Here you are."
       },
       {
-        "id": "lesson-65-10",
+        "id": "lesson-65-13",
+        "lesson": 65,
+        "lessonTitle": "Not a baby",
+        "speakerZh": "父亲",
+        "speakerEn": "FATHER",
+        "prompt": "但你不能超过11点1刻回家。",
+        "answer": "But you mustn't come home after a quarter past eleven."
+      },
+      {
+        "id": "lesson-65-14",
+        "lesson": 65,
+        "lessonTitle": "Not a baby",
+        "speakerZh": "父亲",
+        "speakerEn": "FATHER",
+        "prompt": "听见了吗？",
+        "answer": "Do you hear?"
+      },
+      {
+        "id": "lesson-65-15",
         "lesson": 65,
         "lessonTitle": "Not a baby",
         "speakerZh": "吉尔",
@@ -3727,7 +4357,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes, Dad."
       },
       {
-        "id": "lesson-65-11",
+        "id": "lesson-65-16",
         "lesson": 65,
         "lessonTitle": "Not a baby",
         "speakerZh": "吉尔",
@@ -3736,22 +4366,49 @@ export const lessons: Lesson[] = [
         "answer": "Thanks, Mum."
       },
       {
-        "id": "lesson-65-12",
+        "id": "lesson-65-17",
         "lesson": 65,
         "lessonTitle": "Not a baby",
         "speakerZh": "母亲",
         "speakerEn": "MOTHER",
-        "prompt": "不用谢。再见。好好玩吧！",
-        "answer": "That's all right. Goodbye. Enjoy yourself!"
+        "prompt": "不用谢。",
+        "answer": "That's all right."
       },
       {
-        "id": "lesson-65-13",
+        "id": "lesson-65-18",
+        "lesson": 65,
+        "lessonTitle": "Not a baby",
+        "speakerZh": "母亲",
+        "speakerEn": "MOTHER",
+        "prompt": "再见。",
+        "answer": "Goodbye."
+      },
+      {
+        "id": "lesson-65-19",
+        "lesson": 65,
+        "lessonTitle": "Not a baby",
+        "speakerZh": "母亲",
+        "speakerEn": "MOTHER",
+        "prompt": "好好玩吧！",
+        "answer": "Enjoy yourself!"
+      },
+      {
+        "id": "lesson-65-20",
         "lesson": 65,
         "lessonTitle": "Not a baby",
         "speakerZh": "吉尔",
         "speakerEn": "JILL",
-        "prompt": "我们总是玩得很开心的，妈妈。再见。",
-        "answer": "We always enjoy ourselves, Mum. Bye-bye."
+        "prompt": "我们总是玩得很开心的，妈妈。",
+        "answer": "We always enjoy ourselves, Mum."
+      },
+      {
+        "id": "lesson-65-21",
+        "lesson": 65,
+        "lessonTitle": "Not a baby",
+        "speakerZh": "吉尔",
+        "speakerEn": "JILL",
+        "prompt": "再见。",
+        "answer": "Bye-bye."
       }
     ]
   },
@@ -3768,29 +4425,65 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The weekend",
         "speakerZh": "约翰逊夫人",
         "speakerEn": "MRS. JOHNSON",
-        "prompt": "您好。刚才您在肉店里吗？",
-        "answer": "Hello. Were you at the butcher's?"
+        "prompt": "您好。",
+        "answer": "Hello."
       },
       {
         "id": "lesson-67-2",
         "lesson": 67,
         "lessonTitle": "The weekend",
-        "speakerZh": "威廉斯夫人",
-        "speakerEn": "MRS. WILLIAMS",
-        "prompt": ".是的，我在肉店里。您也在肉店里吗？",
-        "answer": "Yes, I was. Were you at the butcher's, too?"
+        "speakerZh": "约翰逊夫人",
+        "speakerEn": "MRS. JOHNSON",
+        "prompt": "刚才您在肉店里吗？",
+        "answer": "Were you at the butcher's?"
       },
       {
         "id": "lesson-67-3",
         "lesson": 67,
         "lessonTitle": "The weekend",
-        "speakerZh": "约翰逊夫人",
-        "speakerEn": "MRS. JOHNSON",
-        "prompt": "不，我不是。我在蔬菜水果店里。吉米今天怎么样？",
-        "answer": "No, I wasn't. I was at the greengrocer's. How's Jimmy today?"
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "是的，我在肉店里。",
+        "answer": "Yes, I was."
       },
       {
         "id": "lesson-67-4",
+        "lesson": 67,
+        "lessonTitle": "The weekend",
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "您也在肉店里吗？",
+        "answer": "Were you at the butcher's, too?"
+      },
+      {
+        "id": "lesson-67-5",
+        "lesson": 67,
+        "lessonTitle": "The weekend",
+        "speakerZh": "约翰逊夫人",
+        "speakerEn": "MRS. JOHNSON",
+        "prompt": "不，我不是。",
+        "answer": "No, I wasn't."
+      },
+      {
+        "id": "lesson-67-6",
+        "lesson": 67,
+        "lessonTitle": "The weekend",
+        "speakerZh": "约翰逊夫人",
+        "speakerEn": "MRS. JOHNSON",
+        "prompt": "我在蔬菜水果店里。",
+        "answer": "I was at the greengrocer's."
+      },
+      {
+        "id": "lesson-67-7",
+        "lesson": 67,
+        "lessonTitle": "The weekend",
+        "speakerZh": "约翰逊夫人",
+        "speakerEn": "MRS. JOHNSON",
+        "prompt": "吉米今天怎么样？",
+        "answer": "How's Jimmy today?"
+      },
+      {
+        "id": "lesson-67-8",
         "lesson": 67,
         "lessonTitle": "The weekend",
         "speakerZh": "威廉斯夫人",
@@ -3799,7 +4492,7 @@ export const lessons: Lesson[] = [
         "answer": "He's very well, thank you."
       },
       {
-        "id": "lesson-67-5",
+        "id": "lesson-67-9",
         "lesson": 67,
         "lessonTitle": "The weekend",
         "speakerZh": "约翰逊夫人",
@@ -3808,31 +4501,67 @@ export const lessons: Lesson[] = [
         "answer": "Was he absent from school last week?"
       },
       {
-        "id": "lesson-67-6",
+        "id": "lesson-67-10",
         "lesson": 67,
         "lessonTitle": "The weekend",
         "speakerZh": "威廉斯夫人",
         "speakerEn": "MRS. WILLIAMS",
-        "prompt": "是的，他没上学。他星期一、星期二、星期三和星期四没去上学。你们身体都好吗？",
-        "answer": "Yes, he was. He was absent on Monday, Tuesday. Wednesday and Thursday. How are you all keeping?"
+        "prompt": "是的，他没上学。",
+        "answer": "Yes, he was."
       },
       {
-        "id": "lesson-67-7",
+        "id": "lesson-67-11",
+        "lesson": 67,
+        "lessonTitle": "The weekend",
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "他星期一、星期二、星期三和星期四没去上学。",
+        "answer": "He was absent on Monday, Tuesday. Wednesday and Thursday."
+      },
+      {
+        "id": "lesson-67-12",
+        "lesson": 67,
+        "lessonTitle": "The weekend",
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "你们身体都好吗？",
+        "answer": "How are you all keeping?"
+      },
+      {
+        "id": "lesson-67-13",
         "lesson": 67,
         "lessonTitle": "The weekend",
         "speakerZh": "约翰逊夫人",
         "speakerEn": "MRS. JOHNSON",
-        "prompt": "很好，谢谢您。我们打算到乡下去三天，在我母亲家度周末。",
-        "answer": "Very well, thank you. We're going to spend three days in the country. We're going to stay at my mother's for the weekend."
+        "prompt": "很好，谢谢您。",
+        "answer": "Very well, thank you."
       },
       {
-        "id": "lesson-67-8",
+        "id": "lesson-67-14",
+        "lesson": 67,
+        "lessonTitle": "The weekend",
+        "speakerZh": "约翰逊夫人",
+        "speakerEn": "MRS. JOHNSON",
+        "prompt": "我们打算到乡下去三天，在我母亲家度周末。",
+        "answer": "We're going to spend three days in the country. We're going to stay at my mother's for the weekend."
+      },
+      {
+        "id": "lesson-67-15",
         "lesson": 67,
         "lessonTitle": "The weekend",
         "speakerZh": "威廉斯夫人",
         "speakerEn": "MRS. WILLIAMS",
-        "prompt": "星期五、星期六和星期日在乡下过！你们真幸运啊！",
-        "answer": "Friday, Saturday and Sunday in the country! Aren't you lucky!"
+        "prompt": "星期五、星期六和星期日在乡下过！",
+        "answer": "Friday, Saturday and Sunday in the country!"
+      },
+      {
+        "id": "lesson-67-16",
+        "lesson": 67,
+        "lessonTitle": "The weekend",
+        "speakerZh": "威廉斯夫人",
+        "speakerEn": "MRS. WILLIAMS",
+        "prompt": "你们真幸运啊！",
+        "answer": "Aren't you lucky!"
       }
     ]
   },
@@ -3949,7 +4678,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "他在第15号车里，其他5辆汽车紧跟在他后面。",
-        "answer": "He was in car number fifteen. Five other cars were just behind him."
+        "answer": "He was in car number fifteen."
       },
       {
         "id": "lesson-69-13",
@@ -3958,7 +4687,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "在回家的途中，我妻子对我说：别开得这样快！",
-        "answer": "On the way home, my wife said to me, 'Don't drive so quickly!"
+        "answer": "Five other cars were just behind him."
       },
       {
         "id": "lesson-69-14",
@@ -3966,7 +4695,16 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The car race",
         "speakerZh": "",
         "speakerEn": "",
-        "prompt": "你可不是比利·斯图尔特！",
+        "prompt": "在回家的途中，我妻子对我说：你可不是比利·斯图尔特！",
+        "answer": "On the way home, my wife said to me, 'Don't drive so quickly!"
+      },
+      {
+        "id": "lesson-69-15",
+        "lesson": 69,
+        "lessonTitle": "The car race",
+        "speakerZh": "",
+        "speakerEn": "",
+        "prompt": "在回家的途中，我妻子对我说：",
         "answer": "You're not Billy Stewart!"
       }
     ]
@@ -3993,8 +4731,8 @@ export const lessons: Lesson[] = [
         "lessonTitle": "He's awful!",
         "speakerZh": "波琳",
         "speakerEn": "PAULINE",
-        "prompt": "他讨厌透了！他昨天给我打了4次电话。前天打了3次。",
-        "answer": "He's awful! He telephoned me four times yesterday, and three times the day before yesterday."
+        "prompt": "他讨厌透了！",
+        "answer": "He's awful!"
       },
       {
         "id": "lesson-71-3",
@@ -4002,11 +4740,29 @@ export const lessons: Lesson[] = [
         "lessonTitle": "He's awful!",
         "speakerZh": "波琳",
         "speakerEn": "PAULINE",
-        "prompt": "他昨天上午和下午把电话打到了我的办公室，是我的老板接的。",
-        "answer": "He telephoned the office yesterday morning and yesterday afternoon. My boss answered the telephone."
+        "prompt": "他昨天给我打了4次电话。",
+        "answer": "He telephoned me four times yesterday, and three times the day before yesterday."
       },
       {
         "id": "lesson-71-4",
+        "lesson": 71,
+        "lessonTitle": "He's awful!",
+        "speakerZh": "波琳",
+        "speakerEn": "PAULINE",
+        "prompt": "前天打了3次。",
+        "answer": "He telephoned the office yesterday morning and yesterday afternoon."
+      },
+      {
+        "id": "lesson-71-5",
+        "lesson": 71,
+        "lessonTitle": "He's awful!",
+        "speakerZh": "波琳",
+        "speakerEn": "PAULINE",
+        "prompt": "他昨天上午和下午把电话打到了我的办公室，是我的老板接的。",
+        "answer": "My boss answered the telephone."
+      },
+      {
+        "id": "lesson-71-6",
         "lesson": 71,
         "lessonTitle": "He's awful!",
         "speakerZh": "简",
@@ -4015,25 +4771,34 @@ export const lessons: Lesson[] = [
         "answer": "What did your boss say to him?"
       },
       {
-        "id": "lesson-71-5",
+        "id": "lesson-71-7",
         "lesson": 71,
         "lessonTitle": "He's awful!",
         "speakerZh": "波琳",
         "speakerEn": "PAULINE",
         "prompt": "他说：波琳正在打信，她现在不能同你讲话！",
-        "answer": "He said, 'Pauline is typing letters. She can't speak to you now!'"
+        "answer": "He said, 'Pauline is typing letters. She can't speak to you now!' Then I arrived home at six o'clock yesterday evening."
       },
       {
-        "id": "lesson-71-6",
+        "id": "lesson-71-8",
         "lesson": 71,
         "lessonTitle": "He's awful!",
         "speakerZh": "波琳",
         "speakerEn": "PAULINE",
-        "prompt": "后来，我昨晚6点钟回到家里。他又打来电话，但我没接。",
-        "answer": "Then I arrived home at six o'clock yesterday evening. He telephoned again. But I didn't answer the phone!"
+        "prompt": "后来，我昨晚6点钟回到家里。",
+        "answer": "He telephoned again."
       },
       {
-        "id": "lesson-71-7",
+        "id": "lesson-71-9",
+        "lesson": 71,
+        "lessonTitle": "He's awful!",
+        "speakerZh": "波琳",
+        "speakerEn": "PAULINE",
+        "prompt": "他又打来电话，但我没接。",
+        "answer": "But I didn't answer the phone!"
+      },
+      {
+        "id": "lesson-71-10",
         "lesson": 71,
         "lessonTitle": "He's awful!",
         "speakerZh": "简",
@@ -4042,16 +4807,25 @@ export const lessons: Lesson[] = [
         "answer": "Did he telephone again last night?"
       },
       {
-        "id": "lesson-71-8",
+        "id": "lesson-71-11",
         "lesson": 71,
         "lessonTitle": "He's awful!",
         "speakerZh": "波琳",
         "speakerEn": "PAULINE",
-        "prompt": "是的，打了。他在9点钟又打来了电话。",
-        "answer": "Yes, he did. He telephoned at nine o'clock."
+        "prompt": "是的，打了。",
+        "answer": "Yes, he did."
       },
       {
-        "id": "lesson-71-9",
+        "id": "lesson-71-12",
+        "lesson": 71,
+        "lessonTitle": "He's awful!",
+        "speakerZh": "波琳",
+        "speakerEn": "PAULINE",
+        "prompt": "他在9点钟又打来了电话。",
+        "answer": "He telephoned at nine o'clock."
+      },
+      {
+        "id": "lesson-71-13",
         "lesson": 71,
         "lessonTitle": "He's awful!",
         "speakerZh": "简",
@@ -4060,16 +4834,25 @@ export const lessons: Lesson[] = [
         "answer": "What did you say to him?"
       },
       {
-        "id": "lesson-71-10",
+        "id": "lesson-71-14",
         "lesson": 71,
         "lessonTitle": "He's awful!",
         "speakerZh": "波琳",
         "speakerEn": "PAULINE",
-        "prompt": "我说：我是波琳的母亲。请不要再给我女儿打电话了！",
-        "answer": "I said, *This is Pauline's mother. Please don't telephone my daughter again!'"
+        "prompt": "我说：我是波琳的母亲。",
+        "answer": "I said, *This is Pauline's mother."
       },
       {
-        "id": "lesson-71-11",
+        "id": "lesson-71-15",
+        "lesson": 71,
+        "lessonTitle": "He's awful!",
+        "speakerZh": "波琳",
+        "speakerEn": "PAULINE",
+        "prompt": "请不要再给我女儿打电话了！",
+        "answer": "Please don't telephone my daughter again!'"
+      },
+      {
+        "id": "lesson-71-16",
         "lesson": 71,
         "lessonTitle": "He's awful!",
         "speakerZh": "简",
@@ -4078,7 +4861,7 @@ export const lessons: Lesson[] = [
         "answer": "Did he telephone again?"
       },
       {
-        "id": "lesson-71-12",
+        "id": "lesson-71-17",
         "lesson": 71,
         "lessonTitle": "He's awful!",
         "speakerZh": "波琳",
@@ -4120,7 +4903,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "突然，她在公共汽车站附近看到一个男人。",
-        "answer": "Suddenly, she saw a man near a bus stop."
+        "answer": "Suddenly, she saw a man near a bus stop. 'I can ask him the way, ' she said to herself."
       },
       {
         "id": "lesson-73-4",
@@ -4129,7 +4912,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "我可以向他问路，她想。",
-        "answer": "'I can ask him the way,' she said to herself."
+        "answer": "'Excuse me, ' she said."
       },
       {
         "id": "lesson-73-5",
@@ -4138,7 +4921,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "对不起，您能告诉我到国王街怎么走吗？",
-        "answer": "'Excuse me,' she said."
+        "answer": "'Can you tell me the way to King Street, please?'"
       },
       {
         "id": "lesson-73-6",
@@ -4147,7 +4930,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "她说。",
-        "answer": "'Can you tell me the way to King Street, please?'"
+        "answer": "The man smiled pleasantly."
       },
       {
         "id": "lesson-73-7",
@@ -4156,7 +4939,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "这人友好地笑了笑。",
-        "answer": "The man smiled pleasantly."
+        "answer": "He did not understand English!"
       },
       {
         "id": "lesson-73-8",
@@ -4165,7 +4948,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "他不懂英语！",
-        "answer": "He did not understand English!"
+        "answer": "He spoke German."
       },
       {
         "id": "lesson-73-9",
@@ -4174,7 +4957,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "他讲德语。",
-        "answer": "He spoke German."
+        "answer": "He was a tourist."
       },
       {
         "id": "lesson-73-10",
@@ -4183,7 +4966,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "他是个旅游者。",
-        "answer": "He was a tourist."
+        "answer": "Then he put his hand into his pocket, and took out a phrasebook."
       },
       {
         "id": "lesson-73-11",
@@ -4192,7 +4975,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "然后他把手伸进了衣袋，掏出了一本常用语手册。",
-        "answer": "Then he put his hand into his pocket, and took out a phrasebook."
+        "answer": "He opened the book and found a phrase."
       },
       {
         "id": "lesson-73-12",
@@ -4201,7 +4984,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "他翻开书找到了一条短语。",
-        "answer": "He opened the book and found a phrase."
+        "answer": "He read the phrase slowly."
       },
       {
         "id": "lesson-73-13",
@@ -4210,7 +4993,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "他缓慢地读着短语。",
-        "answer": "He read the phrase slowly."
+        "answer": "'I am sorry, ' he said."
       },
       {
         "id": "lesson-73-14",
@@ -4219,7 +5002,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "很抱歉，他说，我不会讲英语。",
-        "answer": "'I am sorry,' he said. 'I do not speak English.'"
+        "answer": "'I do not speak English.'"
       }
     ]
   },
@@ -4308,11 +5091,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Uncomfortable shoes",
         "speakerZh": "女士",
         "speakerEn": "LADY",
-        "prompt": "不。她是在美国买的。",
-        "answer": "No. she bought them in the U.S."
+        "prompt": "不。",
+        "answer": "No."
       },
       {
         "id": "lesson-75-10",
+        "lesson": 75,
+        "lessonTitle": "Uncomfortable shoes",
+        "speakerZh": "女士",
+        "speakerEn": "LADY",
+        "prompt": "她是在美国买的。",
+        "answer": "She bought them in the U.S."
+      },
+      {
+        "id": "lesson-75-11",
         "lesson": 75,
         "lessonTitle": "Uncomfortable shoes",
         "speakerZh": "售货员",
@@ -4321,7 +5113,7 @@ export const lessons: Lesson[] = [
         "answer": "We had some shoes like those a month ago, but we don't have any now."
       },
       {
-        "id": "lesson-75-11",
+        "id": "lesson-75-12",
         "lesson": 75,
         "lessonTitle": "Uncomfortable shoes",
         "speakerZh": "女士",
@@ -4330,16 +5122,25 @@ export const lessons: Lesson[] = [
         "answer": "Can you get a pair for me, please?"
       },
       {
-        "id": "lesson-75-12",
+        "id": "lesson-75-13",
         "lesson": 75,
         "lessonTitle": "Uncomfortable shoes",
         "speakerZh": "售货员",
         "speakerEn": "SHOP ASSISTANT",
-        "prompt": "恐怕不行。这鞋在去年和前年时兴，而今年已不流行了。",
-        "answer": "I'm afraid that I can't. They were in fashion last year and the year before last. But they're not in fashion this year."
+        "prompt": "恐怕不行。",
+        "answer": "I'm afraid that I can't."
       },
       {
-        "id": "lesson-75-13",
+        "id": "lesson-75-14",
+        "lesson": 75,
+        "lessonTitle": "Uncomfortable shoes",
+        "speakerZh": "售货员",
+        "speakerEn": "SHOP ASSISTANT",
+        "prompt": "这鞋在去年和前年时兴，而今年已不流行了。",
+        "answer": "They were in fashion last year and the year before last. But they're not in fashion this year."
+      },
+      {
+        "id": "lesson-75-15",
         "lesson": 75,
         "lessonTitle": "Uncomfortable shoes",
         "speakerZh": "售货员",
@@ -4348,7 +5149,7 @@ export const lessons: Lesson[] = [
         "answer": "These shoes are in fashion now."
       },
       {
-        "id": "lesson-75-14",
+        "id": "lesson-75-16",
         "lesson": 75,
         "lessonTitle": "Uncomfortable shoes",
         "speakerZh": "女士",
@@ -4357,13 +5158,22 @@ export const lessons: Lesson[] = [
         "answer": "They look very uncomfortable."
       },
       {
-        "id": "lesson-75-15",
+        "id": "lesson-75-17",
         "lesson": 75,
         "lessonTitle": "Uncomfortable shoes",
         "speakerZh": "售货员",
         "speakerEn": "SHOP ASSISTANT",
-        "prompt": "的确很不舒适。可是女人们总是穿不舒适的鞋子！",
-        "answer": "They are very uncomfortable. But women always wear uncomfortable shoes!"
+        "prompt": "的确很不舒适。",
+        "answer": "They are very uncomfortable."
+      },
+      {
+        "id": "lesson-75-18",
+        "lesson": 75,
+        "lessonTitle": "Uncomfortable shoes",
+        "speakerZh": "售货员",
+        "speakerEn": "SHOP ASSISTANT",
+        "prompt": "可是女人们总是穿不舒适的鞋子！",
+        "answer": "But women always wear uncomfortable shoes!"
       }
     ]
   },
@@ -4389,11 +5199,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Terrible toothache",
         "speakerZh": "克罗夫特先生",
         "speakerEn": "MR. CROFT",
-        "prompt": "早上好，护士。我想见牙科医生。",
-        "answer": "Good morning, nurse. I want to see the dentist, please."
+        "prompt": "早上好，护士。",
+        "answer": "Good morning, nurse."
       },
       {
         "id": "lesson-77-3",
+        "lesson": 77,
+        "lessonTitle": "Terrible toothache",
+        "speakerZh": "克罗夫特先生",
+        "speakerEn": "MR. CROFT",
+        "prompt": "我想见牙科医生。",
+        "answer": "I want to see the dentist, please."
+      },
+      {
+        "id": "lesson-77-4",
         "lesson": 77,
         "lessonTitle": "Terrible toothache",
         "speakerZh": "护士",
@@ -4402,7 +5221,7 @@ export const lessons: Lesson[] = [
         "answer": "Do you have an appointment?"
       },
       {
-        "id": "lesson-77-4",
+        "id": "lesson-77-5",
         "lesson": 77,
         "lessonTitle": "Terrible toothache",
         "speakerZh": "克罗夫特先生",
@@ -4411,7 +5230,7 @@ export const lessons: Lesson[] = [
         "answer": "No, I don't."
       },
       {
-        "id": "lesson-77-5",
+        "id": "lesson-77-6",
         "lesson": 77,
         "lessonTitle": "Terrible toothache",
         "speakerZh": "护士",
@@ -4420,16 +5239,25 @@ export const lessons: Lesson[] = [
         "answer": "Is it urgent?"
       },
       {
-        "id": "lesson-77-6",
+        "id": "lesson-77-7",
         "lesson": 77,
         "lessonTitle": "Terrible toothache",
         "speakerZh": "克罗夫特先生",
         "speakerEn": "MR. CROFT",
-        "prompt": "是的，很急。我难受极了，牙痛得要命。",
-        "answer": "Yes, it is. It's very urgent. I feel awful. I have a terrible toothache."
+        "prompt": "是的，很急。",
+        "answer": "Yes, it is. It's very urgent. I feel awful."
       },
       {
-        "id": "lesson-77-7",
+        "id": "lesson-77-8",
+        "lesson": 77,
+        "lessonTitle": "Terrible toothache",
+        "speakerZh": "克罗夫特先生",
+        "speakerEn": "MR. CROFT",
+        "prompt": "我难受极了，牙痛得要命。",
+        "answer": "I have a terrible toothache."
+      },
+      {
+        "id": "lesson-77-9",
         "lesson": 77,
         "lessonTitle": "Terrible toothache",
         "speakerZh": "护士",
@@ -4438,7 +5266,7 @@ export const lessons: Lesson[] = [
         "answer": "Can you come at 10 a.m. on Monday, April 24th?"
       },
       {
-        "id": "lesson-77-8",
+        "id": "lesson-77-10",
         "lesson": 77,
         "lessonTitle": "Terrible toothache",
         "speakerZh": "克罗夫特先生",
@@ -4447,40 +5275,76 @@ export const lessons: Lesson[] = [
         "answer": "I must see the dentist now, nurse."
       },
       {
-        "id": "lesson-77-9",
-        "lesson": 77,
-        "lessonTitle": "Terrible toothache",
-        "speakerZh": "护士",
-        "speakerEn": "NURSE",
-        "prompt": "牙科医生这会儿很忙。您下午两点钟来行吗？",
-        "answer": "The dentist is very busy at the moment. Can you come at 2 p.m.?"
-      },
-      {
-        "id": "lesson-77-10",
-        "lesson": 77,
-        "lessonTitle": "Terrible toothache",
-        "speakerZh": "克罗夫特先生",
-        "speakerEn": "MR. CROFT",
-        "prompt": "那就太晚了。牙科医生现在就不能给我看一下吗？",
-        "answer": "That's very late. Can the dentist see me now?"
-      },
-      {
         "id": "lesson-77-11",
         "lesson": 77,
         "lessonTitle": "Terrible toothache",
         "speakerZh": "护士",
         "speakerEn": "NURSE",
-        "prompt": "恐怕不能，克罗夫特先生。您就不能等到今天下午了吗？",
-        "answer": "I'm afraid that he can't, Mr. Croft. Can't you wait till this afternoon?"
+        "prompt": "牙科医生这会儿很忙。",
+        "answer": "The dentist is very busy at the moment."
       },
       {
         "id": "lesson-77-12",
         "lesson": 77,
         "lessonTitle": "Terrible toothache",
+        "speakerZh": "护士",
+        "speakerEn": "NURSE",
+        "prompt": "您下午两点钟来行吗？",
+        "answer": "Can you come at 2 p.m.?"
+      },
+      {
+        "id": "lesson-77-13",
+        "lesson": 77,
+        "lessonTitle": "Terrible toothache",
         "speakerZh": "克罗夫特先生",
         "speakerEn": "MR. CROFT",
-        "prompt": "我倒是可以等。可是我的牙痛等不了啊！",
-        "answer": "I can wait, but my toothache can't!"
+        "prompt": "那就太晚了。",
+        "answer": "That's very late."
+      },
+      {
+        "id": "lesson-77-14",
+        "lesson": 77,
+        "lessonTitle": "Terrible toothache",
+        "speakerZh": "克罗夫特先生",
+        "speakerEn": "MR. CROFT",
+        "prompt": "牙科医生现在就不能给我看一下吗？",
+        "answer": "Can the dentist see me now?"
+      },
+      {
+        "id": "lesson-77-15",
+        "lesson": 77,
+        "lessonTitle": "Terrible toothache",
+        "speakerZh": "护士",
+        "speakerEn": "NURSE",
+        "prompt": "恐怕不能，克罗夫特先生。",
+        "answer": "I'm afraid that he can't, Mr."
+      },
+      {
+        "id": "lesson-77-16",
+        "lesson": 77,
+        "lessonTitle": "Terrible toothache",
+        "speakerZh": "护士",
+        "speakerEn": "NURSE",
+        "prompt": "您就不能等到今天下午了吗？",
+        "answer": "Croft. Can't you wait till this afternoon?"
+      },
+      {
+        "id": "lesson-77-17",
+        "lesson": 77,
+        "lessonTitle": "Terrible toothache",
+        "speakerZh": "克罗夫特先生",
+        "speakerEn": "MR. CROFT",
+        "prompt": "我倒是可以等。",
+        "answer": "I can wait,"
+      },
+      {
+        "id": "lesson-77-18",
+        "lesson": 77,
+        "lessonTitle": "Terrible toothache",
+        "speakerZh": "克罗夫特先生",
+        "speakerEn": "MR. CROFT",
+        "prompt": "可是我的牙痛等不了啊！",
+        "answer": "but my toothache can't!"
       }
     ]
   },
@@ -4533,11 +5397,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Carol's shopping list",
         "speakerZh": "卡罗尔",
         "speakerEn": "CAROL",
-        "prompt": "我得去一下食品店。我们的茶叶和咖啡不多了，糖和果酱也没有了。",
-        "answer": "I must go to the grocer's. We haven't got much tea or coffee, and we haven't got any sugar or jam."
+        "prompt": "我得去一下食品店。",
+        "answer": "I must go to the grocer's."
       },
       {
         "id": "lesson-79-6",
+        "lesson": 79,
+        "lessonTitle": "Carol's shopping list",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "我们的茶叶和咖啡不多了，糖和果酱也没有了。",
+        "answer": "We haven't got much tea or coffee, and we haven't got any sugar or jam."
+      },
+      {
+        "id": "lesson-79-7",
         "lesson": 79,
         "lessonTitle": "Carol's shopping list",
         "speakerZh": "汤姆",
@@ -4546,25 +5419,52 @@ export const lessons: Lesson[] = [
         "answer": "What about vegetables?"
       },
       {
-        "id": "lesson-79-7",
-        "lesson": 79,
-        "lessonTitle": "Carol's shopping list",
-        "speakerZh": "卡罗尔",
-        "speakerEn": "CAROL",
-        "prompt": "我还得到蔬菜水果店去一下。我们的番茄不多了，但土豆还有不少。",
-        "answer": "I must go to the greengrocer's. We haven't got many tomatoes, but we've got a lot of potatoes."
-      },
-      {
         "id": "lesson-79-8",
         "lesson": 79,
         "lessonTitle": "Carol's shopping list",
         "speakerZh": "卡罗尔",
         "speakerEn": "CAROL",
-        "prompt": "我还要到肉店去一下。我们需要些肉。我们一点肉也没有了。",
-        "answer": "I must go to the butcher's, too. We need some meat. We haven't got any meat at all."
+        "prompt": "我还得到蔬菜水果店去一下。",
+        "answer": "I must go to the greengrocer's."
       },
       {
         "id": "lesson-79-9",
+        "lesson": 79,
+        "lessonTitle": "Carol's shopping list",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "我们的番茄不多了，但土豆还有不少。",
+        "answer": "We haven't got many tomatoes, but we've got a lot of potatoes."
+      },
+      {
+        "id": "lesson-79-10",
+        "lesson": 79,
+        "lessonTitle": "Carol's shopping list",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "我还要到肉店去一下。",
+        "answer": "I must go to the butcher's, too."
+      },
+      {
+        "id": "lesson-79-11",
+        "lesson": 79,
+        "lessonTitle": "Carol's shopping list",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "我们需要些肉。",
+        "answer": "We need some meat."
+      },
+      {
+        "id": "lesson-79-12",
+        "lesson": 79,
+        "lessonTitle": "Carol's shopping list",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "我们一点肉也没有了。",
+        "answer": "We haven't got any meat at all."
+      },
+      {
+        "id": "lesson-79-13",
         "lesson": 79,
         "lessonTitle": "Carol's shopping list",
         "speakerZh": "汤姆",
@@ -4573,7 +5473,7 @@ export const lessons: Lesson[] = [
         "answer": "Have we got any beer and wine?"
       },
       {
-        "id": "lesson-79-10",
+        "id": "lesson-79-14",
         "lesson": 79,
         "lessonTitle": "Carol's shopping list",
         "speakerZh": "卡罗尔",
@@ -4582,7 +5482,7 @@ export const lessons: Lesson[] = [
         "answer": "No, we haven't. And I'm not going to get any!"
       },
       {
-        "id": "lesson-79-11",
+        "id": "lesson-79-15",
         "lesson": 79,
         "lessonTitle": "Carol's shopping list",
         "speakerZh": "汤姆",
@@ -4591,7 +5491,7 @@ export const lessons: Lesson[] = [
         "answer": "I hope that you've got some money."
       },
       {
-        "id": "lesson-79-12",
+        "id": "lesson-79-16",
         "lesson": 79,
         "lessonTitle": "Carol's shopping list",
         "speakerZh": "卡罗尔",
@@ -4600,7 +5500,7 @@ export const lessons: Lesson[] = [
         "answer": "I haven't got much."
       },
       {
-        "id": "lesson-79-13",
+        "id": "lesson-79-17",
         "lesson": 79,
         "lessonTitle": "Carol's shopping list",
         "speakerZh": "汤姆",
@@ -4623,20 +5523,38 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "萨姆",
         "speakerEn": "SAM",
-        "prompt": "你好，卡罗尔！汤姆在哪儿？",
-        "answer": "Hi, Carol! Where's Tom?"
+        "prompt": "你好，卡罗尔！",
+        "answer": "Hi, Carol!"
       },
       {
         "id": "lesson-81-2",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
-        "speakerZh": "卡罗尔",
-        "speakerEn": "CAROL",
-        "prompt": "他在楼上：。他正在洗澡。",
-        "answer": "He's upstairs. He's having a bath."
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "汤姆在哪儿？",
+        "answer": "Where's Tom?"
       },
       {
         "id": "lesson-81-3",
+        "lesson": 81,
+        "lessonTitle": "Roast beef and potatoes",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "他在楼上。",
+        "answer": "He's upstairs."
+      },
+      {
+        "id": "lesson-81-4",
+        "lesson": 81,
+        "lessonTitle": "Roast beef and potatoes",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "他正在洗澡。",
+        "answer": "He's having a bath."
+      },
+      {
+        "id": "lesson-81-5",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "卡罗尔",
@@ -4645,7 +5563,7 @@ export const lessons: Lesson[] = [
         "answer": "Tom!"
       },
       {
-        "id": "lesson-81-4",
+        "id": "lesson-81-6",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "汤姆",
@@ -4654,7 +5572,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes?"
       },
       {
-        "id": "lesson-81-5",
+        "id": "lesson-81-7",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "卡罗尔",
@@ -4663,7 +5581,7 @@ export const lessons: Lesson[] = [
         "answer": "Sam's here."
       },
       {
-        "id": "lesson-81-6",
+        "id": "lesson-81-8",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "汤姆",
@@ -4672,16 +5590,25 @@ export const lessons: Lesson[] = [
         "answer": "I'm nearly ready."
       },
       {
-        "id": "lesson-81-7",
+        "id": "lesson-81-9",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "汤姆",
         "speakerEn": "TOM",
-        "prompt": "你好、萨姆。请抽烟。",
-        "answer": "Hello, Sam. Have a cigarette."
+        "prompt": "你好、萨姆。",
+        "answer": "Hello, Sam."
       },
       {
-        "id": "lesson-81-8",
+        "id": "lesson-81-10",
+        "lesson": 81,
+        "lessonTitle": "Roast beef and potatoes",
+        "speakerZh": "汤姆",
+        "speakerEn": "TOM",
+        "prompt": "请抽烟。",
+        "answer": "Have a cigarette."
+      },
+      {
+        "id": "lesson-81-11",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "萨姆",
@@ -4690,7 +5617,7 @@ export const lessons: Lesson[] = [
         "answer": "No, thanks, Tom."
       },
       {
-        "id": "lesson-81-9",
+        "id": "lesson-81-12",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "汤姆",
@@ -4699,16 +5626,25 @@ export const lessons: Lesson[] = [
         "answer": "Have a glass of whisky then."
       },
       {
-        "id": "lesson-81-10",
+        "id": "lesson-81-13",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "萨姆",
         "speakerEn": "SAM",
-        "prompt": "好的，谢谢。·",
-        "answer": "OK. Thanks."
+        "prompt": "好的，谢谢。",
+        "answer": "OK."
       },
       {
-        "id": "lesson-81-11",
+        "id": "lesson-81-14",
+        "lesson": 81,
+        "lessonTitle": "Roast beef and potatoes",
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "·",
+        "answer": "Thanks."
+      },
+      {
+        "id": "lesson-81-15",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "汤姆",
@@ -4717,25 +5653,43 @@ export const lessons: Lesson[] = [
         "answer": "Is dinner ready, Carol?"
       },
       {
-        "id": "lesson-81-12",
+        "id": "lesson-81-16",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "卡罗尔",
         "speakerEn": "CAROL",
-        "prompt": "马上就好。7点钟我们可以吃饭。",
-        "answer": "It's nearly ready. We can have dinner at seven o'clock."
+        "prompt": "马上就好。",
+        "answer": "It's nearly ready."
       },
       {
-        "id": "lesson-81-13",
+        "id": "lesson-81-17",
+        "lesson": 81,
+        "lessonTitle": "Roast beef and potatoes",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "7点钟我们可以吃饭。",
+        "answer": "We can have dinner at seven o'clock."
+      },
+      {
+        "id": "lesson-81-18",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "汤姆",
         "speakerEn": "TOM",
-        "prompt": "我和萨姆今天一起吃的午饭。我们去了一家饭店。",
-        "answer": "Sam and I had lunch together today. We went to a restaurant."
+        "prompt": "我和萨姆今天一起吃的午饭。",
+        "answer": "Sam and I had lunch together today."
       },
       {
-        "id": "lesson-81-14",
+        "id": "lesson-81-19",
+        "lesson": 81,
+        "lessonTitle": "Roast beef and potatoes",
+        "speakerZh": "汤姆",
+        "speakerEn": "TOM",
+        "prompt": "我们去了一家饭店。",
+        "answer": "We went to a restaurant."
+      },
+      {
+        "id": "lesson-81-20",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "卡罗尔",
@@ -4744,7 +5698,7 @@ export const lessons: Lesson[] = [
         "answer": "What did you have?"
       },
       {
-        "id": "lesson-81-15",
+        "id": "lesson-81-21",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "汤姆",
@@ -4753,7 +5707,7 @@ export const lessons: Lesson[] = [
         "answer": "We had roast beef and potatoes."
       },
       {
-        "id": "lesson-81-16",
+        "id": "lesson-81-22",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "卡罗尔",
@@ -4762,7 +5716,7 @@ export const lessons: Lesson[] = [
         "answer": "Oh!"
       },
       {
-        "id": "lesson-81-17",
+        "id": "lesson-81-23",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "汤姆",
@@ -4771,7 +5725,7 @@ export const lessons: Lesson[] = [
         "answer": "What's the matter, Carol?"
       },
       {
-        "id": "lesson-81-18",
+        "id": "lesson-81-24",
         "lesson": 81,
         "lessonTitle": "Roast beef and potatoes",
         "speakerZh": "卡罗尔",
@@ -4794,29 +5748,65 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Going on holiday",
         "speakerZh": "卡罗尔",
         "speakerEn": "CAROL",
-        "prompt": "你好，萨姆。进米吧。",
-        "answer": "Hello, Sam. Come in."
+        "prompt": "你好，萨姆。",
+        "answer": "Hello, Sam."
       },
       {
         "id": "lesson-83-2",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
-        "speakerZh": "汤姆",
-        "speakerEn": "TOM",
-        "prompt": "你好，萨姆。我们正在吃午饭，你跟我们一起吃午饭好吗？",
-        "answer": "Hi, Sam. We're having lunch. Do you want to have lunch with us?"
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "进来吧。",
+        "answer": "Come in."
       },
       {
         "id": "lesson-83-3",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
-        "speakerZh": "萨姆",
-        "speakerEn": "SAM",
-        "prompt": "不，汤姆，谢谢。我已经吃过饭了。我在12点半吃的。",
-        "answer": "No, thank you, Tom. I've already had lunch. I had lunch at half past twelve."
+        "speakerZh": "汤姆",
+        "speakerEn": "TOM",
+        "prompt": "你好，萨姆。",
+        "answer": "Hi, Sam."
       },
       {
         "id": "lesson-83-4",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "汤姆",
+        "speakerEn": "TOM",
+        "prompt": "我们正在吃午饭，你跟我们一起吃午饭好吗？",
+        "answer": "We're having lunch. Do you want to have lunch with us?"
+      },
+      {
+        "id": "lesson-83-5",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "不，汤姆，谢谢。",
+        "answer": "No, thank you, Tom."
+      },
+      {
+        "id": "lesson-83-6",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "我已经吃过饭了。",
+        "answer": "I've already had lunch."
+      },
+      {
+        "id": "lesson-83-7",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "我在12点半吃的。",
+        "answer": "I had lunch at half past twelve."
+      },
+      {
+        "id": "lesson-83-8",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
         "speakerZh": "卡罗尔",
@@ -4825,34 +5815,79 @@ export const lessons: Lesson[] = [
         "answer": "Have a cup of coffee then."
       },
       {
-        "id": "lesson-83-5",
+        "id": "lesson-83-9",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
         "speakerZh": "萨姆",
         "speakerEn": "SAM",
-        "prompt": "我刚喝了一杯，谢谢。我是在饭后喝的。",
-        "answer": "I've just had a cup, thank you. I had one after my lunch."
+        "prompt": "我刚喝了一杯，谢谢。",
+        "answer": "I've just had a cup, thank you."
       },
       {
-        "id": "lesson-83-6",
+        "id": "lesson-83-10",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "我是在饭后喝的。",
+        "answer": "I had one after my lunch."
+      },
+      {
+        "id": "lesson-83-11",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
         "speakerZh": "汤姆",
         "speakerEn": "TOM",
-        "prompt": "我们到客厅里去吧，卡罗尔。我们可以在那里喝咖啡。",
-        "answer": "Let's go into the living room, Carol. We can have our coffee there."
+        "prompt": "我们到客厅里去吧，卡罗尔。",
+        "answer": "Let's go into the living room, Carol."
       },
       {
-        "id": "lesson-83-7",
+        "id": "lesson-83-12",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "汤姆",
+        "speakerEn": "TOM",
+        "prompt": "我们可以在那里喝咖啡。",
+        "answer": "We can have our coffee there."
+      },
+      {
+        "id": "lesson-83-13",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
         "speakerZh": "卡罗尔",
         "speakerEn": "CAROL",
-        "prompt": "屋子很乱，请原谅，萨姆。房间里乱七八糟。我们正在收拾手提箱。明天我们就要走了，我和汤姆准备去度假。",
-        "answer": "Excuse the mess, Sam. This room's very untidy. We're packing our suitcases. We're going to leave tomorrow. Tom and I are going to have a holiday."
+        "prompt": "屋子很乱，请原谅，萨姆。",
+        "answer": "Excuse the mess, Sam."
       },
       {
-        "id": "lesson-83-8",
+        "id": "lesson-83-14",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "房间里乱七八糟。",
+        "answer": "This room's very untidy."
+      },
+      {
+        "id": "lesson-83-15",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "我们正在收拾手提箱。",
+        "answer": "We're packing our suitcases."
+      },
+      {
+        "id": "lesson-83-16",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "明天我们就要走了，我和汤姆准备去度假。",
+        "answer": "We're going to leave tomorrow. Tom and I are going to have a holiday."
+      },
+      {
+        "id": "lesson-83-17",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
         "speakerZh": "萨姆",
@@ -4861,7 +5896,7 @@ export const lessons: Lesson[] = [
         "answer": "Aren't you lucky!"
       },
       {
-        "id": "lesson-83-9",
+        "id": "lesson-83-18",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
         "speakerZh": "汤姆",
@@ -4870,16 +5905,25 @@ export const lessons: Lesson[] = [
         "answer": "When are you going to have a holiday, Sam?"
       },
       {
-        "id": "lesson-83-10",
+        "id": "lesson-83-19",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
         "speakerZh": "萨姆",
         "speakerEn": "SAM",
-        "prompt": "我不知道。今年我已度过假了。",
-        "answer": "I don't know. I've already had my holiday this year."
+        "prompt": "我不知道。",
+        "answer": "I don't know."
       },
       {
-        "id": "lesson-83-11",
+        "id": "lesson-83-20",
+        "lesson": 83,
+        "lessonTitle": "Going on holiday",
+        "speakerZh": "萨姆",
+        "speakerEn": "SAM",
+        "prompt": "今年我已度过假了。",
+        "answer": "I've already had my holiday this year."
+      },
+      {
+        "id": "lesson-83-21",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
         "speakerZh": "卡罗尔",
@@ -4888,7 +5932,7 @@ export const lessons: Lesson[] = [
         "answer": "Where did you go?"
       },
       {
-        "id": "lesson-83-12",
+        "id": "lesson-83-22",
         "lesson": 83,
         "lessonTitle": "Going on holiday",
         "speakerZh": "萨姆",
@@ -4965,11 +6009,29 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Paris in the spring",
         "speakerZh": "乔治",
         "speakerEn": "GEORGE",
-        "prompt": "噢，我已看过了。我是去年在电视上看的。这是部老片子，但很好。",
-        "answer": "Oh, I've already seen it. I saw it on television last year. It's an old film, but it's very good."
+        "prompt": "噢，我已看过了。",
+        "answer": "Oh, I've already seen it."
       },
       {
         "id": "lesson-85-8",
+        "lesson": 85,
+        "lessonTitle": "Paris in the spring",
+        "speakerZh": "乔治",
+        "speakerEn": "GEORGE",
+        "prompt": "我是去年在电视上看的。",
+        "answer": "I saw it on television last year."
+      },
+      {
+        "id": "lesson-85-9",
+        "lesson": 85,
+        "lessonTitle": "Paris in the spring",
+        "speakerZh": "乔治",
+        "speakerEn": "GEORGE",
+        "prompt": "这是部老片子，但很好。",
+        "answer": "It's an old film, but it's very good."
+      },
+      {
+        "id": "lesson-85-10",
         "lesson": 85,
         "lessonTitle": "Paris in the spring",
         "speakerZh": "肯",
@@ -4978,25 +6040,43 @@ export const lessons: Lesson[] = [
         "answer": "Paris is a beautiful city."
       },
       {
-        "id": "lesson-85-9",
+        "id": "lesson-85-11",
         "lesson": 85,
         "lessonTitle": "Paris in the spring",
         "speakerZh": "乔治",
         "speakerEn": "GEORGE",
-        "prompt": "我从未去过。肯，你去过吗？",
-        "answer": "I've never been there. Have you ever been there, Ken?"
+        "prompt": "我从未去过。",
+        "answer": "I've never been there."
       },
       {
-        "id": "lesson-85-10",
+        "id": "lesson-85-12",
+        "lesson": 85,
+        "lessonTitle": "Paris in the spring",
+        "speakerZh": "乔治",
+        "speakerEn": "GEORGE",
+        "prompt": "肯，你去过吗？",
+        "answer": "Have you ever been there, Ken?"
+      },
+      {
+        "id": "lesson-85-13",
         "lesson": 85,
         "lessonTitle": "Paris in the spring",
         "speakerZh": "肯",
         "speakerEn": "KEN",
-        "prompt": "是的、我去过。4月份我在那儿。",
-        "answer": "Yes, I have. I was there in April."
+        "prompt": "是的、我去过。",
+        "answer": "Yes, I have."
       },
       {
-        "id": "lesson-85-11",
+        "id": "lesson-85-14",
+        "lesson": 85,
+        "lessonTitle": "Paris in the spring",
+        "speakerZh": "肯",
+        "speakerEn": "KEN",
+        "prompt": "4月份我在那儿。",
+        "answer": "I was there in April."
+      },
+      {
+        "id": "lesson-85-15",
         "lesson": 85,
         "lessonTitle": "Paris in the spring",
         "speakerZh": "乔治",
@@ -5005,16 +6085,25 @@ export const lessons: Lesson[] = [
         "answer": "Paris in the spring, eh?"
       },
       {
-        "id": "lesson-85-12",
+        "id": "lesson-85-16",
         "lesson": 85,
         "lessonTitle": "Paris in the spring",
         "speakerZh": "肯",
         "speakerEn": "KEN",
-        "prompt": "是春天，但天气太糟了。一直在下雨。",
-        "answer": "It was spring, but the weather was awful. It rained all the time."
+        "prompt": "是春天，但天气太糟了。",
+        "answer": "It was spring, but the weather was awful."
       },
       {
-        "id": "lesson-85-13",
+        "id": "lesson-85-17",
+        "lesson": 85,
+        "lessonTitle": "Paris in the spring",
+        "speakerZh": "肯",
+        "speakerEn": "KEN",
+        "prompt": "一直在下雨。",
+        "answer": "It rained all the time."
+      },
+      {
+        "id": "lesson-85-18",
         "lesson": 85,
         "lessonTitle": "Paris in the spring",
         "speakerZh": "乔治",
@@ -5046,11 +6135,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A car crash",
         "speakerZh": "服务员",
         "speakerEn": "ATTENDANT",
-        "prompt": "我不知道，先生。您的汽车牌号是多少？",
-        "answer": "I don't know, sir. What's the number Of your car?"
+        "prompt": "我不知道，先生。",
+        "answer": "I don't know, sir."
       },
       {
         "id": "lesson-87-3",
+        "lesson": 87,
+        "lessonTitle": "A car crash",
+        "speakerZh": "服务员",
+        "speakerEn": "ATTENDANT",
+        "prompt": "您的汽车牌号是多少？",
+        "answer": "What's the number Of your car?"
+      },
+      {
+        "id": "lesson-87-4",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "伍德先生",
@@ -5059,7 +6157,7 @@ export const lessons: Lesson[] = [
         "answer": "It's LFZ 312 G."
       },
       {
-        "id": "lesson-87-4",
+        "id": "lesson-87-5",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "服务员",
@@ -5068,7 +6166,7 @@ export const lessons: Lesson[] = [
         "answer": "When did you bring it to us?"
       },
       {
-        "id": "lesson-87-5",
+        "id": "lesson-87-6",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "伍德先生",
@@ -5077,7 +6175,7 @@ export const lessons: Lesson[] = [
         "answer": "I brought it here three days ago."
       },
       {
-        "id": "lesson-87-6",
+        "id": "lesson-87-7",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "服务员",
@@ -5086,7 +6184,7 @@ export const lessons: Lesson[] = [
         "answer": "Ah yes, I remember now."
       },
       {
-        "id": "lesson-87-7",
+        "id": "lesson-87-8",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "伍德先生",
@@ -5095,16 +6193,34 @@ export const lessons: Lesson[] = [
         "answer": "Have your mechanics finished yet?"
       },
       {
-        "id": "lesson-87-8",
+        "id": "lesson-87-9",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "服务员",
         "speakerEn": "ATTENDANT",
-        "prompt": "没行。他们还在修呢。我们到车库去看一下吧。",
-        "answer": "No, they're still working on it. Let's go into the garage and have a look at it."
+        "prompt": "没有。",
+        "answer": "No,"
       },
       {
-        "id": "lesson-87-9",
+        "id": "lesson-87-10",
+        "lesson": 87,
+        "lessonTitle": "A car crash",
+        "speakerZh": "服务员",
+        "speakerEn": "ATTENDANT",
+        "prompt": "他们还在修呢。",
+        "answer": "they're still working on it."
+      },
+      {
+        "id": "lesson-87-11",
+        "lesson": 87,
+        "lessonTitle": "A car crash",
+        "speakerZh": "服务员",
+        "speakerEn": "ATTENDANT",
+        "prompt": "我们到车库去看一下吧。",
+        "answer": "Let's go into the garage and have a look at it."
+      },
+      {
+        "id": "lesson-87-12",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "服务员",
@@ -5113,16 +6229,16 @@ export const lessons: Lesson[] = [
         "answer": "Isn't that your car?"
       },
       {
-        "id": "lesson-87-10",
+        "id": "lesson-87-13",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "伍德先生",
         "speakerEn": "MR. WOOD",
-        "prompt": "唔，这曾是我的乍。",
+        "prompt": "唔，这曾是我的车。",
         "answer": "Well, it was my car."
       },
       {
-        "id": "lesson-87-11",
+        "id": "lesson-87-14",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "服务员",
@@ -5131,22 +6247,49 @@ export const lessons: Lesson[] = [
         "answer": "Didn't you have a crash?"
       },
       {
-        "id": "lesson-87-12",
+        "id": "lesson-87-15",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "伍德先生",
         "speakerEn": "MR. WOOD",
-        "prompt": "是啊，我把汽车撞在电线杆上了。你们的机械师能修好吗？",
-        "answer": "That's right. I drove it into a lamp-post. Can your mechanics repair it?"
+        "prompt": "是啊，我把汽车撞在电线杆上了。",
+        "answer": "That's right. I drove it into a lamp-post."
       },
       {
-        "id": "lesson-87-13",
+        "id": "lesson-87-16",
+        "lesson": 87,
+        "lessonTitle": "A car crash",
+        "speakerZh": "伍德先生",
+        "speakerEn": "MR. WOOD",
+        "prompt": "你们的机械师能修好吗？",
+        "answer": "Can your mechanics repair it?"
+      },
+      {
+        "id": "lesson-87-17",
         "lesson": 87,
         "lessonTitle": "A car crash",
         "speakerZh": "服务员",
         "speakerEn": "ATTENDANT",
-        "prompt": "啊。，他们正设法修呢，先生。不过说实在的，您需要一辆新车了！",
-        "answer": "Well, they're trying to repair it, sir. But to tell you the truth, you need a new car!"
+        "prompt": "啊。",
+        "answer": "Well,"
+      },
+      {
+        "id": "lesson-87-18",
+        "lesson": 87,
+        "lessonTitle": "A car crash",
+        "speakerZh": "服务员",
+        "speakerEn": "ATTENDANT",
+        "prompt": "他们正设法修呢，先生。",
+        "answer": "they're trying to repair it, sir."
+      },
+      {
+        "id": "lesson-87-19",
+        "lesson": 87,
+        "lessonTitle": "A car crash",
+        "speakerZh": "服务员",
+        "speakerEn": "ATTENDANT",
+        "prompt": "不过说实在的，您需要一辆新车了！",
+        "answer": "But to tell you the truth, you need a new car!"
       }
     ]
   },
@@ -5163,11 +6306,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "For sale",
         "speakerZh": "奈杰尔",
         "speakerEn": "NIGEL",
-        "prompt": "下午好。我想这房子是要出售的吧！",
-        "answer": "Good afternoon. I believe that this house is for sale."
+        "prompt": "下午好。",
+        "answer": "Good afternoon."
       },
       {
         "id": "lesson-89-2",
+        "lesson": 89,
+        "lessonTitle": "For sale",
+        "speakerZh": "奈杰尔",
+        "speakerEn": "NIGEL",
+        "prompt": "我想这房子是要出售的吧！",
+        "answer": "I believe that this house is for sale."
+      },
+      {
+        "id": "lesson-89-3",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "伊恩",
@@ -5176,7 +6328,7 @@ export const lessons: Lesson[] = [
         "answer": "That's right."
       },
       {
-        "id": "lesson-89-3",
+        "id": "lesson-89-4",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "奈杰尔",
@@ -5185,16 +6337,25 @@ export const lessons: Lesson[] = [
         "answer": "May I have a look at it, please?"
       },
       {
-        "id": "lesson-89-4",
+        "id": "lesson-89-5",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "伊恩",
         "speakerEn": "IAN",
-        "prompt": "可以，当然可以。请进。",
-        "answer": "Yes, of course. Come in."
+        "prompt": "可以，当然可以。",
+        "answer": "Yes, of course."
       },
       {
-        "id": "lesson-89-5",
+        "id": "lesson-89-6",
+        "lesson": 89,
+        "lessonTitle": "For sale",
+        "speakerZh": "伊恩",
+        "speakerEn": "IAN",
+        "prompt": "请进。",
+        "answer": "Come in."
+      },
+      {
+        "id": "lesson-89-7",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "奈杰尔",
@@ -5203,7 +6364,7 @@ export const lessons: Lesson[] = [
         "answer": "How long have you lived here?"
       },
       {
-        "id": "lesson-89-6",
+        "id": "lesson-89-8",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "伊恩",
@@ -5212,16 +6373,25 @@ export const lessons: Lesson[] = [
         "answer": "I've lived here for twenty years."
       },
       {
-        "id": "lesson-89-7",
+        "id": "lesson-89-9",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "奈杰尔",
         "speakerEn": "NIGEL",
-        "prompt": "20年！这个时间罚不短。",
-        "answer": "Twenty years! That's a long time."
+        "prompt": "20年！",
+        "answer": "Twenty years!"
       },
       {
-        "id": "lesson-89-8",
+        "id": "lesson-89-10",
+        "lesson": 89,
+        "lessonTitle": "For sale",
+        "speakerZh": "奈杰尔",
+        "speakerEn": "NIGEL",
+        "prompt": "这个时间可不短。",
+        "answer": "That's a long time."
+      },
+      {
+        "id": "lesson-89-11",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "伊恩",
@@ -5230,7 +6400,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes, I've been here since 1976."
       },
       {
-        "id": "lesson-89-9",
+        "id": "lesson-89-12",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "奈杰尔",
@@ -5239,16 +6409,25 @@ export const lessons: Lesson[] = [
         "answer": "Then why do you want to sell it?"
       },
       {
-        "id": "lesson-89-10",
+        "id": "lesson-89-13",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "伊恩",
         "speakerEn": "IAN",
-        "prompt": "因为我刚退休。我想在乡下买幢小房子。",
-        "answer": "Because I've just retired. I want to buy a small house in the country."
+        "prompt": "因为我刚退休。",
+        "answer": "Because I've just retired."
       },
       {
-        "id": "lesson-89-11",
+        "id": "lesson-89-14",
+        "lesson": 89,
+        "lessonTitle": "For sale",
+        "speakerZh": "伊恩",
+        "speakerEn": "IAN",
+        "prompt": "我想在乡下买幢小房子。",
+        "answer": "I want to buy a small house in the country."
+      },
+      {
+        "id": "lesson-89-15",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "奈杰尔",
@@ -5257,16 +6436,16 @@ export const lessons: Lesson[] = [
         "answer": "How much does this house cost?"
       },
       {
-        "id": "lesson-89-12",
+        "id": "lesson-89-16",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "伊恩",
         "speakerEn": "IAN",
         "prompt": "68,500英镑。",
-        "answer": "£68,500."
+        "answer": "£68, 500."
       },
       {
-        "id": "lesson-89-13",
+        "id": "lesson-89-17",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "奈杰尔",
@@ -5275,7 +6454,7 @@ export const lessons: Lesson[] = [
         "answer": "That's a lot of money!"
       },
       {
-        "id": "lesson-89-14",
+        "id": "lesson-89-18",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "伊恩",
@@ -5284,16 +6463,25 @@ export const lessons: Lesson[] = [
         "answer": "It's worth every penny of it."
       },
       {
-        "id": "lesson-89-15",
+        "id": "lesson-89-19",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "奈杰尔",
         "speakerEn": "NIGEL",
-        "prompt": "啊，我喜欢这房子，但我还不能决定。我妻子必须先来看一看。",
-        "answer": "Well, I like the house, but I can't decide yet. My wife must see it first."
+        "prompt": "啊，我喜欢这房子，但我还不能决定。",
+        "answer": "Well, I like the house, but I can't decide yet."
       },
       {
-        "id": "lesson-89-16",
+        "id": "lesson-89-20",
+        "lesson": 89,
+        "lessonTitle": "For sale",
+        "speakerZh": "奈杰尔",
+        "speakerEn": "NIGEL",
+        "prompt": "我妻子必须先来看一看。",
+        "answer": "My wife must see it first."
+      },
+      {
+        "id": "lesson-89-21",
         "lesson": 89,
         "lessonTitle": "For sale",
         "speakerZh": "伊恩",
@@ -5335,7 +6523,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "凯瑟琳",
         "speakerEn": "CATHERINE",
         "prompt": "他已经迁进新居了吗？",
-        "answer": "Has:he moved to his new house yet?"
+        "answer": "Has: he moved to his new house yet?"
       },
       {
         "id": "lesson-91-4",
@@ -5343,17 +6531,17 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Poor Ian!",
         "speakerZh": "詹尼",
         "speakerEn": "JENNY",
-        "prompt": "不，还没有。他仍在这里。他打算明天搬家。",
-        "answer": "No, not yet. He's still here. He's going to move tomorrow."
+        "prompt": "不，还没有。",
+        "answer": "No, not yet."
       },
       {
         "id": "lesson-91-5",
         "lesson": 91,
         "lessonTitle": "Poor Ian!",
-        "speakerZh": "凯瑟琳",
-        "speakerEn": "CATHERINE",
-        "prompt": "什么时候？明天上午吗？",
-        "answer": "When? Tomorrow morning?"
+        "speakerZh": "詹尼",
+        "speakerEn": "JENNY",
+        "prompt": "他仍在这里。",
+        "answer": "He's still here."
       },
       {
         "id": "lesson-91-6",
@@ -5361,11 +6549,47 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Poor Ian!",
         "speakerZh": "詹尼",
         "speakerEn": "JENNY",
-        "prompt": "不，明天卜个，我会想念他的。他一直是个好邻居。",
-        "answer": "No. Tomorrow afternoon. I'll miss him. He has always been a good neighbour."
+        "prompt": "他打算明天搬家。",
+        "answer": "He's going to move tomorrow."
       },
       {
         "id": "lesson-91-7",
+        "lesson": 91,
+        "lessonTitle": "Poor Ian!",
+        "speakerZh": "凯瑟琳",
+        "speakerEn": "CATHERINE",
+        "prompt": "什么时候？",
+        "answer": "When?"
+      },
+      {
+        "id": "lesson-91-8",
+        "lesson": 91,
+        "lessonTitle": "Poor Ian!",
+        "speakerZh": "凯瑟琳",
+        "speakerEn": "CATHERINE",
+        "prompt": "明天上午吗？",
+        "answer": "Tomorrow morning?"
+      },
+      {
+        "id": "lesson-91-9",
+        "lesson": 91,
+        "lessonTitle": "Poor Ian!",
+        "speakerZh": "詹尼",
+        "speakerEn": "JENNY",
+        "prompt": "不，明天下午，我会想念他的。",
+        "answer": "No. Tomorrow afternoon. I'll miss him."
+      },
+      {
+        "id": "lesson-91-10",
+        "lesson": 91,
+        "lessonTitle": "Poor Ian!",
+        "speakerZh": "詹尼",
+        "speakerEn": "JENNY",
+        "prompt": "他一直是个好邻居。",
+        "answer": "He has always been a good neighbour."
+      },
+      {
+        "id": "lesson-91-11",
         "lesson": 91,
         "lessonTitle": "Poor Ian!",
         "speakerZh": "琳达",
@@ -5374,7 +6598,7 @@ export const lessons: Lesson[] = [
         "answer": "He's a very nice person. We'll all miss him."
       },
       {
-        "id": "lesson-91-8",
+        "id": "lesson-91-12",
         "lesson": 91,
         "lessonTitle": "Poor Ian!",
         "speakerZh": "凯瑟琳",
@@ -5383,7 +6607,7 @@ export const lessons: Lesson[] = [
         "answer": "When will the new people move into this house?"
       },
       {
-        "id": "lesson-91-9",
+        "id": "lesson-91-13",
         "lesson": 91,
         "lessonTitle": "Poor Ian!",
         "speakerZh": "詹尼",
@@ -5392,25 +6616,43 @@ export const lessons: Lesson[] = [
         "answer": "I think that they'll move in the day after tomorrow."
       },
       {
-        "id": "lesson-91-10",
+        "id": "lesson-91-14",
         "lesson": 91,
         "lessonTitle": "Poor Ian!",
         "speakerZh": "琳达",
         "speakerEn": "LINDA",
-        "prompt": "詹尼。您今天会见到伊恩吗？",
-        "answer": "Will you see lan today, Jenny?"
+        "prompt": "詹尼。",
+        "answer": "Will you see lan today,"
       },
       {
-        "id": "lesson-91-11",
+        "id": "lesson-91-15",
+        "lesson": 91,
+        "lessonTitle": "Poor Ian!",
+        "speakerZh": "琳达",
+        "speakerEn": "LINDA",
+        "prompt": "您今天会见到伊恩吗？",
+        "answer": "Jenny?"
+      },
+      {
+        "id": "lesson-91-16",
         "lesson": 91,
         "lessonTitle": "Poor Ian!",
         "speakerZh": "詹尼",
         "speakerEn": "JENNY",
-        "prompt": "是的。我会见到他。",
-        "answer": "Yes. I will."
+        "prompt": "是的。",
+        "answer": "Yes."
       },
       {
-        "id": "lesson-91-12",
+        "id": "lesson-91-17",
+        "lesson": 91,
+        "lessonTitle": "Poor Ian!",
+        "speakerZh": "詹尼",
+        "speakerEn": "JENNY",
+        "prompt": "我会见到他。",
+        "answer": "I will."
+      },
+      {
+        "id": "lesson-91-18",
         "lesson": 91,
         "lessonTitle": "Poor Ian!",
         "speakerZh": "琳达",
@@ -5419,16 +6661,25 @@ export const lessons: Lesson[] = [
         "answer": "Please give him my regards."
       },
       {
-        "id": "lesson-91-13",
+        "id": "lesson-91-19",
         "lesson": 91,
         "lessonTitle": "Poor Ian!",
         "speakerZh": "凯瑟琳",
         "speakerEn": "CATHERINE",
-        "prompt": "可怜的伊恩！他本不想离开这幢房子。",
-        "answer": "Poor lan! He didn't want to leave this house."
+        "prompt": "可怜的伊恩！",
+        "answer": "Poor lan!"
       },
       {
-        "id": "lesson-91-14",
+        "id": "lesson-91-20",
+        "lesson": 91,
+        "lessonTitle": "Poor Ian!",
+        "speakerZh": "凯瑟琳",
+        "speakerEn": "CATHERINE",
+        "prompt": "他本不想离开这幢房子。",
+        "answer": "He didn't want to leave this house."
+      },
+      {
+        "id": "lesson-91-21",
         "lesson": 91,
         "lessonTitle": "Poor Ian!",
         "speakerZh": "詹尼",
@@ -5470,7 +6721,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "他曾在皇家空军任职、下个月他将飞往纽约。",
-        "answer": "He was in the R. A. F. He will fly to New York next month."
+        "answer": "He was in the R.A.F. He will fly to New York next month."
       },
       {
         "id": "lesson-93-4",
@@ -5559,11 +6810,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Tickets, please.",
         "speakerZh": "乔治",
         "speakerEn": "GEORGE",
-        "prompt": "买两张到伦敦的往返票。下一班火车什么时候开？",
-        "answer": "Two return tickets to London, please. What time will the next train leave?"
+        "prompt": "买两张到伦敦的往返票。",
+        "answer": "Two return tickets to London, please."
       },
       {
         "id": "lesson-95-2",
+        "lesson": 95,
+        "lessonTitle": "Tickets, please.",
+        "speakerZh": "乔治",
+        "speakerEn": "GEORGE",
+        "prompt": "下一班火车什么时候开？",
+        "answer": "What time will the next train leave?"
+      },
+      {
+        "id": "lesson-95-3",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "服务员",
@@ -5572,7 +6832,7 @@ export const lessons: Lesson[] = [
         "answer": "At nineteen minutes past eight."
       },
       {
-        "id": "lesson-95-3",
+        "id": "lesson-95-4",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "乔治",
@@ -5581,7 +6841,7 @@ export const lessons: Lesson[] = [
         "answer": "Which platform?"
       },
       {
-        "id": "lesson-95-4",
+        "id": "lesson-95-5",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "服务员",
@@ -5590,7 +6850,7 @@ export const lessons: Lesson[] = [
         "answer": "Platform Two. Over the bridge."
       },
       {
-        "id": "lesson-95-5",
+        "id": "lesson-95-6",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "肯",
@@ -5599,7 +6859,7 @@ export const lessons: Lesson[] = [
         "answer": "What time will the next train leave?"
       },
       {
-        "id": "lesson-95-6",
+        "id": "lesson-95-7",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "乔治",
@@ -5608,7 +6868,7 @@ export const lessons: Lesson[] = [
         "answer": "At eight nineteen."
       },
       {
-        "id": "lesson-95-7",
+        "id": "lesson-95-8",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "肯",
@@ -5617,7 +6877,7 @@ export const lessons: Lesson[] = [
         "answer": "We've got plenty of time."
       },
       {
-        "id": "lesson-95-8",
+        "id": "lesson-95-9",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "乔治",
@@ -5626,7 +6886,7 @@ export const lessons: Lesson[] = [
         "answer": "It's only three minutes to eight."
       },
       {
-        "id": "lesson-95-9",
+        "id": "lesson-95-10",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "肯",
@@ -5635,7 +6895,7 @@ export const lessons: Lesson[] = [
         "answer": "Let's go and have a drink. There's a bar next door to the station."
       },
       {
-        "id": "lesson-95-10",
+        "id": "lesson-95-11",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "乔治",
@@ -5644,7 +6904,7 @@ export const lessons: Lesson[] = [
         "answer": "We had better go back to the station now, Ken."
       },
       {
-        "id": "lesson-95-11",
+        "id": "lesson-95-12",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "收票员",
@@ -5653,7 +6913,7 @@ export const lessons: Lesson[] = [
         "answer": "Tickets, please."
       },
       {
-        "id": "lesson-95-12",
+        "id": "lesson-95-13",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "乔治",
@@ -5662,7 +6922,7 @@ export const lessons: Lesson[] = [
         "answer": "We want to catch the eight nineteen to London."
       },
       {
-        "id": "lesson-95-13",
+        "id": "lesson-95-14",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "收票员",
@@ -5671,16 +6931,25 @@ export const lessons: Lesson[] = [
         "answer": "You've just missed it!"
       },
       {
-        "id": "lesson-95-14",
+        "id": "lesson-95-15",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "乔治",
         "speakerEn": "GEORGE",
-        "prompt": "什么！现在只有8点15分。",
-        "answer": "What! It's only eight fifteen."
+        "prompt": "什么！",
+        "answer": "What!"
       },
       {
-        "id": "lesson-95-15",
+        "id": "lesson-95-16",
+        "lesson": 95,
+        "lessonTitle": "Tickets, please.",
+        "speakerZh": "乔治",
+        "speakerEn": "GEORGE",
+        "prompt": "现在只有8点15分。",
+        "answer": "It's only eight fifteen."
+      },
+      {
+        "id": "lesson-95-17",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "收票员",
@@ -5689,7 +6958,7 @@ export const lessons: Lesson[] = [
         "answer": "I'm sorry, sir. That clock's ten minutes slow."
       },
       {
-        "id": "lesson-95-16",
+        "id": "lesson-95-18",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "乔治",
@@ -5698,7 +6967,7 @@ export const lessons: Lesson[] = [
         "answer": "When's the next train?"
       },
       {
-        "id": "lesson-95-17",
+        "id": "lesson-95-19",
         "lesson": 95,
         "lessonTitle": "Tickets, please.",
         "speakerZh": "收票员",
@@ -5739,11 +7008,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A small blue case",
         "speakerZh": "霍尔先生",
         "speakerEn": "MR. HALL",
-        "prompt": "是只蓝色的小箱子，上面有拉链。箱把上有一标签，上面写着我的姓名和住址。",
-        "answer": "It's a small blue case and it's got a zip. There's a label on the handle with my name and address on it."
+        "prompt": "是只蓝色的小箱子，上面有拉链。",
+        "answer": "It's a small blue case and it's got a zip."
       },
       {
         "id": "lesson-97-4",
+        "lesson": 97,
+        "lessonTitle": "A small blue case",
+        "speakerZh": "霍尔先生",
+        "speakerEn": "MR. HALL",
+        "prompt": "箱把上有一标签，上面写着我的姓名和住址。",
+        "answer": "There's a label on the handle with my name and address on it."
+      },
+      {
+        "id": "lesson-97-5",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "服务员",
@@ -5752,7 +7030,7 @@ export const lessons: Lesson[] = [
         "answer": "Is this case yours?"
       },
       {
-        "id": "lesson-97-5",
+        "id": "lesson-97-6",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "霍尔先生",
@@ -5761,16 +7039,25 @@ export const lessons: Lesson[] = [
         "answer": "No, that's not mine."
       },
       {
-        "id": "lesson-97-6",
+        "id": "lesson-97-7",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "服务员",
         "speakerEn": "ATTENDANT",
-        "prompt": "这只是不是？这只箱子有张标签。",
-        "answer": "What about this one? This one's got a label."
+        "prompt": "这只是不是？",
+        "answer": "What about this one?"
       },
       {
-        "id": "lesson-97-7",
+        "id": "lesson-97-8",
+        "lesson": 97,
+        "lessonTitle": "A small blue case",
+        "speakerZh": "服务员",
+        "speakerEn": "ATTENDANT",
+        "prompt": "这只箱子有张标签。",
+        "answer": "This one's got a label."
+      },
+      {
+        "id": "lesson-97-9",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "霍尔先生",
@@ -5779,7 +7066,7 @@ export const lessons: Lesson[] = [
         "answer": "Let me see it."
       },
       {
-        "id": "lesson-97-8",
+        "id": "lesson-97-10",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "服务员",
@@ -5788,7 +7075,7 @@ export const lessons: Lesson[] = [
         "answer": "What's your name and address?"
       },
       {
-        "id": "lesson-97-9",
+        "id": "lesson-97-11",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "霍尔先生",
@@ -5797,16 +7084,25 @@ export const lessons: Lesson[] = [
         "answer": "David Hall, 83, Bridge Street."
       },
       {
-        "id": "lesson-97-10",
+        "id": "lesson-97-12",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "服务员",
         "speakerEn": "ATTENDANT",
-        "prompt": "那就对了。D.N·霍尔，大桥街83号。",
-        "answer": "That's right. D. N. Hall, 83, Bridge Street."
+        "prompt": "那就对了。",
+        "answer": "That's right."
       },
       {
-        "id": "lesson-97-11",
+        "id": "lesson-97-13",
+        "lesson": 97,
+        "lessonTitle": "A small blue case",
+        "speakerZh": "服务员",
+        "speakerEn": "ATTENDANT",
+        "prompt": "D.N·霍尔，大桥街83号。",
+        "answer": "D. N. Hall, 83, Bridge Street."
+      },
+      {
+        "id": "lesson-97-14",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "服务员",
@@ -5815,7 +7111,7 @@ export const lessons: Lesson[] = [
         "answer": "Three pounds fifty pence, please."
       },
       {
-        "id": "lesson-97-12",
+        "id": "lesson-97-15",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "霍尔先生",
@@ -5824,7 +7120,7 @@ export const lessons: Lesson[] = [
         "answer": "Here you are."
       },
       {
-        "id": "lesson-97-13",
+        "id": "lesson-97-16",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "服务员",
@@ -5833,7 +7129,7 @@ export const lessons: Lesson[] = [
         "answer": "Thank you."
       },
       {
-        "id": "lesson-97-14",
+        "id": "lesson-97-17",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "霍尔先生",
@@ -5842,7 +7138,7 @@ export const lessons: Lesson[] = [
         "answer": "Hey!"
       },
       {
-        "id": "lesson-97-15",
+        "id": "lesson-97-18",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "服务员",
@@ -5851,13 +7147,22 @@ export const lessons: Lesson[] = [
         "answer": "What's the matter?"
       },
       {
-        "id": "lesson-97-16",
+        "id": "lesson-97-19",
         "lesson": 97,
         "lessonTitle": "A small blue case",
         "speakerZh": "霍尔先生",
         "speakerEn": "MR. HALL",
-        "prompt": "这箱子不是我的！您给错了！",
-        "answer": "This case doesn't belong to me! You've given me the wrong case!"
+        "prompt": "这箱子不是我的！",
+        "answer": "This case doesn't belong to me!"
+      },
+      {
+        "id": "lesson-97-20",
+        "lesson": 97,
+        "lessonTitle": "A small blue case",
+        "speakerZh": "霍尔先生",
+        "speakerEn": "MR. HALL",
+        "prompt": "您给错了！",
+        "answer": "You've given me the wrong case!"
       }
     ]
   },
@@ -5910,20 +7215,47 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Ow!",
         "speakerZh": "安迪",
         "speakerEn": "ANDY",
-        "prompt": "是啊，摔伤了。我想我把背摔坏了。",
-        "answer": "Yes, I have. I think that I've hurt my back."
+        "prompt": "是啊，摔伤了。",
+        "answer": "Yes, I have."
       },
       {
         "id": "lesson-99-6",
         "lesson": 99,
         "lessonTitle": "Ow!",
-        "speakerZh": "露西",
-        "speakerEn": "LUCY",
-        "prompt": "试试站起来。你能站起来吗？来，让我帮你。",
-        "answer": "Try and stand up. Can you stand up? Here. Let me help you."
+        "speakerZh": "安迪",
+        "speakerEn": "ANDY",
+        "prompt": "我想我把背摔坏了。",
+        "answer": "I think that I've hurt my back."
       },
       {
         "id": "lesson-99-7",
+        "lesson": 99,
+        "lessonTitle": "Ow!",
+        "speakerZh": "露西",
+        "speakerEn": "LUCY",
+        "prompt": "试试站起来。",
+        "answer": "Try and stand up."
+      },
+      {
+        "id": "lesson-99-8",
+        "lesson": 99,
+        "lessonTitle": "Ow!",
+        "speakerZh": "露西",
+        "speakerEn": "LUCY",
+        "prompt": "你能站起来吗？",
+        "answer": "Can you stand up?"
+      },
+      {
+        "id": "lesson-99-9",
+        "lesson": 99,
+        "lessonTitle": "Ow!",
+        "speakerZh": "露西",
+        "speakerEn": "LUCY",
+        "prompt": "来，让我帮你。",
+        "answer": "Here. Let me help you."
+      },
+      {
+        "id": "lesson-99-10",
         "lesson": 99,
         "lessonTitle": "Ow!",
         "speakerZh": "安迪",
@@ -5932,22 +7264,40 @@ export const lessons: Lesson[] = [
         "answer": "I'm sorry, Lucy. I'm afraid that I can't get up."
       },
       {
-        "id": "lesson-99-8",
+        "id": "lesson-99-11",
         "lesson": 99,
         "lessonTitle": "Ow!",
         "speakerZh": "露西",
         "speakerEn": "LUCY",
-        "prompt": "我想最好请医生来给你看一下。我去给卡特医生打电话。",
-        "answer": "I think that the doctor had better see you. I'll phone Dr. Carter."
+        "prompt": "我想最好请医生来给你看一下。",
+        "answer": "I think that the doctor had better see you."
       },
       {
-        "id": "lesson-99-9",
+        "id": "lesson-99-12",
         "lesson": 99,
         "lessonTitle": "Ow!",
         "speakerZh": "露西",
         "speakerEn": "LUCY",
-        "prompt": "医生说他马上就来。安迪，我看你需要做一次X光透视。",
-        "answer": "The doctor says that he will come at once. I'm sure that you need an X-ray, Andy."
+        "prompt": "我去给卡特医生打电话。",
+        "answer": "I'll phone Dr. Carter."
+      },
+      {
+        "id": "lesson-99-13",
+        "lesson": 99,
+        "lessonTitle": "Ow!",
+        "speakerZh": "露西",
+        "speakerEn": "LUCY",
+        "prompt": "医生说他马上就来。",
+        "answer": "The doctor says that he will come at once."
+      },
+      {
+        "id": "lesson-99-14",
+        "lesson": 99,
+        "lessonTitle": "Ow!",
+        "speakerZh": "露西",
+        "speakerEn": "LUCY",
+        "prompt": "安迪，我看你需要做一次X光透视。",
+        "answer": "I'm sure that you need an X-ray, Andy."
       }
     ]
   },
@@ -5991,11 +7341,29 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A card from Jimmy",
         "speakerZh": "彭妮",
         "speakerEn": "PENNY",
-        "prompt": "他说他刚到苏格兰。他说他现住在一家青年招待所。您知道，他是青招协的一个成员：",
-        "answer": "He says he's just arrived in Scotland. He says he's staying at a Youth Hostel. You know he's a member of the Y.H.A."
+        "prompt": "他说他刚到苏格兰。",
+        "answer": "He says he's just arrived in Scotland."
       },
       {
         "id": "lesson-101-5",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "他说他现住在一家青年招待所。",
+        "answer": "He says he's staying at a Youth Hostel."
+      },
+      {
+        "id": "lesson-101-6",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "您知道，他是青招协的一个成员：",
+        "answer": "You know he's a member of the Y.H.A."
+      },
+      {
+        "id": "lesson-101-7",
         "lesson": 101,
         "lessonTitle": "A card from Jimmy",
         "speakerZh": "祖母",
@@ -6004,16 +7372,25 @@ export const lessons: Lesson[] = [
         "answer": "The what?"
       },
       {
-        "id": "lesson-101-6",
+        "id": "lesson-101-8",
         "lesson": 101,
         "lessonTitle": "A card from Jimmy",
         "speakerZh": "彭妮",
         "speakerEn": "PENNY",
-        "prompt": "青招协，妈妈。青年招待所协会。",
-        "answer": "The Y.H.A., Mum. The Youth Hostels Association."
+        "prompt": "青招协，妈妈。",
+        "answer": "The Y.H.A., Mum."
       },
       {
-        "id": "lesson-101-7",
+        "id": "lesson-101-9",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "青年招待所协会。",
+        "answer": "The Youth Hostels Association."
+      },
+      {
+        "id": "lesson-101-10",
         "lesson": 101,
         "lessonTitle": "A card from Jimmy",
         "speakerZh": "祖母",
@@ -6022,43 +7399,97 @@ export const lessons: Lesson[] = [
         "answer": "What else does he say?"
       },
       {
-        "id": "lesson-101-8",
-        "lesson": 101,
-        "lessonTitle": "A card from Jimmy",
-        "speakerZh": "彭妮",
-        "speakerEn": "PENNY",
-        "prompt": "我很快会写信的。祝你们大家身体都好。",
-        "answer": "'I'll write a letter soon. I hope you are all well.'"
-      },
-      {
-        "id": "lesson-101-9",
-        "lesson": 101,
-        "lessonTitle": "A card from Jimmy",
-        "speakerZh": "祖母",
-        "speakerEn": "GRANDMOTHER",
-        "prompt": "什么？彭妮，大声一点。我可听不见你念的。",
-        "answer": "What? Speak up, Penny. I'm afraid I can't hear you."
-      },
-      {
-        "id": "lesson-101-10",
-        "lesson": 101,
-        "lessonTitle": "A card from Jimmy",
-        "speakerZh": "彭妮",
-        "speakerEn": "PENNY",
-        "prompt": "他说他很快会写信的。他祝我们大家身体好。谨此问候，吉米。",
-        "answer": "He says he'll write a letter soon. He hopes we are all well. 'Love, Jimmy."
-      },
-      {
         "id": "lesson-101-11",
         "lesson": 101,
         "lessonTitle": "A card from Jimmy",
-        "speakerZh": "祖母",
-        "speakerEn": "GRANDMOTHER",
-        "prompt": "就这些吗？他没写许多，是吗？",
-        "answer": "Is that all? He doesn't say very much, does he?"
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "我很快会写信的。",
+        "answer": "'I'll write a letter soon."
       },
       {
         "id": "lesson-101-12",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "祝你们大家身体都好。",
+        "answer": "I hope you are all well.'"
+      },
+      {
+        "id": "lesson-101-13",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "祖母",
+        "speakerEn": "GRANDMOTHER",
+        "prompt": "什么？",
+        "answer": "What?"
+      },
+      {
+        "id": "lesson-101-14",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "祖母",
+        "speakerEn": "GRANDMOTHER",
+        "prompt": "彭妮，大声一点。",
+        "answer": "Speak up, Penny."
+      },
+      {
+        "id": "lesson-101-15",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "祖母",
+        "speakerEn": "GRANDMOTHER",
+        "prompt": "我可听不见你念的。",
+        "answer": "I'm afraid I can't hear you."
+      },
+      {
+        "id": "lesson-101-16",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "他说他很快会写信的。",
+        "answer": "He says he'll write a letter soon."
+      },
+      {
+        "id": "lesson-101-17",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "他祝我们大家身体好。",
+        "answer": "He hopes we are all well."
+      },
+      {
+        "id": "lesson-101-18",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "彭妮",
+        "speakerEn": "PENNY",
+        "prompt": "谨此问候，吉米。",
+        "answer": "'Love, Jimmy."
+      },
+      {
+        "id": "lesson-101-19",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "祖母",
+        "speakerEn": "GRANDMOTHER",
+        "prompt": "就这些吗？",
+        "answer": "Is that all?"
+      },
+      {
+        "id": "lesson-101-20",
+        "lesson": 101,
+        "lessonTitle": "A card from Jimmy",
+        "speakerZh": "祖母",
+        "speakerEn": "GRANDMOTHER",
+        "prompt": "他没写许多，是吗？",
+        "answer": "He doesn't say very much, does he?"
+      },
+      {
+        "id": "lesson-101-21",
         "lesson": 101,
         "lessonTitle": "A card from Jimmy",
         "speakerZh": "彭妮",
@@ -6090,17 +7521,17 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The French test",
         "speakerZh": "理查德",
         "speakerEn": "RICHARD",
-        "prompt": "不算太坏，我想我的英语和数学及格了。题目很容易。加里，你怎么样？",
-        "answer": "Not too bad. I think I passed in English and Mathematics. The questions were very easy. How about you, Gary?"
+        "prompt": "不算太坏，我想我的英语和数学及格了。",
+        "answer": "Not too bad. I think I passed in English and Mathematics."
       },
       {
         "id": "lesson-103-3",
         "lesson": 103,
         "lessonTitle": "The French test",
-        "speakerZh": "加里",
-        "speakerEn": "GARY",
-        "prompt": "英语和数学试题对我来说不很容易。我希望别不及格。",
-        "answer": "The English and Maths papers weren't easy enough for me. I hope I haven't failed."
+        "speakerZh": "理查德",
+        "speakerEn": "RICHARD",
+        "prompt": "题目很容易。",
+        "answer": "The questions were very easy."
       },
       {
         "id": "lesson-103-4",
@@ -6108,11 +7539,65 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The French test",
         "speakerZh": "理查德",
         "speakerEn": "RICHARD",
-        "prompt": "我想我的法语及不了格，我能回答其中的16道题。这些题很容易。但我回答不出其余的题。那些题对我来说太难了。",
-        "answer": "I think I failed the French paper. I could answer sixteen of the questions. They were very easy. But I couldn't answer the rest. They were too difficult for me."
+        "prompt": "加里，你怎么样？",
+        "answer": "How about you, Gary?"
       },
       {
         "id": "lesson-103-5",
+        "lesson": 103,
+        "lessonTitle": "The French test",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "英语和数学试题对我来说不很容易。",
+        "answer": "The English and Maths papers weren't easy enough for me."
+      },
+      {
+        "id": "lesson-103-6",
+        "lesson": 103,
+        "lessonTitle": "The French test",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "我希望别不及格。",
+        "answer": "I hope I haven't failed."
+      },
+      {
+        "id": "lesson-103-7",
+        "lesson": 103,
+        "lessonTitle": "The French test",
+        "speakerZh": "理查德",
+        "speakerEn": "RICHARD",
+        "prompt": "我想我的法语及不了格，我能回答其中的16道题。",
+        "answer": "I think I failed the French paper. I could answer sixteen of the questions."
+      },
+      {
+        "id": "lesson-103-8",
+        "lesson": 103,
+        "lessonTitle": "The French test",
+        "speakerZh": "理查德",
+        "speakerEn": "RICHARD",
+        "prompt": "这些题很容易。",
+        "answer": "They were very easy."
+      },
+      {
+        "id": "lesson-103-9",
+        "lesson": 103,
+        "lessonTitle": "The French test",
+        "speakerZh": "理查德",
+        "speakerEn": "RICHARD",
+        "prompt": "但我回答不出其余的题。",
+        "answer": "But I couldn't answer the rest."
+      },
+      {
+        "id": "lesson-103-10",
+        "lesson": 103,
+        "lessonTitle": "The French test",
+        "speakerZh": "理查德",
+        "speakerEn": "RICHARD",
+        "prompt": "那些题对我来说太难了。",
+        "answer": "They were too difficult for me."
+      },
+      {
+        "id": "lesson-103-11",
         "lesson": 103,
         "lessonTitle": "The French test",
         "speakerZh": "加里",
@@ -6121,25 +7606,52 @@ export const lessons: Lesson[] = [
         "answer": "French tests are awful, aren't they?"
       },
       {
-        "id": "lesson-103-6",
+        "id": "lesson-103-12",
         "lesson": 103,
         "lessonTitle": "The French test",
         "speakerZh": "理查德",
         "speakerEn": "RICHARD",
-        "prompt": "我讨厌法语。我的法语成绩肯定很低。",
-        "answer": "I hate them. I'm sure I've got a low mark."
+        "prompt": "我讨厌法语。",
+        "answer": "I hate them."
       },
       {
-        "id": "lesson-103-7",
+        "id": "lesson-103-13",
+        "lesson": 103,
+        "lessonTitle": "The French test",
+        "speakerZh": "理查德",
+        "speakerEn": "RICHARD",
+        "prompt": "我的法语成绩肯定很低。",
+        "answer": "I'm sure I've got a low mark."
+      },
+      {
+        "id": "lesson-103-14",
         "lesson": 103,
         "lessonTitle": "The French test",
         "speakerZh": "加里",
         "speakerEn": "GARY",
-        "prompt": "啊，别灰心！或许我们考得还不太糟。坐在我旁边的那个人只在试卷顶端写了自己的名字。",
-        "answer": "Oh, cheer up! Perhaps we didn't do too badly. The guy next to me wrote his name at the top of the paper."
+        "prompt": "啊，别灰心！",
+        "answer": "Oh, cheer up!"
       },
       {
-        "id": "lesson-103-8",
+        "id": "lesson-103-15",
+        "lesson": 103,
+        "lessonTitle": "The French test",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "或许我们考得还不太糟。",
+        "answer": "Perhaps we didn't do too badly."
+      },
+      {
+        "id": "lesson-103-16",
+        "lesson": 103,
+        "lessonTitle": "The French test",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "坐在我旁边的那个人只在试卷顶端写了自己的名字。",
+        "answer": "The guy next to me wrote his name at the top of the paper."
+      },
+      {
+        "id": "lesson-103-17",
         "lesson": 103,
         "lessonTitle": "The French test",
         "speakerZh": "理查德",
@@ -6148,7 +7660,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes?"
       },
       {
-        "id": "lesson-103-9",
+        "id": "lesson-103-18",
         "lesson": 103,
         "lessonTitle": "The French test",
         "speakerZh": "加里",
@@ -6171,11 +7683,29 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Full of mistakes",
         "speakerZh": "老板",
         "speakerEn": "THE BOSS",
-        "prompt": "鲍勃。桑德拉在哪儿？我要找她。",
-        "answer": "Where's Sandra, Bob? I want her."
+        "prompt": "鲍勃。",
+        "answer": "Where's Sandra,"
       },
       {
         "id": "lesson-105-2",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "桑德拉在哪儿？",
+        "answer": "Bob?"
+      },
+      {
+        "id": "lesson-105-3",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "我要找她。",
+        "answer": "I want her."
+      },
+      {
+        "id": "lesson-105-4",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "鲍勃",
@@ -6184,16 +7714,25 @@ export const lessons: Lesson[] = [
         "answer": "Do you want to speak to her?"
       },
       {
-        "id": "lesson-105-3",
+        "id": "lesson-105-5",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "老板",
         "speakerEn": "THE BOSS",
-        "prompt": "是的，我要她到我的办公室来。叫她马上就来。",
-        "answer": "Yes, I do. I want her to come to my office. Tell her to come at once."
+        "prompt": "是的，我要她到我的办公室来。",
+        "answer": "Yes, I do. I want her to come to my office."
       },
       {
-        "id": "lesson-105-4",
+        "id": "lesson-105-6",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "叫她马上就来。",
+        "answer": "Tell her to come at once."
+      },
+      {
+        "id": "lesson-105-7",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "桑德拉",
@@ -6202,16 +7741,34 @@ export const lessons: Lesson[] = [
         "answer": "Did you want to see me?"
       },
       {
-        "id": "lesson-105-5",
+        "id": "lesson-105-8",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "老板",
         "speakerEn": "THE BOSS",
-        "prompt": "啊，是的，桑德拉。intelligent怎样拼写？你能告诉我吗？",
-        "answer": "Ah, yes, Sandra. How do you spell 'intelligent'? Can you tell me?"
+        "prompt": "啊，是的，桑德拉。",
+        "answer": "Ah, yes, Sandra."
       },
       {
-        "id": "lesson-105-6",
+        "id": "lesson-105-9",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "intelligent怎样拼写？",
+        "answer": "How do you spell 'intelligent'?"
+      },
+      {
+        "id": "lesson-105-10",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "你能告诉我吗？",
+        "answer": "Can you tell me?"
+      },
+      {
+        "id": "lesson-105-11",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "桑德拉",
@@ -6220,25 +7777,61 @@ export const lessons: Lesson[] = [
         "answer": "I-N-T-E-L-L-I-G-E-N-T."
       },
       {
-        "id": "lesson-105-7",
+        "id": "lesson-105-12",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "老板",
         "speakerEn": "THE BOSS",
-        "prompt": "对的。但你只打了1个L。这封信里错误百出。我要你重打一遍。",
-        "answer": "That's right. You've typed it with only one 'L'. This letter's full of mistakes. I want you to type it again."
+        "prompt": "对的。",
+        "answer": "That's right."
       },
       {
-        "id": "lesson-105-8",
+        "id": "lesson-105-13",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "但你只打了1个L。",
+        "answer": "You've typed it with only one 'L'."
+      },
+      {
+        "id": "lesson-105-14",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "这封信里错误百出。",
+        "answer": "This letter's full of mistakes."
+      },
+      {
+        "id": "lesson-105-15",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "我要你重打一遍。",
+        "answer": "I want you to type it again."
+      },
+      {
+        "id": "lesson-105-16",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "桑德拉",
         "speakerEn": "SANDRA",
-        "prompt": "是，我重打。对此我感到很抱歉。",
-        "answer": "Yes, I'll do that. I'm sorry about that."
+        "prompt": "是，我重打。",
+        "answer": "Yes, I'll do that."
       },
       {
-        "id": "lesson-105-9",
+        "id": "lesson-105-17",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "桑德拉",
+        "speakerEn": "SANDRA",
+        "prompt": "对此我感到很抱歉。",
+        "answer": "I'm sorry about that."
+      },
+      {
+        "id": "lesson-105-18",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "老板",
@@ -6247,7 +7840,7 @@ export const lessons: Lesson[] = [
         "answer": "And here's a little present for you."
       },
       {
-        "id": "lesson-105-10",
+        "id": "lesson-105-19",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "桑德拉",
@@ -6256,13 +7849,22 @@ export const lessons: Lesson[] = [
         "answer": "What is it?"
       },
       {
-        "id": "lesson-105-11",
+        "id": "lesson-105-20",
         "lesson": 105,
         "lessonTitle": "Full of mistakes",
         "speakerZh": "老板",
         "speakerEn": "THE BOSS",
-        "prompt": "是本词典。我希望它能对你有所帮助。",
-        "answer": "It's a dictionary. I hope it'll help you."
+        "prompt": "是本词典。",
+        "answer": "It's a dictionary."
+      },
+      {
+        "id": "lesson-105-21",
+        "lesson": 105,
+        "lessonTitle": "Full of mistakes",
+        "speakerZh": "老板",
+        "speakerEn": "THE BOSS",
+        "prompt": "我希望它能对你有所帮助。",
+        "answer": "I hope it'll help you."
       }
     ]
   },
@@ -6288,20 +7890,56 @@ export const lessons: Lesson[] = [
         "lessonTitle": "It's too small.",
         "speakerZh": "女士",
         "speakerEn": "LADY",
-        "prompt": "我很喜欢这颜色。这是件漂亮的衣服，可是对我来说太小了。",
-        "answer": "I like the colour very much. It's a lovely dress, but it's too small for me."
+        "prompt": "我很喜欢这颜色。",
+        "answer": "I like the colour very much."
       },
       {
         "id": "lesson-107-3",
         "lesson": 107,
         "lessonTitle": "It's too small.",
-        "speakerZh": "店员",
-        "speakerEn": "ASSISTANT",
-        "prompt": "这件怎么样？这是件漂亮的衣服，它很时髦。短裙现在很流行。您要试一试吗？",
-        "answer": "What about this one? It's a lovely dress. It's very smart. Short skirts are in fashion now. Would you like to try it?"
+        "speakerZh": "女士",
+        "speakerEn": "LADY",
+        "prompt": "这是件漂亮的衣服，可是对我来说太小了。",
+        "answer": "It's a lovely dress, but it's too small for me."
       },
       {
         "id": "lesson-107-4",
+        "lesson": 107,
+        "lessonTitle": "It's too small.",
+        "speakerZh": "店员",
+        "speakerEn": "ASSISTANT",
+        "prompt": "这件怎么样？",
+        "answer": "What about this one?"
+      },
+      {
+        "id": "lesson-107-5",
+        "lesson": 107,
+        "lessonTitle": "It's too small.",
+        "speakerZh": "店员",
+        "speakerEn": "ASSISTANT",
+        "prompt": "这是件漂亮的衣服，它很时髦。",
+        "answer": "It's a lovely dress. It's very smart."
+      },
+      {
+        "id": "lesson-107-6",
+        "lesson": 107,
+        "lessonTitle": "It's too small.",
+        "speakerZh": "店员",
+        "speakerEn": "ASSISTANT",
+        "prompt": "短裙现在很流行。",
+        "answer": "Short skirts are in fashion now."
+      },
+      {
+        "id": "lesson-107-7",
+        "lesson": 107,
+        "lessonTitle": "It's too small.",
+        "speakerZh": "店员",
+        "speakerEn": "ASSISTANT",
+        "prompt": "您要试一试吗？",
+        "answer": "Would you like to try it?"
+      },
+      {
+        "id": "lesson-107-8",
         "lesson": 107,
         "lessonTitle": "It's too small.",
         "speakerZh": "女士",
@@ -6310,40 +7948,85 @@ export const lessons: Lesson[] = [
         "answer": "All right."
       },
       {
-        "id": "lesson-107-5",
+        "id": "lesson-107-9",
         "lesson": 107,
         "lessonTitle": "It's too small.",
         "speakerZh": "女士",
         "speakerEn": "LADY",
-        "prompt": "恐怕这件绿色的我穿着也太小了。它比那件蓝色的还要小。",
-        "answer": "I'm afraid this green dress is too small for me as well. It's smaller than the blue one."
+        "prompt": "恐怕这件绿色的我穿着也太小了。",
+        "answer": "I'm afraid this green dress is too small for me as well."
       },
       {
-        "id": "lesson-107-6",
+        "id": "lesson-107-10",
         "lesson": 107,
         "lessonTitle": "It's too small.",
         "speakerZh": "女士",
         "speakerEn": "LADY",
-        "prompt": "我也不喜欢这种颜色。这颜色我穿根本不合适。我认为那件蓝色的更漂亮些。",
-        "answer": "I don't like the colour either. It doesn't suit me at all. I think the blue dress is prettier."
+        "prompt": "它比那件蓝色的还要小。",
+        "answer": "It's smaller than the blue one."
       },
       {
-        "id": "lesson-107-7",
+        "id": "lesson-107-11",
         "lesson": 107,
         "lessonTitle": "It's too small.",
         "speakerZh": "女士",
         "speakerEn": "LADY",
-        "prompt": "您能再给我看一件蓝色的吗？我想要一件和那件一样的，但必须是我的尺寸。",
-        "answer": "Could you show me another blue dress? I want a dress like that one, but it must be my size."
+        "prompt": "我也不喜欢这种颜色。",
+        "answer": "I don't like the colour either."
       },
       {
-        "id": "lesson-107-8",
+        "id": "lesson-107-12",
+        "lesson": 107,
+        "lessonTitle": "It's too small.",
+        "speakerZh": "女士",
+        "speakerEn": "LADY",
+        "prompt": "这颜色我穿根本不合适。",
+        "answer": "It doesn't suit me at all."
+      },
+      {
+        "id": "lesson-107-13",
+        "lesson": 107,
+        "lessonTitle": "It's too small.",
+        "speakerZh": "女士",
+        "speakerEn": "LADY",
+        "prompt": "我认为那件蓝色的更漂亮些。",
+        "answer": "I think the blue dress is prettier."
+      },
+      {
+        "id": "lesson-107-14",
+        "lesson": 107,
+        "lessonTitle": "It's too small.",
+        "speakerZh": "女士",
+        "speakerEn": "LADY",
+        "prompt": "您能再给我看一件蓝色的吗？",
+        "answer": "Could you show me another blue dress?"
+      },
+      {
+        "id": "lesson-107-15",
+        "lesson": 107,
+        "lessonTitle": "It's too small.",
+        "speakerZh": "女士",
+        "speakerEn": "LADY",
+        "prompt": "我想要一件和那件一样的，但必须是我的尺寸。",
+        "answer": "I want a dress like that one, but it must be my size."
+      },
+      {
+        "id": "lesson-107-16",
         "lesson": 107,
         "lessonTitle": "It's too small.",
         "speakerZh": "店员",
         "speakerEn": "ASSISTANT",
-        "prompt": "恐怕没有更大的了。这是店里最大的一件。",
-        "answer": "I'm afraid I haven't got a larger dress. This is the largest dress in the shop."
+        "prompt": "恐怕没有更大的了。",
+        "answer": "I'm afraid I haven't got a larger dress."
+      },
+      {
+        "id": "lesson-107-17",
+        "lesson": 107,
+        "lessonTitle": "It's too small.",
+        "speakerZh": "店员",
+        "speakerEn": "ASSISTANT",
+        "prompt": "这是店里最大的一件。",
+        "answer": "This is the largest dress in the shop."
       }
     ]
   },
@@ -6396,20 +8079,47 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A good idea",
         "speakerZh": "夏洛特",
         "speakerEn": "CHARLOTTE",
-        "prompt": "加些糖怎么样？两茶匙行吗？",
-        "answer": "What about some sugar? Two teaspoonfuls?"
+        "prompt": "加些糖怎么样？",
+        "answer": "What about some sugar?"
       },
       {
         "id": "lesson-109-6",
         "lesson": 109,
         "lessonTitle": "A good idea",
-        "speakerZh": "简",
-        "speakerEn": "JANE",
-        "prompt": "不，再少一些。请放一勺儿半。那对我已足够了。",
-        "answer": "No, less than that. One and a half teaspoonfuls, please. That's enough for me."
+        "speakerZh": "夏洛特",
+        "speakerEn": "CHARLOTTE",
+        "prompt": "两茶匙行吗？",
+        "answer": "Two teaspoonfuls?"
       },
       {
         "id": "lesson-109-7",
+        "lesson": 109,
+        "lessonTitle": "A good idea",
+        "speakerZh": "简",
+        "speakerEn": "JANE",
+        "prompt": "不，再少一些。",
+        "answer": "No, less than that."
+      },
+      {
+        "id": "lesson-109-8",
+        "lesson": 109,
+        "lessonTitle": "A good idea",
+        "speakerZh": "简",
+        "speakerEn": "JANE",
+        "prompt": "请放一勺儿半。",
+        "answer": "One and a half teaspoonfuls, please."
+      },
+      {
+        "id": "lesson-109-9",
+        "lesson": 109,
+        "lessonTitle": "A good idea",
+        "speakerZh": "简",
+        "speakerEn": "JANE",
+        "prompt": "那对我已足够了。",
+        "answer": "That's enough for me."
+      },
+      {
+        "id": "lesson-109-10",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "简",
@@ -6418,7 +8128,7 @@ export const lessons: Lesson[] = [
         "answer": "That was very nice."
       },
       {
-        "id": "lesson-109-8",
+        "id": "lesson-109-11",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "夏洛特",
@@ -6427,7 +8137,7 @@ export const lessons: Lesson[] = [
         "answer": "Would you like some more?"
       },
       {
-        "id": "lesson-109-9",
+        "id": "lesson-109-12",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "简",
@@ -6436,25 +8146,43 @@ export const lessons: Lesson[] = [
         "answer": "Yes, please."
       },
       {
-        "id": "lesson-109-10",
+        "id": "lesson-109-13",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "简",
         "speakerEn": "JANE",
-        "prompt": "我还想抽枝烟。可以给我一枝吗？",
-        "answer": "I'd like a cigarette, too. May I have one?"
+        "prompt": "我还想抽枝烟。",
+        "answer": "I'd like a cigarette, too."
       },
       {
-        "id": "lesson-109-11",
+        "id": "lesson-109-14",
+        "lesson": 109,
+        "lessonTitle": "A good idea",
+        "speakerZh": "简",
+        "speakerEn": "JANE",
+        "prompt": "可以给我一枝吗？",
+        "answer": "May I have one?"
+      },
+      {
+        "id": "lesson-109-15",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "夏洛特",
         "speakerEn": "CHARLOTTE",
-        "prompt": "当然可以。我想那个盒子里有一些。",
-        "answer": "Of course. I think there are a few in that box."
+        "prompt": "当然可以。",
+        "answer": "Of course."
       },
       {
-        "id": "lesson-109-12",
+        "id": "lesson-109-16",
+        "lesson": 109,
+        "lessonTitle": "A good idea",
+        "speakerZh": "夏洛特",
+        "speakerEn": "CHARLOTTE",
+        "prompt": "我想那个盒子里有一些。",
+        "answer": "I think there are a few in that box."
+      },
+      {
+        "id": "lesson-109-17",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "简",
@@ -6463,7 +8191,7 @@ export const lessons: Lesson[] = [
         "answer": "I'm afraid it's empty."
       },
       {
-        "id": "lesson-109-13",
+        "id": "lesson-109-18",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "夏洛特",
@@ -6472,7 +8200,7 @@ export const lessons: Lesson[] = [
         "answer": "What a pity!"
       },
       {
-        "id": "lesson-109-14",
+        "id": "lesson-109-19",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "简",
@@ -6481,16 +8209,25 @@ export const lessons: Lesson[] = [
         "answer": "It doesn't matter."
       },
       {
-        "id": "lesson-109-15",
+        "id": "lesson-109-20",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "夏洛特",
         "speakerEn": "CHARLOTTE",
-        "prompt": "那就吃块饼干吧。多吃点，少抽点！",
-        "answer": "Have a biscuit instead. Eat more and smoke less!"
+        "prompt": "那就吃块饼干吧。",
+        "answer": "Have a biscuit instead."
       },
       {
-        "id": "lesson-109-16",
+        "id": "lesson-109-21",
+        "lesson": 109,
+        "lessonTitle": "A good idea",
+        "speakerZh": "夏洛特",
+        "speakerEn": "CHARLOTTE",
+        "prompt": "多吃点，少抽点！",
+        "answer": "Eat more and smoke less!"
+      },
+      {
+        "id": "lesson-109-22",
         "lesson": 109,
         "lessonTitle": "A good idea",
         "speakerZh": "简",
@@ -6513,26 +8250,26 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The most expensive model",
         "speakerZh": "弗里斯先生",
         "speakerEn": "MR. FRITH",
-        "prompt": "我非常喜欢这台电视机。请问它多少钱？",
-        "answer": "I like this television very much. How much does it cost?"
+        "prompt": "我非常喜欢这台电视机。",
+        "answer": "I like this television very much."
       },
       {
         "id": "lesson-111-2",
         "lesson": 111,
         "lessonTitle": "The most expensive model",
-        "speakerZh": "店员",
-        "speakerEn": "ASSISTANT",
-        "prompt": "这是店里最贵的型号。它的售价是500英镑。",
-        "answer": "It's the most expensive model in the shop. It costs five hundred pounds."
+        "speakerZh": "弗里斯先生",
+        "speakerEn": "MR. FRITH",
+        "prompt": "请问它多少钱？",
+        "answer": "How much does it cost?"
       },
       {
         "id": "lesson-111-3",
         "lesson": 111,
         "lessonTitle": "The most expensive model",
-        "speakerZh": "弗里斯夫人",
-        "speakerEn": "MRS. FRITH",
-        "prompt": "这对我们来说是太贵了。我们花不起那么多钱。",
-        "answer": "That's too expensive for us. We can't afford all that money."
+        "speakerZh": "店员",
+        "speakerEn": "ASSISTANT",
+        "prompt": "这是店里最贵的型号。",
+        "answer": "It's the most expensive model in the shop."
       },
       {
         "id": "lesson-111-4",
@@ -6540,20 +8277,74 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The most expensive model",
         "speakerZh": "店员",
         "speakerEn": "ASSISTANT",
-        "prompt": "这种型号的比那种要便宜些。它只要300英镑。但是，它当然没有价钱高的那种好。",
-        "answer": "This model's less expensive than that one. It's only three hundred pounds. But, of course, it's not as good as the expensive one."
+        "prompt": "它的售价是500英镑。",
+        "answer": "It costs five hundred pounds."
       },
       {
         "id": "lesson-111-5",
         "lesson": 111,
         "lessonTitle": "The most expensive model",
-        "speakerZh": "弗里斯先生",
-        "speakerEn": "MR. FRITH",
-        "prompt": "我不喜欢这种型号。那一种型号价格是贵一些，但它值这么多钱。",
-        "answer": "I don't like this model. The other model's more expensive, but it's worth the money."
+        "speakerZh": "弗里斯夫人",
+        "speakerEn": "MRS. FRITH",
+        "prompt": "这对我们来说是太贵了。",
+        "answer": "That's too expensive for us."
       },
       {
         "id": "lesson-111-6",
+        "lesson": 111,
+        "lessonTitle": "The most expensive model",
+        "speakerZh": "弗里斯夫人",
+        "speakerEn": "MRS. FRITH",
+        "prompt": "我们花不起那么多钱。",
+        "answer": "We can't afford all that money."
+      },
+      {
+        "id": "lesson-111-7",
+        "lesson": 111,
+        "lessonTitle": "The most expensive model",
+        "speakerZh": "店员",
+        "speakerEn": "ASSISTANT",
+        "prompt": "这种型号的比那种要便宜些。",
+        "answer": "This model's less expensive than that one."
+      },
+      {
+        "id": "lesson-111-8",
+        "lesson": 111,
+        "lessonTitle": "The most expensive model",
+        "speakerZh": "店员",
+        "speakerEn": "ASSISTANT",
+        "prompt": "它只要300英镑。",
+        "answer": "It's only three hundred pounds."
+      },
+      {
+        "id": "lesson-111-9",
+        "lesson": 111,
+        "lessonTitle": "The most expensive model",
+        "speakerZh": "店员",
+        "speakerEn": "ASSISTANT",
+        "prompt": "但是，它当然没有价钱高的那种好。",
+        "answer": "But, of course, it's not as good as the expensive one."
+      },
+      {
+        "id": "lesson-111-10",
+        "lesson": 111,
+        "lessonTitle": "The most expensive model",
+        "speakerZh": "弗里斯先生",
+        "speakerEn": "MR. FRITH",
+        "prompt": "我不喜欢这种型号。",
+        "answer": "I don't like this model."
+      },
+      {
+        "id": "lesson-111-11",
+        "lesson": 111,
+        "lessonTitle": "The most expensive model",
+        "speakerZh": "弗里斯先生",
+        "speakerEn": "MR. FRITH",
+        "prompt": "那一种型号价格是贵一些，但它值这么多钱。",
+        "answer": "The other model's more expensive, but it's worth the money."
+      },
+      {
+        "id": "lesson-111-12",
         "lesson": 111,
         "lessonTitle": "The most expensive model",
         "speakerZh": "弗里斯先生",
@@ -6562,7 +8353,7 @@ export const lessons: Lesson[] = [
         "answer": "Can we buy it on instalments?"
       },
       {
-        "id": "lesson-111-7",
+        "id": "lesson-111-13",
         "lesson": 111,
         "lessonTitle": "The most expensive model",
         "speakerZh": "店员",
@@ -6571,7 +8362,7 @@ export const lessons: Lesson[] = [
         "answer": "Of course. You can pay a deposit of thirty pounds, and then fourteen pounds a month for three years."
       },
       {
-        "id": "lesson-111-8",
+        "id": "lesson-111-14",
         "lesson": 111,
         "lessonTitle": "The most expensive model",
         "speakerZh": "弗里斯先生",
@@ -6580,16 +8371,34 @@ export const lessons: Lesson[] = [
         "answer": "Do you like it, dear?"
       },
       {
-        "id": "lesson-111-9",
+        "id": "lesson-111-15",
         "lesson": 111,
         "lessonTitle": "The most expensive model",
         "speakerZh": "弗里斯夫人",
         "speakerEn": "MRS. FRITH",
-        "prompt": "我当然喜欢，但是我不喜欢这个价钱。你总是要买最好的，可我们买不起。有时候你认为自己是个百万富翁！",
-        "answer": "I certainly do, but I don't like the price. You always want the best, but we can't afford it. Sometimes you think you're a millionaire!"
+        "prompt": "我当然喜欢，但是我不喜欢这个价钱。",
+        "answer": "I certainly do, but I don't like the price."
       },
       {
-        "id": "lesson-111-10",
+        "id": "lesson-111-16",
+        "lesson": 111,
+        "lessonTitle": "The most expensive model",
+        "speakerZh": "弗里斯夫人",
+        "speakerEn": "MRS. FRITH",
+        "prompt": "你总是要买最好的，可我们买不起。",
+        "answer": "You always want the best, but we can't afford it."
+      },
+      {
+        "id": "lesson-111-17",
+        "lesson": 111,
+        "lessonTitle": "The most expensive model",
+        "speakerZh": "弗里斯夫人",
+        "speakerEn": "MRS. FRITH",
+        "prompt": "有时候你认为自己是个百万富翁！",
+        "answer": "Sometimes you think you're a millionaire!"
+      },
+      {
+        "id": "lesson-111-18",
         "lesson": 111,
         "lessonTitle": "The most expensive model",
         "speakerZh": "弗里斯先生",
@@ -6630,11 +8439,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Small change",
         "speakerZh": "售票员",
         "speakerEn": "CONDUCTOR",
-        "prompt": "对不起，我找不开10英镑的钞票。您没有零钱吗？",
-        "answer": "I'm sorry, sir. I can't change a ten-pound note. Haven't you got any small change?"
+        "prompt": "对不起，我找不开10英镑的钞票。",
+        "answer": "I'm sorry, sir. I can't change a ten-pound note."
       },
       {
         "id": "lesson-113-4",
+        "lesson": 113,
+        "lessonTitle": "Small change",
+        "speakerZh": "售票员",
+        "speakerEn": "CONDUCTOR",
+        "prompt": "您没有零钱吗？",
+        "answer": "Haven't you got any small change?"
+      },
+      {
+        "id": "lesson-113-5",
         "lesson": 113,
         "lessonTitle": "Small change",
         "speakerZh": "男子",
@@ -6643,7 +8461,7 @@ export const lessons: Lesson[] = [
         "answer": "I've got no small change, I'm afraid."
       },
       {
-        "id": "lesson-113-5",
+        "id": "lesson-113-6",
         "lesson": 113,
         "lessonTitle": "Small change",
         "speakerZh": "售票员",
@@ -6652,7 +8470,7 @@ export const lessons: Lesson[] = [
         "answer": "I'll ask some of the passengers."
       },
       {
-        "id": "lesson-113-6",
+        "id": "lesson-113-7",
         "lesson": 113,
         "lessonTitle": "Small change",
         "speakerZh": "售票员",
@@ -6661,25 +8479,25 @@ export const lessons: Lesson[] = [
         "answer": "Have you any small change, sir?"
       },
       {
-        "id": "lesson-113-7",
+        "id": "lesson-113-8",
         "lesson": 113,
         "lessonTitle": "Small change",
         "speakerZh": "乘客1",
-        "speakerEn": "Ist PASSENGER",
+        "speakerEn": "1ST PASSENGER",
         "prompt": "对不起，我没有。",
         "answer": "I'm sorry. I've got none."
       },
       {
-        "id": "lesson-113-8",
+        "id": "lesson-113-9",
         "lesson": 113,
         "lessonTitle": "Small change",
         "speakerZh": "乘客2",
-        "speakerEn": "2nd PASSENGER",
+        "speakerEn": "2ND PASSENGER",
         "prompt": "我也没有。",
         "answer": "I haven't got any either."
       },
       {
-        "id": "lesson-113-9",
+        "id": "lesson-113-10",
         "lesson": 113,
         "lessonTitle": "Small change",
         "speakerZh": "售票员",
@@ -6688,34 +8506,61 @@ export const lessons: Lesson[] = [
         "answer": "Can you change this ten-pound note, madam?"
       },
       {
-        "id": "lesson-113-10",
-        "lesson": 113,
-        "lessonTitle": "Small change",
-        "speakerZh": "乘客3",
-        "speakerEn": "3rd PASSENGER",
-        "prompt": "恐怕不能。",
-        "answer": "I'm afraid I can't."
-      },
-      {
         "id": "lesson-113-11",
         "lesson": 113,
         "lessonTitle": "Small change",
-        "speakerZh": "乘客4",
-        "speakerEn": "4th PASSENGER",
-        "prompt": "我也不能。",
-        "answer": "Neither can I."
+        "speakerZh": "乘客3",
+        "speakerEn": "3RD PASSENGER",
+        "prompt": "恐怕不能。",
+        "answer": "I'm afraid I can't."
       },
       {
         "id": "lesson-113-12",
         "lesson": 113,
         "lessonTitle": "Small change",
-        "speakerZh": "售票员",
-        "speakerEn": "CONDUCTOR",
-        "prompt": "非常抱歉，先生。您必须下车。我们的乘客中没人能换开这张钞票。他们都是百万富翁！",
-        "answer": "I'm very sorry, sir. You must get off the bus. None of our passengers can change this note. They're all millionaires!"
+        "speakerZh": "乘客4",
+        "speakerEn": "4TH PASSENGER",
+        "prompt": "我也不能。",
+        "answer": "Neither can I."
       },
       {
         "id": "lesson-113-13",
+        "lesson": 113,
+        "lessonTitle": "Small change",
+        "speakerZh": "售票员",
+        "speakerEn": "CONDUCTOR",
+        "prompt": "非常抱歉，先生。",
+        "answer": "I'm very sorry, sir."
+      },
+      {
+        "id": "lesson-113-14",
+        "lesson": 113,
+        "lessonTitle": "Small change",
+        "speakerZh": "售票员",
+        "speakerEn": "CONDUCTOR",
+        "prompt": "您必须下车。",
+        "answer": "You must get off the bus."
+      },
+      {
+        "id": "lesson-113-15",
+        "lesson": 113,
+        "lessonTitle": "Small change",
+        "speakerZh": "售票员",
+        "speakerEn": "CONDUCTOR",
+        "prompt": "我们的乘客中没人能换开这张钞票。",
+        "answer": "None of our passengers can change this note."
+      },
+      {
+        "id": "lesson-113-16",
+        "lesson": 113,
+        "lessonTitle": "Small change",
+        "speakerZh": "售票员",
+        "speakerEn": "CONDUCTOR",
+        "prompt": "他们都是百万富翁！",
+        "answer": "They're all millionaires!"
+      },
+      {
+        "id": "lesson-113-17",
         "lesson": 113,
         "lessonTitle": "Small change",
         "speakerZh": "两个流浪汉",
@@ -6724,20 +8569,20 @@ export const lessons: Lesson[] = [
         "answer": "Except us."
       },
       {
-        "id": "lesson-113-14",
+        "id": "lesson-113-18",
         "lesson": 113,
         "lessonTitle": "Small change",
         "speakerZh": "流浪汉1",
-        "speakerEn": "1st TRAMP",
+        "speakerEn": "1ST TRAMP",
         "prompt": "我有零钱。",
         "answer": "I've got some small change."
       },
       {
-        "id": "lesson-113-15",
+        "id": "lesson-113-19",
         "lesson": 113,
         "lessonTitle": "Small change",
         "speakerZh": "流浪汉2",
-        "speakerEn": "2nd TRAMP",
+        "speakerEn": "2ND TRAMP",
         "prompt": "我也有。",
         "answer": "So have I."
       }
@@ -6765,20 +8610,47 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Knock, knock!",
         "speakerZh": "吉姆",
         "speakerEn": "JIM",
-        "prompt": "海伦，我再敲一次。毫无动静，肯定家里没有人。",
-        "answer": "I'll knock again, Helen. Everything's very quiet. I'm sure there's no one at home."
+        "prompt": "海伦，我再敲一次。",
+        "answer": "I'll knock again, Helen."
       },
       {
         "id": "lesson-115-3",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
-        "speakerZh": "海伦",
-        "speakerEn": "HELEN",
-        "prompt": "但这是不可能的。卡罗尔和汤姆请我们来吃午饭。从窗子往里看看。",
-        "answer": "But that's impossible. Carol and Tom invited us to lunch. Look through the window."
+        "speakerZh": "吉姆",
+        "speakerEn": "JIM",
+        "prompt": "毫无动静，肯定家里没有人。",
+        "answer": "Everything's very quiet. I'm sure there's no one at home."
       },
       {
         "id": "lesson-115-4",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "海伦",
+        "speakerEn": "HELEN",
+        "prompt": "但这是不可能的。",
+        "answer": "But that's impossible."
+      },
+      {
+        "id": "lesson-115-5",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "海伦",
+        "speakerEn": "HELEN",
+        "prompt": "卡罗尔和汤姆请我们来吃午饭。",
+        "answer": "Carol and Tom invited us to lunch."
+      },
+      {
+        "id": "lesson-115-6",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "海伦",
+        "speakerEn": "HELEN",
+        "prompt": "从窗子往里看看。",
+        "answer": "Look through the window."
+      },
+      {
+        "id": "lesson-115-7",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "海伦",
@@ -6787,7 +8659,7 @@ export const lessons: Lesson[] = [
         "answer": "Can you see anything?"
       },
       {
-        "id": "lesson-115-5",
+        "id": "lesson-115-8",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "吉姆",
@@ -6796,7 +8668,7 @@ export const lessons: Lesson[] = [
         "answer": "Nothing at all."
       },
       {
-        "id": "lesson-115-6",
+        "id": "lesson-115-9",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "海伦",
@@ -6805,34 +8677,61 @@ export const lessons: Lesson[] = [
         "answer": "Let's try the back door."
       },
       {
-        "id": "lesson-115-7",
+        "id": "lesson-115-10",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "吉姆",
         "speakerEn": "JIM",
-        "prompt": "瞧！大家都在花园里。",
-        "answer": "Look! Everyone's in the garden."
+        "prompt": "瞧！",
+        "answer": "Look!"
       },
       {
-        "id": "lesson-115-8",
+        "id": "lesson-115-11",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "吉姆",
+        "speakerEn": "JIM",
+        "prompt": "大家都在花园里。",
+        "answer": "Everyone's in the garden."
+      },
+      {
+        "id": "lesson-115-12",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "卡罗尔",
         "speakerEn": "CAROL",
-        "prompt": "你好，海伦。你好，吉姆。",
-        "answer": "Hello, Helen. Hello, Jim."
+        "prompt": "你好，海伦。",
+        "answer": "Hello, Helen."
       },
       {
-        "id": "lesson-115-9",
+        "id": "lesson-115-13",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "你好，吉姆。",
+        "answer": "Hello, Jim."
+      },
+      {
+        "id": "lesson-115-14",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "汤姆",
         "speakerEn": "TOM",
-        "prompt": "大家都想在花园里吃午饭。这外面挺暖和。",
-        "answer": "Everybody wants to have lunch in the garden. It's nice and warm out here."
+        "prompt": "大家都想在花园里吃午饭。",
+        "answer": "Everybody wants to have lunch in the garden."
       },
       {
-        "id": "lesson-115-10",
+        "id": "lesson-115-15",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "汤姆",
+        "speakerEn": "TOM",
+        "prompt": "这外面挺暖和。",
+        "answer": "It's nice and warm out here."
+      },
+      {
+        "id": "lesson-115-16",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "卡罗尔",
@@ -6841,25 +8740,52 @@ export const lessons: Lesson[] = [
         "answer": "Come and have something to drink."
       },
       {
-        "id": "lesson-115-11",
+        "id": "lesson-115-17",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "吉姆",
         "speakerEn": "JIM",
-        "prompt": "谢谢，卡罗尔。给我一杯啤酒好吗？",
-        "answer": "Thanks, Carol. May I have a glass of beer please?"
+        "prompt": "谢谢，卡罗尔。",
+        "answer": "Thanks, Carol."
       },
       {
-        "id": "lesson-115-12",
+        "id": "lesson-115-18",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "吉姆",
+        "speakerEn": "JIM",
+        "prompt": "给我一杯啤酒好吗？",
+        "answer": "May I have a glass of beer please?"
+      },
+      {
+        "id": "lesson-115-19",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "卡罗尔",
         "speakerEn": "CAROL",
-        "prompt": "啤酒？一点都不剩了。你可以喝点柠檬水。",
-        "answer": "Beer? There's none left. You can have some lemonade."
+        "prompt": "啤酒？",
+        "answer": "Beer?"
       },
       {
-        "id": "lesson-115-13",
+        "id": "lesson-115-20",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "一点都不剩了。",
+        "answer": "There's none left."
+      },
+      {
+        "id": "lesson-115-21",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "卡罗尔",
+        "speakerEn": "CAROL",
+        "prompt": "你可以喝点柠檬水。",
+        "answer": "You can have some lemonade."
+      },
+      {
+        "id": "lesson-115-22",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "吉姆",
@@ -6868,13 +8794,31 @@ export const lessons: Lesson[] = [
         "answer": "Lemonade!"
       },
       {
-        "id": "lesson-115-14",
+        "id": "lesson-115-23",
         "lesson": 115,
         "lessonTitle": "Knock, knock!",
         "speakerZh": "汤姆",
         "speakerEn": "TOM",
-        "prompt": "吉姆，别信她的。她只是在开玩笑。喝点啤酒吧！",
-        "answer": "Don't believe her, Jim. She's only joking. Have some beer!"
+        "prompt": "吉姆，别信她的。",
+        "answer": "Don't believe her, Jim."
+      },
+      {
+        "id": "lesson-115-24",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "汤姆",
+        "speakerEn": "TOM",
+        "prompt": "她只是在开玩笑。",
+        "answer": "She's only joking."
+      },
+      {
+        "id": "lesson-115-25",
+        "lesson": 115,
+        "lessonTitle": "Knock, knock!",
+        "speakerZh": "汤姆",
+        "speakerEn": "TOM",
+        "prompt": "喝点啤酒吧！",
+        "answer": "Have some beer!"
       }
     ]
   },
@@ -6982,7 +8926,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "我不知道，我回答说，今天上午汤米去了3次厕所了，但我还没看到硬币！",
-        "answer": "'I don't know,' I answered, 'Tommy's been to the toilet three times this morning, but I haven't had any change yet!'"
+        "answer": "'I don't know, ' I answered, 'Tommy's been to the toilet three times this morning, but I haven't had any change yet!'"
       }
     ]
   },
@@ -7126,7 +9070,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "没事，亨利。",
-        "answer": "'Nothing, Henry,' George said and smiled."
+        "answer": "'Nothing, Henry, ' George said and smiled."
       },
       {
         "id": "lesson-119-16",
@@ -7197,20 +9141,38 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The man in a hat",
         "speakerZh": "经理",
         "speakerEn": "MANAGER",
-        "prompt": "卡罗琳，半小时前你接待过这位先生吗？他说他就是买这两本书的人。",
-        "answer": "Did you serve this gentleman half an hour ago, Caroline? He says he's the man who bought these books."
+        "prompt": "卡罗琳，半小时前你接待过这位先生吗？",
+        "answer": "Did you serve this gentleman half an hour ago, Caroline?"
       },
       {
         "id": "lesson-121-7",
         "lesson": 121,
         "lessonTitle": "The man in a hat",
-        "speakerZh": "卡罗琳",
-        "speakerEn": "CAROLINE",
-        "prompt": "我记不起来了。我接待的那个人戴着一顶帽子，",
-        "answer": "I can't remember. The man who I served was wearing a hat."
+        "speakerZh": "经理",
+        "speakerEn": "MANAGER",
+        "prompt": "他说他就是买这两本书的人。",
+        "answer": "He says he's the man who bought these books."
       },
       {
         "id": "lesson-121-8",
+        "lesson": 121,
+        "lessonTitle": "The man in a hat",
+        "speakerZh": "卡罗琳",
+        "speakerEn": "CAROLINE",
+        "prompt": "我记不起来了。",
+        "answer": "I can't remember."
+      },
+      {
+        "id": "lesson-121-9",
+        "lesson": 121,
+        "lessonTitle": "The man in a hat",
+        "speakerZh": "卡罗琳",
+        "speakerEn": "CAROLINE",
+        "prompt": "我接待的那个人戴着一顶帽子，",
+        "answer": "The man who I served was wearing a hat."
+      },
+      {
+        "id": "lesson-121-10",
         "lesson": 121,
         "lessonTitle": "The man in a hat",
         "speakerZh": "经理",
@@ -7219,7 +9181,7 @@ export const lessons: Lesson[] = [
         "answer": "Have you got a hat, sir?"
       },
       {
-        "id": "lesson-121-9",
+        "id": "lesson-121-11",
         "lesson": 121,
         "lessonTitle": "The man in a hat",
         "speakerZh": "顾客",
@@ -7228,7 +9190,7 @@ export const lessons: Lesson[] = [
         "answer": "Yes, I have."
       },
       {
-        "id": "lesson-121-10",
+        "id": "lesson-121-12",
         "lesson": 121,
         "lessonTitle": "The man in a hat",
         "speakerZh": "经理",
@@ -7237,7 +9199,7 @@ export const lessons: Lesson[] = [
         "answer": "Would you put it on, please?"
       },
       {
-        "id": "lesson-121-11",
+        "id": "lesson-121-13",
         "lesson": 121,
         "lessonTitle": "The man in a hat",
         "speakerZh": "顾客",
@@ -7246,7 +9208,7 @@ export const lessons: Lesson[] = [
         "answer": "All right."
       },
       {
-        "id": "lesson-121-12",
+        "id": "lesson-121-14",
         "lesson": 121,
         "lessonTitle": "The man in a hat",
         "speakerZh": "经理",
@@ -7255,13 +9217,22 @@ export const lessons: Lesson[] = [
         "answer": "Is this the man that you served, Caroline?"
       },
       {
-        "id": "lesson-121-13",
+        "id": "lesson-121-15",
         "lesson": 121,
         "lessonTitle": "The man in a hat",
         "speakerZh": "卡罗琳",
         "speakerEn": "CAROLINE",
-        "prompt": "是他。我现在认出他来了。",
-        "answer": "Yes. I recognize him now."
+        "prompt": "是他。",
+        "answer": "Yes."
+      },
+      {
+        "id": "lesson-121-16",
+        "lesson": 121,
+        "lessonTitle": "The man in a hat",
+        "speakerZh": "卡罗琳",
+        "speakerEn": "CAROLINE",
+        "prompt": "我现在认出他来了。",
+        "answer": "I recognize him now."
       }
     ]
   },
@@ -7296,11 +9267,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A trip to Australia",
         "speakerZh": "斯科特",
         "speakerEn": "SCOTT",
-        "prompt": "这是一张很好的照片。这些人是谁？",
-        "answer": "This is a good photograph. Who are these people?"
+        "prompt": "这是一张很好的照片。",
+        "answer": "This is a good photograph."
       },
       {
         "id": "lesson-123-4",
+        "lesson": 123,
+        "lessonTitle": "A trip to Australia",
+        "speakerZh": "斯科特",
+        "speakerEn": "SCOTT",
+        "prompt": "这些人是谁？",
+        "answer": "Who are these people?"
+      },
+      {
+        "id": "lesson-123-5",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "迈克",
@@ -7309,7 +9289,7 @@ export const lessons: Lesson[] = [
         "answer": "They're people I met during the trip."
       },
       {
-        "id": "lesson-123-5",
+        "id": "lesson-123-6",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "迈克",
@@ -7318,7 +9298,7 @@ export const lessons: Lesson[] = [
         "answer": "That's the ship we travelled on."
       },
       {
-        "id": "lesson-123-6",
+        "id": "lesson-123-7",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "斯科特",
@@ -7327,7 +9307,7 @@ export const lessons: Lesson[] = [
         "answer": "What a beautiful ship!"
       },
       {
-        "id": "lesson-123-7",
+        "id": "lesson-123-8",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "斯科特",
@@ -7336,25 +9316,43 @@ export const lessons: Lesson[] = [
         "answer": "Who's this?"
       },
       {
-        "id": "lesson-123-8",
+        "id": "lesson-123-9",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "迈克",
         "speakerEn": "MIKE",
-        "prompt": "这就是我跟你说过的那个人。还记得吗？",
-        "answer": "That's the man I told you about. Remember?"
+        "prompt": "这就是我跟你说过的那个人。",
+        "answer": "That's the man I told you about."
       },
       {
-        "id": "lesson-123-9",
+        "id": "lesson-123-10",
+        "lesson": 123,
+        "lessonTitle": "A trip to Australia",
+        "speakerZh": "迈克",
+        "speakerEn": "MIKE",
+        "prompt": "还记得吗？",
+        "answer": "Remember?"
+      },
+      {
+        "id": "lesson-123-11",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "斯科特",
         "speakerEn": "SCOTT",
-        "prompt": "啊，记得。就是在澳大利亚给你工作做的那个人。",
-        "answer": "Ah yes. The one who offered you a job in Australia."
+        "prompt": "啊，记得。",
+        "answer": "Ah yes."
       },
       {
-        "id": "lesson-123-10",
+        "id": "lesson-123-12",
+        "lesson": 123,
+        "lessonTitle": "A trip to Australia",
+        "speakerZh": "斯科特",
+        "speakerEn": "SCOTT",
+        "prompt": "就是在澳大利亚给你工作做的那个人。",
+        "answer": "The one who offered you a job in Australia."
+      },
+      {
+        "id": "lesson-123-13",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "迈克",
@@ -7363,7 +9361,7 @@ export const lessons: Lesson[] = [
         "answer": "That's right."
       },
       {
-        "id": "lesson-123-11",
+        "id": "lesson-123-14",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "斯科特",
@@ -7372,7 +9370,7 @@ export const lessons: Lesson[] = [
         "answer": "Who's this?"
       },
       {
-        "id": "lesson-123-12",
+        "id": "lesson-123-15",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "迈克",
@@ -7381,7 +9379,7 @@ export const lessons: Lesson[] = [
         "answer": "Guess!"
       },
       {
-        "id": "lesson-123-13",
+        "id": "lesson-123-16",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "斯科特",
@@ -7390,7 +9388,7 @@ export const lessons: Lesson[] = [
         "answer": "It's not you, is it?"
       },
       {
-        "id": "lesson-123-14",
+        "id": "lesson-123-17",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "迈克",
@@ -7399,7 +9397,7 @@ export const lessons: Lesson[] = [
         "answer": "That's right."
       },
       {
-        "id": "lesson-123-15",
+        "id": "lesson-123-18",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "迈克",
@@ -7408,7 +9406,7 @@ export const lessons: Lesson[] = [
         "answer": "I grew a beard during the trip, but I shaved it off when I came home."
       },
       {
-        "id": "lesson-123-16",
+        "id": "lesson-123-19",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "斯科特",
@@ -7417,7 +9415,7 @@ export const lessons: Lesson[] = [
         "answer": "Why did you shave it off?"
       },
       {
-        "id": "lesson-123-17",
+        "id": "lesson-123-20",
         "lesson": 123,
         "lessonTitle": "A trip to Australia",
         "speakerZh": "迈克",
@@ -7449,11 +9447,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Tea for two",
         "speakerZh": "彼得",
         "speakerEn": "PETER",
-        "prompt": "还不能。我得先给花园浇水。",
-        "answer": "Not yet. I must water the garden first."
+        "prompt": "还不能。",
+        "answer": "Not yet."
       },
       {
         "id": "lesson-125-3",
+        "lesson": 125,
+        "lessonTitle": "Tea for two",
+        "speakerZh": "彼得",
+        "speakerEn": "PETER",
+        "prompt": "我得先给花园浇水。",
+        "answer": "I must water the garden first."
+      },
+      {
+        "id": "lesson-125-4",
         "lesson": 125,
         "lessonTitle": "Tea for two",
         "speakerZh": "苏珊",
@@ -7462,16 +9469,25 @@ export const lessons: Lesson[] = [
         "answer": "Do you have to water it now?"
       },
       {
-        "id": "lesson-125-4",
+        "id": "lesson-125-5",
         "lesson": 125,
         "lessonTitle": "Tea for two",
         "speakerZh": "彼得",
         "speakerEn": "PETER",
-        "prompt": "恐怕我得现在浇。你看看，干得厉害。",
-        "answer": "I'm afraid I must. Look at it! It's terribly dry."
+        "prompt": "恐怕我得现在浇。",
+        "answer": "I'm afraid I must."
       },
       {
-        "id": "lesson-125-5",
+        "id": "lesson-125-6",
+        "lesson": 125,
+        "lessonTitle": "Tea for two",
+        "speakerZh": "彼得",
+        "speakerEn": "PETER",
+        "prompt": "你看看，干得厉害。",
+        "answer": "Look at it! It's terribly dry."
+      },
+      {
+        "id": "lesson-125-7",
         "lesson": 125,
         "lessonTitle": "Tea for two",
         "speakerZh": "苏珊",
@@ -7480,16 +9496,34 @@ export const lessons: Lesson[] = [
         "answer": "What a nuisance!"
       },
       {
-        "id": "lesson-125-6",
+        "id": "lesson-125-8",
         "lesson": 125,
         "lessonTitle": "Tea for two",
         "speakerZh": "彼得",
         "speakerEn": "PETER",
-        "prompt": "去年夏天也是干得很。你不记得了吗？我不得不每天浇水。",
-        "answer": "Last summer it was very dry, too. Don't you remember? I had to water it every day."
+        "prompt": "去年夏天也是干得很。",
+        "answer": "Last summer it was very dry, too."
       },
       {
-        "id": "lesson-125-7",
+        "id": "lesson-125-9",
+        "lesson": 125,
+        "lessonTitle": "Tea for two",
+        "speakerZh": "彼得",
+        "speakerEn": "PETER",
+        "prompt": "你不记得了吗？",
+        "answer": "Don't you remember?"
+      },
+      {
+        "id": "lesson-125-10",
+        "lesson": 125,
+        "lessonTitle": "Tea for two",
+        "speakerZh": "彼得",
+        "speakerEn": "PETER",
+        "prompt": "我不得不每天浇水。",
+        "answer": "I had to water it every day."
+      },
+      {
+        "id": "lesson-125-11",
         "lesson": 125,
         "lessonTitle": "Tea for two",
         "speakerZh": "苏珊",
@@ -7498,40 +9532,76 @@ export const lessons: Lesson[] = [
         "answer": "Well, I'll have tea by myself."
       },
       {
-        "id": "lesson-125-8",
+        "id": "lesson-125-12",
         "lesson": 125,
         "lessonTitle": "Tea for two",
         "speakerZh": "苏珊",
         "speakerEn": "SUSAN",
-        "prompt": "好快啊！你已经浇完了？",
-        "answer": "That was quick! Have you finished already?"
+        "prompt": "好快啊！",
+        "answer": "That was quick!"
       },
       {
-        "id": "lesson-125-9",
-        "lesson": 125,
-        "lessonTitle": "Tea for two",
-        "speakerZh": "彼得",
-        "speakerEn": "PETER",
-        "prompt": "是的。你看看窗外。",
-        "answer": "Yes. Look out of the window."
-      },
-      {
-        "id": "lesson-125-10",
+        "id": "lesson-125-13",
         "lesson": 125,
         "lessonTitle": "Tea for two",
         "speakerZh": "苏珊",
         "speakerEn": "SUSAN",
-        "prompt": "下雨了！这就是说，你不必给花园浇水了。",
-        "answer": "It's raining! That means you don't need to water the garden."
+        "prompt": "你已经浇完了？",
+        "answer": "Have you finished already?"
       },
       {
-        "id": "lesson-125-11",
+        "id": "lesson-125-14",
         "lesson": 125,
         "lessonTitle": "Tea for two",
         "speakerZh": "彼得",
         "speakerEn": "PETER",
-        "prompt": "这是意想不到的好事。这意味着我反倒可以喝茶了。",
-        "answer": "That was a pleasant surprise. It means I can have tea, instead."
+        "prompt": "是的。",
+        "answer": "Yes."
+      },
+      {
+        "id": "lesson-125-15",
+        "lesson": 125,
+        "lessonTitle": "Tea for two",
+        "speakerZh": "彼得",
+        "speakerEn": "PETER",
+        "prompt": "你看看窗外。",
+        "answer": "Look out of the window."
+      },
+      {
+        "id": "lesson-125-16",
+        "lesson": 125,
+        "lessonTitle": "Tea for two",
+        "speakerZh": "苏珊",
+        "speakerEn": "SUSAN",
+        "prompt": "下雨了！",
+        "answer": "It's raining!"
+      },
+      {
+        "id": "lesson-125-17",
+        "lesson": 125,
+        "lessonTitle": "Tea for two",
+        "speakerZh": "苏珊",
+        "speakerEn": "SUSAN",
+        "prompt": "这就是说，你不必给花园浇水了。",
+        "answer": "That means you don't need to water the garden."
+      },
+      {
+        "id": "lesson-125-18",
+        "lesson": 125,
+        "lessonTitle": "Tea for two",
+        "speakerZh": "彼得",
+        "speakerEn": "PETER",
+        "prompt": "这是意想不到的好事。",
+        "answer": "That was a pleasant surprise."
+      },
+      {
+        "id": "lesson-125-19",
+        "lesson": 125,
+        "lessonTitle": "Tea for two",
+        "speakerZh": "彼得",
+        "speakerEn": "PETER",
+        "prompt": "这意味着我反倒可以喝茶了。",
+        "answer": "It means I can have tea, instead."
       }
     ]
   },
@@ -7566,11 +9636,20 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A famous actress",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "我也这样想。她旁边的那个人是谁？",
-        "answer": "I thought so. Who's that beside her?"
+        "prompt": "我也这样想。",
+        "answer": "I thought so."
       },
       {
         "id": "lesson-127-4",
+        "lesson": 127,
+        "lessonTitle": "A famous actress",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "她旁边的那个人是谁？",
+        "answer": "Who's that beside her?"
+      },
+      {
+        "id": "lesson-127-5",
         "lesson": 127,
         "lessonTitle": "A famous actress",
         "speakerZh": "莉兹",
@@ -7579,16 +9658,52 @@ export const lessons: Lesson[] = [
         "answer": "That must be Conrad Reeves."
       },
       {
-        "id": "lesson-127-5",
+        "id": "lesson-127-6",
         "lesson": 127,
         "lessonTitle": "A famous actress",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "康拉德·里弗斯，那个男演员吗？不可能是。让我再看一看。我想你是对的。他不是她的第3个丈夫吗？",
-        "answer": "Conrad Reeves, the actor? It can't be. Let me have another look. I think you're right! Isn't he her third husband?"
+        "prompt": "康拉德·里弗斯，那个男演员吗？",
+        "answer": "Conrad Reeves, the actor?"
       },
       {
-        "id": "lesson-127-6",
+        "id": "lesson-127-7",
+        "lesson": 127,
+        "lessonTitle": "A famous actress",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "不可能是。",
+        "answer": "It can't be."
+      },
+      {
+        "id": "lesson-127-8",
+        "lesson": 127,
+        "lessonTitle": "A famous actress",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "让我再看一看。",
+        "answer": "Let me have another look."
+      },
+      {
+        "id": "lesson-127-9",
+        "lesson": 127,
+        "lessonTitle": "A famous actress",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "我想你是对的。",
+        "answer": "I think you're right!"
+      },
+      {
+        "id": "lesson-127-10",
+        "lesson": 127,
+        "lessonTitle": "A famous actress",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "他不是她的第3个丈夫吗？",
+        "answer": "Isn't he her third husband?"
+      },
+      {
+        "id": "lesson-127-11",
         "lesson": 127,
         "lessonTitle": "A famous actress",
         "speakerZh": "莉兹",
@@ -7597,7 +9712,7 @@ export const lessons: Lesson[] = [
         "answer": "No. He must be her fourth or fifth."
       },
       {
-        "id": "lesson-127-7",
+        "id": "lesson-127-12",
         "lesson": 127,
         "lessonTitle": "A famous actress",
         "speakerZh": "凯特",
@@ -7606,16 +9721,25 @@ export const lessons: Lesson[] = [
         "answer": "Doesn't Karen Marsh look old!"
       },
       {
-        "id": "lesson-127-8",
+        "id": "lesson-127-13",
         "lesson": 127,
         "lessonTitle": "A famous actress",
         "speakerZh": "莉兹",
         "speakerEn": "LIZ",
-        "prompt": "是的，谁说不是呢！我从报上看到她是29岁，但她一定至少有40岁了。",
-        "answer": "She does, doesn't she! I read she's twenty-nine, but she must be at least forty."
+        "prompt": "是的，谁说不是呢！",
+        "answer": "She does, doesn't she!"
       },
       {
-        "id": "lesson-127-9",
+        "id": "lesson-127-14",
+        "lesson": 127,
+        "lessonTitle": "A famous actress",
+        "speakerZh": "莉兹",
+        "speakerEn": "LIZ",
+        "prompt": "我从报上看到她是29岁，但她一定至少有40岁了。",
+        "answer": "I read she's twenty-nine, but she must be at least forty."
+      },
+      {
+        "id": "lesson-127-15",
         "lesson": 127,
         "lessonTitle": "A famous actress",
         "speakerZh": "凯特",
@@ -7624,7 +9748,7 @@ export const lessons: Lesson[] = [
         "answer": "I'm sure she is."
       },
       {
-        "id": "lesson-127-10",
+        "id": "lesson-127-16",
         "lesson": 127,
         "lessonTitle": "A famous actress",
         "speakerZh": "莉兹",
@@ -7633,7 +9757,7 @@ export const lessons: Lesson[] = [
         "answer": "She was a famous actress when I was still at school."
       },
       {
-        "id": "lesson-127-11",
+        "id": "lesson-127-17",
         "lesson": 127,
         "lessonTitle": "A famous actress",
         "speakerZh": "凯特",
@@ -7642,13 +9766,22 @@ export const lessons: Lesson[] = [
         "answer": "That was a long time ago, wasn't it?"
       },
       {
-        "id": "lesson-127-12",
+        "id": "lesson-127-18",
         "lesson": 127,
         "lessonTitle": "A famous actress",
         "speakerZh": "莉兹",
         "speakerEn": "LIZ",
-        "prompt": "不，没有那么久。我自已现在还没29岁呢。",
-        "answer": "Not that long ago! I'm not more than twenty-nine myself."
+        "prompt": "不，没有那么久。",
+        "answer": "Not that long ago!"
+      },
+      {
+        "id": "lesson-127-19",
+        "lesson": 127,
+        "lessonTitle": "A famous actress",
+        "speakerZh": "莉兹",
+        "speakerEn": "LIZ",
+        "prompt": "我自已现在还没29岁呢。",
+        "answer": "I'm not more than twenty-nine myself."
       }
     ]
   },
@@ -7665,20 +9798,56 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "安",
         "speakerEn": "ANN",
-        "prompt": "瞧，加里！那个警察正朝你挥手呢。他要你停下来。",
-        "answer": "Look, Gary! That policeman's waving to you. He wants you to stop."
+        "prompt": "瞧，加里！",
+        "answer": "Look, Gary!"
       },
       {
         "id": "lesson-129-2",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
-        "speakerZh": "警察",
-        "speakerEn": "POLICEMAN",
-        "prompt": "你认为你现在是在哪儿？在赛车道上吗？你刚才一定是以每小时70英里的速度开车。",
-        "answer": "Where do you think you are? On a race track?. You must have been driving at seventy miles an hour."
+        "speakerZh": "安",
+        "speakerEn": "ANN",
+        "prompt": "那个警察正朝你挥手呢。",
+        "answer": "That policeman's waving to you."
       },
       {
         "id": "lesson-129-3",
+        "lesson": 129,
+        "lessonTitle": "Seventy miles an hour",
+        "speakerZh": "安",
+        "speakerEn": "ANN",
+        "prompt": "他要你停下来。",
+        "answer": "He wants you to stop."
+      },
+      {
+        "id": "lesson-129-4",
+        "lesson": 129,
+        "lessonTitle": "Seventy miles an hour",
+        "speakerZh": "警察",
+        "speakerEn": "POLICEMAN",
+        "prompt": "你认为你现在是在哪儿？",
+        "answer": "Where do you think you are?"
+      },
+      {
+        "id": "lesson-129-5",
+        "lesson": 129,
+        "lessonTitle": "Seventy miles an hour",
+        "speakerZh": "警察",
+        "speakerEn": "POLICEMAN",
+        "prompt": "在赛车道上吗？",
+        "answer": "On a race track?."
+      },
+      {
+        "id": "lesson-129-6",
+        "lesson": 129,
+        "lessonTitle": "Seventy miles an hour",
+        "speakerZh": "警察",
+        "speakerEn": "POLICEMAN",
+        "prompt": "你刚才一定是以每小时70英里的速度开车。",
+        "answer": "You must have been driving at seventy miles an hour."
+      },
+      {
+        "id": "lesson-129-7",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "加里",
@@ -7687,7 +9856,7 @@ export const lessons: Lesson[] = [
         "answer": "I can't have been."
       },
       {
-        "id": "lesson-129-4",
+        "id": "lesson-129-8",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "警察",
@@ -7696,7 +9865,7 @@ export const lessons: Lesson[] = [
         "answer": "I was doing eighty when I overtook you."
       },
       {
-        "id": "lesson-129-5",
+        "id": "lesson-129-9",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "警察",
@@ -7705,25 +9874,43 @@ export const lessons: Lesson[] = [
         "answer": "Didn't you see the speed limit?"
       },
       {
-        "id": "lesson-129-6",
+        "id": "lesson-129-10",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "加里",
         "speakerEn": "GARY",
-        "prompt": "恐怕我没有看见，警官。我一定是思想开小差了。",
-        "answer": "I'm afraid I didn't, officer. I must have been dreaming."
+        "prompt": "恐怕我没有看见，警官。",
+        "answer": "I'm afraid I didn't, officer."
       },
       {
-        "id": "lesson-129-7",
+        "id": "lesson-129-11",
+        "lesson": 129,
+        "lessonTitle": "Seventy miles an hour",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "我一定是思想开小差了。",
+        "answer": "I must have been dreaming."
+      },
+      {
+        "id": "lesson-129-12",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "安",
         "speakerEn": "ANN",
-        "prompt": "警官，他思想没有开小差。我刚才正告诉他开慢点。",
-        "answer": "He wasn't dreaming, officer. I was telling him to drive slowly."
+        "prompt": "警官，他思想没有开小差。",
+        "answer": "He wasn't dreaming, officer."
       },
       {
-        "id": "lesson-129-8",
+        "id": "lesson-129-13",
+        "lesson": 129,
+        "lessonTitle": "Seventy miles an hour",
+        "speakerZh": "安",
+        "speakerEn": "ANN",
+        "prompt": "我刚才正告诉他开慢点。",
+        "answer": "I was telling him to drive slowly."
+      },
+      {
+        "id": "lesson-129-14",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "加里",
@@ -7732,7 +9919,7 @@ export const lessons: Lesson[] = [
         "answer": "That's why I didn't see the sign."
       },
       {
-        "id": "lesson-129-9",
+        "id": "lesson-129-15",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "警察",
@@ -7741,25 +9928,43 @@ export const lessons: Lesson[] = [
         "answer": "Let me see your driving licence."
       },
       {
-        "id": "lesson-129-10",
+        "id": "lesson-129-16",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "警察",
         "speakerEn": "POLICEMAN",
-        "prompt": "这次我就不罚你款了。但你最好不要再开得这样快。",
-        "answer": "I won't charge you this time. But you'd better not do it again!"
+        "prompt": "这次我就不罚你款了。",
+        "answer": "I won't charge you this time."
       },
       {
-        "id": "lesson-129-11",
+        "id": "lesson-129-17",
+        "lesson": 129,
+        "lessonTitle": "Seventy miles an hour",
+        "speakerZh": "警察",
+        "speakerEn": "POLICEMAN",
+        "prompt": "但你最好不要再开得这样快。",
+        "answer": "But you'd better not do it again!"
+      },
+      {
+        "id": "lesson-129-18",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "加里",
         "speakerEn": "GARY",
-        "prompt": "谢谢您。我以后一定会多加注意。",
-        "answer": "Thank you. I'll certainly be more careful."
+        "prompt": "谢谢您。",
+        "answer": "Thank you."
       },
       {
-        "id": "lesson-129-12",
+        "id": "lesson-129-19",
+        "lesson": 129,
+        "lessonTitle": "Seventy miles an hour",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "我以后一定会多加注意。",
+        "answer": "I'll certainly be more careful."
+      },
+      {
+        "id": "lesson-129-20",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "安",
@@ -7768,7 +9973,7 @@ export const lessons: Lesson[] = [
         "answer": "I told you to drive slowly, Gary."
       },
       {
-        "id": "lesson-129-13",
+        "id": "lesson-129-21",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "加里",
@@ -7777,7 +9982,7 @@ export const lessons: Lesson[] = [
         "answer": "You always tell me to drive slowly, darling."
       },
       {
-        "id": "lesson-129-14",
+        "id": "lesson-129-22",
         "lesson": 129,
         "lessonTitle": "Seventy miles an hour",
         "speakerZh": "安",
@@ -7809,11 +10014,29 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Don't be so sure!",
         "speakerZh": "加里",
         "speakerEn": "GARY",
-        "prompt": "我们可能到国外去，但我不敢肯定。我妻子想到埃及去，我也想去那儿。我们还拿不定主意。",
-        "answer": "We may go abroad. I'm not sure. My wife wants to go to Egypt. I'd like to go there, too. We can't make up our minds."
+        "prompt": "我们可能到国外去，但我不敢肯定。",
+        "answer": "We may go abroad. I'm not sure."
       },
       {
         "id": "lesson-131-3",
+        "lesson": 131,
+        "lessonTitle": "Don't be so sure!",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "我妻子想到埃及去，我也想去那儿。",
+        "answer": "My wife wants to go to Egypt. I'd like to go there, too."
+      },
+      {
+        "id": "lesson-131-4",
+        "lesson": 131,
+        "lessonTitle": "Don't be so sure!",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "我们还拿不定主意。",
+        "answer": "We can't make up our minds."
+      },
+      {
+        "id": "lesson-131-5",
         "lesson": 131,
         "lessonTitle": "Don't be so sure!",
         "speakerZh": "马丁",
@@ -7822,7 +10045,7 @@ export const lessons: Lesson[] = [
         "answer": "Will you travel by sea or by air?"
       },
       {
-        "id": "lesson-131-4",
+        "id": "lesson-131-6",
         "lesson": 131,
         "lessonTitle": "Don't be so sure!",
         "speakerZh": "加里",
@@ -7831,7 +10054,7 @@ export const lessons: Lesson[] = [
         "answer": "We may travel by sea."
       },
       {
-        "id": "lesson-131-5",
+        "id": "lesson-131-7",
         "lesson": 131,
         "lessonTitle": "Don't be so sure!",
         "speakerZh": "马丁",
@@ -7840,7 +10063,7 @@ export const lessons: Lesson[] = [
         "answer": "It's cheaper, isn't it?"
       },
       {
-        "id": "lesson-131-6",
+        "id": "lesson-131-8",
         "lesson": 131,
         "lessonTitle": "Don't be so sure!",
         "speakerZh": "加里",
@@ -7849,7 +10072,7 @@ export const lessons: Lesson[] = [
         "answer": "It may be cheaper, but it takes a long time."
       },
       {
-        "id": "lesson-131-7",
+        "id": "lesson-131-9",
         "lesson": 131,
         "lessonTitle": "Don't be so sure!",
         "speakerZh": "马丁",
@@ -7858,13 +10081,49 @@ export const lessons: Lesson[] = [
         "answer": "I'm sure you'll enjoy yourselves."
       },
       {
-        "id": "lesson-131-8",
+        "id": "lesson-131-10",
         "lesson": 131,
         "lessonTitle": "Don't be so sure!",
         "speakerZh": "加里",
         "speakerEn": "GARY",
-        "prompt": "别那么肯定。我们可能哪里也去不成。我妻子总是担心这担心那的。谁来照看狗啦，谁来看管房子啦，谁来照料花园啦，我们每年都碰到这类问题。末了，我们呆在家里来照看一切。",
-        "answer": "Don't be so sure. We' might not go anywhere. My wife always worries too much. Who's going to look after the dog? Who's going to look after the house? Who's going to look after the garden? We have this problem every year. In the end, we stay at home and look after everything!"
+        "prompt": "别那么肯定。",
+        "answer": "Don't be so sure."
+      },
+      {
+        "id": "lesson-131-11",
+        "lesson": 131,
+        "lessonTitle": "Don't be so sure!",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "我们可能哪里也去不成。",
+        "answer": "We' might not go anywhere."
+      },
+      {
+        "id": "lesson-131-12",
+        "lesson": 131,
+        "lessonTitle": "Don't be so sure!",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "我妻子总是担心这担心那的。",
+        "answer": "My wife always worries too much."
+      },
+      {
+        "id": "lesson-131-13",
+        "lesson": 131,
+        "lessonTitle": "Don't be so sure!",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "谁来照看狗啦，谁来看管房子啦，谁来照料花园啦，我们每年都碰到这类问题。",
+        "answer": "Who's going to look after the dog? Who's going to look after the house? Who's going to look after the garden? We have this problem every year."
+      },
+      {
+        "id": "lesson-131-14",
+        "lesson": 131,
+        "lessonTitle": "Don't be so sure!",
+        "speakerZh": "加里",
+        "speakerEn": "GARY",
+        "prompt": "末了，我们呆在家里来照看一切。",
+        "answer": "In the end, we stay at home and look after everything!"
       }
     ]
   },
@@ -7908,20 +10167,119 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Sensational news!",
         "speakerZh": "马什小姐",
         "speakerEn": "MISS MARSH",
-        "prompt": "不，我不准备拍了。我准备退休了。我感觉累得很。我早就不想再拍片子了。",
-        "answer": "No, I'm not. I'm going to retire. I feel very tired. I don't want to make another film for a long time."
+        "prompt": "不，我不准备拍了。",
+        "answer": "No, I'm not."
       },
       {
         "id": "lesson-133-5",
         "lesson": 133,
         "lessonTitle": "Sensational news!",
-        "speakerZh": "凯特",
-        "speakerEn": "KATE / 'Karen Marsh",
-        "prompt": "我们买份报纸吧，莉兹。你听这段：卡伦·马什：爆炸性新闻！由本报记者艾伦·琼斯报导。卡伦·马什今天到达伦敦机场。她穿着一身蓝色的套装和一件貂皮大衣。她告诉我她刚拍完一部新片子。她说她不准备再拍电影了。她说她准备退休。她告诉记者她感到很疲劳，早就不想再拍电影了。\"",
-        "answer": "Let's buy a newspaper, Liz. Listen to this! Sensational News! By our reporter, Alan Jones. Karen Marsh arrived at London Airport today. She was wearing a blue dress and a mink coat. She told me she had just made a new film. She said she was not going to make another. She said she was going to retire. She told reporters she felt very tired and didn't want to make another film for a long time.'"
+        "speakerZh": "马什小姐",
+        "speakerEn": "MISS MARSH",
+        "prompt": "我准备退休了。",
+        "answer": "I'm going to retire."
       },
       {
         "id": "lesson-133-6",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "马什小姐",
+        "speakerEn": "MISS MARSH",
+        "prompt": "我感觉累得很。",
+        "answer": "I feel very tired."
+      },
+      {
+        "id": "lesson-133-7",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "马什小姐",
+        "speakerEn": "MISS MARSH",
+        "prompt": "我早就不想再拍片子了。",
+        "answer": "I don't want to make another film for a long time."
+      },
+      {
+        "id": "lesson-133-8",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "我们买份报纸吧，莉兹。",
+        "answer": "Let's buy a newspaper, Liz."
+      },
+      {
+        "id": "lesson-133-9",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "你听这段：卡伦·马什：爆炸性新闻！",
+        "answer": "Listen to this! 'Karen Marsh: Sensational News!"
+      },
+      {
+        "id": "lesson-133-10",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "你听这段：由本报记者艾伦·琼斯报导。",
+        "answer": "By our reporter, Alan Jones."
+      },
+      {
+        "id": "lesson-133-11",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "你听这段：卡伦·马什今天到达伦敦机场。",
+        "answer": "Karen Marsh arrived at London Airport today."
+      },
+      {
+        "id": "lesson-133-12",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "你听这段：她穿着一身蓝色的套装和一件貂皮大衣。",
+        "answer": "She was wearing a blue dress and a mink coat."
+      },
+      {
+        "id": "lesson-133-13",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "你听这段：她告诉我她刚拍完一部新片子。",
+        "answer": "She told me she had just made a new film."
+      },
+      {
+        "id": "lesson-133-14",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "你听这段：她说她不准备再拍电影了。",
+        "answer": "She said she was not going to make another."
+      },
+      {
+        "id": "lesson-133-15",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "你听这段：她说她准备退休。",
+        "answer": "She said she was going to retire."
+      },
+      {
+        "id": "lesson-133-16",
+        "lesson": 133,
+        "lessonTitle": "Sensational news!",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "你听这段：她告诉记者她感到很疲劳，早就不想再拍电影了。",
+        "answer": "She told reporters she felt very tired and didn't want to make another film for a long time.'"
+      },
+      {
+        "id": "lesson-133-17",
         "lesson": 133,
         "lessonTitle": "Sensational news!",
         "speakerZh": "莉兹",
@@ -7944,7 +10302,7 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The latest report",
         "speakerZh": "记者",
         "speakerEn": "REPORTER",
-        "prompt": "乌什小姐，您真的准备退休吗？",
+        "prompt": "马什小姐，您真的准备退休吗？",
         "answer": "Are you really going to retire, Miss Marsh?"
       },
       {
@@ -7953,11 +10311,38 @@ export const lessons: Lesson[] = [
         "lessonTitle": "The latest report",
         "speakerZh": "马什小姐",
         "speakerEn": "MISS MARSH",
-        "prompt": "有可能退。我还拿不定主意。我得间一下我的未婚夫。他不会再让我拍电影了。",
-        "answer": "I may. I can't make up my mind. I will have to ask my future husband. He won't let me make another film."
+        "prompt": "有可能退。",
+        "answer": "I may."
       },
       {
         "id": "lesson-135-3",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "马什小姐",
+        "speakerEn": "MISS MARSH",
+        "prompt": "我还拿不定主意。",
+        "answer": "I can't make up my mind."
+      },
+      {
+        "id": "lesson-135-4",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "马什小姐",
+        "speakerEn": "MISS MARSH",
+        "prompt": "我得问一下我的未婚夫。",
+        "answer": "I will have to ask my future husband."
+      },
+      {
+        "id": "lesson-135-5",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "马什小姐",
+        "speakerEn": "MISS MARSH",
+        "prompt": "他不会再让我拍电影了。",
+        "answer": "He won't let me make another film."
+      },
+      {
+        "id": "lesson-135-6",
         "lesson": 135,
         "lessonTitle": "The latest report",
         "speakerZh": "记者",
@@ -7966,25 +10351,106 @@ export const lessons: Lesson[] = [
         "answer": "Your future husband, Miss Marsh?"
       },
       {
-        "id": "lesson-135-4",
+        "id": "lesson-135-7",
         "lesson": 135,
         "lessonTitle": "The latest report",
         "speakerZh": "马什小姐",
         "speakerEn": "MISS MARSH",
-        "prompt": "是的，让我把他给你们介绍一下。他叫卡洛斯。下星期我们就要结婚了。",
-        "answer": "Yes. Let me introduce him to you. His name is Carlos. We're going to get married next week."
+        "prompt": "是的，让我把他给你们介绍一下。",
+        "answer": "Yes. Let me introduce him to you."
       },
       {
-        "id": "lesson-135-5",
+        "id": "lesson-135-8",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "马什小姐",
+        "speakerEn": "MISS MARSH",
+        "prompt": "他叫卡洛斯。",
+        "answer": "His name is Carlos."
+      },
+      {
+        "id": "lesson-135-9",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "马什小姐",
+        "speakerEn": "MISS MARSH",
+        "prompt": "下星期我们就要结婚了。",
+        "answer": "We're going to get married next week."
+      },
+      {
+        "id": "lesson-135-10",
         "lesson": 135,
         "lessonTitle": "The latest report",
         "speakerZh": "凯特",
-        "speakerEn": "KATE / Listen",
-        "prompt": "看啊，莉兹！这又有一篇关于卡伦·马什的报道。你听，卡伦·马什：最新消息。今天在伦敦旅馆，马什小姐告诉记者她可能要退休。她说她还拿不定主意。她说她得问问她的未婚夫。她说她的未婚夫不会再让她拍电影。然后她把我们介绍给卡洛斯，并告诉我们说他们下星期结婚。",
-        "answer": "Look, Liz! Here's another report about Karen Marsh. 'Karen Marsh: The latest. At her London Hotel today Miss Marsh told reporters she might retire. She said she couldn't make up her mind. She said she would have to ask her future husband. She said her future husband would not let her make another film. Then she introduced us to Carlos and told us they would get married next week.'"
+        "speakerEn": "KATE",
+        "prompt": "看啊，莉兹！",
+        "answer": "Look, Liz!"
       },
       {
-        "id": "lesson-135-6",
+        "id": "lesson-135-11",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "这又有一篇关于卡伦·马什的报道。",
+        "answer": "Here's another report about Karen Marsh."
+      },
+      {
+        "id": "lesson-135-12",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "你听，卡伦·马什：最新消息。",
+        "answer": "Listen: 'Karen Marsh: The latest."
+      },
+      {
+        "id": "lesson-135-13",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "今天在伦敦旅馆，马什小姐告诉记者她可能要退休。",
+        "answer": "At her London Hotel today Miss Marsh told reporters she might retire."
+      },
+      {
+        "id": "lesson-135-14",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "她说她还拿不定主意。",
+        "answer": "She said she couldn't make up her mind."
+      },
+      {
+        "id": "lesson-135-15",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "她说她得问问她的未婚夫。",
+        "answer": "She said she would have to ask her future husband."
+      },
+      {
+        "id": "lesson-135-16",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "她说她的未婚夫不会再让她拍电影。",
+        "answer": "She said her future husband would not let her make another film."
+      },
+      {
+        "id": "lesson-135-17",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "然后她把我们介绍给卡洛斯，并告诉我们说他们下星期结婚。",
+        "answer": "Then she introduced us to Carlos and told us they would get married next week.'"
+      },
+      {
+        "id": "lesson-135-18",
         "lesson": 135,
         "lessonTitle": "The latest report",
         "speakerZh": "莉兹",
@@ -7993,13 +10459,22 @@ export const lessons: Lesson[] = [
         "answer": "That's sensational news, isn't it, Kate?"
       },
       {
-        "id": "lesson-135-7",
+        "id": "lesson-135-19",
         "lesson": 135,
         "lessonTitle": "The latest report",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "当然啦。他将是她的第6个丈夫！",
-        "answer": "It certainly is. He'll be her sixth husband!"
+        "prompt": "当然啦。",
+        "answer": "It certainly is."
+      },
+      {
+        "id": "lesson-135-20",
+        "lesson": 135,
+        "lessonTitle": "The latest report",
+        "speakerZh": "凯特",
+        "speakerEn": "KATE",
+        "prompt": "他将是她的第6个丈夫！",
+        "answer": "He'll be her sixth husband!"
       }
     ]
   },
@@ -8025,20 +10500,47 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A pleasant dream",
         "speakerZh": "布赖恩",
         "speakerEn": "BRIAN",
-        "prompt": "是的。我这就做完了，朱莉。我敢肯定这星期我们会赢一点的。",
-        "answer": "Yes, I've nearly finished, Julie. I'm sure we'll win something this week."
+        "prompt": "是的。",
+        "answer": "Yes,"
       },
       {
         "id": "lesson-137-3",
         "lesson": 137,
         "lessonTitle": "A pleasant dream",
-        "speakerZh": "朱莉",
-        "speakerEn": "JULIE",
-        "prompt": "你老是那样说，但是我们从米没赢过！要是你赢了许多钱，你打算做什么呢？",
-        "answer": "You always say that, but we never win anything! What will you do if you win a lot of money?"
+        "speakerZh": "布赖恩",
+        "speakerEn": "BRIAN",
+        "prompt": "我这就做完了，朱莉。",
+        "answer": "I've nearly finished, Julie."
       },
       {
         "id": "lesson-137-4",
+        "lesson": 137,
+        "lessonTitle": "A pleasant dream",
+        "speakerZh": "布赖恩",
+        "speakerEn": "BRIAN",
+        "prompt": "我敢肯定这星期我们会赢一点的。",
+        "answer": "I'm sure we'll win something this week."
+      },
+      {
+        "id": "lesson-137-5",
+        "lesson": 137,
+        "lessonTitle": "A pleasant dream",
+        "speakerZh": "朱莉",
+        "speakerEn": "JULIE",
+        "prompt": "你老是那样说，但是我们从来没赢过！",
+        "answer": "You always say that, but we never win anything!"
+      },
+      {
+        "id": "lesson-137-6",
+        "lesson": 137,
+        "lessonTitle": "A pleasant dream",
+        "speakerZh": "朱莉",
+        "speakerEn": "JULIE",
+        "prompt": "要是你赢了许多钱，你打算做什么呢？",
+        "answer": "What will you do if you win a lot of money?"
+      },
+      {
+        "id": "lesson-137-7",
         "lesson": 137,
         "lessonTitle": "A pleasant dream",
         "speakerZh": "布赖恩",
@@ -8047,34 +10549,79 @@ export const lessons: Lesson[] = [
         "answer": "If I win a lot of money I'll buy you a mink coat."
       },
       {
-        "id": "lesson-137-5",
+        "id": "lesson-137-8",
         "lesson": 137,
         "lessonTitle": "A pleasant dream",
         "speakerZh": "朱莉",
         "speakerEn": "JULIE",
-        "prompt": "我不要貂皮大衣。我要去见见世面。",
-        "answer": "I don't want a mink coat! I want to see the world."
+        "prompt": "我不要貂皮大衣。",
+        "answer": "I don't want a mink coat!"
       },
       {
-        "id": "lesson-137-6",
+        "id": "lesson-137-9",
+        "lesson": 137,
+        "lessonTitle": "A pleasant dream",
+        "speakerZh": "朱莉",
+        "speakerEn": "JULIE",
+        "prompt": "我要去见见世面。",
+        "answer": "I want to see the world."
+      },
+      {
+        "id": "lesson-137-10",
         "lesson": 137,
         "lessonTitle": "A pleasant dream",
         "speakerZh": "布赖恩",
         "speakerEn": "BRIAN",
-        "prompt": "好吧。要是我们赢了很多钱，我们就去周游世界，并且住最好的旅馆。然后我们返回家园，在乡下买幢大房子。我们将有一个漂亮的花园和·…··…·",
-        "answer": "All right.: If we win a lot of money we'll travel round the world and we'll stay at the best hotels. Then we'll return home and buy a big house in the country. We'll have a beautiful garden and..."
+        "prompt": "好吧。",
+        "answer": "All right.:"
       },
       {
-        "id": "lesson-137-7",
+        "id": "lesson-137-11",
+        "lesson": 137,
+        "lessonTitle": "A pleasant dream",
+        "speakerZh": "布赖恩",
+        "speakerEn": "BRIAN",
+        "prompt": "要是我们赢了很多钱，我们就去周游世界，并且住最好的旅馆。",
+        "answer": "If we win a lot of money we'll travel round the world and we'll stay at the best hotels."
+      },
+      {
+        "id": "lesson-137-12",
+        "lesson": 137,
+        "lessonTitle": "A pleasant dream",
+        "speakerZh": "布赖恩",
+        "speakerEn": "BRIAN",
+        "prompt": "然后我们返回家园，在乡下买幢大房子。",
+        "answer": "Then we'll return home and buy a big house in the country."
+      },
+      {
+        "id": "lesson-137-13",
+        "lesson": 137,
+        "lessonTitle": "A pleasant dream",
+        "speakerZh": "布赖恩",
+        "speakerEn": "BRIAN",
+        "prompt": "我们将有一个漂亮的花园和·…··…·",
+        "answer": "We'll have a beautiful garden and..."
+      },
+      {
+        "id": "lesson-137-14",
         "lesson": 137,
         "lessonTitle": "A pleasant dream",
         "speakerZh": "朱莉",
         "speakerEn": "JULIE",
-        "prompt": "但是如果我们把所有钱都花光了，我们又会变穷的。那时我们怎么办呢？",
-        "answer": "But if we spend all that money we'll be poor again. What'll we do then?"
+        "prompt": "但是如果我们把所有钱都花光了，我们又会变穷的。",
+        "answer": "But if we spend all that money we'll be poor again."
       },
       {
-        "id": "lesson-137-8",
+        "id": "lesson-137-15",
+        "lesson": 137,
+        "lessonTitle": "A pleasant dream",
+        "speakerZh": "朱莉",
+        "speakerEn": "JULIE",
+        "prompt": "那时我们怎么办呢？",
+        "answer": "What'll we do then?"
+      },
+      {
+        "id": "lesson-137-16",
         "lesson": 137,
         "lessonTitle": "A pleasant dream",
         "speakerZh": "布赖恩",
@@ -8083,7 +10630,7 @@ export const lessons: Lesson[] = [
         "answer": "If we spend all the money we'll try and win the football pools again."
       },
       {
-        "id": "lesson-137-9",
+        "id": "lesson-137-17",
         "lesson": 137,
         "lessonTitle": "A pleasant dream",
         "speakerZh": "朱莉",
@@ -8099,7 +10646,161 @@ export const lessons: Lesson[] = [
     "titleZh": "是你吗，约翰？",
     "questionEn": "Which John Smith does Graham Turner think he is talking to?",
     "questionZh": "格雷厄姆·特纳以为他在和哪一个约翰·史密斯通话？",
-    "items": []
+    "items": [
+      {
+        "id": "lesson-139-1",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "是你吗，约翰？",
+        "answer": "Is that you, John?"
+      },
+      {
+        "id": "lesson-139-2",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "约翰·史密斯",
+        "speakerEn": "JOHN SMITH",
+        "prompt": "是我，请讲。",
+        "answer": "Yes, speaking."
+      },
+      {
+        "id": "lesson-139-3",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "你告诉玛丽，今晚吃饭我们将晚到一会儿。",
+        "answer": "Tell Mary we'll be late for dinner this evening."
+      },
+      {
+        "id": "lesson-139-4",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "约翰·史密斯",
+        "speakerEn": "JOHN SMITH",
+        "prompt": "恐怕我还不明白您的意思。",
+        "answer": "I'm afraid I don't understand."
+      },
+      {
+        "id": "lesson-139-5",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "玛丽没有告诉你吗？",
+        "answer": "Hasn't Mary told you?"
+      },
+      {
+        "id": "lesson-139-6",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "她邀请我和夏洛特今晚去吃饭。",
+        "answer": "She invited Charlotte and me to dinner this evening."
+      },
+      {
+        "id": "lesson-139-7",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "我说过我6点到你家，但老板要我加班。",
+        "answer": "I said I would be at your house at six o'clock, but the boss wants me to do some extra work."
+      },
+      {
+        "id": "lesson-139-8",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "我不得不留在办公室，不知道什么时候才能结束。",
+        "answer": "I'll have to stay at the office. I don't know when I'll finish."
+      },
+      {
+        "id": "lesson-139-9",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "喔，顺便问一句，我妻子想知道玛丽是否需要帮忙。",
+        "answer": "Oh, and by the way, my wife wants to know if Mary needs any help."
+      },
+      {
+        "id": "lesson-139-10",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "约翰·史密斯",
+        "speakerEn": "JOHN SMITH",
+        "prompt": "我不知道您在说些什么。",
+        "answer": "I don't know what you're talking about."
+      },
+      {
+        "id": "lesson-139-11",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "你是约翰·史密斯，对吗？",
+        "answer": "That is John Smith, isn't it?"
+      },
+      {
+        "id": "lesson-139-12",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "约翰·史密斯",
+        "speakerEn": "JOHN SMITH",
+        "prompt": "是的，我是约翰·史密斯。",
+        "answer": "Yes, I'm John Smith."
+      },
+      {
+        "id": "lesson-139-13",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "你是工程师约翰·史密斯，对吗？",
+        "answer": "You are John Smith, the engineer, aren't you?"
+      },
+      {
+        "id": "lesson-139-14",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "约翰·史密斯",
+        "speakerEn": "JOHN SMITH",
+        "prompt": "对。",
+        "answer": "That's right."
+      },
+      {
+        "id": "lesson-139-15",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "格雷厄姆·特纳",
+        "speakerEn": "GRAHAM TURNER",
+        "prompt": "你在海外工程公司上班，是吗？",
+        "answer": "You work for the Overseas Engineering Company, don't you?"
+      },
+      {
+        "id": "lesson-139-16",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "约翰·史密斯",
+        "speakerEn": "JOHN SMITH",
+        "prompt": "不，不是。",
+        "answer": "No, I don't."
+      },
+      {
+        "id": "lesson-139-17",
+        "lesson": 139,
+        "lessonTitle": "Is that you, John?",
+        "speakerZh": "约翰·史密斯",
+        "speakerEn": "JOHN SMITH",
+        "prompt": "我是电话工程师约翰·史密斯，我正在修理您的电话线。",
+        "answer": "I'm John Smith the telephone engineer and I'm repairing your telephone line."
+      }
+    ]
   },
   {
     "number": 141,
@@ -8160,7 +10861,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "你好，小姑娘，她说。",
-        "answer": "'Hello, little girl,' she said."
+        "answer": "'Hello, little girl, ' she said."
       },
       {
         "id": "lesson-141-7",
@@ -8223,7 +10924,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "为了把自己打扮漂亮啊，那位妇女答道。",
-        "answer": "'To make myself beautiful,' the lady answered."
+        "answer": "'To make myself beautiful, ' the lady answered."
       },
       {
         "id": "lesson-141-14",
@@ -8241,7 +10942,7 @@ export const lessons: Lesson[] = [
         "speakerZh": "",
         "speakerEn": "",
         "prompt": "可是你仍然难看呀，萨莉说。",
-        "answer": "'But you are still ugly,' Sally said."
+        "answer": "'But you are still ugly, ' Sally said."
       },
       {
         "id": "lesson-141-16",

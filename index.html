@@ -3,7 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#164c45" />
+    <script>
+      (() => {
+        let saved = "system";
+        try {
+          saved = localStorage.getItem("new-concept-color-scheme") || "system";
+        } catch {}
+        const dark = saved === "dark" || (saved === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.add(dark ? "theme-dark" : "theme-light");
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        document.querySelector('meta[name="theme-color"]').content = dark ? "#08110f" : "#164c45";
+      })();
+    </script>
     <meta name="description" content="新概念英语第一册奇数课中译英练习" />
     <title>译句工坊 · 新概念英语</title>
   </head>

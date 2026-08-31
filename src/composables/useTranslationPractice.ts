@@ -3,7 +3,7 @@ import { lessons } from "../data/lessons";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, DisplayMode, PracticeFilter, StoredProgress } from "../types/practice";
 
-const storageKey = "new-concept-translation-progress-v1";
+const storageKey = "new-concept-translation-progress-v2";
 
 function loadProgress(): StoredProgress {
   try {

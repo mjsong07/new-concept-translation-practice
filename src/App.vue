@@ -4,10 +4,12 @@ import { TrophyBase, CircleCheck, EditPen } from "@element-plus/icons-vue";
 import PracticeControls from "./components/PracticeControls.vue";
 import MobileSettings from "./components/MobileSettings.vue";
 import TranslationExercise from "./components/TranslationExercise.vue";
+import { useColorScheme } from "./composables/useColorScheme";
 import { useTranslationPractice } from "./composables/useTranslationPractice";
 import { speakEnglish } from "./services/speech";
 
 const practice = useTranslationPractice();
+const colorScheme = useColorScheme();
 const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "本课还没有错题，继续保持！" : "本课题目已经全部完成。" );
 
 </script>
@@ -21,8 +23,10 @@ const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "本�
       :lesson-completed="practice.lessonCompleted.value"
       :lesson-count="practice.lesson.value.items.length"
       :lesson-percent="practice.lessonPercent.value"
+      :color-scheme="colorScheme.mode.value"
       @update:lesson-number="practice.selectedLesson.value = $event"
       @update:filter="practice.filter.value = $event"
+      @update:color-scheme="colorScheme.mode.value = $event"
     />
 
     <div class="workspace">
@@ -37,8 +41,10 @@ const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "本�
         :total-completed="practice.totalCompleted.value"
         :accuracy="practice.accuracy.value"
         :total-items="practice.totalItems"
+        :color-scheme="colorScheme.mode.value"
         @update:lesson-number="practice.selectedLesson.value = $event"
         @update:filter="practice.filter.value = $event"
+        @update:color-scheme="colorScheme.mode.value = $event"
       />
 
       <header class="workspace-header">

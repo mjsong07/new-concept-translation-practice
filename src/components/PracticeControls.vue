@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Lesson, PracticeFilter } from "../types/practice";
+import type { ColorSchemeMode, Lesson, PracticeFilter } from "../types/practice";
 
 defineProps<{
   lessons: Lesson[];
@@ -8,11 +8,13 @@ defineProps<{
   lessonCompleted: number;
   lessonCount: number;
   lessonPercent: number;
+  colorScheme: ColorSchemeMode;
 }>();
 
 const emit = defineEmits<{
   "update:lessonNumber": [value: number];
   "update:filter": [value: PracticeFilter];
+  "update:colorScheme": [value: ColorSchemeMode];
 }>();
 </script>
 
@@ -52,6 +54,19 @@ const emit = defineEmits<{
           { label: '错题', value: 'mistakes' }
         ]"
         @update:model-value="emit('update:filter', $event as PracticeFilter)"
+      />
+    </section>
+
+    <section class="control-section">
+      <label class="control-label">外观</label>
+      <el-segmented
+        :model-value="colorScheme"
+        :options="[
+          { label: '自动', value: 'system' },
+          { label: '浅色', value: 'light' },
+          { label: '深色', value: 'dark' }
+        ]"
+        @update:model-value="emit('update:colorScheme', $event as ColorSchemeMode)"
       />
     </section>
 

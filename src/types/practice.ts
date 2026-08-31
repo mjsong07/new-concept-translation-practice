@@ -1,6 +1,7 @@
 export type ResultLevel = "idle" | "correct" | "close" | "wrong";
 export type PracticeFilter = "all" | "unfinished" | "mistakes";
 export type DisplayMode = "translation" | "original" | "bilingual";
+export type ColorSchemeMode = "system" | "light" | "dark";
 
 export interface ExerciseItem {
   id: string;

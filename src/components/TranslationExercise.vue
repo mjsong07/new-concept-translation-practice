@@ -110,8 +110,6 @@ function rowState(item: ExerciseItem) {
             <p>{{ questionZh }}</p>
           </div>
           <div class="lesson-speech-actions">
-            <el-button circle text :icon="Headset" aria-label="朗读课程标题" title="朗读标题" @click="emit('speak', lessonTitle)" />
-            <el-button circle text :icon="Headset" aria-label="朗读课文问题" title="朗读问题" @click="emit('speak', questionEn)" />
             <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">全文</el-button>
           </div>
         </section>

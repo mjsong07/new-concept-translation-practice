@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { ArrowRight, Setting } from "@element-plus/icons-vue";
-import type { Lesson, PracticeFilter } from "../types/practice";
+import type { ColorSchemeMode, Lesson, PracticeFilter } from "../types/practice";
 
 defineProps<{
   lessons: Lesson[];
@@ -14,11 +14,13 @@ defineProps<{
   totalCompleted: number;
   accuracy: number;
   totalItems: number;
+  colorScheme: ColorSchemeMode;
 }>();
 
 const emit = defineEmits<{
   "update:lessonNumber": [value: number];
   "update:filter": [value: PracticeFilter];
+  "update:colorScheme": [value: ColorSchemeMode];
 }>();
 
 const visible = ref(false);
@@ -77,6 +79,19 @@ const filterLabels: Record<PracticeFilter, string> = {
               { label: '错题', value: 'mistakes' }
             ]"
             @update:model-value="emit('update:filter', $event as PracticeFilter)"
+          />
+        </section>
+
+        <section>
+          <label>外观</label>
+          <el-segmented
+            :model-value="colorScheme"
+            :options="[
+              { label: '跟随系统', value: 'system' },
+              { label: '浅色', value: 'light' },
+              { label: '深色', value: 'dark' }
+            ]"
+            @update:model-value="emit('update:colorScheme', $event as ColorSchemeMode)"
           />
         </section>
 

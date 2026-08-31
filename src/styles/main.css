@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap");
 
 :root {
+  color-scheme: light;
   font-family: "DM Sans", "Noto Sans SC", system-ui, sans-serif;
   color: #203330;
   background: #f4f1e9;
@@ -13,12 +14,13 @@
   --paper: #fffdf8;
   --line: #dfe5df;
   --gold: #d3a93a;
+  --app-bg: #f4f1e9;
 }
 
 * { box-sizing: border-box; }
 html { width: 100%; overflow-x: clip; touch-action: pan-y; }
 body, #app { width: 100%; max-width: 100%; overflow-x: clip; }
-body { margin: 0; min-width: 320px; min-height: 100vh; background: #f4f1e9; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--app-bg); }
 button, textarea, input { font: inherit; }
 
 .app-shell { min-width: 0; min-height: 100vh; display: grid; grid-template-columns: 300px minmax(0, 1fr); }
@@ -116,7 +118,7 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 @media (max-width: 640px) {
   .control-panel, .workspace-header { display: none; }
   .workspace { padding: 12px 12px 18px; }
-  .mobile-settings { position: sticky; top: 0; z-index: 30; max-width: 1050px; width: 100%; margin: 0 auto 10px; padding-top: calc(env(safe-area-inset-top) + 4px); display: block; background: #f4f1e9; }
+  .mobile-settings { position: sticky; top: 0; z-index: 30; max-width: 1050px; width: 100%; margin: 0 auto 10px; padding-top: calc(env(safe-area-inset-top) + 4px); display: block; background: var(--app-bg); }
   .mobile-settings-launch { width: 100%; min-height: 74px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; border: 0; border-radius: 18px; color: #fff; background: linear-gradient(145deg, #17584f, #0f443d); box-shadow: 0 12px 30px rgba(15,68,61,.2); text-align: left; cursor: pointer; }
   .mobile-settings-icon { flex: 0 0 42px; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: var(--coral); font-size: 20px; }
   .mobile-settings-copy { min-width: 0; flex: 1; display: grid; gap: 4px; }
@@ -251,4 +253,113 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
   .wrong-reference { margin-top: 5px; padding: 6px 9px; }
   .wrong-reference p { font-size: 14px; }
   .translation-list { padding-bottom: 30vh; }
+}
+
+html.theme-dark {
+  color-scheme: dark;
+  color: #e7f0ed;
+  background: #0b1412;
+    --app-bg: #0b1412;
+    --ink: #e7f0ed;
+    --muted: #95a7a2;
+    --green: #58bea5;
+    --green-dark: #34947d;
+    --coral: #ff8a70;
+    --paper: #121d1a;
+    --line: #2a3935;
+    --gold: #e0ba56;
+    --el-color-primary: #58bea5;
+    --el-color-primary-light-3: #459c88;
+    --el-color-primary-light-5: #367866;
+    --el-color-primary-light-7: #285448;
+    --el-color-primary-light-8: #203f37;
+    --el-color-primary-light-9: #182b27;
+    --el-color-primary-dark-2: #75ceb9;
+    --el-bg-color: #121d1a;
+    --el-bg-color-page: #0b1412;
+    --el-bg-color-overlay: #192622;
+    --el-text-color-primary: #e7f0ed;
+    --el-text-color-regular: #c7d5d1;
+    --el-text-color-secondary: #95a7a2;
+    --el-text-color-placeholder: #71837e;
+    --el-border-color: #34443f;
+    --el-border-color-light: #2b3a36;
+    --el-border-color-lighter: #24322e;
+    --el-border-color-extra-light: #1e2b28;
+    --el-fill-color: #23312d;
+    --el-fill-color-light: #1d2a27;
+    --el-fill-color-lighter: #182420;
+    --el-fill-color-extra-light: #151f1d;
+    --el-fill-color-dark: #2a3935;
+    --el-fill-color-darker: #31433e;
+    --el-fill-color-blank: #121d1a;
+    --el-mask-color: rgba(0, 0, 0, .72);
+    --el-mask-color-extra-light: rgba(0, 0, 0, .42);
+  --el-box-shadow-light: 0 0 12px rgba(0, 0, 0, .4);
+
+  body, #app, .app-shell { background: var(--app-bg); }
+  .control-panel { background: linear-gradient(165deg, #123c36 0%, #081f1c 100%); }
+  .workspace-header h2,
+  .exercise-topline h1,
+  .lesson-question p,
+  .mobile-lesson-title,
+  .mobile-settings-dialog .el-dialog__title { color: #d9f2eb; }
+  .stats-strip > div { border-color: #2c3a36; background: rgba(21, 33, 30, .88); }
+  .exercise-card,
+  .empty-state { border-color: #26342f; background: var(--paper); box-shadow: 0 24px 70px rgba(0, 0, 0, .28); }
+  .lesson-sentence-count,
+  .sentence-number { color: #9aaba6; background: #24312d; }
+  .display-tabs .el-tabs__nav-wrap::after,
+  .sentence-row { background: transparent; border-color: #26342f; }
+  .display-tabs .el-tabs__item { color: #91a29d; }
+  .display-tabs .el-tabs__item.is-active { color: #72ccb6; }
+  .lesson-question { border-color: #31423c; background: #182723; }
+  .lesson-question.is-english { background: #211f19; }
+  .bilingual-question-copy > div + div { border-color: #34433f; }
+  .lesson-question .el-button,
+  .reading-sentence .el-button,
+  .lesson-title-row .el-button { color: #72ccb6; }
+  .sentence-chinese,
+  .sentence-english { color: #dce8e4; }
+  .bilingual-list .sentence-chinese { color: #aebdb8; }
+  .bilingual-list .sentence-english { color: #d9f2eb; }
+  .sentence-answer-row .el-textarea__inner { border-bottom-color: #4a5b55; color: #eef6f3; caret-color: #72ccb6; }
+  .sentence-answer-row .el-textarea__inner:hover { border-bottom-color: #70837d; }
+  .sentence-answer-row .el-textarea__inner:focus { border-bottom-color: #72ccb6; }
+  .sentence-row.is-correct .sentence-chinese,
+  .sentence-row.is-correct .row-status-icon,
+  .sentence-row.is-correct .input-result-label,
+  .diff-word.is-correct { color: #70d5a4; }
+  .sentence-row.is-correct .el-textarea__inner { border-bottom-color: #4f9f76; color: #9be1bb; }
+  .sentence-row.is-wrong .input-result-label,
+  .diff-word.is-wrong { color: #ff8f82; }
+  .sentence-row.is-wrong .el-textarea__inner { border-bottom-color: #b66057; }
+  .wrong-reference { border-left-color: #d06458; background: #351e1b; }
+  .wrong-reference p,
+  .diff-word.is-neutral { color: #c9d2cf; }
+  .feedback-panel.is-correct { color: #9be1bb; border-color: #315d47; background: #172c22; }
+  .feedback-panel.is-close { color: #f0d48a; border-color: #675829; background: #302a18; }
+  .feedback-panel.is-wrong { color: #ffaca2; border-color: #6b3833; background: #351e1b; }
+  .similarity,
+  .word-diff,
+  .word-diff b { background: rgba(255, 255, 255, .07); }
+  .prompt-area { background: #252318; }
+  .chinese-prompt { color: #e8eee8; }
+  .inline-reference { border-color: #454237; }
+  .inline-reference p { color: #d9f2eb; }
+  .inline-reference .el-button { border-color: #3a514a; background: rgba(255, 255, 255, .04); }
+  .answer-area .el-textarea__inner { border-color: #40514b; background: #101916; color: #eef6f3; }
+  .mobile-settings-dialog { background: #121d1a; }
+  .mobile-dialog-progress { background: #192723; }
+  .mobile-dialog-progress .el-progress-bar__outer { background: #2b3b36; }
+  .mobile-dialog-stats > div { border-color: #2c3b37; background: #182420; }
+  .mobile-dialog-stats strong { color: #e7f0ed; }
+  .workspace footer { color: #768983; }
+
+  @media (max-width: 640px) {
+    .mobile-settings { background: var(--app-bg); }
+    .mobile-settings-launch { background: linear-gradient(145deg, #154c43, #0a2e29); box-shadow: 0 12px 30px rgba(0, 0, 0, .32); }
+    .display-tabs > .el-tabs__header { background: rgba(18, 29, 26, .94); box-shadow: 0 6px 16px rgba(0, 0, 0, .28); }
+    .mobile-check-action { background: rgba(18, 29, 26, .94); box-shadow: 0 8px 20px rgba(0, 0, 0, .3); }
+  }
 }
