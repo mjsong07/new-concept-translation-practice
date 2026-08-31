@@ -62,9 +62,15 @@ function focusItem(id?: string) {
   if (id) inputRefs.value[id]?.focus();
 }
 
-function submitAndAdvance(item: ExerciseItem) {
+function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) {
   if (!(props.answers[item.id] || "").trim()) return;
   emit("submit", item.id);
+
+  if (!shouldAutoFocus()) {
+    input.blur();
+    return;
+  }
+
   const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
   const nextItem = props.items[currentIndex + 1];
   nextTick(() => focusItem(nextItem?.id));
@@ -73,7 +79,7 @@ function submitAndAdvance(item: ExerciseItem) {
 function onKeydown(event: KeyboardEvent, item: ExerciseItem) {
   if (event.key !== "Enter" || event.isComposing || event.shiftKey) return;
   event.preventDefault();
-  submitAndAdvance(item);
+  submitAndAdvance(item, event.currentTarget as HTMLTextAreaElement);
 }
 
 function rowState(item: ExerciseItem) {
@@ -154,7 +160,7 @@ function rowState(item: ExerciseItem) {
                   :autosize="{ minRows: 1, maxRows: 5 }"
                   resize="none"
                   autocomplete="off"
-                  enterkeyhint="next"
+                  :enterkeyhint="index < items.length - 1 && shouldAutoFocus() ? 'next' : 'done'"
                   :aria-label="`第 ${index + 1} 句英文译文`"
                   @update:model-value="emit('update:answer', item.id, $event)"
                   @keydown="onKeydown($event, item)"

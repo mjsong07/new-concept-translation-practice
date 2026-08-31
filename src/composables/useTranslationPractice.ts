@@ -4,6 +4,16 @@ import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, DisplayMode, PracticeFilter, StoredProgress } from "../types/practice";
 
 const storageKey = "new-concept-translation-progress-v2";
+const selectedLessonStorageKey = "new-concept-translation-selected-lesson";
+
+function loadSelectedLesson() {
+  try {
+    const savedLesson = Number(localStorage.getItem(selectedLessonStorageKey));
+    return lessons.some((item) => item.number === savedLesson) ? savedLesson : lessons[0].number;
+  } catch {
+    return lessons[0].number;
+  }
+}
 
 function loadProgress(): StoredProgress {
   try {
@@ -21,7 +31,7 @@ function loadProgress(): StoredProgress {
 }
 
 export function useTranslationPractice() {
-  const selectedLesson = ref(lessons[0].number);
+  const selectedLesson = ref(loadSelectedLesson());
   const filter = ref<PracticeFilter>("all");
   const displayMode = ref<DisplayMode>("translation");
   const progress = ref(loadProgress());
@@ -41,7 +51,14 @@ export function useTranslationPractice() {
   const accuracy = computed(() => progress.value.attempts ? Math.round((progress.value.correct / progress.value.attempts) * 100) : 0);
   const lessonPercent = computed(() => Math.round((lessonCompleted.value / Math.max(lesson.value.items.length, 1)) * 100));
 
-  watch(selectedLesson, resetLessonSession);
+  watch(selectedLesson, (value) => {
+    resetLessonSession();
+    try {
+      localStorage.setItem(selectedLessonStorageKey, String(value));
+    } catch {
+      // 浏览器禁用本地存储时仍允许继续练习。
+    }
+  });
   watch(progress, (value) => localStorage.setItem(storageKey, JSON.stringify(value)), { deep: true });
 
   function updateAnswer(id: string, value: string) {
