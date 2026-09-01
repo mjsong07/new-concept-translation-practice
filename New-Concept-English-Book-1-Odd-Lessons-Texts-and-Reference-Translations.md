@@ -1,8 +1,8 @@
-> 原作名称：《新概念英语》第一册；原作者：L. G. Alexander（亚历山大）；出品平台或出版方：暂未核实；已知版权方：暂未核实；原作地址：暂未核实。来源文件为用户提供的本地 PDF《新概念英语》第1册+pdf课文.pdf。本文仅作个人学习用途的结构化摘录，不能替代原作；原作观点、案例及相关权利归原作者和权利人所有。请通过正规渠道访问并支持原作。
+> Original work: New Concept English Book 1 by L. G. Alexander. Source: a user-provided local PDF. Publisher, current rights holder, and official source have not been verified. This structured extract is intended for personal study only and is not a substitute for the original work. All rights remain with the author and relevant rights holders. Please obtain and support the original work through authorized channels.
 
-# 奇数课课文与参考译文
+# Odd-Numbered Lesson Texts and Reference Translations
 
-> 提取范围：Lesson 1 至 Lesson 143 的全部奇数课，共 72 课。英文正文与参考译文均来自用户提供的扫描版 PDF，并经过 OCR 整理。
+> Coverage: all 72 odd-numbered lessons from Lesson 1 through Lesson 143. The English texts and reference translations were extracted from the user-provided scanned PDF and cleaned up after OCR.
 
 ## Lesson 1 · Excuse me!
 
@@ -18,11 +18,11 @@ Is this your handbag?
 Yes, it is.
 Thank you very much.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 对不起！
+**Title:** 对不起！
 
-**问题：** 这是谁的手袋？
+**Question:** 这是谁的手袋？
 
 对不起。什么事？这是您的手提包吗？对不起，请再说一遍。这是您的手提包吗？是的，是我的。非常感谢！
 
@@ -46,11 +46,11 @@ Is this it?
 Yes, it is.
 Thank you very much.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 对不起，先生。
+**Title:** 对不起，先生。
 
-**问题：** 这位男士有没有要回他的雨伞？
+**Question:** 这位男士有没有要回他的雨伞？
 
 请把我的大衣和伞拿给我。这是我（寄存东西）的牌子。谢谢，先生。是5号。这是您的伞和大衣。这不是我的伞。对不起，先生。这把伞是您的吗？不；不是！这把是吗？是，是这把。非常感谢。
 
@@ -81,11 +81,11 @@ MR. BLAKE : And this is Xiaohui.
 She's Chinese, too.
 XIAOHUI : Nice to meet you.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 很高兴见到你。
+**Title:** 很高兴见到你。
 
-**问题：** 昌宇是中国人吗？
+**Question:** 昌宇是中国人吗？
 
 布莱克先生：早上好。
 学生：早上好，布莱克先生。
@@ -124,11 +124,11 @@ SOPHIE : I'm a keyboard operator.
 SOPHIE : What's your job?
 ROBERT : I'm an engineer.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 你是教师吗？
+**Title:** 你是教师吗？
 
-**问题：** 罗伯特是做什么工作的？
+**Question:** 罗伯特是做什么工作的？
 
 罗伯特：我是个新学生，我的名字叫罗伯特。
 索菲娅：很高兴见到你。我的名字叫索菲娅。
@@ -166,11 +166,11 @@ Nice to see you.
 HELEN : Nice to see you, too, Steven.
 Goodbye.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 你今天好吗？
+**Title:** 你今天好吗？
 
-**问题：** 埃玛身体好吗？
+**Question:** 埃玛身体好吗？
 
 史蒂文：你好，海伦。
 海伦：你好，史蒂文。
@@ -206,11 +206,11 @@ TEACHER : Here you are.
 Catch!
 TIM : Thank you, sir.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 这是你的衬衫吗？
+**Title:** 这是你的衬衫吗？
 
-**问题：** 谁的衬衣是白色的？
+**Question:** 谁的衬衣是白色的？
 
 老师：那是谁的衬衫？
 老师：戴夫，这是你的衬衫吗？
@@ -245,11 +245,11 @@ ANNA : It's the same colour.
 It's green, too.
 LOUISE : That is a lovely hat!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 一件新连衣裙
+**Title:** 一件新连衣裙
 
-**问题：** 安娜的帽子是什么颜色的？
+**Question:** 安娜的帽子是什么颜色的？
 
 路易丝：你的新连衣裙是什么颜色的？
 安娜：是绿色的。
@@ -287,11 +287,11 @@ GIRLS : Yes, they are.
 CUSTOMS OFFICER : That's fine.
 GIRLS : Thank you very much.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 请出示你们的护照。
+**Title:** 请出示你们的护照。
 
-**问题：** 海关官员有什么疑问吗？
+**Question:** 海关官员有什么疑问吗？
 
 海关官员：你们是瑞典人吗？
 姑娘：不，我们不是瑞典人。我们是丹麦人。
@@ -335,11 +335,11 @@ MR. RICHARDS : Who is this young man?
 MR. JACKSON : This is Jim.
 He's our office assistant.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 你好！
+**Title:** 你好！
 
-**问题：** 迈克尔·贝克和杰里米·肖特是做什么工作的？
+**Question:** 迈克尔·贝克和杰里米·肖特是做什么工作的？
 
 杰克逊先生：来见见我们的雇员，理查兹先生。
 理查兹先生：谢谢，杰克逊先生。
@@ -375,11 +375,11 @@ GIRL : These ice creams are nice.
 MOTHER : Are you all right now?
 CHILDREN : Yes, we are, thank you!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 又累又渴
+**Title:** 又累又渴
 
-**问题：** 为什么孩子们向母亲致谢？
+**Question:** 为什么孩子们向母亲致谢？
 
 母亲：怎么啦，孩子们？
 女孩：我们累了·…..·.
@@ -411,11 +411,11 @@ MAN : Yes, please.
 WOMAN : Here you are.
 MAN: Thank you.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 哪一本书？
+**Title:** 哪一本书？
 
-**问题：** 这位男士要哪本书？
+**Question:** 这位男士要哪本书？
 
 丈夫：请拿本书给我，简。
 妻子：哪一本？
@@ -442,11 +442,11 @@ MAN : Yes, please.
 WOMAN : Here you are.
 MAN : Thanks.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 哪几只杯子？
+**Title:** 哪几只杯子？
 
-**问题：** 这位男士要哪些杯子？
+**Question:** 这位男士要哪些杯子？
 
 丈夫：请拿给我几只玻璃杯，简。
 妻子：哪几只？
@@ -476,11 +476,11 @@ The bottle is empty.
 There is a cup on the table, too.
 The cup is clean.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 史密斯夫人的厨房
+**Title:** 史密斯夫人的厨房
 
-**问题：** 电灶是什么颜色的？
+**Question:** 电灶是什么颜色的？
 
 史密斯夫人的厨房很小。厨房里有个电冰箱。冰箱的颜色是白的。它位于房间右侧。厨房里有个电灶。电灶的颜色是蓝的。它位于房间左侧。房间的中央有张桌子。桌子上有个瓶子。瓶子是空的。桌了上还有一只杯子。杯子很干净。
 
@@ -504,11 +504,11 @@ There are some books on the stereo.
 There are some pictures in the room.
 The pictures are on the wall.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 史密斯夫人的客厅
+**Title:** 史密斯夫人的客厅
 
-**问题：** 书在哪里？
+**Question:** 书在哪里？
 
 史密斯夫人的客厅很大，客厅里有台电视机。电视机靠近窗子。电视机上放着几本杂志。客厅里有张桌子。桌上放着几份报纸。客厅里有儿把扶手椅。这些扶手椅靠近桌子。客厅里有台立体声音响。音响靠近门。音响上面有几本书。客厅里有几幅画。画挂在墙上。
 
@@ -528,11 +528,11 @@ MRS. JONES : Then make the bed.
 MRS. JONES : Dust the dressing table.
 MRS. JONES : Then sweep the floor.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 进来，艾米。
+**Title:** 进来，艾米。
 
-**问题：** 艾米需要如何来清扫地面？
+**Question:** 艾米需要如何来清扫地面？
 
 琼斯夫人：进来，艾米。
 琼斯夫人：请把门关上。
@@ -565,11 +565,11 @@ JACK : The dog's in the garden, too.
 It's running across the grass.
 It's running after a cat.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 莎莉在哪里？
+**Title:** 莎莉在哪里？
 
-**问题：** 猫正在爬树吗？
+**Question:** 猫正在爬树吗？
 
 琼：杰克，萨莉在哪儿？
 杰克：她在花园里，琼。
@@ -600,11 +600,11 @@ The ship is going under the bridge.
 Tim is looking at an aeroplane.
 The aeroplane is flying over the river.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 晴天
+**Title:** 晴天
 
-**问题：** 琼斯一家人在哪里？
+**Question:** 琼斯一家人在哪里？
 
 今天天气好。天空中飘着几朵云，但阳光灿烂。琼斯先生同他的家人在一起。他们正在过桥。河上有几艘船。琼斯先生和他的妻子正在看这些船。莎莉正在观看一艘大船。那船正从桥下驶过。蒂姆正望着一架飞机。飞机正从河上飞过。
 
@@ -631,11 +631,11 @@ The park is on the right.
 Some children are coming out of the building.
 Some of them are going into the park.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 我们的村庄
+**Title:** 我们的村庄
 
-**问题：** 孩子们是正从公园里出来还正在往里走？
+**Question:** 孩子们是正从公园里出来还正在往里走？
 
 这是我们村庄的一张照片。我们的村庄坐落在一个山谷之中。它位于两座小山之间。它靠近一条小河。这是我们村庄的另一张照片。我和妻子正沿河岸走着。我们在河的左侧。河里面有个男孩。他正横渡小河。这是另一张照片。这是学校大楼，它位于公园的旁边。公园在右面。一些孩子正从楼里出来。他们中有几个正走进公园。
 
@@ -664,11 +664,11 @@ GEORGE : This bookcase isn't for me.
 It's for my daughter, Susan.
 Pink's her favourite colour.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 做书架
+**Title:** 做书架
 
-**问题：** 苏珊最喜欢哪种颜色？
+**Question:** 苏珊最喜欢哪种颜色？
 
 丹：你干得真辛苦，乔治。你在干什么呢？
 乔治：我正在做一书架。
@@ -708,11 +708,11 @@ SAM: There we are!
 It's a lovely vase.
 PENNY : Those flowers are lovely, too.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 别摔了！
+**Title:** 别摔了！
 
-**问题：** 萨姆把花瓶放在什么地方？
+**Question:** 萨姆把花瓶放在什么地方？
 
 萨姆：你打算如何处理那花瓶？
 彭妮：我打算把它放在这张桌子上，萨姆。
@@ -747,11 +747,11 @@ And a tin of tobacco.
 SAM : Is that tin of tobacco for me?
 PENNY : Well, it's certainly not for me!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 彭妮的提包
+**Title:** 彭妮的提包
 
-**问题：** 那听烟丝是给谁买的？
+**Question:** 那听烟丝是给谁买的？
 
 萨姆：那个提包重吗，彭妮？
 彭妮：不太重。
@@ -786,11 +786,11 @@ SAM : Yes. Here they are.
 PENNY : Hurry up, Sam!
 The kettle's boiling!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 快点！
+**Title:** 快点！
 
-**问题：** 你怎么知道萨姆不常沏茶？
+**Question:** 你怎么知道萨姆不常沏茶？
 
 彭妮：你会湖茶吗，萨姆？
 萨姆：会的，我当然会，彭妮。
@@ -836,11 +836,11 @@ PAMELA : I can't type this letter.
 PAMELA : I can't read it!
 The boss's handwriting is terrible!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 老板的信
+**Title:** 老板的信
 
-**问题：** 帕梅拉为什么无法打信？
+**Question:** 帕梅拉为什么无法打信？
 
 老板：请你米一下好吗，鲍勃？
 鲍勃：什么事，先生？
@@ -878,11 +878,11 @@ ANN: Yes, I do.
 CHRISTINE : Do you want one?
 ANN: Yes, please.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 一杯咖啡
+**Title:** 一杯咖啡
 
-**问题：** 安想要什么样的咖啡？
+**Question:** 安想要什么样的咖啡？
 
 克里斯廷：你喜欢咖啡吗，安？
 安：是的，我喜欢。
@@ -923,11 +923,11 @@ but he doesn't like chicken.
 BUTCHER : To tell you the truth, Mrs. Bird,
 I don't like chicken either!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 在肉店
+**Title:** 在肉店
 
-**问题：** 伯德先生喜欢什么？
+**Question:** 伯德先生喜欢什么？
 
 肉肉商：您今天要买点肉吗，伯德夫人？
 伯德夫人：是的、我买一点。
@@ -972,11 +972,11 @@ DIMITRI : It's often cold
 in December, January and February.
 It snows sometimes.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 宜人的气候
+**Title:** 宜人的气候
 
-**问题：** 希腊下过雪吗？
+**Question:** 希腊下过雪吗？
 
 汉斯：你是哪国人？
 迪米特里：我是希腊人。
@@ -1023,11 +1023,11 @@ but it's certainly interesting.
 It's our favourite subject
 of conversation.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 有趣的气候
+**Title:** 有趣的气候
 
-**问题：** 在英国最受欢迎的话题是什么？
+**Question:** 在英国最受欢迎的话题是什么？
 
 汉斯：你是哪国人？
 吉姆：我是英国人。
@@ -1065,11 +1065,11 @@ Then they go to bed.
 Mr. Sawyer usually reads his newspaper,
 but sometimes he and his wife watch television.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 索耶一家人
+**Title:** 索耶一家人
 
-**问题：** 孩子们什么时候做功课？
+**Question:** 孩子们什么时候做功课？
 
 索耶一家住在国王街87号。早上，索耶先生去上班，孩子们去上学。父亲每天送孩子们去上学。索耶夫人每天呆在家里。她料理家务。她总是在正午吃午饭。下午，她总是会见她的朋友。她们经常在一起喝茶。傍晚，孩子们放学回家。他们到家很早。索耶先生下班回家。他到家很晚。晚上，孩子们总是做作业，然后去睡觉。索耶先生总是读报纸，但有时和他的妻子一起看电视。
 
@@ -1109,11 +1109,11 @@ But he's not reading his newspaper tonight.
 At the moment,
 he's reading an interesting book.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 很不平常的一天
+**Title:** 很不平常的一天
 
-**问题：** 索耶先生今晚正在做什么？
+**Question:** 索耶先生今晚正在做什么？
 
 现在是8点钟。孩子们每天都乘小汽车去上学，而今天，他们正步行去上学。现在是10点钟。上午，索耶夫人通常是呆在家里的，但今天上午，她正去商店买东西。现在是+点钟，下午，索耶夫人通常是在客厅里喝茶，但今天下午，她正在花园里喝茶。现在是6点钟。晚上，孩子们通常是做作业，而今天晚上，他们没做作业。此刻，他们正在花园里玩。现在是9点钟。索耶先生通常是在晚上看报，但今天晚上他没看报。此刻，他正在看一本有趣的5。
 
@@ -1146,11 +1146,11 @@ LADY : That's all, thank you.
 SHOP ASSISTANT : What else do you want?
 LADY : I want my change.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 就这些吗？
+**Title:** 就这些吗？
 
-**问题：** 这位女士有没有买粉笔？
+**Question:** 这位女士有没有买粉笔？
 
 女士：请给我拿几个信封。
 售货员：您要大号的还是小号的？
@@ -1200,11 +1200,11 @@ DOCTOR : Good news?
 Why?
 MR. WILLIAMS : Because he doesn't like school!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 重感冒
+**Title:** 重感冒
 
-**问题：** 吉米有什么好消息？
+**Question:** 吉米有什么好消息？
 
 威廉斯先生：吉米在哪儿？
 威廉斯夫人：他躺在床上。
@@ -1257,11 +1257,11 @@ MRS. WILLIAMS : He's in bed, doctor.
 Can you see him please?
 He has a bad cold, too!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 谢谢你，医生。
+**Title:** 谢谢你，医生。
 
-**问题：** 还有谁今天也卧床休息？为什么？
+**Question:** 还有谁今天也卧床休息？为什么？
 
 医生：吉米今天怎么样了？
 威廉斯夫人：他好些了。谢谢您，医生。
@@ -1308,11 +1308,11 @@ Enjoy yourself!
 JILL : We always enjoy ourselves, Mum.
 Bye-bye.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 不是一个孩子
+**Title:** 不是一个孩子
 
-**问题：** 吉尔有没有拿到大门的钥匙？
+**Question:** 吉尔有没有拿到大门的钥匙？
 
 父亲：今晚你打算干什么，吉尔？
 吉尔：我打算去看几个朋友，爸爸。
@@ -1356,11 +1356,11 @@ MRS. WILLIAMS : Friday, Saturday and Sunday
 in the country!
 Aren't you lucky!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 周末
+**Title:** 周末
 
-**问题：** 约翰逊夫妇周末准备做什么？
+**Question:** 约翰逊夫妇周末准备做什么？
 
 约翰逊夫人：您好。刚才您在肉店里吗？
 威廉斯夫人：.是的，我在肉店里。您也在肉店里吗？
@@ -1400,11 +1400,11 @@ my wife said to me,
 'Don't drive so quickly!
 You're not Billy Stewart!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 汽车比赛
+**Title:** 汽车比赛
 
-**问题：** 哪辆车在1995年的比赛中获胜？
+**Question:** 哪辆车在1995年的比赛中获胜？
 
 在我们镇子附近每年都有一场汽车比赛。1995年举行了一次盛大的比赛。许许多多人都去了赛场。我和我的妻子也去了。我们的朋友朱莉和杰克也去了。你可以在人群中看到我们」。我们站在左面。参圳比赛的有20辆汽车。有英国、法国、德国、意大利、美国和日本的汽车。比赛的结尾是激动人心的。获胜者是比利·斯图尔特。他在第15号车里，其他5辆汽车紧跟在他后面。
 在回家的途中，我妻子对我说：“别开得这样快！你可不是比利·斯图尔特！“
@@ -1442,11 +1442,11 @@ my daughter again!'
 JANE : Did he telephone again?
 PAULINE : No, he didn't!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 他讨厌透了！
+**Title:** 他讨厌透了！
 
-**问题：** 波琳在9点接电话时是如何说的？
+**Question:** 波琳在9点接电话时是如何说的？
 
 简：波琳，朗·马斯顿是怎样一个人？
 波琳：他讨厌透了！他昨天给我打了4次电话。前天打了3次。
@@ -1490,11 +1490,11 @@ He read the phrase slowly.
 'I am sorry,' he said.
 'I do not speak English.'
 
-### 参考译文
+### Reference Translation
 
-**标题：** 到国王街的走法
+**Title:** 到国王街的走法
 
-**问题：** 为什么这位男士需要一本常用语手册？
+**Question:** 为什么这位男士需要一本常用语手册？
 
 上星期米尔斯夫人去了伦敦。她对伦敦不很熟悉，因此迷了路。突然，她在公共汽车站附近看到一个男人。“我可以向他问路，”她想。“对不起，您能告诉我到国王街怎么走吗？”她说。这人友好地笑了笑。他不懂英语！他讲德语。他是个旅游者。然后他把手伸进了衣袋，掏出了一本常用语手册。他翻开书找到了一条短语。他缓慢地读着短语。“很抱歉，”他说，“我不会讲英语。”
 
@@ -1531,11 +1531,11 @@ SHOP ASSISTANT : They are very uncomfortable.
 But women always wear
 uncomfortable shoes!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 不舒适的鞋子
+**Title:** 不舒适的鞋子
 
-**问题：** 这些时髦的鞋有什么毛病？
+**Question:** 这些时髦的鞋有什么毛病？
 
 女士：像这样的鞋子你们有吗？
 售货员：什么尺码的？
@@ -1581,11 +1581,11 @@ NURSE : I'm afraid that he can't, Mr. Croft.
 Can't you wait till this afternoon?
 MR. CROFT : I can wait, but my toothache can't!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 要命的牙痛
+**Title:** 要命的牙痛
 
-**问题：** 你认为现在是几点钟？你怎么知道的？
+**Question:** 你认为现在是几点钟？你怎么知道的？
 
 护士：早上好，克罗夫特先生。
 克罗夫特先生：早上好，护士。我想见牙科医生。
@@ -1627,11 +1627,11 @@ TOM : I hope that you've got some money.
 CAROL : I haven't got much.
 TOM : Well, I haven't got much either!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 卡罗尔的购物单
+**Title:** 卡罗尔的购物单
 
-**问题：** 卡罗尔不准备买什么？
+**Question:** 卡罗尔不准备买什么？
 
 汤姆：卡罗尔，你在干什么？
 卡罗尔：我在写购物单，汤姆。
@@ -1679,11 +1679,11 @@ TOM : What's the matter, Carol?
 CAROL : Well, you're going to have
 roast beef and potatoes again tonight!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 烤牛肉和土豆
+**Title:** 烤牛肉和土豆
 
-**问题：** 为什么卡罗尔感到失望？
+**Question:** 为什么卡罗尔感到失望？
 
 萨姆：你好，卡罗尔！汤姆在哪儿？
 卡罗尔：他在楼上：。他正在洗澡。
@@ -1736,11 +1736,11 @@ I've already had my holiday this year.
 CAROL : Where did you go?
 SAM : I stayed at home!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 度假
+**Title:** 度假
 
-**问题：** 今年萨姆去了什么地方度假？
+**Question:** 今年萨姆去了什么地方度假？
 
 卡罗尔：你好，萨姆。进米吧。
 汤姆：你好，萨姆。我们正在吃午饭，你跟我们一起吃午饭好吗？
@@ -1782,11 +1782,11 @@ but the weather was awful.
 It rained all the time.
 GEORGE : Just like London!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 巴黎之春
+**Title:** 巴黎之春
 
-**问题：** 肯是在什么季节访问巴黎的？
+**Question:** 肯是在什么季节访问巴黎的？
 
 乔治：你好，肯。
 肯：你好，乔治。
@@ -1831,11 +1831,11 @@ they're trying to repair it, sir.
 But to tell you the truth,
 you need a new car!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 车祸
+**Title:** 车祸
 
-**问题：** 修理工能否修复伍德先生的汽车？
+**Question:** 修理工能否修复伍德先生的汽车？
 
 伍德先生：我的汽车修好了吗？
 服务员：我不知道，先生。您的汽车牌号是多少？
@@ -1884,11 +1884,11 @@ My wife must see it first.
 IAN : Women always have
 the last word.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 待售
+**Title:** 待售
 
-**问题：** 为什么奈杰尔作不了决定？
+**Question:** 为什么奈杰尔作不了决定？
 
 奈杰尔：下午好。我想这房子是要出售的吧！
 伊恩：是的。
@@ -1938,11 +1938,11 @@ He didn't want to leave this house.
 JENNY : No, he didn't want to leave,
 but his wife did!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 可怜的伊恩！
+**Title:** 可怜的伊恩！
 
-**问题：** 谁想卖房？
+**Question:** 谁想卖房？
 
 凯瑟琳：伊恩已把他的房子卖掉了吗？
 詹尼：是的、卖掉了，他上星期卖掉的。
@@ -1981,11 +1981,11 @@ Nigel is a very lucky man.
 But his wife isn't very lucky.
 She usually stays at home!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 我们的新邻居
+**Title:** 我们的新邻居
 
-**问题：** 为什么说奈杰尔很幸运？
+**Question:** 为什么说奈杰尔很幸运？
 
 奈杰尔是我们新搬来的隔壁邻居。他是个飞行员。他曾在皇家空军任职、下个月他将飞往纽约。再下个月他将飞往东京。现在他在马德里。他是一星期以前飞到西班牙的。再下个星期他将返回伦敦。他只有41岁，但他却去过世界上几乎每一个国家。奈杰尔是个很幸运的人。但他的妻子运气不很好。她总是呆在家里！
 
@@ -2021,11 +2021,11 @@ That clock's ten minutes slow.
 GEORGE : When's the next train?
 PORTER : In five hours' time!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 请把车票拿出来。
+**Title:** 请把车票拿出来。
 
-**问题：** 为什么乔治和肯误了火车？
+**Question:** 为什么乔治和肯误了火车？
 
 乔治：买两张到伦敦的往返票。下一班火车什么时候开？
 服务员：8点19分。
@@ -2078,11 +2078,11 @@ ATTENDANT : What's the matter?
 MR. HALL : This case doesn't belong to me!
 You've given me the wrong case!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 一只蓝色的小箱子
+**Title:** 一只蓝色的小箱子
 
-**问题：** 霍尔先生有没有要回他的提箱？
+**Question:** 霍尔先生有没有要回他的提箱？
 
 霍尔先生：几天前我把一只手提箱忘在开往伦敦的火车上了。
 服务员：先生，您能描述一下它是什么样子的吗？
@@ -2129,11 +2129,11 @@ he will come at once.
 I'm sure that
 you need an X-ray, Andy.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 啊哟！
+**Title:** 啊哟！
 
-**问题：** 安迪需要去看医生吗？
+**Question:** 安迪需要去看医生吗？
 
 安迪：啊哟！
 露西：怎么了，安迪？
@@ -2175,11 +2175,11 @@ He doesn't say very much, does he?
 PENNY : He can't write very much
 on a card, Mum.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 吉米的明信片
+**Title:** 吉米的明信片
 
-**问题：** 收到吉米寄来的一张明信片，祖母是否显得高兴？为什么/为什么不高兴？
+**Question:** 收到吉米寄来的一张明信片，祖母是否显得高兴？为什么/为什么不高兴？
 
 祖母：请把吉米的明信片念给我听听，彭妮。
 彭妮：“我刚到苏格兰，我现住在一家青年招待所。
@@ -2227,11 +2227,11 @@ GARY : Then he sat there
 and looked at it for three hours!
 He didn't write a word!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 法语考试
+**Title:** 法语考试
 
-**问题：** 考试持续了多长时间？
+**Question:** 考试持续了多长时间？
 
 加里：考试考得怎样，理查德？
 理查德：不算太坏，我想我的英语和数学及格了。题目很容易。加里，你怎么样？
@@ -2271,11 +2271,11 @@ SANDRA : What is it?
 THE BOSS : It's a dictionary.
 I hope it'll help you.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 错误百出
+**Title:** 错误百出
 
-**问题：** 给桑德拉的礼物是什么？
+**Question:** 给桑德拉的礼物是什么？
 
 老板：鲍勃。桑德拉在哪儿？我要找她。
 鲍勃：您要同她谈话吗？
@@ -2318,11 +2318,11 @@ but it must be my size.
 ASSISTANT : I'm afraid I haven't got a larger dress.
 This is the largest dress in the shop.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 太小了。
+**Title:** 太小了。
 
-**问题：** 这位女士想要什么样的服装？
+**Question:** 这位女士想要什么样的服装？
 
 店员：夫人，您喜欢这件衣服吗？
 女士：我很喜欢这颜色。这是件漂亮的衣服，可是对我来说太小了。
@@ -2363,11 +2363,11 @@ CHARLOTTE : Have a biscuit instead.
 Eat more and smoke less!
 JANE : That's very good advice!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 好主意
+**Title:** 好主意
 
-**问题：** 喝咖啡时简吃了什么？
+**Question:** 喝咖啡时简吃了什么？
 
 夏洛特：我来煮点咖啡好吗，简？
 简：这是个好主意，夏洛特。
@@ -2422,11 +2422,11 @@ you're a millionaire!
 MR. FRITH : Millionaires don't buy things
 on instalments!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 最昂贵的型号
+**Title:** 最昂贵的型号
 
-**问题：** 弗里斯先生可以用分期付款方式购买电视机吗？如何操作呢？
+**Question:** 弗里斯先生可以用分期付款方式购买电视机吗？如何操作呢？
 
 弗里斯先生：我非常喜欢这台电视机。请问它多少钱？
 店员：这是店里最贵的型号。它的售价是500英镑。
@@ -2473,11 +2473,11 @@ I've got some small change.
 2nd TRAMP :
 So have I.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 零钱
+**Title:** 零钱
 
-**问题：** 谁有零钱？
+**Question:** 谁有零钱？
 
 售票员：请买票！
 男子：请买一张到特拉法加广场的票。
@@ -2527,11 +2527,11 @@ TOM : Don't believe her, Jim.
 She's only joking.
 Have some beer!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 敲敲门！
+**Title:** 敲敲门！
 
-**问题：** 吉姆只能喝什么饮料？
+**Question:** 吉姆只能喝什么饮料？
 
 海伦：家里没有人吗？
 吉姆：海伦，我再敲一次。毫无动静，肯定家里没有人。
@@ -2577,11 +2577,11 @@ from the office.
 three times this morning,
 but I haven't had any change yet!'
 
-### 参考译文
+### Reference Translation
 
-**标题：** 汤米的早餐
+**Title:** 汤米的早餐
 
-**问题：** 最后一句话中的“change”是什么意思？
+**Question:** 最后一句话中的“change”是什么意思？
 
 今天早晨我丈夫走进饭厅时，把一些硬币掉在地上了。到处都是硬币。我们虽然找了，但没能把它们全部找到。
 正当我们吃早饭时，我们的小男孩汤米在地上找到了两枚小硬币。他把这两枚硬币全都放进了嘴里。我们俩都试图把这两枚硬币拿出来，但太迟了。汤米已经把硬币咽了下去！
@@ -2617,11 +2617,11 @@ But George's parrot, Henry, was still there.
 'Nothing, Henry,' George said and smiled.
 'Go back to sleep.'
 
-### 参考译文
+### Reference Translation
 
-**标题：** 一个真实的故事
+**Title:** 一个真实的故事
 
-**问题：** 谁在暗处对窃贼喊了一声？
+**Question:** 谁在暗处对窃贼喊了一声？
 
 当我的朋友乔治在床上看书时，两个小偷爬进了他的厨房。他们进到屋里后，走进了饭厅。饭厅里很暗，于是他们打开了手电筒。突然他们听到身后有声音。“什么事？什么事？”有人叫着。小偷扔下了手电筒，飞快地逃走了。乔治听到了响声，迅速地下了楼。他开了灯，但不见一个人。小偷逃走了。但是乔治的鹦鹉亨利仍在那里。“什么事，乔治？”它叫着。“没事，亨利。”乔治笑着说，“接着睡觉吧。”
 
@@ -2658,11 +2658,11 @@ that you served, Caroline?
 CAROLINE : Yes.
 I recognize him now.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 戴帽子的男士
+**Title:** 戴帽子的男士
 
-**问题：** 为什么卡罗琳没有马上认出那位顾客？
+**Question:** 为什么卡罗琳没有马上认出那位顾客？
 
 顾客：半小时以前我在这里买了两本很贵的辞典，但是我忘了拿走。
 经理：是谁接待您的：先生？
@@ -2711,11 +2711,11 @@ when I came home.
 SCOTT : Why did you shave it off?
 MIKE : My wife didn't like it!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 澳大利亚之行
+**Title:** 澳大利亚之行
 
-**问题：** 那个长着络腮胡子的人是谁？
+**Question:** 那个长着络腮胡子的人是谁？
 
 迈克：看，这是我到澳大利亚旅行时拍的一张照片。
 斯科特：让我看看，迈克。
@@ -2764,11 +2764,11 @@ you don't need to water the garden.
 PETER : That was a pleasant surprise.
 It means I can have tea, instead.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 两个人一起喝茶
+**Title:** 两个人一起喝茶
 
-**问题：** 苏珊是一个人喝茶吗？
+**Question:** 苏珊是一个人喝茶吗？
 
 苏珊：彼得，你现在能进来喝茶吗？
 彼得：还不能。我得先给花园浇水。
@@ -2812,11 +2812,11 @@ KATE : That was a long time ago, wasn't it?
 LIZ : Not that long ago!
 I'm not more than twenty-nine myself.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 著名的女演员
+**Title:** 著名的女演员
 
-**问题：** 谁只有29岁？为什么这件事如此含糊不清？
+**Question:** 谁只有29岁？为什么这件事如此含糊不清？
 
 凯特：莉兹，你能认出那个女人吗？
 莉兹：我想我认得出来，凯特，那一定是女演员卡伦·马什。
@@ -2864,11 +2864,11 @@ to drive slowly, darling.
 ANN : Well, next time
 you'd better take my advice!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 时速70英里
+**Title:** 时速70英里
 
-**问题：** 安建议她的丈夫下次做什么？
+**Question:** 安建议她的丈夫下次做什么？
 
 安：瞧，加里！那个警察正朝你挥手呢。他要你停下来。
 警察：你认为你现在是在哪儿？在赛车道上吗？你刚才一定是以每小时70英里的速度开车。
@@ -2914,11 +2914,11 @@ We have this problem every year.
 In the end, we stay at home
 and look after everything!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 别那么肯定！
+**Title:** 别那么肯定！
 
-**问题：** 决定如何度假有什么为难的地方？
+**Question:** 决定如何度假有什么为难的地方？
 
 马丁：加里，今年你们打算去哪里度假？
 加里：我们可能到国外去，但我不敢肯定。我妻子想到埃及去，我也想去那儿。我们还拿不定主意。
@@ -2962,11 +2962,11 @@ and didn't want to make
 another film for a long time.'
 LIZ : I wonder why!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 爆炸性新闻！
+**Title:** 爆炸性新闻！
 
-**问题：** 卡伦·马什说她为什么想要退休？
+**Question:** 卡伦·马什说她为什么想要退休？
 
 记者：您刚拍完一部新电影吗，马什小姐？
 马什小姐：是的，我刚拍完。
@@ -3014,11 +3014,11 @@ Kate?
 KATE : It certainly is.
 He'll be her sixth husband!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 最新消息
+**Title:** 最新消息
 
-**问题：** 你认为卡伦·马什会退休吗？
+**Question:** 你认为卡伦·马什会退休吗？
 
 记者：乌什小姐，您真的准备退休吗？
 马什小姐：有可能退。我还拿不定主意。我得间一下我的未婚夫。他不会再让我拍电影了。
@@ -3060,11 +3060,11 @@ we'll try and win the football pools again.
 JULIE : It's a pleasant dream
 but everything depends on 'if'!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 美好的梦
+**Title:** 美好的梦
 
-**问题：** 如果朱莉有那笔钱，她想做什么呢？
+**Question:** 如果朱莉有那笔钱，她想做什么呢？
 
 朱莉：布赖恩，你正在下足球赛的赌注吗？
 布赖恩：是的。我这就做完了，朱莉。我敢肯定这星期我们会赢一点的。
@@ -3110,11 +3110,11 @@ JOHN SMITH : No, I don't.
 I'm John Smith the telephone engineer
 and I'm repairing your telephone line.
 
-### 参考译文
+### Reference Translation
 
-**标题：** 是你吗，约翰？
+**Title:** 是你吗，约翰？
 
-**问题：** 格雷厄姆·特纳以为他在和哪一个约翰·史密斯通话？
+**Question:** 格雷厄姆·特纳以为他在和哪一个约翰·史密斯通话？
 
 格雷厄姆·特纳：是你吗，约翰？
 约翰·史密斯：是我，请讲。
@@ -3161,11 +3161,11 @@ She then began to make up her face.
 Sally was amused,
 but I was very embarrassed!
 
-### 参考译文
+### Reference Translation
 
-**标题：** 莎莉第一次乘火车旅行
+**Title:** 莎莉第一次乘火车旅行
 
-**问题：** 为什么母亲感到尴尬？
+**Question:** 为什么母亲感到尴尬？
 
 上周，我4岁的女儿萨莉被邀请去参加一个儿童聚会。我决定带她乘火车去。萨莉非常激动，因为她从未乘过火车。她靠车窗坐着，对她所看到的一切都要问个明白。突然，一个中年妇女士了火车，坐在萨莉的对面。“你好，小姑娘，”她说。萨莉没回答，却好奇地看着她。那位妇女穿着一件蓝色的大衣，戴着一顶大而滑稽的帽子。火车开出车站后，那位妇女打开了手提包，拿出了粉盒。然后她开始打扮起来。“你为什么要那样做呢？”萨莉问。“为了把自己打扮漂亮啊，”那位妇女答道。她放好了粉盒，慈祥地微笑着。“可是你仍然难看呀，”萨莉说。萨莉感到很有趣，而我却很尴尬。
 
@@ -3200,11 +3200,11 @@ I found a sign which said,
 'Anyone who leaves litter in these woods
 will be prosecuted!'
 
-### 参考译文
+### Reference Translation
 
-**标题：** 林中散步
+**Title:** 林中散步
 
-**问题：** 牌子上的字有什么可笑的地方？
+**Question:** 牌子上的字有什么可笑的地方？
 
 我住在一个由美丽的树林环绕的古老小镇上。这是一个著名的风景胜地。每逢星期天，有许许多多人从城里来观赏我们的小镇，并在树林中散步。游客已被告知要保持树林的整洁。树下都已设置了废物筐，但是人们仍到处扔垃圾。上星期三我到树林里去散步。我所见到的一切使我非常难过。
 我数了一下，有7辆旧汽车和3个旧冰箱。废物筐是空的，而满地都是纸片、烟头、旧轮胎、空瓶子和生锈的铁罐头盒。在垃圾堆中，我发现了一块牌子，上面写着：“凡在此树林里丢弃垃圾者，将依法处置。”

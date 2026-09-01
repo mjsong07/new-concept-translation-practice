@@ -15,12 +15,18 @@ defineProps<{
   accuracy: number;
   totalItems: number;
   colorScheme: ColorSchemeMode;
+  voiceUri: string;
+  speechRate: number;
+  voices: SpeechSynthesisVoice[];
 }>();
 
 const emit = defineEmits<{
   "update:lessonNumber": [value: number];
   "update:filter": [value: PracticeFilter];
   "update:colorScheme": [value: ColorSchemeMode];
+  "update:voiceUri": [value: string];
+  "update:speechRate": [value: number];
+  reset: [];
 }>();
 
 const visible = ref(false);
@@ -95,6 +101,19 @@ const filterLabels: Record<PracticeFilter, string> = {
           />
         </section>
 
+        <section>
+          <label>发音人</label>
+          <el-select :model-value="voiceUri" size="large" placeholder="系统默认发音人" @update:model-value="emit('update:voiceUri', String($event))">
+            <el-option label="系统默认发音人" value="" />
+            <el-option v-for="voice in voices" :key="voice.voiceURI" :label="`${voice.name} · ${voice.lang}`" :value="voice.voiceURI" />
+          </el-select>
+        </section>
+
+        <section>
+          <label>语速 {{ speechRate.toFixed(2) }}×</label>
+          <el-slider :model-value="speechRate" :min="0.5" :max="1.5" :step="0.05" show-stops @update:model-value="emit('update:speechRate', Number($event))" />
+        </section>
+
         <section class="mobile-dialog-progress">
           <div><span>本课进度</span><strong>{{ lessonCompleted }} / {{ lessonCount }}</strong></div>
           <el-progress :percentage="lessonPercent" :show-text="false" :stroke-width="8" />
@@ -105,6 +124,8 @@ const filterLabels: Record<PracticeFilter, string> = {
           <div><span>正确率</span><strong>{{ accuracy }}%</strong></div>
           <div><span>总题数</span><strong>{{ totalItems }}</strong></div>
         </div>
+
+        <el-button class="mobile-reset-button" plain type="danger" @click="emit('reset')">重做本课（清空本课记录）</el-button>
       </div>
 
       <template #footer>

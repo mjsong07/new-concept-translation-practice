@@ -1,40 +1,20 @@
 import type { AnswerDiffPart, AnswerFeedback } from "../types/practice";
 
-const contractionRules: Array<[RegExp, string]> = [
-  [/\bcan't\b/g, "cannot"],
-  [/\bwon't\b/g, "will not"],
-  [/\bshan't\b/g, "shall not"],
-  [/\baren't\b/g, "are not"],
-  [/\bisn't\b/g, "is not"],
-  [/\bwasn't\b/g, "was not"],
-  [/\bweren't\b/g, "were not"],
-  [/\bhaven't\b/g, "have not"],
-  [/\bhasn't\b/g, "has not"],
-  [/\bhadn't\b/g, "had not"],
-  [/\bdidn't\b/g, "did not"],
-  [/\bdoesn't\b/g, "does not"],
-  [/\bdon't\b/g, "do not"],
-  [/\bi'm\b/g, "i am"],
-  [/\byou're\b/g, "you are"],
-  [/\bwe're\b/g, "we are"],
-  [/\bthey're\b/g, "they are"],
-  [/\bi'll\b/g, "i will"],
-  [/\byou'll\b/g, "you will"],
-  [/\bwe'll\b/g, "we will"],
-  [/\bthey'll\b/g, "they will"],
-  [/\bi'd\b/g, "i would"],
-  [/\byou'd\b/g, "you would"]
-];
-
 function normalizeBase(value: string) {
-  let result = value
+  const result = value
     .toLowerCase()
     .replace(/[’‘`]/g, "'")
-    .replace(/£/g, " pounds ");
-  for (const [pattern, replacement] of contractionRules) result = result.replace(pattern, replacement);
+    .replace(/\bcan't\b/g, "cannot")
+    .replace(/\bwon't\b/g, "will not")
+    .replace(/\bshan't\b/g, "shall not")
+    .replace(/\b([a-z]+)n't\b/g, "$1 not")
+    .replace(/\b([a-z]+)'m\b/g, "$1 am")
+    .replace(/\b([a-z]+)'re\b/g, "$1 are")
+    .replace(/\b([a-z]+)'ve\b/g, "$1 have")
+    .replace(/\b([a-z]+)'ll\b/g, "$1 will");
   return result
-    .replace(/[^a-z0-9'\s]/g, " ")
-    .replace(/\b(?:pounds)\s+([0-9])/g, "$1")
+    // 判题只比较单词与数字：中英文引号、感叹号等所有符号均等价并忽略。
+    .replace(/[^a-z0-9\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -44,7 +24,7 @@ function expandAmbiguousContractions(value: string) {
   let variants = [source];
   const rules: Array<[RegExp, string[]]> = [
     [/\b([a-z0-9]+)'s\b/, ["$1 is", "$1 has"]],
-    [/\b([a-z0-9]+)'ve\b/, ["$1 have"]]
+    [/\b([a-z0-9]+)'d\b/, ["$1 would", "$1 had"]]
   ];
   for (const [pattern, replacements] of rules) {
     let pending = variants;

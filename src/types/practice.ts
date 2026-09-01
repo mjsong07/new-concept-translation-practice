@@ -7,6 +7,7 @@ export interface ExerciseItem {
   id: string;
   lesson: number;
   lessonTitle: string;
+  kind?: "title" | "question" | "sentence";
   speakerZh: string;
   speakerEn: string;
   prompt: string;
@@ -44,4 +45,23 @@ export interface StoredProgress {
   attempts: number;
   correct: number;
   answers: Record<string, string>;
+  mistakeHistory: MistakeHistoryEntry[];
+}
+
+export interface MistakeHistoryEntry {
+  id: string;
+  itemId: string;
+  lesson: number;
+  prompt: string;
+  input: string;
+  answer: string;
+  missing: string[];
+  extra: string[];
+  explanation: string;
+  createdAt: number;
+}
+
+export interface SpeechSettings {
+  voiceURI: string;
+  rate: number;
 }

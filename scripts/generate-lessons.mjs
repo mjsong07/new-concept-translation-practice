@@ -3,15 +3,15 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const sourcePath = resolve(root, "新概念英语第一册-奇数课课文与参考译文.md");
-const chineseSourcePath = resolve(root, "新概念英语第一册-奇数课中文参考译文.md");
+const sourcePath = resolve(root, "New-Concept-English-Book-1-Odd-Lessons-Texts-and-Reference-Translations.md");
+const chineseSourcePath = resolve(root, "New-Concept-English-Book-1-Odd-Lessons-Chinese-Reference-Translations.md");
 const targetPath = resolve(root, "src/data/lessons.ts");
 
 const source = await readFile(sourcePath, "utf8");
 const chineseSource = await readFile(chineseSourcePath, "utf8");
 const lessonPattern = /^## Lesson (\d+) · (.+)$/gm;
 const matches = [...source.matchAll(lessonPattern)];
-const chineseLessonPattern = /^## 第(\d+)课$/gm;
+const chineseLessonPattern = /^## Lesson (\d+)$/gm;
 const chineseMatches = [...chineseSource.matchAll(chineseLessonPattern)];
 const chineseBlocks = new Map(chineseMatches.map((match, index) => [
   Number(match[1]),
@@ -27,17 +27,17 @@ for (let index = 0; index < matches.length; index += 1) {
   const title = current[2].trim();
   const block = source.slice(current.index, next?.index ?? source.length);
   const chineseBlock = chineseBlocks.get(number) ?? "";
-  let english = block.match(/### English\s*\n([\s\S]*?)\n### 参考译文/)?.[1].trim() ?? "";
-  let referenceChinese = block.match(/### 参考译文\s*\n([\s\S]*)$/)?.[1].trim() ?? "";
+  let english = block.match(/### English\s*\n([\s\S]*?)\n### Reference Translation/)?.[1].trim() ?? "";
+  let referenceChinese = block.match(/### Reference Translation\s*\n([\s\S]*)$/)?.[1].trim() ?? "";
   const questionEn = english.match(/^\*\*Question:\*\*\s*(.+)$/m)?.[1].trim() ?? "";
-  const titleZh = chineseBlock.match(/^\*\*标题：\*\*\s*(.+)$/m)?.[1].trim() ?? "";
-  const questionZh = chineseBlock.match(/^\*\*问题：\*\*\s*(.+)$/m)?.[1].trim() ?? "";
+  const titleZh = chineseBlock.match(/^\*\*Title:\*\*\s*(.+)$/m)?.[1].trim() ?? "";
+  const questionZh = chineseBlock.match(/^\*\*Question:\*\*\s*(.+)$/m)?.[1].trim() ?? "";
   if (!questionEn || !titleZh || !questionZh) {
     throw new Error(`第 ${number} 课缺少英文问题、中文标题或中文问题`);
   }
   english = english.replace(/^\*\*Question:\*\*.*(?:\r?\n)?/gm, "").trim();
-  let chinese = chineseBlock.replace(/^## 第\d+课\s*/m, "").replace(/^\*\*(?:标题|问题)：\*\*.*(?:\r?\n)?/gm, "").trim();
-  referenceChinese = referenceChinese.replace(/^\*\*(?:标题|问题)：\*\*.*(?:\r?\n)?/gm, "").trim();
+  let chinese = chineseBlock.replace(/^## Lesson \d+\s*/m, "").replace(/^\*\*(?:Title|Question):\*\*.*(?:\r?\n)?/gm, "").trim();
+  referenceChinese = referenceChinese.replace(/^\*\*(?:Title|Question):\*\*.*(?:\r?\n)?/gm, "").trim();
   english = repairKnownOcrGaps(number, english);
   chinese = repairKnownChineseOcr(chinese);
   referenceChinese = repairKnownChineseOcr(referenceChinese);

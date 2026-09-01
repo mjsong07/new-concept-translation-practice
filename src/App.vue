@@ -1,16 +1,50 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { TrophyBase, CircleCheck, EditPen } from "@element-plus/icons-vue";
+import { ElMessage, ElMessageBox } from "element-plus";
 import PracticeControls from "./components/PracticeControls.vue";
 import MobileSettings from "./components/MobileSettings.vue";
 import TranslationExercise from "./components/TranslationExercise.vue";
 import { useColorScheme } from "./composables/useColorScheme";
 import { useTranslationPractice } from "./composables/useTranslationPractice";
-import { speakEnglish } from "./services/speech";
+import { getEnglishVoices, speakEnglish } from "./services/speech";
 
 const practice = useTranslationPractice();
 const colorScheme = useColorScheme();
 const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "本课还没有错题，继续保持！" : "本课题目已经全部完成。" );
+const voices = ref<SpeechSynthesisVoice[]>([]);
+const voiceUri = ref(localStorage.getItem("new-concept-speech-voice") || "");
+const speechRate = ref(Number(localStorage.getItem("new-concept-speech-rate")) || 0.82);
+
+function refreshVoices() {
+  voices.value = getEnglishVoices();
+}
+
+function speak(text: string) {
+  speakEnglish(text, { voiceURI: voiceUri.value, rate: speechRate.value });
+}
+
+async function resetCurrentLesson() {
+  try {
+    await ElMessageBox.confirm(
+      `将清空 Lesson ${practice.lesson.value.number} 的输入、完成状态和错误历史，是否继续？`,
+      "重做本课",
+      { confirmButtonText: "确认重做", cancelButtonText: "取消", type: "warning" }
+    );
+    practice.resetLesson();
+    ElMessage.success("本课记录已清空，可以重新练习了");
+  } catch {
+    // 用户取消重做。
+  }
+}
+
+watch(voiceUri, (value) => localStorage.setItem("new-concept-speech-voice", value));
+watch(speechRate, (value) => localStorage.setItem("new-concept-speech-rate", String(value)));
+onMounted(() => {
+  refreshVoices();
+  window.speechSynthesis?.addEventListener("voiceschanged", refreshVoices);
+});
+onUnmounted(() => window.speechSynthesis?.removeEventListener("voiceschanged", refreshVoices));
 
 </script>
 
@@ -21,12 +55,18 @@ const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "本�
       :lesson-number="practice.selectedLesson.value"
       :filter="practice.filter.value"
       :lesson-completed="practice.lessonCompleted.value"
-      :lesson-count="practice.lesson.value.items.length"
+      :lesson-count="practice.lessonItems.value.length"
       :lesson-percent="practice.lessonPercent.value"
       :color-scheme="colorScheme.mode.value"
+      :voice-uri="voiceUri"
+      :speech-rate="speechRate"
+      :voices="voices"
       @update:lesson-number="practice.selectedLesson.value = $event"
       @update:filter="practice.filter.value = $event"
       @update:color-scheme="colorScheme.mode.value = $event"
+      @update:voice-uri="voiceUri = $event"
+      @update:speech-rate="speechRate = $event"
+      @reset="resetCurrentLesson"
     />
 
     <div class="workspace">
@@ -36,21 +76,27 @@ const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "本�
         :lesson-title="practice.lesson.value.title"
         :filter="practice.filter.value"
         :lesson-completed="practice.lessonCompleted.value"
-        :lesson-count="practice.lesson.value.items.length"
+        :lesson-count="practice.lessonItems.value.length"
         :lesson-percent="practice.lessonPercent.value"
         :total-completed="practice.totalCompleted.value"
         :accuracy="practice.accuracy.value"
         :total-items="practice.totalItems"
         :color-scheme="colorScheme.mode.value"
+        :voice-uri="voiceUri"
+        :speech-rate="speechRate"
+        :voices="voices"
         @update:lesson-number="practice.selectedLesson.value = $event"
         @update:filter="practice.filter.value = $event"
         @update:color-scheme="colorScheme.mode.value = $event"
+        @update:voice-uri="voiceUri = $event"
+        @update:speech-rate="speechRate = $event"
+        @reset="resetCurrentLesson"
       />
 
       <header class="workspace-header">
         <div>
-          <span class="eyebrow">新概念英语第一册 · 奇数课</span>
-          <h2>中译英句子训练</h2>
+          <span class="eyebrow">NEW CONCEPT ENGLISH · BOOK 1 · ODD LESSONS</span>
+          <h2>Chinese-to-English Sentence Practice</h2>
         </div>
         <div class="stats-strip">
           <div><el-icon><CircleCheck /></el-icon><span>已掌握<strong>{{ practice.totalCompleted.value }}</strong></span></div>
@@ -67,21 +113,23 @@ const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "本�
         :question-en="practice.lesson.value.questionEn"
         :question-zh="practice.lesson.value.questionZh"
         :items="practice.filteredItems.value"
-        :all-items="practice.lesson.value.items"
+        :all-items="practice.lessonItems.value"
         :answers="practice.answers.value"
         :results="practice.results.value"
         :completed-ids="practice.progress.value.completed"
         :display-mode="practice.displayMode.value"
+        :mistake-history="practice.lessonMistakeHistory.value"
         @update:display-mode="practice.displayMode.value = $event"
         @update:answer="practice.updateAnswer"
         @submit="practice.submit"
-        @speak="speakEnglish"
+        @clear="practice.clearAnswer"
+        @speak="speak"
       />
       <el-empty v-else :description="emptyMessage" class="empty-state">
         <el-button type="primary" @click="practice.filter.value = 'all'">查看全部题目</el-button>
       </el-empty>
 
-      <footer>学习内容来自用户提供的《新概念英语》第一册本地资料，仅用于个人学习。</footer>
+      <footer>Based on the user-provided New Concept English Book 1 materials. For personal study only.</footer>
     </div>
   </div>
 </template>
