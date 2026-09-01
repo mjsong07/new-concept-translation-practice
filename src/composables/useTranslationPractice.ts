@@ -1,6 +1,7 @@
 import { computed, ref, watch } from "vue";
 import { lessons } from "../data/lessons";
 import { evaluateAnswer } from "../services/text";
+import { useI18n } from "./useI18n";
 import type { AnswerFeedback, DisplayMode, ExerciseItem, MistakeHistoryEntry, PracticeFilter, StoredProgress } from "../types/practice";
 
 const storageKey = "new-concept-translation-progress-v2";
@@ -42,6 +43,7 @@ function loadProgress(): StoredProgress {
 }
 
 export function useTranslationPractice() {
+  const { locale } = useI18n();
   const selectedLesson = ref(loadSelectedLesson());
   const filter = ref<PracticeFilter>("all");
   const displayMode = ref<DisplayMode>("translation");
@@ -73,6 +75,7 @@ export function useTranslationPractice() {
       // 浏览器禁用本地存储时仍允许继续练习。
     }
   });
+  watch(locale, restoreLessonResults);
   watch(progress, (value) => {
     try {
       localStorage.setItem(storageKey, JSON.stringify(value));
@@ -86,7 +89,7 @@ export function useTranslationPractice() {
     getLessonItems(lessons.find((item) => item.number === selectedLesson.value) || lessons[0]).forEach((item) => {
       const value = answers.value[item.id];
       if (value && ((progress.value.mistakes[item.id] || 0) > 0 || progress.value.completed.includes(item.id))) {
-        restored[item.id] = evaluateAnswer(value, item.answer);
+        restored[item.id] = evaluateAnswer(value, item.answer, locale.value);
       }
     });
     results.value = restored;
@@ -115,7 +118,7 @@ export function useTranslationPractice() {
     const item = lessonItems.value.find((candidate) => candidate.id === id);
     const value = answers.value[id] || "";
     if (!item || !value.trim()) return;
-    const result = evaluateAnswer(value, item.answer);
+    const result = evaluateAnswer(value, item.answer, locale.value);
     results.value = { ...results.value, [id]: result };
     progress.value.attempts += 1;
     if (result.level === "correct") {

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from "vue";
 import { CircleCheckFilled, Delete, Headset, Histogram, MoreFilled } from "@element-plus/icons-vue";
+import { useI18n } from "../composables/useI18n";
+import { explainDifference } from "../services/text";
 import type { AnswerFeedback, DisplayMode, ExerciseItem, MistakeHistoryEntry } from "../types/practice";
 
 const props = defineProps<{
@@ -17,6 +19,8 @@ const props = defineProps<{
   displayMode: DisplayMode;
   mistakeHistory: MistakeHistoryEntry[];
 }>();
+
+const { locale, t } = useI18n();
 
 const emit = defineEmits<{
   "update:displayMode": [value: DisplayMode];
@@ -43,13 +47,24 @@ const lessonSpeechText = computed(() => [
   ...props.allItems.filter((item) => item.kind === "sentence" || !item.kind)
     .map((item) => item.speakerEn ? `${item.speakerEn}. ${item.answer}` : item.answer)
 ].filter(Boolean).join(" "));
-const historySummary = computed(() => {
+
+function summarizeWords(words: string[]) {
   const counts = new Map<string, number>();
-  props.mistakeHistory.forEach((entry) => {
-    entry.missing.forEach((word) => counts.set(`遗漏 · ${word}`, (counts.get(`遗漏 · ${word}`) || 0) + 1));
-    entry.extra.forEach((word) => counts.set(`多余/错误 · ${word}`, (counts.get(`多余/错误 · ${word}`) || 0) + 1));
-  });
-  return [...counts.entries()].sort((a, b) => b[1] - a[1]);
+  words.forEach((word) => counts.set(word, (counts.get(word) || 0) + 1));
+  const sorted = [...counts.entries()].sort((left, right) => right[1] - left[1]);
+  const visible = sorted.slice(0, 4).map(([word, count]) => count > 1 ? `${word} ×${count}` : word);
+  const hiddenCount = sorted.length - visible.length;
+  if (hiddenCount > 0) visible.push(`+${hiddenCount}`);
+  return visible.join(locale.value === "en" ? ", " : "、");
+}
+
+const historySummary = computed(() => {
+  const missing = props.mistakeHistory.flatMap((entry) => entry.missing);
+  const extra = props.mistakeHistory.flatMap((entry) => entry.extra);
+  return [
+    missing.length ? t("history.missingGroup", { words: summarizeWords(missing) }) : "",
+    extra.length ? t("history.extraGroup", { words: summarizeWords(extra) }) : ""
+  ].filter(Boolean);
 });
 const orderedHistory = computed(() => {
   if (!historyFocusItemId.value) return props.mistakeHistory;
@@ -106,15 +121,15 @@ function rowState(item: ExerciseItem) {
 }
 
 function itemLabel(item: ExerciseItem, index: number) {
-  if (item.kind === "title") return "标";
-  if (item.kind === "question") return "问";
+  if (item.kind === "title") return t("exercise.titleShort");
+  if (item.kind === "question") return t("exercise.questionShort");
   return String(index - props.items.filter((candidate) => candidate.kind !== "sentence" && candidate.kind).length + 1);
 }
 
 function itemAriaLabel(item: ExerciseItem, index: number) {
-  if (item.kind === "title") return "标题";
-  if (item.kind === "question") return "问题";
-  return `第 ${itemLabel(item, index)} 句`;
+  if (item.kind === "title") return t("exercise.title");
+  if (item.kind === "question") return t("exercise.question");
+  return t("exercise.sentence", { number: itemLabel(item, index) });
 }
 
 function openHistory(itemId = "") {
@@ -141,7 +156,7 @@ function onPointerUp(event: PointerEvent) {
 }
 
 function formatTime(timestamp: number) {
-  return new Intl.DateTimeFormat("zh-CN", { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(timestamp);
+  return new Intl.DateTimeFormat(locale.value, { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(timestamp);
 }
 </script>
 
@@ -152,19 +167,19 @@ function formatTime(timestamp: number) {
         <span class="lesson-kicker">LESSON {{ lessonNumber }}</span>
         <div class="lesson-title-row">
           <h1>{{ visibleTitle }}</h1>
-          <el-button circle text :icon="Headset" aria-label="朗读课程标题" @click="emit('speak', lessonTitle)" />
+          <el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', lessonTitle)" />
         </div>
       </div>
-      <div class="lesson-sentence-count">共 {{ items.length }} 题</div>
+      <div class="lesson-sentence-count">{{ t('exercise.count', { count: items.length }) }}</div>
     </div>
 
     <el-tabs class="display-tabs" :model-value="displayMode" stretch @update:model-value="emit('update:displayMode', $event as DisplayMode)">
-      <el-tab-pane label="译文" name="translation">
+      <el-tab-pane :label="t('exercise.translation')" name="translation">
         <div class="translation-toolbar">
-          <span>标题、问题和正文均参与练习</span>
+          <span>{{ t('exercise.scopeHint') }}</span>
           <div>
-            <el-button text :icon="Histogram" @click="openHistory()">错误历史</el-button>
-            <el-button plain :icon="Headset" @click="emit('speak', lessonSpeechText)">全文</el-button>
+            <el-button text :icon="Histogram" @click="openHistory()">{{ t('exercise.history') }}</el-button>
+            <el-button plain :icon="Headset" @click="emit('speak', lessonSpeechText)">{{ t('exercise.fullText') }}</el-button>
           </div>
         </div>
         <div class="sentence-list translation-list">
@@ -175,8 +190,8 @@ function formatTime(timestamp: number) {
                 <p class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}</p>
                 <el-icon v-if="rowState(item) === 'is-correct'" class="row-status-icon"><CircleCheckFilled /></el-icon>
                 <el-tooltip v-else-if="rowState(item) === 'is-wrong'" trigger="click" placement="left" :show-after="0">
-                  <template #content><div class="error-tooltip"><strong>错误提示</strong><p>{{ results[item.id].explanation }}</p></div></template>
-                  <button class="error-info-button" type="button" aria-label="查看错误原因">!</button>
+                  <template #content><div class="error-tooltip"><strong>{{ t('exercise.errorHint') }}</strong><p>{{ results[item.id].explanation }}</p></div></template>
+                  <button class="error-info-button" type="button" :aria-label="t('exercise.viewError')">!</button>
                 </el-tooltip>
               </div>
 
@@ -191,18 +206,18 @@ function formatTime(timestamp: number) {
                   :class="{ 'has-result': Boolean(results[item.id]) }"
                   type="textarea" :autosize="{ minRows: 1, maxRows: 5 }" resize="none" autocomplete="off"
                   :enterkeyhint="index < items.length - 1 && shouldAutoFocus() ? 'next' : 'done'"
-                  :aria-label="`${itemAriaLabel(item, index)}英文译文`"
+                  :aria-label="t('exercise.answerLabel', { item: itemAriaLabel(item, index) })"
                   @update:model-value="emit('update:answer', item.id, $event)"
                   @keydown="onKeydown($event, item)"
                 />
                 <div class="input-row-actions">
-                  <span v-if="results[item.id]" class="input-result-label">{{ results[item.id].level === 'correct' ? '正确' : '有误' }}</span>
+                  <span v-if="results[item.id]" class="input-result-label">{{ results[item.id].level === 'correct' ? t('exercise.correct') : t('exercise.incorrect') }}</span>
                   <el-dropdown trigger="click" placement="bottom-end">
-                    <el-button class="row-more-button" text circle :icon="MoreFilled" aria-label="打开当前行操作菜单" />
+                    <el-button class="row-more-button" text circle :icon="MoreFilled" :aria-label="t('exercise.openActions')" />
                     <template #dropdown>
                       <el-dropdown-menu>
-                        <el-dropdown-item :icon="Delete" :disabled="!answers[item.id]" @click="emit('clear', item.id)">清空当前行</el-dropdown-item>
-                        <el-dropdown-item :icon="Histogram" @click="openHistory(item.id)">错误历史</el-dropdown-item>
+                        <el-dropdown-item :icon="Delete" :disabled="!answers[item.id]" @click="emit('clear', item.id)">{{ t('exercise.clearRow') }}</el-dropdown-item>
+                        <el-dropdown-item :icon="Histogram" @click="openHistory(item.id)">{{ t('exercise.history') }}</el-dropdown-item>
                       </el-dropdown-menu>
                     </template>
                   </el-dropdown>
@@ -213,55 +228,55 @@ function formatTime(timestamp: number) {
         </div>
       </el-tab-pane>
 
-      <el-tab-pane label="原文" name="original">
+      <el-tab-pane :label="t('exercise.original')" name="original">
         <section class="lesson-question is-english">
           <div class="lesson-question-copy">
-            <div class="mobile-title-with-speech"><strong class="mobile-lesson-title">{{ lessonTitle }}</strong><el-button circle text :icon="Headset" aria-label="朗读课程标题" @click="emit('speak', lessonTitle)" /></div>
-            <div class="question-with-speech"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" aria-label="朗读课文问题" @click="emit('speak', questionEn)" /></div>
+            <div class="mobile-title-with-speech"><strong class="mobile-lesson-title">{{ lessonTitle }}</strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', lessonTitle)" /></div>
+            <div class="question-with-speech"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', questionEn)" /></div>
           </div>
-          <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">全文</el-button>
+          <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">{{ t('exercise.fullText') }}</el-button>
         </section>
         <div class="sentence-list reading-list">
           <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row">
             <div class="sentence-number">{{ index + 1 }}</div>
-            <div class="sentence-content reading-sentence"><p class="sentence-english"><strong v-if="item.speakerEn">{{ item.speakerEn }}: </strong>{{ item.answer }}</p><el-button circle text :icon="Headset" aria-label="朗读英语原文" @click="emit('speak', item.answer)" /></div>
+            <div class="sentence-content reading-sentence"><p class="sentence-english"><strong v-if="item.speakerEn">{{ item.speakerEn }}: </strong>{{ item.answer }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakText')" @click="emit('speak', item.answer)" /></div>
           </article>
         </div>
       </el-tab-pane>
 
-      <el-tab-pane label="译文+原文" name="bilingual">
+      <el-tab-pane :label="t('exercise.bilingual')" name="bilingual">
         <section class="lesson-question is-bilingual">
           <div class="bilingual-question-copy">
-            <div class="mobile-title-with-speech"><strong class="mobile-lesson-title">{{ lessonTitleZh }} · {{ lessonTitle }}</strong><el-button circle text :icon="Headset" aria-label="朗读课程标题" @click="emit('speak', lessonTitle)" /></div>
+            <div class="mobile-title-with-speech"><strong class="mobile-lesson-title">{{ lessonTitleZh }} · {{ lessonTitle }}</strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', lessonTitle)" /></div>
             <div><p>{{ questionZh }}</p></div>
-            <div class="question-with-speech"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" aria-label="朗读课文问题" @click="emit('speak', questionEn)" /></div>
+            <div class="question-with-speech"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', questionEn)" /></div>
           </div>
-          <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">全文</el-button>
+          <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">{{ t('exercise.fullText') }}</el-button>
         </section>
         <div class="sentence-list reading-list bilingual-list">
           <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row">
             <div class="sentence-number">{{ index + 1 }}</div>
-            <div class="sentence-content"><p class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}</p><div class="reading-sentence"><p class="sentence-english"><strong v-if="item.speakerEn">{{ item.speakerEn }}: </strong>{{ item.answer }}</p><el-button circle text :icon="Headset" aria-label="朗读英语原文" @click="emit('speak', item.answer)" /></div></div>
+            <div class="sentence-content"><p class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}</p><div class="reading-sentence"><p class="sentence-english"><strong v-if="item.speakerEn">{{ item.speakerEn }}: </strong>{{ item.answer }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakText')" @click="emit('speak', item.answer)" /></div></div>
           </article>
         </div>
       </el-tab-pane>
     </el-tabs>
 
-    <el-dialog v-model="historyVisible" class="mistake-history-dialog" title="本课错误历史" width="min(680px, calc(100% - 24px))" append-to-body>
-      <el-empty v-if="!mistakeHistory.length" description="本课还没有错误记录" :image-size="80" />
+    <el-dialog v-model="historyVisible" class="mistake-history-dialog" :title="t('history.title')" width="min(680px, calc(100% - 24px))" append-to-body>
+      <el-empty v-if="!mistakeHistory.length" :description="t('history.empty')" :image-size="80" />
       <template v-else>
         <section class="mistake-summary">
-          <div class="history-section-title"><strong>错词汇总</strong><span>共 {{ mistakeHistory.length }} 次错误作答</span></div>
-          <div v-if="historySummary.length" class="mistake-chips"><span v-for="([label, count]) in historySummary" :key="label">{{ label }} <b>×{{ count }}</b></span></div>
-          <p v-else class="history-empty-copy">错误主要来自语序，请查看下方明细。</p>
+          <div class="history-section-title"><strong>{{ t('history.summary') }}</strong><span>{{ t('history.attempts', { count: mistakeHistory.length }) }}</span></div>
+          <div v-if="historySummary.length" class="mistake-chips"><span v-for="label in historySummary" :key="label">{{ label }}</span></div>
+          <p v-else class="history-empty-copy">{{ t('history.orderOnly') }}</p>
         </section>
         <section class="mistake-details">
-          <div class="history-section-title"><strong>作答明细</strong><span>最新记录在前</span></div>
+          <div class="history-section-title"><strong>{{ t('history.details') }}</strong><span>{{ t('history.latest') }}</span></div>
           <article v-for="entry in orderedHistory" :key="entry.id" class="mistake-detail-card" :class="{ 'is-focused': entry.itemId === historyFocusItemId }">
             <header><strong>{{ entry.prompt }}</strong><time>{{ formatTime(entry.createdAt) }}</time></header>
-            <p><span>你的输入</span><del>{{ entry.input }}</del></p>
-            <p><span>参考答案</span><ins>{{ entry.answer }}</ins></p>
-            <small>{{ entry.explanation }}</small>
+            <p><span>{{ t('history.yourInput') }}</span><del>{{ entry.input }}</del></p>
+            <p><span>{{ t('history.answer') }}</span><ins>{{ entry.answer }}</ins></p>
+            <small>{{ explainDifference(entry.missing, entry.extra, locale) }}</small>
           </article>
         </section>
       </template>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import type { ColorSchemeMode, Lesson, PracticeFilter } from "../types/practice";
+import { useI18n } from "../composables/useI18n";
+import type { AppLocale, ColorSchemeMode, Lesson, PracticeFilter } from "../types/practice";
+
+const { locale, t } = useI18n();
 
 defineProps<{
   lessons: Lesson[];
@@ -27,7 +30,7 @@ const emit = defineEmits<{
 <template>
   <aside class="control-panel">
     <div class="brand-lockup">
-      <div class="brand-mark">译</div>
+      <div class="brand-mark">{{ locale === 'en' ? 'EN' : '译' }}</div>
       <div>
         <div class="brand-name">Sentence Workshop</div>
         <div class="brand-subtitle">NEW CONCEPT ENGLISH</div>
@@ -35,7 +38,16 @@ const emit = defineEmits<{
     </div>
 
     <section class="control-section">
-      <label class="control-label">选择课程</label>
+      <label class="control-label">{{ t('settings.language') }}</label>
+      <el-segmented
+        :model-value="locale"
+        :options="[{ label: '中文', value: 'zh-CN' }, { label: 'English', value: 'en' }]"
+        @update:model-value="locale = $event as AppLocale"
+      />
+    </section>
+
+    <section class="control-section">
+      <label class="control-label">{{ t('settings.selectLesson') }}</label>
       <el-select
         :model-value="lessonNumber"
         size="large"
@@ -51,57 +63,57 @@ const emit = defineEmits<{
     </section>
 
     <section class="control-section">
-      <label class="control-label">练习范围</label>
+      <label class="control-label">{{ t('settings.practiceRange') }}</label>
       <el-segmented
         :model-value="filter"
         :options="[
-          { label: '全部', value: 'all' },
-          { label: '未完成', value: 'unfinished' },
-          { label: '错题', value: 'mistakes' }
+          { label: t('filter.all'), value: 'all' },
+          { label: t('filter.unfinished'), value: 'unfinished' },
+          { label: t('filter.mistakes'), value: 'mistakes' }
         ]"
         @update:model-value="emit('update:filter', $event as PracticeFilter)"
       />
     </section>
 
     <section class="control-section">
-      <label class="control-label">外观</label>
+      <label class="control-label">{{ t('settings.appearance') }}</label>
       <el-segmented
         :model-value="colorScheme"
         :options="[
-          { label: '自动', value: 'system' },
-          { label: '浅色', value: 'light' },
-          { label: '深色', value: 'dark' }
+          { label: t('theme.system'), value: 'system' },
+          { label: t('theme.light'), value: 'light' },
+          { label: t('theme.dark'), value: 'dark' }
         ]"
         @update:model-value="emit('update:colorScheme', $event as ColorSchemeMode)"
       />
     </section>
 
     <section class="control-section speech-settings">
-      <label class="control-label">发音设置</label>
-      <el-select :model-value="voiceUri" placeholder="系统默认发音人" @update:model-value="emit('update:voiceUri', String($event))">
-        <el-option label="系统默认发音人" value="" />
+      <label class="control-label">{{ t('settings.pronunciation') }}</label>
+      <el-select :model-value="voiceUri" :placeholder="t('settings.systemVoice')" @update:model-value="emit('update:voiceUri', String($event))">
+        <el-option :label="t('settings.systemVoice')" value="" />
         <el-option v-for="voice in voices" :key="voice.voiceURI" :label="`${voice.name} · ${voice.lang}`" :value="voice.voiceURI" />
       </el-select>
       <div class="speech-rate-row">
-        <span>语速 {{ speechRate.toFixed(2) }}×</span>
+        <span>{{ t('settings.rate', { rate: speechRate.toFixed(2) }) }}</span>
         <el-slider :model-value="speechRate" :min="0.5" :max="1.5" :step="0.05" @update:model-value="emit('update:speechRate', Number($event))" />
       </div>
     </section>
 
     <section class="lesson-progress">
       <div class="progress-heading">
-        <span>本课进度</span>
+        <span>{{ t('settings.progress') }}</span>
         <strong>{{ lessonCompleted }} / {{ lessonCount }}</strong>
       </div>
       <el-progress :percentage="lessonPercent" :show-text="false" :stroke-width="8" />
-      <p>答对后自动计入完成进度，保存在本机浏览器中。</p>
+      <p>{{ t('settings.progressHint') }}</p>
     </section>
 
-    <el-button class="reset-lesson-button" plain @click="emit('reset')">重做本课</el-button>
+    <el-button class="reset-lesson-button" plain @click="emit('reset')">{{ t('settings.redo') }}</el-button>
 
     <div class="keyboard-hint">
-      <span>快捷键</span>
-      <div><kbd>Enter</kbd> 校验并跳到下一句</div>
+      <span>{{ t('settings.shortcuts') }}</span>
+      <div><kbd>Enter</kbd> {{ t('settings.enterHint') }}</div>
     </div>
   </aside>
 </template>

@@ -252,8 +252,7 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .history-section-title strong { color: var(--ink); font-size: 15px; }
 .history-section-title span, .history-empty-copy { color: var(--muted); font-size: 11px; }
 .mistake-chips { display: flex; flex-wrap: wrap; gap: 7px; }
-.mistake-chips > span { padding: 5px 9px; border-radius: 999px; color: #a43e33; background: #fff0ed; font-size: 12px; }
-.mistake-chips b { font-weight: 700; }
+.mistake-chips > span { max-width: 100%; padding: 5px 9px; border-radius: 12px; color: #a43e33; background: #fff0ed; font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; }
 .mistake-detail-card { padding: 12px 14px; display: grid; gap: 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); }
 .mistake-detail-card.is-focused { border-color: var(--coral); box-shadow: 0 0 0 2px rgba(230,108,80,.1); }
 .mistake-detail-card header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }

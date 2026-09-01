@@ -1,4 +1,5 @@
-import type { AnswerDiffPart, AnswerFeedback } from "../types/practice";
+import { translate } from "../composables/useI18n";
+import type { AnswerDiffPart, AnswerFeedback, AppLocale } from "../types/practice";
 
 function normalizeBase(value: string) {
   const result = value
@@ -46,21 +47,22 @@ export function normalizeText(value: string) {
   return expandAmbiguousContractions(value)[0] || "";
 }
 
-export function evaluateAnswer(input: string, answer: string): AnswerFeedback {
+export function evaluateAnswer(input: string, answer: string, locale: AppLocale = "zh-CN"): AnswerFeedback {
+  const t = (key: string, params?: Record<string, string | number>) => translate(locale, key, params);
   const actualVariants = expandAmbiguousContractions(input);
   const expectedVariants = expandAmbiguousContractions(answer);
   const actual = actualVariants[0] || "";
   const expected = expectedVariants[0] || "";
   if (!actual) {
     return {
-      level: "idle", title: "先写下你的译文", message: "输入英文后再检查答案。", similarity: 0,
-      missing: [], extra: [], referenceParts: [], explanation: "请先输入英文译文。"
+      level: "idle", title: t("feedback.idleTitle"), message: t("feedback.idleMessage"), similarity: 0,
+      missing: [], extra: [], referenceParts: [], explanation: t("feedback.idleExplanation")
     };
   }
   if (actualVariants.some((variant) => expectedVariants.includes(variant))) {
     return {
-      level: "correct", title: "完全正确", message: "大小写、标点和缩写形式不会影响判定。", similarity: 1,
-      missing: [], extra: [], referenceParts: buildReferenceParts(answer, input), explanation: "单词、语序和语法均匹配。"
+      level: "correct", title: t("feedback.correctTitle"), message: t("feedback.correctMessage"), similarity: 1,
+      missing: [], extra: [], referenceParts: buildReferenceParts(answer, input), explanation: t("feedback.correctExplanation")
     };
   }
 
@@ -71,12 +73,12 @@ export function evaluateAnswer(input: string, answer: string): AnswerFeedback {
   const missing = subtractWords(expectedWords, actualWords);
   const extra = subtractWords(actualWords, expectedWords);
   const referenceParts = buildReferenceParts(answer, input);
-  const explanation = explainDifference(missing, extra);
+  const explanation = explainDifference(missing, extra, locale);
   if (similarity >= 0.78) {
     return {
       level: "close",
-      title: "很接近了",
-      message: missing.length ? "检查遗漏的词、时态或语序。" : "单词基本齐全，再检查一下语序。",
+      title: t("feedback.closeTitle"),
+      message: missing.length ? t("feedback.closeMissing") : t("feedback.closeOrder"),
       similarity,
       missing,
       extra,
@@ -85,7 +87,7 @@ export function evaluateAnswer(input: string, answer: string): AnswerFeedback {
     };
   }
   return {
-    level: "wrong", title: "还需要调整", message: "对照参考答案，先找主语、谓语，再补充其余成分。",
+    level: "wrong", title: t("feedback.wrongTitle"), message: t("feedback.wrongMessage"),
     similarity, missing, extra, referenceParts, explanation
   };
 }
@@ -137,28 +139,21 @@ function longestCommonWordIndexes(expected: string[], actual: string[]) {
   return matched;
 }
 
-function explainDifference(missing: string[], extra: string[]) {
+export function explainDifference(missing: string[], extra: string[], locale: AppLocale = "zh-CN") {
+  const t = (key: string, params?: Record<string, string | number>) => translate(locale, key, params);
   const issues: string[] = [];
-  const articles = ["a", "an", "the"];
-  const auxiliaries = ["am", "is", "are", "was", "were", "do", "does", "did", "have", "has", "had", "will", "would", "can", "could", "must"];
-  const prepositions = ["in", "on", "at", "to", "for", "from", "with", "of", "about", "into", "over", "under"];
-  const pronouns = ["i", "you", "he", "she", "it", "we", "they", "me", "him", "her", "us", "them"];
-  const grammarWords = new Set([...articles, ...auxiliaries, ...prepositions, ...pronouns]);
-  if (missing.some((word) => articles.includes(word))) issues.push("检查冠词 a、an 或 the");
-  if (missing.some((word) => auxiliaries.includes(word))) {
-    issues.push("检查系动词、助动词或时态");
-  }
-  if (missing.some((word) => prepositions.includes(word))) {
-    issues.push("检查介词搭配");
-  }
-  if (missing.some((word) => pronouns.includes(word))) {
-    issues.push("检查人称或代词");
-  }
-  const genericMissing = missing.filter((word) => !grammarWords.has(word));
-  if (genericMissing.length) issues.push(`缺少或需要替换：${[...new Set(genericMissing)].join("、")}`);
-  if (extra.length) issues.push(`输入中多余或不匹配：${[...new Set(extra)].join("、")}`);
-  if (!missing.length && !extra.length) issues.push("单词基本正确，请检查语序");
-  return issues.join("；") || "请对照红色单词检查用词和语法。";
+  if (missing.length) issues.push(t("feedback.missing", { words: summarizeWords(missing, locale) }));
+  if (extra.length) issues.push(t("feedback.extra", { words: summarizeWords(extra, locale) }));
+  if (!missing.length && !extra.length) issues.push(t("feedback.order"));
+  return issues.join(locale === "en" ? "; " : "；") || t("feedback.fallback");
+}
+
+function summarizeWords(words: string[], locale: AppLocale) {
+  const uniqueWords = [...new Set(words)];
+  const visible = uniqueWords.slice(0, 5);
+  const hiddenCount = uniqueWords.length - visible.length;
+  if (hiddenCount > 0) visible.push(`+${hiddenCount}`);
+  return visible.join(locale === "en" ? ", " : "、");
 }
 
 function levenshtein(left: string[], right: string[]) {

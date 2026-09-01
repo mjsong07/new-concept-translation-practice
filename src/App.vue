@@ -2,16 +2,21 @@
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { TrophyBase, CircleCheck, EditPen } from "@element-plus/icons-vue";
 import { ElMessage, ElMessageBox } from "element-plus";
+import en from "element-plus/es/locale/lang/en";
+import zhCn from "element-plus/es/locale/lang/zh-cn";
 import PracticeControls from "./components/PracticeControls.vue";
 import MobileSettings from "./components/MobileSettings.vue";
 import TranslationExercise from "./components/TranslationExercise.vue";
 import { useColorScheme } from "./composables/useColorScheme";
+import { useI18n } from "./composables/useI18n";
 import { useTranslationPractice } from "./composables/useTranslationPractice";
 import { getEnglishVoices, speakEnglish } from "./services/speech";
 
+const { locale, t } = useI18n();
 const practice = useTranslationPractice();
 const colorScheme = useColorScheme();
-const emptyMessage = computed(() => practice.filter.value === "mistakes" ? "本课还没有错题，继续保持！" : "本课题目已经全部完成。" );
+const elementLocale = computed(() => locale.value === "en" ? en : zhCn);
+const emptyMessage = computed(() => practice.filter.value === "mistakes" ? t("empty.noMistakes") : t("empty.completed"));
 const voices = ref<SpeechSynthesisVoice[]>([]);
 const voiceUri = ref(localStorage.getItem("new-concept-speech-voice") || "");
 const speechRate = ref(Number(localStorage.getItem("new-concept-speech-rate")) || 0.82);
@@ -27,12 +32,12 @@ function speak(text: string) {
 async function resetCurrentLesson() {
   try {
     await ElMessageBox.confirm(
-      `将清空 Lesson ${practice.lesson.value.number} 的输入、完成状态和错误历史，是否继续？`,
-      "重做本课",
-      { confirmButtonText: "确认重做", cancelButtonText: "取消", type: "warning" }
+      t("reset.message", { lesson: practice.lesson.value.number }),
+      t("reset.title"),
+      { confirmButtonText: t("reset.confirm"), cancelButtonText: t("reset.cancel"), type: "warning" }
     );
     practice.resetLesson();
-    ElMessage.success("本课记录已清空，可以重新练习了");
+    ElMessage.success(t("reset.success"));
   } catch {
     // 用户取消重做。
   }
@@ -49,6 +54,7 @@ onUnmounted(() => window.speechSynthesis?.removeEventListener("voiceschanged", r
 </script>
 
 <template>
+  <el-config-provider :locale="elementLocale">
   <div class="app-shell">
     <PracticeControls
       :lessons="practice.lessons"
@@ -95,13 +101,13 @@ onUnmounted(() => window.speechSynthesis?.removeEventListener("voiceschanged", r
 
       <header class="workspace-header">
         <div>
-          <span class="eyebrow">NEW CONCEPT ENGLISH · BOOK 1 · ODD LESSONS</span>
-          <h2>Chinese-to-English Sentence Practice</h2>
+          <span class="eyebrow">{{ t('header.eyebrow') }}</span>
+          <h2>{{ t('header.title') }}</h2>
         </div>
         <div class="stats-strip">
-          <div><el-icon><CircleCheck /></el-icon><span>已掌握<strong>{{ practice.totalCompleted.value }}</strong></span></div>
-          <div><el-icon><TrophyBase /></el-icon><span>正确率<strong>{{ practice.accuracy.value }}%</strong></span></div>
-          <div><el-icon><EditPen /></el-icon><span>总题数<strong>{{ practice.totalItems }}</strong></span></div>
+          <div><el-icon><CircleCheck /></el-icon><span>{{ t('stats.mastered') }}<strong>{{ practice.totalCompleted.value }}</strong></span></div>
+          <div><el-icon><TrophyBase /></el-icon><span>{{ t('stats.accuracy') }}<strong>{{ practice.accuracy.value }}%</strong></span></div>
+          <div><el-icon><EditPen /></el-icon><span>{{ t('stats.total') }}<strong>{{ practice.totalItems }}</strong></span></div>
         </div>
       </header>
 
@@ -126,10 +132,11 @@ onUnmounted(() => window.speechSynthesis?.removeEventListener("voiceschanged", r
         @speak="speak"
       />
       <el-empty v-else :description="emptyMessage" class="empty-state">
-        <el-button type="primary" @click="practice.filter.value = 'all'">查看全部题目</el-button>
+        <el-button type="primary" @click="practice.filter.value = 'all'">{{ t('empty.showAll') }}</el-button>
       </el-empty>
 
-      <footer>Based on the user-provided New Concept English Book 1 materials. For personal study only.</footer>
+      <footer>{{ t('footer.source') }}</footer>
     </div>
   </div>
+  </el-config-provider>
 </template>
