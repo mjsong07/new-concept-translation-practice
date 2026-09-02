@@ -53,26 +53,27 @@ export function evaluateAnswer(input: string, answer: string, locale: AppLocale 
   const expectedVariants = expandAmbiguousContractions(answer);
   const actual = actualVariants[0] || "";
   const expected = expectedVariants[0] || "";
-  if (!actual) {
+  const unsupportedWords = input.match(/[\u3400-\u9fff]+/g) || [];
+  if (!input.trim()) {
     return {
       level: "idle", title: t("feedback.idleTitle"), message: t("feedback.idleMessage"), similarity: 0,
-      missing: [], extra: [], referenceParts: [], explanation: t("feedback.idleExplanation")
+      missing: [], extra: [], referenceParts: [], inputParts: [], firstErrorOffset: 0, explanation: t("feedback.idleExplanation")
     };
   }
-  if (actualVariants.some((variant) => expectedVariants.includes(variant))) {
+  if (!unsupportedWords.length && actualVariants.some((variant) => expectedVariants.includes(variant))) {
     return {
       level: "correct", title: t("feedback.correctTitle"), message: t("feedback.correctMessage"), similarity: 1,
-      missing: [], extra: [], referenceParts: buildReferenceParts(answer, input), explanation: t("feedback.correctExplanation")
+      missing: [], extra: [], ...buildDiffParts(answer, input), explanation: t("feedback.correctExplanation")
     };
   }
 
-  const actualWords = actual.split(" ");
-  const expectedWords = expected.split(" ");
+  const actualWords = actual.split(" ").filter(Boolean);
+  const expectedWords = expected.split(" ").filter(Boolean);
   const distance = levenshtein(actualWords, expectedWords);
   const similarity = Math.max(0, 1 - distance / Math.max(actualWords.length, expectedWords.length, 1));
   const missing = subtractWords(expectedWords, actualWords);
-  const extra = subtractWords(actualWords, expectedWords);
-  const referenceParts = buildReferenceParts(answer, input);
+  const extra = [...subtractWords(actualWords, expectedWords), ...unsupportedWords];
+  const diff = buildDiffParts(answer, input);
   const explanation = explainDifference(missing, extra, locale);
   if (similarity >= 0.78) {
     return {
@@ -82,61 +83,110 @@ export function evaluateAnswer(input: string, answer: string, locale: AppLocale 
       similarity,
       missing,
       extra,
-      referenceParts,
+      ...diff,
       explanation
     };
   }
   return {
     level: "wrong", title: t("feedback.wrongTitle"), message: t("feedback.wrongMessage"),
-    similarity, missing, extra, referenceParts, explanation
+    similarity, missing, extra, ...diff, explanation
   };
 }
 
-function buildReferenceParts(answer: string, input: string): AnswerDiffPart[] {
-  const displayTokens = answer.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?|\s+|[^A-Za-z0-9\s]+/g) || [];
-  const expectedWords = displayTokens
-    .map((text, tokenIndex) => ({ text, tokenIndex, normalizedParts: normalizeText(text).split(" ").filter(Boolean) }))
-    .filter((token) => token.normalizedParts.length);
-  const expectedComponents = expectedWords.flatMap((token, wordIndex) => token.normalizedParts.map((value) => ({ value, wordIndex })));
-  const actualWords = normalizeText(input).split(" ").filter(Boolean);
-  const matchedExpected = longestCommonWordIndexes(expectedComponents.map((token) => token.value), actualWords);
-  const expectedStateByToken = new Map(expectedWords.map((token, wordIndex) => {
-    const componentIndexes = expectedComponents
-      .map((component, componentIndex) => component.wordIndex === wordIndex ? componentIndex : -1)
-      .filter((componentIndex) => componentIndex >= 0);
-    return [token.tokenIndex, componentIndexes.every((componentIndex) => matchedExpected.has(componentIndex)) ? "correct" as const : "wrong" as const];
-  }));
-  const parts: AnswerDiffPart[] = displayTokens.map((text, tokenIndex) => ({
-    text,
-    state: expectedStateByToken.get(tokenIndex) || "neutral"
-  }));
-  return parts;
+function buildDiffParts(answer: string, input: string) {
+  const expected = tokenizeDisplay(answer);
+  const actual = tokenizeDisplay(input);
+  const expectedComponents = expected.words.flatMap((word, wordIndex) => word.normalizedParts.map((value) => ({ value, wordIndex })));
+  const actualComponents = actual.words.flatMap((word, wordIndex) => word.normalizedParts.map((value) => ({ value, wordIndex })));
+  const operations = alignWords(expectedComponents.map((item) => item.value), actualComponents.map((item) => item.value));
+  const wrongExpectedWords = new Set<number>();
+  const wrongActualWords = new Set<number>();
+  const placeholdersBeforeWord = new Map<number, number>();
+  let firstErrorOffset = input.length;
+
+  operations.forEach((operation, operationIndex) => {
+    if (operation.type === "equal") return;
+    if (operation.expectedIndex !== undefined) wrongExpectedWords.add(expectedComponents[operation.expectedIndex].wordIndex);
+    if (operation.actualIndex !== undefined) {
+      const actualWordIndex = actualComponents[operation.actualIndex].wordIndex;
+      wrongActualWords.add(actualWordIndex);
+      firstErrorOffset = Math.min(firstErrorOffset, actual.words[actualWordIndex].start);
+    }
+    if (operation.type === "delete") {
+      const nextActualOperation = operations.slice(operationIndex + 1).find((item) => item.actualIndex !== undefined);
+      const nextWordIndex = nextActualOperation?.actualIndex === undefined
+        ? actual.words.length
+        : actualComponents[nextActualOperation.actualIndex].wordIndex;
+      placeholdersBeforeWord.set(nextWordIndex, (placeholdersBeforeWord.get(nextWordIndex) || 0) + 1);
+      firstErrorOffset = Math.min(firstErrorOffset, actual.words[nextWordIndex]?.start ?? input.length);
+    }
+  });
+
+  const referenceState = new Map(expected.words.map((word, wordIndex) => [word.tokenIndex, wrongExpectedWords.has(wordIndex) ? "wrong" as const : "correct" as const]));
+  const inputState = new Map(actual.words.map((word, wordIndex) => [word.tokenIndex, wrongActualWords.has(wordIndex) ? "wrong" as const : "correct" as const]));
+  const inputParts: AnswerDiffPart[] = [];
+  const unsupportedOffset = input.search(/[\u3400-\u9fff]/);
+  if (unsupportedOffset >= 0) firstErrorOffset = Math.min(firstErrorOffset, unsupportedOffset);
+  actual.tokens.forEach((text, tokenIndex) => {
+    const wordIndex = actual.wordIndexByToken.get(tokenIndex);
+    if (wordIndex !== undefined && placeholdersBeforeWord.has(wordIndex)) {
+      inputParts.push({ text: `${Array(placeholdersBeforeWord.get(wordIndex) || 0).fill("xx").join(" ")} `, state: "wrong", placeholder: true });
+    }
+    inputParts.push({ text, state: inputState.get(tokenIndex) || (/[\u3400-\u9fff]/.test(text) ? "wrong" : "neutral") });
+  });
+  if (placeholdersBeforeWord.has(actual.words.length)) {
+    inputParts.push({ text: `${input.trim() ? " " : ""}${Array(placeholdersBeforeWord.get(actual.words.length) || 0).fill("xx").join(" ")}`, state: "wrong", placeholder: true });
+  }
+
+  return {
+    referenceParts: expected.tokens.map((text, tokenIndex): AnswerDiffPart => ({ text, state: referenceState.get(tokenIndex) || "neutral" })),
+    inputParts,
+    firstErrorOffset: Number.isFinite(firstErrorOffset) ? firstErrorOffset : 0
+  };
 }
 
-function longestCommonWordIndexes(expected: string[], actual: string[]) {
+function tokenizeDisplay(value: string) {
+  const tokens = value.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?|\s+|[^A-Za-z0-9\s]+/g) || [];
+  let offset = 0;
+  const words: Array<{ tokenIndex: number; normalizedParts: string[]; start: number }> = [];
+  const wordIndexByToken = new Map<number, number>();
+  tokens.forEach((text, tokenIndex) => {
+    const normalizedParts = normalizeText(text).split(" ").filter(Boolean);
+    if (normalizedParts.length) {
+      wordIndexByToken.set(tokenIndex, words.length);
+      words.push({ tokenIndex, normalizedParts, start: offset });
+    }
+    offset += text.length;
+  });
+  return { tokens, words, wordIndexByToken };
+}
+
+function alignWords(expected: string[], actual: string[]) {
   const rows = Array.from({ length: expected.length + 1 }, () => Array(actual.length + 1).fill(0));
+  for (let i = 0; i <= expected.length; i += 1) rows[i][0] = i;
+  for (let j = 0; j <= actual.length; j += 1) rows[0][j] = j;
   for (let i = 1; i <= expected.length; i += 1) {
     for (let j = 1; j <= actual.length; j += 1) {
-      rows[i][j] = expected[i - 1] === actual[j - 1]
-        ? rows[i - 1][j - 1] + 1
-        : Math.max(rows[i - 1][j], rows[i][j - 1]);
+      rows[i][j] = Math.min(rows[i - 1][j] + 1, rows[i][j - 1] + 1, rows[i - 1][j - 1] + (expected[i - 1] === actual[j - 1] ? 0 : 1));
     }
   }
-  const matched = new Set<number>();
+  const operations: Array<{ type: "equal" | "replace" | "delete" | "insert"; expectedIndex?: number; actualIndex?: number }> = [];
   let i = expected.length;
   let j = actual.length;
-  while (i > 0 && j > 0) {
-    if (expected[i - 1] === actual[j - 1]) {
-      matched.add(i - 1);
+  while (i || j) {
+    if (i && j && rows[i][j] === rows[i - 1][j - 1] + (expected[i - 1] === actual[j - 1] ? 0 : 1)) {
+      operations.push({ type: expected[i - 1] === actual[j - 1] ? "equal" : "replace", expectedIndex: i - 1, actualIndex: j - 1 });
       i -= 1;
       j -= 1;
-    } else if (rows[i - 1][j] >= rows[i][j - 1]) {
+    } else if (i && rows[i][j] === rows[i - 1][j] + 1) {
+      operations.push({ type: "delete", expectedIndex: i - 1 });
       i -= 1;
     } else {
+      operations.push({ type: "insert", actualIndex: j - 1 });
       j -= 1;
     }
   }
-  return matched;
+  return operations.reverse();
 }
 
 export function explainDifference(missing: string[], extra: string[], locale: AppLocale = "zh-CN") {

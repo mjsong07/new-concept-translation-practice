@@ -32,12 +32,15 @@ export interface AnswerFeedback {
   missing: string[];
   extra: string[];
   referenceParts: AnswerDiffPart[];
+  inputParts: AnswerDiffPart[];
+  firstErrorOffset: number;
   explanation: string;
 }
 
 export interface AnswerDiffPart {
   text: string;
   state: "correct" | "wrong" | "neutral";
+  placeholder?: boolean;
 }
 
 export interface StoredProgress {
@@ -65,4 +68,5 @@ export interface MistakeHistoryEntry {
 export interface SpeechSettings {
   voiceURI: string;
   rate: number;
+  volume: number;
 }

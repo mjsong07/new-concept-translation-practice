@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from "vue";
-import { CircleCheckFilled, Delete, Headset, Histogram, MoreFilled } from "@element-plus/icons-vue";
+import { CircleCheckFilled, Delete, Headset, Histogram, MoreFilled, VideoPause, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
-import { explainDifference } from "../services/text";
+import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, DisplayMode, ExerciseItem, MistakeHistoryEntry } from "../types/practice";
 
 const props = defineProps<{
@@ -18,6 +18,8 @@ const props = defineProps<{
   completedIds: string[];
   displayMode: DisplayMode;
   mistakeHistory: MistakeHistoryEntry[];
+  speechActive: boolean;
+  speechPaused: boolean;
 }>();
 
 const { locale, t } = useI18n();
@@ -28,9 +30,11 @@ const emit = defineEmits<{
   submit: [id: string];
   clear: [id: string];
   speak: [text: string];
+  "toggle-speech": [];
 }>();
 
-const inputRefs = ref<Record<string, { focus: () => void } | null>>({});
+type TextareaInput = { focus: () => void; textarea?: HTMLTextAreaElement };
+const inputRefs = ref<Record<string, TextareaInput | null>>({});
 const historyVisible = ref(false);
 const historyFocusItemId = ref("");
 const swipeStart = ref<{ x: number; y: number } | null>(null);
@@ -48,27 +52,20 @@ const lessonSpeechText = computed(() => [
     .map((item) => item.speakerEn ? `${item.speakerEn}. ${item.answer}` : item.answer)
 ].filter(Boolean).join(" "));
 
-function summarizeWords(words: string[]) {
-  const counts = new Map<string, number>();
-  words.forEach((word) => counts.set(word, (counts.get(word) || 0) + 1));
-  const sorted = [...counts.entries()].sort((left, right) => right[1] - left[1]);
-  const visible = sorted.slice(0, 4).map(([word, count]) => count > 1 ? `${word} ×${count}` : word);
-  const hiddenCount = sorted.length - visible.length;
-  if (hiddenCount > 0) visible.push(`+${hiddenCount}`);
-  return visible.join(locale.value === "en" ? ", " : "、");
-}
-
-const historySummary = computed(() => {
-  const missing = props.mistakeHistory.flatMap((entry) => entry.missing);
-  const extra = props.mistakeHistory.flatMap((entry) => entry.extra);
-  return [
-    missing.length ? t("history.missingGroup", { words: summarizeWords(missing) }) : "",
-    extra.length ? t("history.extraGroup", { words: summarizeWords(extra) }) : ""
-  ].filter(Boolean);
-});
-const orderedHistory = computed(() => {
-  if (!historyFocusItemId.value) return props.mistakeHistory;
-  return [...props.mistakeHistory].sort((a, b) => Number(b.itemId === historyFocusItemId.value) - Number(a.itemId === historyFocusItemId.value));
+const visibleHistory = computed(() => historyFocusItemId.value
+  ? props.mistakeHistory.filter((entry) => entry.itemId === historyFocusItemId.value)
+  : props.mistakeHistory
+);
+const historyGroups = computed(() => {
+  const groups = new Map<string, { item: ExerciseItem; entries: MistakeHistoryEntry[] }>();
+  visibleHistory.value.forEach((entry) => {
+    const item = props.allItems.find((candidate) => candidate.id === entry.itemId);
+    if (!item) return;
+    const group = groups.get(entry.itemId) || { item, entries: [] };
+    group.entries.push(entry);
+    groups.set(entry.itemId, group);
+  });
+  return [...groups.values()];
 });
 
 function shouldAutoFocus() {
@@ -89,22 +86,26 @@ watch(() => props.displayMode, async (mode) => {
 });
 
 function setInputRef(id: string, instance: unknown) {
-  inputRefs.value[id] = instance as { focus: () => void } | null;
+  inputRefs.value[id] = instance as TextareaInput | null;
 }
 
 function focusItem(id?: string) {
   if (id) inputRefs.value[id]?.focus();
 }
 
-function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) {
+async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) {
   if (!(props.answers[item.id] || "").trim()) return;
   emit("submit", item.id);
-  if (!shouldAutoFocus()) {
-    input.blur();
+  await nextTick();
+  const result = props.results[item.id];
+  if (result?.level !== "correct") {
+    const target = inputRefs.value[item.id]?.textarea || input;
+    target.focus();
+    target.setSelectionRange(result?.firstErrorOffset || 0, result?.firstErrorOffset || 0);
     return;
   }
   const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
-  nextTick(() => focusItem(props.items[currentIndex + 1]?.id));
+  focusItem(props.items[currentIndex + 1]?.id);
 }
 
 function onKeydown(event: KeyboardEvent, item: ExerciseItem) {
@@ -158,6 +159,10 @@ function onPointerUp(event: PointerEvent) {
 function formatTime(timestamp: number) {
   return new Intl.DateTimeFormat(locale.value, { month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(timestamp);
 }
+
+function historyFeedback(entry: MistakeHistoryEntry) {
+  return evaluateAnswer(entry.input, entry.answer, locale.value);
+}
 </script>
 
 <template>
@@ -180,6 +185,7 @@ function formatTime(timestamp: number) {
           <div>
             <el-button text :icon="Histogram" @click="openHistory()">{{ t('exercise.history') }}</el-button>
             <el-button plain :icon="Headset" @click="emit('speak', lessonSpeechText)">{{ t('exercise.fullText') }}</el-button>
+            <el-button v-if="speechActive" plain :icon="speechPaused ? VideoPlay : VideoPause" @click="emit('toggle-speech')">{{ speechPaused ? t('exercise.resume') : t('exercise.pause') }}</el-button>
           </div>
         </div>
         <div class="sentence-list translation-list">
@@ -195,8 +201,9 @@ function formatTime(timestamp: number) {
                 </el-tooltip>
               </div>
 
-              <div v-if="rowState(item) === 'is-wrong'" class="wrong-reference">
-                <p><strong v-if="item.speakerEn">{{ item.speakerEn }}: </strong><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-part-${partIndex}`" class="diff-word" :class="`is-${part.state}`">{{ part.text }}</span></p>
+              <div v-if="results[item.id]" class="answer-comparison" :class="{ 'is-wrong': rowState(item) === 'is-wrong' }">
+                <p class="comparison-line"><strong v-if="item.speakerEn">{{ item.speakerEn }}: </strong><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="`is-${part.state}`">{{ part.text }}</span></p>
+                <p v-if="rowState(item) === 'is-wrong'" class="comparison-line"><span v-for="(part, partIndex) in results[item.id].inputParts" :key="`${item.id}-input-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></p>
               </div>
 
               <div class="sentence-answer-row">
@@ -212,6 +219,7 @@ function formatTime(timestamp: number) {
                 />
                 <div class="input-row-actions">
                   <span v-if="results[item.id]" class="input-result-label">{{ results[item.id].level === 'correct' ? t('exercise.correct') : t('exercise.incorrect') }}</span>
+                  <el-button class="row-speech-button" text circle :icon="Headset" :aria-label="t('exercise.speakText')" @click="emit('speak', item.answer)" />
                   <el-dropdown trigger="click" placement="bottom-end">
                     <el-button class="row-more-button" text circle :icon="MoreFilled" :aria-label="t('exercise.openActions')" />
                     <template #dropdown>
@@ -234,7 +242,10 @@ function formatTime(timestamp: number) {
             <div class="mobile-title-with-speech"><strong class="mobile-lesson-title">{{ lessonTitle }}</strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', lessonTitle)" /></div>
             <div class="question-with-speech"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', questionEn)" /></div>
           </div>
-          <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">{{ t('exercise.fullText') }}</el-button>
+          <div class="lesson-speech-actions">
+            <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">{{ t('exercise.fullText') }}</el-button>
+            <el-button v-if="speechActive" plain :icon="speechPaused ? VideoPlay : VideoPause" @click="emit('toggle-speech')">{{ speechPaused ? t('exercise.resume') : t('exercise.pause') }}</el-button>
+          </div>
         </section>
         <div class="sentence-list reading-list">
           <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row">
@@ -251,7 +262,10 @@ function formatTime(timestamp: number) {
             <div><p>{{ questionZh }}</p></div>
             <div class="question-with-speech"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', questionEn)" /></div>
           </div>
-          <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">{{ t('exercise.fullText') }}</el-button>
+          <div class="lesson-speech-actions">
+            <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechText)">{{ t('exercise.fullText') }}</el-button>
+            <el-button v-if="speechActive" plain :icon="speechPaused ? VideoPlay : VideoPause" @click="emit('toggle-speech')">{{ speechPaused ? t('exercise.resume') : t('exercise.pause') }}</el-button>
+          </div>
         </section>
         <div class="sentence-list reading-list bilingual-list">
           <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row">
@@ -263,21 +277,20 @@ function formatTime(timestamp: number) {
     </el-tabs>
 
     <el-dialog v-model="historyVisible" class="mistake-history-dialog" :title="t('history.title')" width="min(680px, calc(100% - 24px))" append-to-body>
-      <el-empty v-if="!mistakeHistory.length" :description="t('history.empty')" :image-size="80" />
+      <el-empty v-if="!visibleHistory.length" :description="t('history.empty')" :image-size="80" />
       <template v-else>
-        <section class="mistake-summary">
-          <div class="history-section-title"><strong>{{ t('history.summary') }}</strong><span>{{ t('history.attempts', { count: mistakeHistory.length }) }}</span></div>
-          <div v-if="historySummary.length" class="mistake-chips"><span v-for="label in historySummary" :key="label">{{ label }}</span></div>
-          <p v-else class="history-empty-copy">{{ t('history.orderOnly') }}</p>
-        </section>
-        <section class="mistake-details">
-          <div class="history-section-title"><strong>{{ t('history.details') }}</strong><span>{{ t('history.latest') }}</span></div>
-          <article v-for="entry in orderedHistory" :key="entry.id" class="mistake-detail-card" :class="{ 'is-focused': entry.itemId === historyFocusItemId }">
-            <header><strong>{{ entry.prompt }}</strong><time>{{ formatTime(entry.createdAt) }}</time></header>
-            <p><span>{{ t('history.yourInput') }}</span><del>{{ entry.input }}</del></p>
-            <p><span>{{ t('history.answer') }}</span><ins>{{ entry.answer }}</ins></p>
-            <small>{{ explainDifference(entry.missing, entry.extra, locale) }}</small>
-          </article>
+        <div class="history-dialog-heading">{{ t('history.attempts', { count: visibleHistory.length }) }}</div>
+        <section v-for="group in historyGroups" :key="group.item.id" class="mistake-line-group">
+          <header class="mistake-line-source">
+            <p><strong v-if="group.item.speakerZh">{{ group.item.speakerZh }}：</strong>{{ group.item.prompt }}</p>
+            <p><strong v-if="group.item.speakerEn">{{ group.item.speakerEn }}: </strong>{{ group.item.answer }}</p>
+          </header>
+          <div class="mistake-attempt-list">
+            <article v-for="entry in group.entries" :key="entry.id" class="mistake-attempt-row">
+              <p><span v-for="(part, partIndex) in historyFeedback(entry).inputParts" :key="`${entry.id}-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></p>
+              <time>{{ formatTime(entry.createdAt) }}</time>
+            </article>
+          </div>
         </section>
       </template>
     </el-dialog>

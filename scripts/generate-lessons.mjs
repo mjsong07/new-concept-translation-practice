@@ -280,9 +280,6 @@ function repairKnownOcrGaps(number, value) {
   if (number === 89) {
     return value.replace(/IAN\s*：\s*\nNIGEL/, "IAN : £68,500.\nNIGEL");
   }
-  if (number === 119) {
-    return value.replace(/^Do you like stories\?[\s\S]*?a year ago\.\s*/, "");
-  }
   if (number === 113) {
     return value.replace(/^([I1-4](?:st|nd|rd|th)) (PASSENGER|TRAMP)\s*:/gm, (_, ordinal, role) => {
       const normalizedOrdinal = ordinal.replace(/^I/, "1").toUpperCase();

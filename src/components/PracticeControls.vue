@@ -14,6 +14,7 @@ defineProps<{
   colorScheme: ColorSchemeMode;
   voiceUri: string;
   speechRate: number;
+  speechVolume: number;
   voices: SpeechSynthesisVoice[];
 }>();
 
@@ -23,6 +24,7 @@ const emit = defineEmits<{
   "update:colorScheme": [value: ColorSchemeMode];
   "update:voiceUri": [value: string];
   "update:speechRate": [value: number];
+  "update:speechVolume": [value: number];
   reset: [];
 }>();
 </script>
@@ -97,6 +99,10 @@ const emit = defineEmits<{
       <div class="speech-rate-row">
         <span>{{ t('settings.rate', { rate: speechRate.toFixed(2) }) }}</span>
         <el-slider :model-value="speechRate" :min="0.5" :max="1.5" :step="0.05" @update:model-value="emit('update:speechRate', Number($event))" />
+      </div>
+      <div class="speech-rate-row">
+        <span>{{ t('settings.volume', { volume: Math.round(speechVolume * 100) }) }}</span>
+        <el-slider :model-value="speechVolume" :min="0" :max="1" :step="0.05" @update:model-value="emit('update:speechVolume', Number($event))" />
       </div>
     </section>
 

@@ -10,7 +10,7 @@ import TranslationExercise from "./components/TranslationExercise.vue";
 import { useColorScheme } from "./composables/useColorScheme";
 import { useI18n } from "./composables/useI18n";
 import { useTranslationPractice } from "./composables/useTranslationPractice";
-import { getEnglishVoices, speakEnglish } from "./services/speech";
+import { getEnglishVoices, speakEnglish, stopSpeech, toggleSpeechPause } from "./services/speech";
 
 const { locale, t } = useI18n();
 const practice = useTranslationPractice();
@@ -20,13 +20,43 @@ const emptyMessage = computed(() => practice.filter.value === "mistakes" ? t("em
 const voices = ref<SpeechSynthesisVoice[]>([]);
 const voiceUri = ref(localStorage.getItem("new-concept-speech-voice") || "");
 const speechRate = ref(Number(localStorage.getItem("new-concept-speech-rate")) || 0.82);
+const savedSpeechVolume = Number(localStorage.getItem("new-concept-speech-volume"));
+const speechVolume = ref(Number.isFinite(savedSpeechVolume) && savedSpeechVolume >= 0 ? savedSpeechVolume : 1);
+const speechActive = ref(false);
+const speechPaused = ref(false);
+let speechRun = 0;
+const currentLessonSpeechText = computed(() => [
+  practice.lesson.value.title,
+  practice.lesson.value.questionEn,
+  ...practice.lesson.value.items.map((item) => item.speakerEn ? `${item.speakerEn}. ${item.answer}` : item.answer)
+].filter(Boolean).join(" "));
 
 function refreshVoices() {
   voices.value = getEnglishVoices();
 }
 
 function speak(text: string) {
-  speakEnglish(text, { voiceURI: voiceUri.value, rate: speechRate.value });
+  const run = ++speechRun;
+  speechPaused.value = false;
+  speakEnglish(text, { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value }, {
+    onStart: () => {
+      if (run === speechRun) speechActive.value = true;
+    },
+    onEnd: () => {
+      if (run === speechRun) {
+        speechActive.value = false;
+        speechPaused.value = false;
+      }
+    }
+  });
+}
+
+function toggleSpeech() {
+  speechPaused.value = toggleSpeechPause();
+}
+
+function previewSpeechSetting() {
+  speak(currentLessonSpeechText.value);
 }
 
 async function resetCurrentLesson() {
@@ -45,11 +75,16 @@ async function resetCurrentLesson() {
 
 watch(voiceUri, (value) => localStorage.setItem("new-concept-speech-voice", value));
 watch(speechRate, (value) => localStorage.setItem("new-concept-speech-rate", String(value)));
+watch(speechVolume, (value) => localStorage.setItem("new-concept-speech-volume", String(value)));
+watch([voiceUri, speechRate, speechVolume], previewSpeechSetting);
 onMounted(() => {
   refreshVoices();
   window.speechSynthesis?.addEventListener("voiceschanged", refreshVoices);
 });
-onUnmounted(() => window.speechSynthesis?.removeEventListener("voiceschanged", refreshVoices));
+onUnmounted(() => {
+  window.speechSynthesis?.removeEventListener("voiceschanged", refreshVoices);
+  stopSpeech();
+});
 
 </script>
 
@@ -66,12 +101,14 @@ onUnmounted(() => window.speechSynthesis?.removeEventListener("voiceschanged", r
       :color-scheme="colorScheme.mode.value"
       :voice-uri="voiceUri"
       :speech-rate="speechRate"
+      :speech-volume="speechVolume"
       :voices="voices"
       @update:lesson-number="practice.selectedLesson.value = $event"
       @update:filter="practice.filter.value = $event"
       @update:color-scheme="colorScheme.mode.value = $event"
       @update:voice-uri="voiceUri = $event"
       @update:speech-rate="speechRate = $event"
+      @update:speech-volume="speechVolume = $event"
       @reset="resetCurrentLesson"
     />
 
@@ -90,12 +127,14 @@ onUnmounted(() => window.speechSynthesis?.removeEventListener("voiceschanged", r
         :color-scheme="colorScheme.mode.value"
         :voice-uri="voiceUri"
         :speech-rate="speechRate"
+        :speech-volume="speechVolume"
         :voices="voices"
         @update:lesson-number="practice.selectedLesson.value = $event"
         @update:filter="practice.filter.value = $event"
         @update:color-scheme="colorScheme.mode.value = $event"
         @update:voice-uri="voiceUri = $event"
         @update:speech-rate="speechRate = $event"
+        @update:speech-volume="speechVolume = $event"
         @reset="resetCurrentLesson"
       />
 
@@ -125,11 +164,14 @@ onUnmounted(() => window.speechSynthesis?.removeEventListener("voiceschanged", r
         :completed-ids="practice.progress.value.completed"
         :display-mode="practice.displayMode.value"
         :mistake-history="practice.lessonMistakeHistory.value"
+        :speech-active="speechActive"
+        :speech-paused="speechPaused"
         @update:display-mode="practice.displayMode.value = $event"
         @update:answer="practice.updateAnswer"
         @submit="practice.submit"
         @clear="practice.clearAnswer"
         @speak="speak"
+        @toggle-speech="toggleSpeech"
       />
       <el-empty v-else :description="emptyMessage" class="empty-state">
         <el-button type="primary" @click="practice.filter.value = 'all'">{{ t('empty.showAll') }}</el-button>

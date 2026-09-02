@@ -8943,11 +8943,38 @@ export const lessons: Lesson[] = [
         "lessonTitle": "A true story",
         "speakerZh": "",
         "speakerEn": "",
+        "prompt": "你喜欢听故事吗？",
+        "answer": "Do you like stories?"
+      },
+      {
+        "id": "lesson-119-2",
+        "lesson": 119,
+        "lessonTitle": "A true story",
+        "speakerZh": "",
+        "speakerEn": "",
+        "prompt": "我要告诉你一个真实的故事。",
+        "answer": "I want to tell you a true story."
+      },
+      {
+        "id": "lesson-119-3",
+        "lesson": 119,
+        "lessonTitle": "A true story",
+        "speakerZh": "",
+        "speakerEn": "",
+        "prompt": "这是一年前发生在我的一个朋友身上的故事。",
+        "answer": "It happened to a friend of mine a year ago."
+      },
+      {
+        "id": "lesson-119-4",
+        "lesson": 119,
+        "lessonTitle": "A true story",
+        "speakerZh": "",
+        "speakerEn": "",
         "prompt": "当我的朋友乔治在床上看书时，两个小偷爬进了他的厨房。",
         "answer": "While my friend, George, was reading in bed, two thieves climbed into his kitchen."
       },
       {
-        "id": "lesson-119-2",
+        "id": "lesson-119-5",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -8956,7 +8983,7 @@ export const lessons: Lesson[] = [
         "answer": "After they had entered the house, they went into the dining room."
       },
       {
-        "id": "lesson-119-3",
+        "id": "lesson-119-6",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -8965,7 +8992,7 @@ export const lessons: Lesson[] = [
         "answer": "It was very dark, so they turned on a torch."
       },
       {
-        "id": "lesson-119-4",
+        "id": "lesson-119-7",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -8974,7 +9001,7 @@ export const lessons: Lesson[] = [
         "answer": "Suddenly, they heard a voice behind them."
       },
       {
-        "id": "lesson-119-5",
+        "id": "lesson-119-8",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -8983,7 +9010,7 @@ export const lessons: Lesson[] = [
         "answer": "'What's up?"
       },
       {
-        "id": "lesson-119-6",
+        "id": "lesson-119-9",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -8992,7 +9019,7 @@ export const lessons: Lesson[] = [
         "answer": "What's up?'"
       },
       {
-        "id": "lesson-119-7",
+        "id": "lesson-119-10",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -9001,7 +9028,7 @@ export const lessons: Lesson[] = [
         "answer": "someone called."
       },
       {
-        "id": "lesson-119-8",
+        "id": "lesson-119-11",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -9010,7 +9037,7 @@ export const lessons: Lesson[] = [
         "answer": "The thieves dropped the torch and ran away as quickly as they could."
       },
       {
-        "id": "lesson-119-9",
+        "id": "lesson-119-12",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -9019,7 +9046,7 @@ export const lessons: Lesson[] = [
         "answer": "George heard the noise and came downstairs quickly."
       },
       {
-        "id": "lesson-119-10",
+        "id": "lesson-119-13",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -9028,7 +9055,7 @@ export const lessons: Lesson[] = [
         "answer": "He turned on the light, but he couldn't see anyone."
       },
       {
-        "id": "lesson-119-11",
+        "id": "lesson-119-14",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -9037,7 +9064,7 @@ export const lessons: Lesson[] = [
         "answer": "The thieves had already gone."
       },
       {
-        "id": "lesson-119-12",
+        "id": "lesson-119-15",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -9046,7 +9073,7 @@ export const lessons: Lesson[] = [
         "answer": "But George's parrot, Henry, was still there."
       },
       {
-        "id": "lesson-119-13",
+        "id": "lesson-119-16",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -9055,7 +9082,7 @@ export const lessons: Lesson[] = [
         "answer": "'What's up, George?'"
       },
       {
-        "id": "lesson-119-14",
+        "id": "lesson-119-17",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
@@ -9064,21 +9091,21 @@ export const lessons: Lesson[] = [
         "answer": "he called."
       },
       {
-        "id": "lesson-119-15",
+        "id": "lesson-119-18",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
         "speakerEn": "",
-        "prompt": "没事，亨利。",
+        "prompt": "没事，亨利，乔治笑着说。",
         "answer": "'Nothing, Henry, ' George said and smiled."
       },
       {
-        "id": "lesson-119-16",
+        "id": "lesson-119-19",
         "lesson": 119,
         "lessonTitle": "A true story",
         "speakerZh": "",
         "speakerEn": "",
-        "prompt": "乔治笑着说，接着睡觉吧。",
+        "prompt": "接着睡觉吧。",
         "answer": "'Go back to sleep.'"
       }
     ]
