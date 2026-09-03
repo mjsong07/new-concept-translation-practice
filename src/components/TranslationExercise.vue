@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from "vue";
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
 import { CircleCheckFilled, Delete, Headset, Histogram, MoreFilled, VideoPause, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluateAnswer } from "../services/text";
@@ -91,35 +91,18 @@ watch(() => props.displayMode, async (mode) => {
   focusItem(firstPending?.id);
 });
 
-watch(() => props.activeSpeechItemId, async (itemId) => {
-  if (!itemId) return;
-  await nextTick();
-  rootRef.value?.querySelector<HTMLElement>(`[data-item-id="${itemId}"]`)
-    ?.scrollIntoView({ block: "center", behavior: "smooth" });
-});
-
 function setInputRef(id: string, instance: unknown) {
   inputRefs.value[id] = instance as TextareaInput | null;
 }
 
-function focusItem(id?: string, controlScroll = false) {
+function focusItem(id?: string, preventScroll = false) {
   if (!id) return;
   const input = inputRefs.value[id];
-  if (!controlScroll || !input?.textarea) {
+  if (!preventScroll || !input?.textarea) {
     input?.focus();
     return;
   }
-  const textarea = input.textarea;
-  textarea.focus({ preventScroll: true });
-  requestAnimationFrame(() => {
-    const row = textarea.closest<HTMLElement>(".sentence-row");
-    if (!row) return;
-    const viewportTop = window.visualViewport?.offsetTop || 0;
-    const viewportHeight = window.visualViewport?.height || window.innerHeight;
-    const rowRect = row.getBoundingClientRect();
-    const desiredTop = viewportTop + Math.max(16, (viewportHeight - rowRect.height) / 2);
-    window.scrollBy({ top: rowRect.top - desiredTop, behavior: "auto" });
-  });
+  input.textarea.focus({ preventScroll: true });
 }
 
 async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) {
@@ -155,7 +138,14 @@ function selectError(input: HTMLTextAreaElement, result?: AnswerFeedback) {
 }
 
 function onFocusIn(event: FocusEvent) {
-  if (event.target instanceof HTMLTextAreaElement) inputFocused.value = true;
+  if (!(event.target instanceof HTMLTextAreaElement)) return;
+  inputFocused.value = true;
+  if (!isEdgeIOS) return;
+  document.documentElement.classList.add("edgios-keyboard-active");
+  syncEdgeViewportOffset();
+  requestAnimationFrame(syncEdgeViewportOffset);
+  window.setTimeout(syncEdgeViewportOffset, 120);
+  window.setTimeout(syncEdgeViewportOffset, 360);
 }
 
 function onFocusOut() {
@@ -164,10 +154,35 @@ function onFocusOut() {
       rootRef.value?.contains(document.activeElement)
       && document.activeElement instanceof HTMLTextAreaElement
     );
+    if (isEdgeIOS && !inputFocused.value) resetEdgeViewportOffset();
   };
   if (isEdgeIOS) window.setTimeout(updateFocusState, 450);
   else requestAnimationFrame(updateFocusState);
 }
+
+function syncEdgeViewportOffset() {
+  if (!isEdgeIOS || !inputFocused.value) return;
+  const offset = window.visualViewport?.offsetTop || 0;
+  document.documentElement.style.setProperty("--edgios-viewport-offset", `${offset}px`);
+}
+
+function resetEdgeViewportOffset() {
+  document.documentElement.classList.remove("edgios-keyboard-active");
+  document.documentElement.style.removeProperty("--edgios-viewport-offset");
+}
+
+onMounted(() => {
+  if (!isEdgeIOS) return;
+  window.visualViewport?.addEventListener("resize", syncEdgeViewportOffset);
+  window.visualViewport?.addEventListener("scroll", syncEdgeViewportOffset);
+});
+
+onUnmounted(() => {
+  if (!isEdgeIOS) return;
+  window.visualViewport?.removeEventListener("resize", syncEdgeViewportOffset);
+  window.visualViewport?.removeEventListener("scroll", syncEdgeViewportOffset);
+  resetEdgeViewportOffset();
+});
 
 function onKeydown(event: KeyboardEvent, item: ExerciseItem) {
   if (event.key !== "Enter" || event.isComposing || event.shiftKey) return;
@@ -230,7 +245,6 @@ function historyFeedback(entry: MistakeHistoryEntry) {
   <main
     ref="rootRef"
     class="exercise-card lesson-practice"
-    :class="{ 'is-edgios': isEdgeIOS, 'has-active-input': inputFocused }"
     @focusin="onFocusIn"
     @focusout="onFocusOut"
     @pointerdown="onPointerDown"
@@ -258,7 +272,7 @@ function historyFeedback(entry: MistakeHistoryEntry) {
           </div>
         </div>
         <div class="sentence-list translation-list">
-          <article v-for="(item, index) in items" :key="item.id" class="sentence-row" :data-item-id="item.id" :class="[rowState(item), { 'is-speaking': activeSpeechItemId === item.id }]">
+          <article v-for="(item, index) in items" :key="item.id" class="sentence-row" :class="[rowState(item), { 'is-speaking': activeSpeechItemId === item.id }]">
             <div class="sentence-number" :class="{ 'is-text-label': item.kind !== 'sentence' }">{{ itemLabel(item, index) }}</div>
             <div class="sentence-content">
               <div class="sentence-prompt-row">
@@ -317,7 +331,7 @@ function historyFeedback(entry: MistakeHistoryEntry) {
           </div>
         </section>
         <div class="sentence-list reading-list">
-          <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row" :data-item-id="item.id" :class="{ 'is-speaking': activeSpeechItemId === item.id }">
+          <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row" :class="{ 'is-speaking': activeSpeechItemId === item.id }">
             <div class="sentence-number">{{ index + 1 }}</div>
             <div class="sentence-content reading-sentence"><p class="sentence-english"><strong v-if="item.speakerEn">{{ item.speakerEn }}: </strong>{{ item.answer }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakText')" @click="emit('speak', [{ text: item.answer, itemId: item.id, speaker: item.speakerEn }])" /></div>
           </article>
@@ -337,7 +351,7 @@ function historyFeedback(entry: MistakeHistoryEntry) {
           </div>
         </section>
         <div class="sentence-list reading-list bilingual-list">
-          <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row" :data-item-id="item.id" :class="{ 'is-speaking': activeSpeechItemId === item.id }">
+          <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row" :class="{ 'is-speaking': activeSpeechItemId === item.id }">
             <div class="sentence-number">{{ index + 1 }}</div>
             <div class="sentence-content"><p class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}</p><div class="reading-sentence"><p class="sentence-english"><strong v-if="item.speakerEn">{{ item.speakerEn }}: </strong>{{ item.answer }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakText')" @click="emit('speak', [{ text: item.answer, itemId: item.id, speaker: item.speakerEn }])" /></div></div>
           </article>
