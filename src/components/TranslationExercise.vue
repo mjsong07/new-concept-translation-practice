@@ -42,14 +42,16 @@ const historyFocusItemId = ref("");
 const swipeStart = ref<{ x: number; y: number } | null>(null);
 const completedSet = computed(() => new Set(props.completedIds));
 const sentenceItems = computed(() => props.items.filter((item) => item.kind === "sentence" || !item.kind));
+const titleItemId = computed(() => `lesson-${props.lessonNumber}-title`);
+const questionItemId = computed(() => `lesson-${props.lessonNumber}-question`);
 const visibleTitle = computed(() => {
   if (props.displayMode === "translation") return props.lessonTitleZh;
   if (props.displayMode === "original") return props.lessonTitle;
   return `${props.lessonTitleZh} · ${props.lessonTitle}`;
 });
 const lessonSpeechSegments = computed<SpeechSegment[]>(() => [
-  { text: props.lessonTitle },
-  { text: props.questionEn },
+  { text: props.lessonTitle, itemId: titleItemId.value },
+  { text: props.questionEn, itemId: questionItemId.value },
   ...props.allItems.filter((item) => item.kind === "sentence" || !item.kind)
     .map((item) => ({ text: item.answer, itemId: item.id, speaker: item.speakerEn }))
 ]);
@@ -109,7 +111,7 @@ async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) 
   const anticipatedResult = evaluateAnswer(answer, item.answer, locale.value);
   const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
   const nextItemId = props.items[currentIndex + 1]?.id;
-  if (!shouldAutoFocus() && !isEdgeIOS && anticipatedResult.level === "correct" && nextItemId) {
+  if (!shouldAutoFocus() && anticipatedResult.level === "correct" && nextItemId) {
     focusItem(nextItemId, true);
   }
   emit("submit", item.id);
@@ -198,9 +200,9 @@ function historyFeedback(entry: MistakeHistoryEntry) {
     <div class="exercise-topline">
       <div>
         <span class="lesson-kicker">LESSON {{ lessonNumber }}</span>
-        <div class="lesson-title-row">
+        <div class="lesson-title-row" :class="{ 'is-speaking': activeSpeechItemId === titleItemId }">
           <h1>{{ visibleTitle }}</h1>
-          <el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle }])" />
+          <el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle, itemId: titleItemId }])" />
         </div>
       </div>
       <div class="lesson-sentence-count">{{ t('exercise.count', { count: items.length }) }}</div>
@@ -230,17 +232,18 @@ function historyFeedback(entry: MistakeHistoryEntry) {
               </div>
 
               <div v-if="results[item.id]" class="answer-comparison" :class="{ 'is-wrong': rowState(item) === 'is-wrong' }">
-                <p class="comparison-line"><strong v-if="item.speakerEn">{{ item.speakerEn }}: </strong><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="`is-${part.state}`">{{ part.text }}</span></p>
-                <p v-if="rowState(item) === 'is-wrong'" class="comparison-line"><span v-for="(part, partIndex) in results[item.id].inputParts" :key="`${item.id}-input-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></p>
+                <p class="comparison-line" :class="{ 'has-speaker': item.speakerEn }"><strong v-if="item.speakerEn" class="speaker-prefix">{{ item.speakerEn }}:</strong><span class="comparison-text"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="`is-${part.state}`">{{ part.text }}</span></span></p>
+                <p v-if="rowState(item) === 'is-wrong'" class="comparison-line" :class="{ 'has-speaker': item.speakerEn }"><strong v-if="item.speakerEn" class="speaker-prefix">{{ item.speakerEn }}:</strong><span class="comparison-text"><span v-for="(part, partIndex) in results[item.id].inputParts" :key="`${item.id}-input-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></span></p>
               </div>
 
-              <div class="sentence-answer-row">
+              <div class="sentence-answer-row" :class="{ 'has-speaker': item.speakerEn }">
+                <span v-if="item.speakerEn" class="input-speaker" aria-hidden="true">{{ item.speakerEn }}:</span>
                 <el-input
                   :ref="(instance: unknown) => setInputRef(item.id, instance)"
                   :model-value="answers[item.id] || ''"
                   :class="{ 'has-result': Boolean(results[item.id]) }"
                   type="textarea" :autosize="{ minRows: 1, maxRows: 5 }" resize="none" autocomplete="off"
-                  :enterkeyhint="index < items.length - 1 && shouldAutoFocus() ? 'next' : 'done'"
+                  :enterkeyhint="index < items.length - 1 ? 'next' : 'done'"
                   :aria-label="t('exercise.answerLabel', { item: itemAriaLabel(item, index) })"
                   @update:model-value="emit('update:answer', item.id, $event)"
                   @keydown="onKeydown($event, item)"
@@ -267,8 +270,8 @@ function historyFeedback(entry: MistakeHistoryEntry) {
       <el-tab-pane :label="t('exercise.original')" name="original">
         <section class="lesson-question is-english">
           <div class="lesson-question-copy">
-            <div class="mobile-title-with-speech"><strong class="mobile-lesson-title">{{ lessonTitle }}</strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle }])" /></div>
-            <div class="question-with-speech"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', [{ text: questionEn }])" /></div>
+            <div class="mobile-title-with-speech" :class="{ 'is-speaking': activeSpeechItemId === titleItemId }"><strong class="mobile-lesson-title">{{ lessonTitle }}</strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle, itemId: titleItemId }])" /></div>
+            <div class="question-with-speech" :class="{ 'is-speaking': activeSpeechItemId === questionItemId }"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', [{ text: questionEn, itemId: questionItemId }])" /></div>
           </div>
           <div class="lesson-speech-actions">
             <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechSegments)">{{ t('exercise.fullText') }}</el-button>
@@ -286,9 +289,9 @@ function historyFeedback(entry: MistakeHistoryEntry) {
       <el-tab-pane :label="t('exercise.bilingual')" name="bilingual">
         <section class="lesson-question is-bilingual">
           <div class="bilingual-question-copy">
-            <div class="mobile-title-with-speech"><strong class="mobile-lesson-title">{{ lessonTitleZh }} · {{ lessonTitle }}</strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle }])" /></div>
+            <div class="mobile-title-with-speech" :class="{ 'is-speaking': activeSpeechItemId === titleItemId }"><strong class="mobile-lesson-title">{{ lessonTitleZh }} · {{ lessonTitle }}</strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle, itemId: titleItemId }])" /></div>
             <div><p>{{ questionZh }}</p></div>
-            <div class="question-with-speech"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', [{ text: questionEn }])" /></div>
+            <div class="question-with-speech" :class="{ 'is-speaking': activeSpeechItemId === questionItemId }"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', [{ text: questionEn, itemId: questionItemId }])" /></div>
           </div>
           <div class="lesson-speech-actions">
             <el-button class="speak-full-button" plain :icon="Headset" @click="emit('speak', lessonSpeechSegments)">{{ t('exercise.fullText') }}</el-button>

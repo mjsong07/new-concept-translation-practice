@@ -15,6 +15,23 @@ const maleSpeakers = new Set([
 ]);
 
 let speechGeneration = 0;
+let activeUtterance: SpeechSynthesisUtterance | null = null;
+let speechKeepAliveTimer: number | undefined;
+
+function clearSpeechKeepAlive() {
+  if (speechKeepAliveTimer !== undefined) window.clearInterval(speechKeepAliveTimer);
+  speechKeepAliveTimer = undefined;
+}
+
+function keepLongChromeSpeechAlive() {
+  clearSpeechKeepAlive();
+  if (!/(?:Chrome|CriOS)/i.test(navigator.userAgent)) return;
+  speechKeepAliveTimer = window.setInterval(() => {
+    if (!window.speechSynthesis.speaking || window.speechSynthesis.paused) return;
+    window.speechSynthesis.pause();
+    window.speechSynthesis.resume();
+  }, 10000);
+}
 
 function supportedName(voice: SpeechSynthesisVoice) {
   return supportedVoiceNames.find((name) => new RegExp(`\\b${name}\\b`, "i").test(voice.name));
@@ -81,6 +98,7 @@ export function speakEnglishSequence(
 
   const generation = ++speechGeneration;
   window.speechSynthesis.cancel();
+  window.speechSynthesis.resume();
   const voices = getEnglishVoices();
   const preferred = voices.find((voice) => voice.voiceURI === settings.voiceURI) || voices[0];
   const speakerVoices = assignSpeakerVoices(segments, voices, preferred);
@@ -94,6 +112,7 @@ export function speakEnglishSequence(
     }
     const segment = segments[index];
     const utterance = new SpeechSynthesisUtterance(segment.text);
+    activeUtterance = utterance;
     utterance.lang = "en-GB";
     utterance.rate = settings.rate;
     utterance.volume = settings.volume;
@@ -101,14 +120,23 @@ export function speakEnglishSequence(
     utterance.voice = speakerVoice || preferred || null;
     utterance.onstart = () => {
       if (generation !== speechGeneration) return;
+      keepLongChromeSpeechAlive();
       if (!started) {
         started = true;
         callbacks.onStart?.();
       }
       callbacks.onSegmentStart?.(segment, index);
     };
-    utterance.onend = () => play(index + 1);
-    utterance.onerror = () => play(index + 1);
+    utterance.onend = () => {
+      clearSpeechKeepAlive();
+      if (activeUtterance === utterance) activeUtterance = null;
+      play(index + 1);
+    };
+    utterance.onerror = () => {
+      clearSpeechKeepAlive();
+      if (activeUtterance === utterance) activeUtterance = null;
+      play(index + 1);
+    };
     window.speechSynthesis.speak(utterance);
   }
 
@@ -129,5 +157,7 @@ export function toggleSpeechPause() {
 
 export function stopSpeech() {
   speechGeneration += 1;
+  clearSpeechKeepAlive();
   window.speechSynthesis?.cancel();
+  activeUtterance = null;
 }

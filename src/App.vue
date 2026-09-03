@@ -22,18 +22,13 @@ const voices = ref<SpeechSynthesisVoice[]>([]);
 const voiceUri = ref(localStorage.getItem("new-concept-speech-voice") || "");
 const savedSpeechRate = Number(localStorage.getItem("new-concept-speech-rate"));
 const speechRate = ref(Number.isFinite(savedSpeechRate) && savedSpeechRate >= 0.1 && savedSpeechRate <= 1.5 ? savedSpeechRate : 0.82);
-const savedSpeechVolume = Number(localStorage.getItem("new-concept-speech-volume"));
-const speechVolume = ref(Number.isFinite(savedSpeechVolume) && savedSpeechVolume >= 0 ? savedSpeechVolume : 1);
+const savedSpeechVolumeValue = localStorage.getItem("new-concept-speech-volume");
+const savedSpeechVolume = savedSpeechVolumeValue === null ? Number.NaN : Number(savedSpeechVolumeValue);
+const speechVolume = ref(Number.isFinite(savedSpeechVolume) && savedSpeechVolume >= 0 && savedSpeechVolume <= 1 ? savedSpeechVolume : 1);
 const speechActive = ref(false);
 const speechPaused = ref(false);
 const activeSpeechItemId = ref("");
 let speechRun = 0;
-const currentLessonSpeechSegments = computed<SpeechSegment[]>(() => [
-  { text: practice.lesson.value.title },
-  { text: practice.lesson.value.questionEn },
-  ...practice.lesson.value.items.map((item) => ({ text: item.answer, itemId: item.id, speaker: item.speakerEn }))
-]);
-
 function refreshVoices() {
   voices.value = getEnglishVoices();
   if (voices.value.length && !voices.value.some((voice) => voice.voiceURI === voiceUri.value)) {
@@ -66,10 +61,6 @@ function toggleSpeech() {
   speechPaused.value = toggleSpeechPause();
 }
 
-function previewSpeechSetting() {
-  speak([{ text: practice.lesson.value.title }]);
-}
-
 async function resetCurrentLesson() {
   try {
     await ElMessageBox.confirm(
@@ -87,7 +78,6 @@ async function resetCurrentLesson() {
 watch(voiceUri, (value) => localStorage.setItem("new-concept-speech-voice", value));
 watch(speechRate, (value) => localStorage.setItem("new-concept-speech-rate", String(value)));
 watch(speechVolume, (value) => localStorage.setItem("new-concept-speech-volume", String(value)));
-watch([voiceUri, speechRate, speechVolume], previewSpeechSetting);
 onMounted(() => {
   refreshVoices();
   window.speechSynthesis?.addEventListener("voiceschanged", refreshVoices);
