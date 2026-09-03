@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, nextTick, ref, watch } from "vue";
 import { CircleCheckFilled, Delete, Headset, Histogram, MoreFilled, VideoPause, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluateAnswer } from "../services/text";
@@ -36,8 +36,6 @@ const emit = defineEmits<{
 
 type TextareaInput = { focus: () => void; textarea?: HTMLTextAreaElement };
 const inputRefs = ref<Record<string, TextareaInput | null>>({});
-const rootRef = ref<HTMLElement | null>(null);
-const inputFocused = ref(false);
 const isEdgeIOS = /EdgiOS/i.test(navigator.userAgent);
 const historyVisible = ref(false);
 const historyFocusItemId = ref("");
@@ -111,13 +109,14 @@ async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) 
   const anticipatedResult = evaluateAnswer(answer, item.answer, locale.value);
   const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
   const nextItemId = props.items[currentIndex + 1]?.id;
-  if (!shouldAutoFocus() && anticipatedResult.level === "correct" && nextItemId) {
+  if (!shouldAutoFocus() && !isEdgeIOS && anticipatedResult.level === "correct" && nextItemId) {
     focusItem(nextItemId, true);
   }
   emit("submit", item.id);
   await nextTick();
   const result = props.results[item.id];
   if (!shouldAutoFocus()) {
+    if (isEdgeIOS) return;
     if (result?.level !== "correct") selectError(input, result);
     else if (!nextItemId) input.blur();
     return;
@@ -136,53 +135,6 @@ function selectError(input: HTMLTextAreaElement, result?: AnswerFeedback) {
   const end = Math.max(start, result?.firstErrorEnd || start);
   input.setSelectionRange(start, end);
 }
-
-function onFocusIn(event: FocusEvent) {
-  if (!(event.target instanceof HTMLTextAreaElement)) return;
-  inputFocused.value = true;
-  if (!isEdgeIOS) return;
-  document.documentElement.classList.add("edgios-keyboard-active");
-  syncEdgeViewportOffset();
-  requestAnimationFrame(syncEdgeViewportOffset);
-  window.setTimeout(syncEdgeViewportOffset, 120);
-  window.setTimeout(syncEdgeViewportOffset, 360);
-}
-
-function onFocusOut() {
-  const updateFocusState = () => {
-    inputFocused.value = Boolean(
-      rootRef.value?.contains(document.activeElement)
-      && document.activeElement instanceof HTMLTextAreaElement
-    );
-    if (isEdgeIOS && !inputFocused.value) resetEdgeViewportOffset();
-  };
-  if (isEdgeIOS) window.setTimeout(updateFocusState, 450);
-  else requestAnimationFrame(updateFocusState);
-}
-
-function syncEdgeViewportOffset() {
-  if (!isEdgeIOS || !inputFocused.value) return;
-  const offset = window.visualViewport?.offsetTop || 0;
-  document.documentElement.style.setProperty("--edgios-viewport-offset", `${offset}px`);
-}
-
-function resetEdgeViewportOffset() {
-  document.documentElement.classList.remove("edgios-keyboard-active");
-  document.documentElement.style.removeProperty("--edgios-viewport-offset");
-}
-
-onMounted(() => {
-  if (!isEdgeIOS) return;
-  window.visualViewport?.addEventListener("resize", syncEdgeViewportOffset);
-  window.visualViewport?.addEventListener("scroll", syncEdgeViewportOffset);
-});
-
-onUnmounted(() => {
-  if (!isEdgeIOS) return;
-  window.visualViewport?.removeEventListener("resize", syncEdgeViewportOffset);
-  window.visualViewport?.removeEventListener("scroll", syncEdgeViewportOffset);
-  resetEdgeViewportOffset();
-});
 
 function onKeydown(event: KeyboardEvent, item: ExerciseItem) {
   if (event.key !== "Enter" || event.isComposing || event.shiftKey) return;
@@ -242,14 +194,7 @@ function historyFeedback(entry: MistakeHistoryEntry) {
 </script>
 
 <template>
-  <main
-    ref="rootRef"
-    class="exercise-card lesson-practice"
-    @focusin="onFocusIn"
-    @focusout="onFocusOut"
-    @pointerdown="onPointerDown"
-    @pointerup="onPointerUp"
-  >
+  <main class="exercise-card lesson-practice" @pointerdown="onPointerDown" @pointerup="onPointerUp">
     <div class="exercise-topline">
       <div>
         <span class="lesson-kicker">LESSON {{ lessonNumber }}</span>

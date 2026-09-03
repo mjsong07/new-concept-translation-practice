@@ -20,11 +20,11 @@
 * { box-sizing: border-box; }
 html { width: 100%; overflow-x: clip; touch-action: pan-y; }
 body, #app { width: 100%; max-width: 100%; overflow-x: clip; }
-body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--app-bg); }
+body { margin: 0; min-width: 320px; min-height: 100vh; min-height: 100dvh; background: var(--app-bg); }
 button, textarea, input { font: inherit; }
 
-.app-shell { min-width: 0; min-height: 100vh; display: grid; grid-template-columns: 300px minmax(0, 1fr); }
-.control-panel { position: sticky; top: 0; height: 100vh; padding: 34px 28px 28px; color: #f8fbf7; background: linear-gradient(165deg, #164f47 0%, #0d3934 100%); display: flex; flex-direction: column; gap: 30px; overflow-x: hidden; overflow-y: auto; }
+.app-shell { min-width: 0; min-height: 100vh; min-height: 100dvh; display: grid; grid-template-columns: 300px minmax(0, 1fr); }
+.control-panel { position: sticky; top: 0; height: 100vh; height: 100dvh; padding: 34px 28px 28px; color: #f8fbf7; background: linear-gradient(165deg, #164f47 0%, #0d3934 100%); display: flex; flex-direction: column; gap: 30px; overflow-x: hidden; overflow-y: auto; }
 .control-panel::after { content: ""; position: absolute; width: 190px; height: 190px; border: 1px solid rgba(255,255,255,.08); border-radius: 50%; right: -100px; bottom: 80px; box-shadow: 0 0 0 26px rgba(255,255,255,.025), 0 0 0 52px rgba(255,255,255,.018); pointer-events: none; }
 .brand-lockup { display: flex; align-items: center; gap: 13px; }
 .brand-mark { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 14px; background: var(--coral); font-size: 23px; font-weight: 700; box-shadow: 0 10px 26px rgba(0,0,0,.15); }
@@ -306,8 +306,6 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
   .mistake-attempt-row { grid-template-columns: minmax(0, 1fr); }
   .mistake-attempt-row time { display: none; }
   .translation-list { padding-bottom: 30vh; }
-  /* 补偿 Edge iOS/WKWebView 键盘引起的 visual viewport 非文档滚动位移。 */
-  html.edgios-keyboard-active .app-shell { overflow-anchor: none; transform: translateY(var(--edgios-viewport-offset, 0)); }
 }
 
 html.theme-dark {
