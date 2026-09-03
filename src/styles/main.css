@@ -307,6 +307,10 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
   .mistake-attempt-row { grid-template-columns: minmax(0, 1fr); }
   .mistake-attempt-row time { display: none; }
   .translation-list { padding-bottom: 30vh; }
+  /* Edge iOS/WKWebView 在键盘开启时无法稳定处理聚焦元素前方的布局增高。 */
+  .lesson-practice.is-edgios.has-active-input .answer-comparison { display: none; }
+  .lesson-practice.is-edgios.has-active-input .row-status-icon,
+  .lesson-practice.is-edgios.has-active-input .error-info-button { display: none; }
 }
 
 html.theme-dark {

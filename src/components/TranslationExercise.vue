@@ -37,6 +37,8 @@ const emit = defineEmits<{
 type TextareaInput = { focus: () => void; textarea?: HTMLTextAreaElement };
 const inputRefs = ref<Record<string, TextareaInput | null>>({});
 const rootRef = ref<HTMLElement | null>(null);
+const inputFocused = ref(false);
+const isEdgeIOS = /EdgiOS/i.test(navigator.userAgent);
 const historyVisible = ref(false);
 const historyFocusItemId = ref("");
 const swipeStart = ref<{ x: number; y: number } | null>(null);
@@ -100,18 +102,41 @@ function setInputRef(id: string, instance: unknown) {
   inputRefs.value[id] = instance as TextareaInput | null;
 }
 
-function focusItem(id?: string) {
-  if (id) inputRefs.value[id]?.focus();
+function focusItem(id?: string, controlScroll = false) {
+  if (!id) return;
+  const input = inputRefs.value[id];
+  if (!controlScroll || !input?.textarea) {
+    input?.focus();
+    return;
+  }
+  const textarea = input.textarea;
+  textarea.focus({ preventScroll: true });
+  requestAnimationFrame(() => {
+    const row = textarea.closest<HTMLElement>(".sentence-row");
+    if (!row) return;
+    const viewportTop = window.visualViewport?.offsetTop || 0;
+    const viewportHeight = window.visualViewport?.height || window.innerHeight;
+    const rowRect = row.getBoundingClientRect();
+    const desiredTop = viewportTop + Math.max(16, (viewportHeight - rowRect.height) / 2);
+    window.scrollBy({ top: rowRect.top - desiredTop, behavior: "auto" });
+  });
 }
 
 async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) {
-  if (!(props.answers[item.id] || "").trim()) return;
+  const answer = props.answers[item.id] || "";
+  if (!answer.trim()) return;
+  const anticipatedResult = evaluateAnswer(answer, item.answer, locale.value);
+  const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
+  const nextItemId = props.items[currentIndex + 1]?.id;
+  if (!shouldAutoFocus() && anticipatedResult.level === "correct" && nextItemId) {
+    focusItem(nextItemId, true);
+  }
   emit("submit", item.id);
   await nextTick();
   const result = props.results[item.id];
   if (!shouldAutoFocus()) {
     if (result?.level !== "correct") selectError(input, result);
-    else input.blur();
+    else if (!nextItemId) input.blur();
     return;
   }
   if (result?.level !== "correct") {
@@ -120,14 +145,28 @@ async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) 
     selectError(target, result);
     return;
   }
-  const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
-  focusItem(props.items[currentIndex + 1]?.id);
+  focusItem(nextItemId);
 }
 
 function selectError(input: HTMLTextAreaElement, result?: AnswerFeedback) {
   const start = result?.firstErrorOffset || 0;
   const end = Math.max(start, result?.firstErrorEnd || start);
   input.setSelectionRange(start, end);
+}
+
+function onFocusIn(event: FocusEvent) {
+  if (event.target instanceof HTMLTextAreaElement) inputFocused.value = true;
+}
+
+function onFocusOut() {
+  const updateFocusState = () => {
+    inputFocused.value = Boolean(
+      rootRef.value?.contains(document.activeElement)
+      && document.activeElement instanceof HTMLTextAreaElement
+    );
+  };
+  if (isEdgeIOS) window.setTimeout(updateFocusState, 450);
+  else requestAnimationFrame(updateFocusState);
 }
 
 function onKeydown(event: KeyboardEvent, item: ExerciseItem) {
@@ -188,7 +227,15 @@ function historyFeedback(entry: MistakeHistoryEntry) {
 </script>
 
 <template>
-  <main ref="rootRef" class="exercise-card lesson-practice" @pointerdown="onPointerDown" @pointerup="onPointerUp">
+  <main
+    ref="rootRef"
+    class="exercise-card lesson-practice"
+    :class="{ 'is-edgios': isEdgeIOS, 'has-active-input': inputFocused }"
+    @focusin="onFocusIn"
+    @focusout="onFocusOut"
+    @pointerdown="onPointerDown"
+    @pointerup="onPointerUp"
+  >
     <div class="exercise-topline">
       <div>
         <span class="lesson-kicker">LESSON {{ lessonNumber }}</span>
