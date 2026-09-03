@@ -15,7 +15,6 @@
   --line: #dfe5df;
   --gold: #d3a93a;
   --app-bg: #f4f1e9;
-  --speaker-column-width: 126px;
 }
 
 * { box-sizing: border-box; }
@@ -233,8 +232,8 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .error-tooltip strong { font-size: 12px; }
 .error-tooltip p { margin: 4px 0 0; font-size: 12px; line-height: 1.55; }
 .sentence-answer-row { position: relative; margin-top: 3px; padding-right: 106px; }
-.sentence-answer-row.has-speaker { display: grid; grid-template-columns: var(--speaker-column-width) minmax(0, 1fr); align-items: start; }
-.input-speaker, .speaker-prefix { min-width: 0; padding: 5px 8px 0 0; overflow: hidden; color: var(--muted); font-size: 12px; font-weight: 700; line-height: 1.5; text-overflow: ellipsis; white-space: nowrap; }
+.sentence-answer-row.has-speaker { display: grid; grid-template-columns: max-content minmax(0, 1fr); align-items: start; }
+.input-speaker, .speaker-prefix { min-width: 0; padding: 5px 0 0; overflow: hidden; color: var(--muted); font-size: 12px; font-weight: 700; line-height: 1.5; text-overflow: ellipsis; white-space: nowrap; }
 .sentence-answer-row .el-textarea { display: block; }
 .sentence-answer-row .el-textarea__inner { min-height: 30px !important; padding: 4px 0 3px; overflow-y: auto; border: 0; border-bottom: 1px solid #bfc9c4; border-radius: 0; background: transparent; box-shadow: none; color: var(--ink); font-size: 14px; line-height: 1.5; transition: border-color .2s ease; }
 .sentence-answer-row .el-textarea__inner:hover { border-bottom-color: #879892; }
@@ -254,7 +253,7 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .answer-comparison { margin: 5px 0 0 -13px; padding: 7px 10px; border-left: 3px solid #48a273; border-radius: 3px 8px 8px 3px; background: #eef8f2; }
 .answer-comparison.is-wrong { border-left-color: #db5a4b; background: #fff0ed; }
 .comparison-line { margin: 0; color: #65736f; font-size: 14px; font-weight: 700; line-height: 1.5; }
-.comparison-line.has-speaker { display: grid; grid-template-columns: var(--speaker-column-width) minmax(0, 1fr); }
+.comparison-line.has-speaker { display: grid; grid-template-columns: max-content minmax(0, 1fr); }
 .comparison-line .speaker-prefix { padding-top: 0; color: currentColor; }
 .comparison-text { min-width: 0; overflow-wrap: anywhere; }
 .comparison-line + .comparison-line { margin-top: 3px; padding-top: 3px; border-top: 1px dashed rgba(199,63,50,.2); }
@@ -284,7 +283,6 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .mobile-reset-button { width: 100%; }
 
 @media (max-width: 640px) {
-  :root { --speaker-column-width: 92px; }
   .lesson-practice { padding: 0 13px 12px; border-radius: 18px; }
   .lesson-practice .exercise-topline { display: none; }
   .display-tabs { margin: 0 -13px; }
