@@ -57,7 +57,8 @@ export function evaluateAnswer(input: string, answer: string, locale: AppLocale 
   if (!input.trim()) {
     return {
       level: "idle", title: t("feedback.idleTitle"), message: t("feedback.idleMessage"), similarity: 0,
-      missing: [], extra: [], referenceParts: [], inputParts: [], firstErrorOffset: 0, explanation: t("feedback.idleExplanation")
+      missing: [], extra: [], referenceParts: [], inputParts: [], firstErrorOffset: 0, firstErrorEnd: 0,
+      explanation: t("feedback.idleExplanation")
     };
   }
   if (!unsupportedWords.length && actualVariants.some((variant) => expectedVariants.includes(variant))) {
@@ -138,23 +139,38 @@ function buildDiffParts(answer: string, input: string) {
     inputParts.push({ text: `${input.trim() ? " " : ""}${Array(placeholdersBeforeWord.get(actual.words.length) || 0).fill("xx").join(" ")}`, state: "wrong", placeholder: true });
   }
 
+  const firstWrongWordIndex = actual.words.findIndex((_, wordIndex) => wrongActualWords.has(wordIndex));
+  let firstErrorEnd = firstErrorOffset;
+  if (firstWrongWordIndex >= 0) {
+    let lastWrongWordIndex = firstWrongWordIndex;
+    while (wrongActualWords.has(lastWrongWordIndex + 1)) lastWrongWordIndex += 1;
+    firstErrorOffset = actual.words[firstWrongWordIndex].start;
+    firstErrorEnd = actual.words[lastWrongWordIndex].end;
+  }
+  if (unsupportedOffset >= 0 && unsupportedOffset <= firstErrorOffset) {
+    const unsupportedText = input.slice(unsupportedOffset).match(/^[\u3400-\u9fff]+/)?.[0] || "";
+    firstErrorOffset = unsupportedOffset;
+    firstErrorEnd = unsupportedOffset + unsupportedText.length;
+  }
+
   return {
     referenceParts: expected.tokens.map((text, tokenIndex): AnswerDiffPart => ({ text, state: referenceState.get(tokenIndex) || "neutral" })),
     inputParts,
-    firstErrorOffset: Number.isFinite(firstErrorOffset) ? firstErrorOffset : 0
+    firstErrorOffset: Number.isFinite(firstErrorOffset) ? firstErrorOffset : 0,
+    firstErrorEnd: Number.isFinite(firstErrorEnd) ? firstErrorEnd : 0
   };
 }
 
 function tokenizeDisplay(value: string) {
   const tokens = value.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?|\s+|[^A-Za-z0-9\s]+/g) || [];
   let offset = 0;
-  const words: Array<{ tokenIndex: number; normalizedParts: string[]; start: number }> = [];
+  const words: Array<{ tokenIndex: number; normalizedParts: string[]; start: number; end: number }> = [];
   const wordIndexByToken = new Map<number, number>();
   tokens.forEach((text, tokenIndex) => {
     const normalizedParts = normalizeText(text).split(" ").filter(Boolean);
     if (normalizedParts.length) {
       wordIndexByToken.set(tokenIndex, words.length);
-      words.push({ tokenIndex, normalizedParts, start: offset });
+      words.push({ tokenIndex, normalizedParts, start: offset, end: offset + text.length });
     }
     offset += text.length;
   });

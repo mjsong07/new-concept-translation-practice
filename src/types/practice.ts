@@ -34,6 +34,7 @@ export interface AnswerFeedback {
   referenceParts: AnswerDiffPart[];
   inputParts: AnswerDiffPart[];
   firstErrorOffset: number;
+  firstErrorEnd: number;
   explanation: string;
 }
 
@@ -69,4 +70,10 @@ export interface SpeechSettings {
   voiceURI: string;
   rate: number;
   volume: number;
+}
+
+export interface SpeechSegment {
+  text: string;
+  itemId?: string;
+  speaker?: string;
 }

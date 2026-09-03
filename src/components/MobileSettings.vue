@@ -143,14 +143,13 @@ function selectAdjacentLesson(offset: number) {
         <section>
           <label>{{ t('settings.voice') }}</label>
           <el-select :model-value="voiceUri" size="large" :placeholder="t('settings.systemVoice')" @update:model-value="emit('update:voiceUri', String($event))">
-            <el-option :label="t('settings.systemVoice')" value="" />
             <el-option v-for="voice in voices" :key="voice.voiceURI" :label="`${voice.name} · ${voice.lang}`" :value="voice.voiceURI" />
           </el-select>
         </section>
 
         <section>
           <label>{{ t('settings.rate', { rate: speechRate.toFixed(2) }) }}</label>
-          <el-slider :model-value="speechRate" :min="0.5" :max="1.5" :step="0.05" show-stops @update:model-value="emit('update:speechRate', Number($event))" />
+          <el-slider :model-value="speechRate" :min="0.1" :max="1.5" :step="0.05" @update:model-value="emit('update:speechRate', Number($event))" />
         </section>
 
         <section>

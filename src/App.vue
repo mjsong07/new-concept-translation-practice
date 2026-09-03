@@ -10,7 +10,8 @@ import TranslationExercise from "./components/TranslationExercise.vue";
 import { useColorScheme } from "./composables/useColorScheme";
 import { useI18n } from "./composables/useI18n";
 import { useTranslationPractice } from "./composables/useTranslationPractice";
-import { getEnglishVoices, speakEnglish, stopSpeech, toggleSpeechPause } from "./services/speech";
+import { getEnglishVoices, speakEnglishSequence, stopSpeech, toggleSpeechPause } from "./services/speech";
+import type { SpeechSegment } from "./types/practice";
 
 const { locale, t } = useI18n();
 const practice = useTranslationPractice();
@@ -19,33 +20,43 @@ const elementLocale = computed(() => locale.value === "en" ? en : zhCn);
 const emptyMessage = computed(() => practice.filter.value === "mistakes" ? t("empty.noMistakes") : t("empty.completed"));
 const voices = ref<SpeechSynthesisVoice[]>([]);
 const voiceUri = ref(localStorage.getItem("new-concept-speech-voice") || "");
-const speechRate = ref(Number(localStorage.getItem("new-concept-speech-rate")) || 0.82);
+const savedSpeechRate = Number(localStorage.getItem("new-concept-speech-rate"));
+const speechRate = ref(Number.isFinite(savedSpeechRate) && savedSpeechRate >= 0.1 && savedSpeechRate <= 1.5 ? savedSpeechRate : 0.82);
 const savedSpeechVolume = Number(localStorage.getItem("new-concept-speech-volume"));
 const speechVolume = ref(Number.isFinite(savedSpeechVolume) && savedSpeechVolume >= 0 ? savedSpeechVolume : 1);
 const speechActive = ref(false);
 const speechPaused = ref(false);
+const activeSpeechItemId = ref("");
 let speechRun = 0;
-const currentLessonSpeechText = computed(() => [
-  practice.lesson.value.title,
-  practice.lesson.value.questionEn,
-  ...practice.lesson.value.items.map((item) => item.speakerEn ? `${item.speakerEn}. ${item.answer}` : item.answer)
-].filter(Boolean).join(" "));
+const currentLessonSpeechSegments = computed<SpeechSegment[]>(() => [
+  { text: practice.lesson.value.title },
+  { text: practice.lesson.value.questionEn },
+  ...practice.lesson.value.items.map((item) => ({ text: item.answer, itemId: item.id, speaker: item.speakerEn }))
+]);
 
 function refreshVoices() {
   voices.value = getEnglishVoices();
+  if (voices.value.length && !voices.value.some((voice) => voice.voiceURI === voiceUri.value)) {
+    voiceUri.value = voices.value[0].voiceURI;
+  }
 }
 
-function speak(text: string) {
+function speak(segments: SpeechSegment[]) {
   const run = ++speechRun;
   speechPaused.value = false;
-  speakEnglish(text, { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value }, {
+  activeSpeechItemId.value = "";
+  speakEnglishSequence(segments, { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value }, {
     onStart: () => {
       if (run === speechRun) speechActive.value = true;
+    },
+    onSegmentStart: (segment) => {
+      if (run === speechRun) activeSpeechItemId.value = segment.itemId || "";
     },
     onEnd: () => {
       if (run === speechRun) {
         speechActive.value = false;
         speechPaused.value = false;
+        activeSpeechItemId.value = "";
       }
     }
   });
@@ -56,7 +67,7 @@ function toggleSpeech() {
 }
 
 function previewSpeechSetting() {
-  speak(currentLessonSpeechText.value);
+  speak([{ text: practice.lesson.value.title }]);
 }
 
 async function resetCurrentLesson() {
@@ -166,6 +177,7 @@ onUnmounted(() => {
         :mistake-history="practice.lessonMistakeHistory.value"
         :speech-active="speechActive"
         :speech-paused="speechPaused"
+        :active-speech-item-id="activeSpeechItemId"
         @update:display-mode="practice.displayMode.value = $event"
         @update:answer="practice.updateAnswer"
         @submit="practice.submit"

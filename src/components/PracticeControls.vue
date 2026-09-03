@@ -93,12 +93,11 @@ const emit = defineEmits<{
     <section class="control-section speech-settings">
       <label class="control-label">{{ t('settings.pronunciation') }}</label>
       <el-select :model-value="voiceUri" :placeholder="t('settings.systemVoice')" @update:model-value="emit('update:voiceUri', String($event))">
-        <el-option :label="t('settings.systemVoice')" value="" />
         <el-option v-for="voice in voices" :key="voice.voiceURI" :label="`${voice.name} · ${voice.lang}`" :value="voice.voiceURI" />
       </el-select>
       <div class="speech-rate-row">
         <span>{{ t('settings.rate', { rate: speechRate.toFixed(2) }) }}</span>
-        <el-slider :model-value="speechRate" :min="0.5" :max="1.5" :step="0.05" @update:model-value="emit('update:speechRate', Number($event))" />
+        <el-slider :model-value="speechRate" :min="0.1" :max="1.5" :step="0.05" @update:model-value="emit('update:speechRate', Number($event))" />
       </div>
       <div class="speech-rate-row">
         <span>{{ t('settings.volume', { volume: Math.round(speechVolume * 100) }) }}</span>

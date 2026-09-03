@@ -245,6 +245,8 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .sentence-row.is-wrong .sentence-number { color: #fff; background: #dc6657; }
 .sentence-row.is-wrong .input-result-label { color: #c8493b; }
 .sentence-row.is-wrong .el-textarea__inner { border-bottom-color: #dc8377; }
+.sentence-row.is-speaking .sentence-number { color: #fff; background: var(--coral); box-shadow: 0 0 0 4px rgba(230,108,80,.16); }
+.sentence-row.is-speaking .sentence-content { background: linear-gradient(90deg, rgba(230,108,80,.09), transparent 72%); }
 .answer-comparison { margin: 5px 0 0 -13px; padding: 7px 10px; border-left: 3px solid #48a273; border-radius: 3px 8px 8px 3px; background: #eef8f2; }
 .answer-comparison.is-wrong { border-left-color: #db5a4b; background: #fff0ed; }
 .comparison-line { margin: 0; color: #65736f; font-size: 14px; font-weight: 700; line-height: 1.5; }
