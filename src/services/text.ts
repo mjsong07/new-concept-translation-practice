@@ -102,8 +102,17 @@ function buildDiffParts(answer: string, input: string) {
   const operations = alignWords(expectedComponents.map((item) => item.value), actualComponents.map((item) => item.value));
   const wrongExpectedWords = new Set<number>();
   const wrongActualWords = new Set<number>();
+  const expectedCharacterParts = new Map<number, AnswerDiffPart[]>();
+  const actualCharacterParts = new Map<number, AnswerDiffPart[]>();
   const placeholdersBeforeWord = new Map<number, number>();
   let firstErrorOffset = input.length;
+  let firstErrorEnd = input.length;
+
+  function recordInputError(start: number, end: number) {
+    if (start >= firstErrorOffset) return;
+    firstErrorOffset = start;
+    firstErrorEnd = end;
+  }
 
   operations.forEach((operation, operationIndex) => {
     if (operation.type === "equal") return;
@@ -111,7 +120,28 @@ function buildDiffParts(answer: string, input: string) {
     if (operation.actualIndex !== undefined) {
       const actualWordIndex = actualComponents[operation.actualIndex].wordIndex;
       wrongActualWords.add(actualWordIndex);
-      firstErrorOffset = Math.min(firstErrorOffset, actual.words[actualWordIndex].start);
+      if (operation.type === "insert") {
+        const word = actual.words[actualWordIndex];
+        recordInputError(word.start, word.end);
+      }
+    }
+    if (operation.type === "replace" && operation.expectedIndex !== undefined && operation.actualIndex !== undefined) {
+      const expectedWordIndex = expectedComponents[operation.expectedIndex].wordIndex;
+      const actualWordIndex = actualComponents[operation.actualIndex].wordIndex;
+      if (!expectedCharacterParts.has(expectedWordIndex) && !actualCharacterParts.has(actualWordIndex)) {
+        const expectedWord = expected.words[expectedWordIndex];
+        const actualWord = actual.words[actualWordIndex];
+        const characterDiff = buildCharacterDiff(
+          expected.tokens[expectedWord.tokenIndex],
+          actual.tokens[actualWord.tokenIndex]
+        );
+        expectedCharacterParts.set(expectedWordIndex, characterDiff.expectedParts);
+        actualCharacterParts.set(actualWordIndex, characterDiff.actualParts);
+        recordInputError(
+          actualWord.start + characterDiff.firstIssueStart,
+          actualWord.start + characterDiff.firstIssueEnd
+        );
+      }
     }
     if (operation.type === "delete") {
       const nextActualOperation = operations.slice(operationIndex + 1).find((item) => item.actualIndex !== undefined);
@@ -119,7 +149,8 @@ function buildDiffParts(answer: string, input: string) {
         ? actual.words.length
         : actualComponents[nextActualOperation.actualIndex].wordIndex;
       placeholdersBeforeWord.set(nextWordIndex, (placeholdersBeforeWord.get(nextWordIndex) || 0) + 1);
-      firstErrorOffset = Math.min(firstErrorOffset, actual.words[nextWordIndex]?.start ?? input.length);
+      const insertionOffset = actual.words[nextWordIndex]?.start ?? input.length;
+      recordInputError(insertionOffset, insertionOffset);
     }
   });
 
@@ -127,38 +158,63 @@ function buildDiffParts(answer: string, input: string) {
   const inputState = new Map(actual.words.map((word, wordIndex) => [word.tokenIndex, wrongActualWords.has(wordIndex) ? "wrong" as const : "correct" as const]));
   const inputParts: AnswerDiffPart[] = [];
   const unsupportedOffset = input.search(/[\u3400-\u9fff]/);
-  if (unsupportedOffset >= 0) firstErrorOffset = Math.min(firstErrorOffset, unsupportedOffset);
+  if (unsupportedOffset >= 0) {
+    const unsupportedText = input.slice(unsupportedOffset).match(/^[\u3400-\u9fff]+/)?.[0] || "";
+    recordInputError(unsupportedOffset, unsupportedOffset + unsupportedText.length);
+  }
   actual.tokens.forEach((text, tokenIndex) => {
     const wordIndex = actual.wordIndexByToken.get(tokenIndex);
     if (wordIndex !== undefined && placeholdersBeforeWord.has(wordIndex)) {
-      inputParts.push({ text: `${Array(placeholdersBeforeWord.get(wordIndex) || 0).fill("xx").join(" ")} `, state: "wrong", placeholder: true });
+      inputParts.push({ text: `${Array(placeholdersBeforeWord.get(wordIndex) || 0).fill("__").join(" ")} `, state: "wrong", placeholder: true });
     }
-    inputParts.push({ text, state: inputState.get(tokenIndex) || (/[\u3400-\u9fff]/.test(text) ? "wrong" : "neutral") });
+    const characterParts = wordIndex === undefined ? undefined : actualCharacterParts.get(wordIndex);
+    inputParts.push(...(characterParts || [{ text, state: inputState.get(tokenIndex) || (/[\u3400-\u9fff]/.test(text) ? "wrong" : "neutral") }]));
   });
   if (placeholdersBeforeWord.has(actual.words.length)) {
-    inputParts.push({ text: `${input.trim() ? " " : ""}${Array(placeholdersBeforeWord.get(actual.words.length) || 0).fill("xx").join(" ")}`, state: "wrong", placeholder: true });
-  }
-
-  const firstWrongWordIndex = actual.words.findIndex((_, wordIndex) => wrongActualWords.has(wordIndex));
-  let firstErrorEnd = firstErrorOffset;
-  if (firstWrongWordIndex >= 0) {
-    let lastWrongWordIndex = firstWrongWordIndex;
-    while (wrongActualWords.has(lastWrongWordIndex + 1)) lastWrongWordIndex += 1;
-    firstErrorOffset = actual.words[firstWrongWordIndex].start;
-    firstErrorEnd = actual.words[lastWrongWordIndex].end;
-  }
-  if (unsupportedOffset >= 0 && unsupportedOffset <= firstErrorOffset) {
-    const unsupportedText = input.slice(unsupportedOffset).match(/^[\u3400-\u9fff]+/)?.[0] || "";
-    firstErrorOffset = unsupportedOffset;
-    firstErrorEnd = unsupportedOffset + unsupportedText.length;
+    inputParts.push({ text: `${input.trim() ? " " : ""}${Array(placeholdersBeforeWord.get(actual.words.length) || 0).fill("__").join(" ")}`, state: "wrong", placeholder: true });
   }
 
   return {
-    referenceParts: expected.tokens.map((text, tokenIndex): AnswerDiffPart => ({ text, state: referenceState.get(tokenIndex) || "neutral" })),
+    referenceParts: expected.tokens.flatMap((text, tokenIndex): AnswerDiffPart[] => {
+      const wordIndex = expected.wordIndexByToken.get(tokenIndex);
+      return wordIndex !== undefined && expectedCharacterParts.has(wordIndex)
+        ? expectedCharacterParts.get(wordIndex)!
+        : [{ text, state: referenceState.get(tokenIndex) || "neutral" }];
+    }),
     inputParts,
     firstErrorOffset: Number.isFinite(firstErrorOffset) ? firstErrorOffset : 0,
     firstErrorEnd: Number.isFinite(firstErrorEnd) ? firstErrorEnd : 0
   };
+}
+
+function buildCharacterDiff(expectedText: string, actualText: string) {
+  const expectedChars = [...expectedText];
+  const actualChars = [...actualText];
+  const operations = alignWords(expectedChars.map((char) => char.toLowerCase()), actualChars.map((char) => char.toLowerCase()));
+  const expectedParts: AnswerDiffPart[] = [];
+  const actualParts: AnswerDiffPart[] = [];
+  let firstIssueStart = actualChars.length;
+  let firstIssueEnd = actualChars.length;
+  let actualCursor = 0;
+
+  function append(parts: AnswerDiffPart[], text: string, state: AnswerDiffPart["state"]) {
+    const previous = parts[parts.length - 1];
+    if (previous?.state === state && !previous.placeholder) previous.text += text;
+    else parts.push({ text, state });
+  }
+
+  operations.forEach((operation) => {
+    const state = operation.type === "equal" ? "correct" : "wrong";
+    if (operation.expectedIndex !== undefined) append(expectedParts, expectedChars[operation.expectedIndex], state);
+    if (operation.actualIndex !== undefined) append(actualParts, actualChars[operation.actualIndex], state);
+    if (operation.type !== "equal" && firstIssueStart === actualChars.length) {
+      firstIssueStart = actualCursor;
+      firstIssueEnd = operation.actualIndex === undefined ? actualCursor : actualCursor + 1;
+    }
+    if (operation.actualIndex !== undefined) actualCursor += 1;
+  });
+
+  return { expectedParts, actualParts, firstIssueStart, firstIssueEnd };
 }
 
 function tokenizeDisplay(value: string) {
@@ -179,30 +235,34 @@ function tokenizeDisplay(value: string) {
 
 function alignWords(expected: string[], actual: string[]) {
   const rows = Array.from({ length: expected.length + 1 }, () => Array(actual.length + 1).fill(0));
-  for (let i = 0; i <= expected.length; i += 1) rows[i][0] = i;
-  for (let j = 0; j <= actual.length; j += 1) rows[0][j] = j;
-  for (let i = 1; i <= expected.length; i += 1) {
-    for (let j = 1; j <= actual.length; j += 1) {
-      rows[i][j] = Math.min(rows[i - 1][j] + 1, rows[i][j - 1] + 1, rows[i - 1][j - 1] + (expected[i - 1] === actual[j - 1] ? 0 : 1));
+  for (let i = expected.length; i >= 0; i -= 1) rows[i][actual.length] = expected.length - i;
+  for (let j = actual.length; j >= 0; j -= 1) rows[expected.length][j] = actual.length - j;
+  for (let i = expected.length - 1; i >= 0; i -= 1) {
+    for (let j = actual.length - 1; j >= 0; j -= 1) {
+      rows[i][j] = Math.min(rows[i + 1][j] + 1, rows[i][j + 1] + 1, rows[i + 1][j + 1] + (expected[i] === actual[j] ? 0 : 1));
     }
   }
   const operations: Array<{ type: "equal" | "replace" | "delete" | "insert"; expectedIndex?: number; actualIndex?: number }> = [];
-  let i = expected.length;
-  let j = actual.length;
-  while (i || j) {
-    if (i && j && rows[i][j] === rows[i - 1][j - 1] + (expected[i - 1] === actual[j - 1] ? 0 : 1)) {
-      operations.push({ type: expected[i - 1] === actual[j - 1] ? "equal" : "replace", expectedIndex: i - 1, actualIndex: j - 1 });
-      i -= 1;
-      j -= 1;
-    } else if (i && rows[i][j] === rows[i - 1][j] + 1) {
-      operations.push({ type: "delete", expectedIndex: i - 1 });
-      i -= 1;
+  let i = 0;
+  let j = 0;
+  while (i < expected.length || j < actual.length) {
+    if (i < expected.length && j < actual.length && expected[i] === actual[j] && rows[i][j] === rows[i + 1][j + 1]) {
+      operations.push({ type: "equal", expectedIndex: i, actualIndex: j });
+      i += 1;
+      j += 1;
+    } else if (i < expected.length && j < actual.length && rows[i][j] === rows[i + 1][j + 1] + 1) {
+      operations.push({ type: "replace", expectedIndex: i, actualIndex: j });
+      i += 1;
+      j += 1;
+    } else if (i < expected.length && rows[i][j] === rows[i + 1][j] + 1) {
+      operations.push({ type: "delete", expectedIndex: i });
+      i += 1;
     } else {
-      operations.push({ type: "insert", actualIndex: j - 1 });
-      j -= 1;
+      operations.push({ type: "insert", actualIndex: j });
+      j += 1;
     }
   }
-  return operations.reverse();
+  return operations;
 }
 
 export function explainDifference(missing: string[], extra: string[], locale: AppLocale = "zh-CN") {

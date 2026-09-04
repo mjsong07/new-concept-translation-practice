@@ -28,19 +28,24 @@ const speechVolume = ref(Number.isFinite(savedSpeechVolume) && savedSpeechVolume
 const speechActive = ref(false);
 const speechPaused = ref(false);
 const activeSpeechItemId = ref("");
+const pendingSpeechSegments = ref<SpeechSegment[]>([]);
+const speechContinuationReady = ref(false);
 let speechRun = 0;
 function refreshVoices() {
   voices.value = getEnglishVoices();
   if (voices.value.length && !voices.value.some((voice) => voice.voiceURI === voiceUri.value)) {
-    voiceUri.value = voices.value[0].voiceURI;
+    voiceUri.value = voices.value.find((voice) => /\bKaren\b/i.test(voice.name))?.voiceURI || voices.value[0].voiceURI;
   }
 }
 
-function speak(segments: SpeechSegment[]) {
+function speak(segments: SpeechSegment[], pauseAfterFirst = false) {
   const run = ++speechRun;
   speechPaused.value = false;
+  speechContinuationReady.value = false;
+  pendingSpeechSegments.value = pauseAfterFirst ? segments.slice(1) : [];
   activeSpeechItemId.value = "";
-  speakEnglishSequence(segments, { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value }, {
+  const segmentsToPlay = pauseAfterFirst ? segments.slice(0, 1) : segments;
+  speakEnglishSequence(segmentsToPlay, { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value }, {
     onStart: () => {
       if (run === speechRun) speechActive.value = true;
     },
@@ -49,8 +54,15 @@ function speak(segments: SpeechSegment[]) {
     },
     onEnd: () => {
       if (run === speechRun) {
+        if (pendingSpeechSegments.value.length) {
+          speechContinuationReady.value = true;
+          speechPaused.value = true;
+          activeSpeechItemId.value = "";
+          return;
+        }
         speechActive.value = false;
         speechPaused.value = false;
+        speechContinuationReady.value = false;
         activeSpeechItemId.value = "";
       }
     }
@@ -58,6 +70,12 @@ function speak(segments: SpeechSegment[]) {
 }
 
 function toggleSpeech() {
+  if (speechContinuationReady.value) {
+    const remainingSegments = [...pendingSpeechSegments.value];
+    pendingSpeechSegments.value = [];
+    speak(remainingSegments);
+    return;
+  }
   speechPaused.value = toggleSpeechPause();
 }
 

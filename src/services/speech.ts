@@ -100,7 +100,9 @@ export function speakEnglishSequence(
   window.speechSynthesis.cancel();
   window.speechSynthesis.resume();
   const voices = getEnglishVoices();
-  const preferred = voices.find((voice) => voice.voiceURI === settings.voiceURI) || voices[0];
+  const preferred = voices.find((voice) => voice.voiceURI === settings.voiceURI)
+    || voices.find((voice) => /\bKaren\b/i.test(voice.name))
+    || voices[0];
   const speakerVoices = assignSpeakerVoices(segments, voices, preferred);
   let started = false;
 
