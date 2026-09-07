@@ -39,6 +39,8 @@ button, textarea, input { font: inherit; }
 .speech-settings { gap: 8px; }
 .speech-rate-row { display: grid; gap: 2px; color: rgba(255,255,255,.72); font-size: 11px; }
 .speech-rate-row .el-slider { --el-slider-main-bg-color: #f0ca65; --el-slider-runway-bg-color: rgba(255,255,255,.16); width: calc(100% - 12px); margin: 0 6px; }
+.selection-threshold-settings .el-slider { --el-slider-main-bg-color: #f0ca65; --el-slider-runway-bg-color: rgba(255,255,255,.16); width: calc(100% - 12px); margin: -3px 6px 0; }
+.selection-threshold-settings p { margin: -3px 0 0; color: rgba(255,255,255,.55); font-size: 10px; line-height: 1.55; }
 .reset-lesson-button { width: 100%; color: #ffd5cc; border-color: rgba(255,213,204,.3); background: rgba(255,255,255,.04); }
 .reset-lesson-button:hover { color: #fff; border-color: var(--coral); background: rgba(230,108,80,.2); }
 .control-panel .el-radio-group { width: 100%; }
@@ -164,6 +166,7 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .mobile-settings-form { display: grid; gap: 20px; }
 .mobile-settings-form section { min-width: 0; display: grid; gap: 9px; }
 .mobile-settings-form label { color: var(--muted); font-size: 12px; font-weight: 700; }
+.mobile-selection-threshold small { color: var(--muted); font-size: 11px; line-height: 1.55; }
 .mobile-settings-form .el-select, .mobile-settings-form .el-segmented, .mobile-settings-form .el-radio-group { width: 100%; }
 .mobile-settings-dialog .lesson-select-section { min-width: 0; display: grid; gap: 11px; }
 .mobile-settings-dialog .lesson-select-section > label { color: var(--muted); font-size: 15px; font-weight: 700; }

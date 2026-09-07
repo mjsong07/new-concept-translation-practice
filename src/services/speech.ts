@@ -150,11 +150,11 @@ export function speakEnglish(text: string, settings: SpeechSettings, callbacks: 
   return speakEnglishSequence([{ text }], settings, callbacks);
 }
 
-export function toggleSpeechPause() {
+export function toggleSpeechPause(shouldPause = !window.speechSynthesis?.paused) {
   if (!("speechSynthesis" in window) || !window.speechSynthesis.speaking) return false;
-  if (window.speechSynthesis.paused) window.speechSynthesis.resume();
-  else window.speechSynthesis.pause();
-  return window.speechSynthesis.paused;
+  if (shouldPause) window.speechSynthesis.pause();
+  else window.speechSynthesis.resume();
+  return shouldPause;
 }
 
 export function stopSpeech() {

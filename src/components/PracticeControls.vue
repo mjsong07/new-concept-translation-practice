@@ -16,6 +16,7 @@ defineProps<{
   speechRate: number;
   speechVolume: number;
   voices: SpeechSynthesisVoice[];
+  characterMatchPercent: number;
 }>();
 
 const emit = defineEmits<{
@@ -25,6 +26,7 @@ const emit = defineEmits<{
   "update:voiceUri": [value: string];
   "update:speechRate": [value: number];
   "update:speechVolume": [value: number];
+  "update:characterMatchPercent": [value: number];
   reset: [];
 }>();
 </script>
@@ -88,6 +90,12 @@ const emit = defineEmits<{
         ]"
         @update:model-value="emit('update:colorScheme', $event as ColorSchemeMode)"
       />
+    </section>
+
+    <section class="control-section selection-threshold-settings">
+      <label class="control-label">{{ t('settings.selectionThreshold', { percent: characterMatchPercent }) }}</label>
+      <el-slider :model-value="characterMatchPercent" :min="0" :max="100" :step="5" @update:model-value="emit('update:characterMatchPercent', Number($event))" />
+      <p>{{ t('settings.selectionThresholdHint') }}</p>
     </section>
 
     <section class="control-section speech-settings">

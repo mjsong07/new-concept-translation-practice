@@ -22,6 +22,7 @@ const props = defineProps<{
   speechRate: number;
   speechVolume: number;
   voices: SpeechSynthesisVoice[];
+  characterMatchPercent: number;
 }>();
 
 const emit = defineEmits<{
@@ -31,6 +32,7 @@ const emit = defineEmits<{
   "update:voiceUri": [value: string];
   "update:speechRate": [value: number];
   "update:speechVolume": [value: number];
+  "update:characterMatchPercent": [value: number];
   reset: [];
 }>();
 
@@ -138,6 +140,12 @@ function selectAdjacentLesson(offset: number) {
             ]"
             @update:model-value="emit('update:colorScheme', $event as ColorSchemeMode)"
           />
+        </section>
+
+        <section class="mobile-selection-threshold">
+          <label>{{ t('settings.selectionThreshold', { percent: characterMatchPercent }) }}</label>
+          <el-slider :model-value="characterMatchPercent" :min="0" :max="100" :step="5" @update:model-value="emit('update:characterMatchPercent', Number($event))" />
+          <small>{{ t('settings.selectionThresholdHint') }}</small>
         </section>
 
         <section>

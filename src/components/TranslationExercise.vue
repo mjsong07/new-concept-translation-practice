@@ -21,6 +21,7 @@ const props = defineProps<{
   speechActive: boolean;
   speechPaused: boolean;
   activeSpeechItemId: string;
+  characterMatchPercent: number;
 }>();
 
 const { locale, t } = useI18n();
@@ -107,7 +108,7 @@ function focusItem(id?: string, preventScroll = false) {
 async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) {
   const answer = props.answers[item.id] || "";
   if (!answer.trim()) return;
-  const anticipatedResult = evaluateAnswer(answer, item.answer, locale.value);
+  const anticipatedResult = evaluateAnswer(answer, item.answer, locale.value, props.characterMatchPercent / 100);
   const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
   const nextItemId = props.items[currentIndex + 1]?.id;
   if (!shouldAutoFocus() && anticipatedResult.level === "correct" && nextItemId) {
@@ -178,7 +179,7 @@ function formatTime(timestamp: number) {
 }
 
 function historyFeedback(entry: MistakeHistoryEntry) {
-  return evaluateAnswer(entry.input, entry.answer, locale.value);
+  return evaluateAnswer(entry.input, entry.answer, locale.value, props.characterMatchPercent / 100);
 }
 </script>
 

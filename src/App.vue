@@ -14,8 +14,13 @@ import { getEnglishVoices, speakEnglishSequence, stopSpeech, toggleSpeechPause }
 import type { SpeechSegment } from "./types/practice";
 
 const { locale, t } = useI18n();
-const practice = useTranslationPractice();
 const colorScheme = useColorScheme();
+const savedCharacterMatchPercentValue = localStorage.getItem("new-concept-character-match-percent");
+const savedCharacterMatchPercent = savedCharacterMatchPercentValue === null ? Number.NaN : Number(savedCharacterMatchPercentValue);
+const characterMatchPercent = ref(Number.isFinite(savedCharacterMatchPercent) && savedCharacterMatchPercent >= 0 && savedCharacterMatchPercent <= 100
+  ? savedCharacterMatchPercent
+  : 50);
+const practice = useTranslationPractice(characterMatchPercent);
 const elementLocale = computed(() => locale.value === "en" ? en : zhCn);
 const emptyMessage = computed(() => practice.filter.value === "mistakes" ? t("empty.noMistakes") : t("empty.completed"));
 const voices = ref<SpeechSynthesisVoice[]>([]);
@@ -76,7 +81,7 @@ function toggleSpeech() {
     speak(remainingSegments);
     return;
   }
-  speechPaused.value = toggleSpeechPause();
+  speechPaused.value = toggleSpeechPause(!speechPaused.value);
 }
 
 async function resetCurrentLesson() {
@@ -96,6 +101,7 @@ async function resetCurrentLesson() {
 watch(voiceUri, (value) => localStorage.setItem("new-concept-speech-voice", value));
 watch(speechRate, (value) => localStorage.setItem("new-concept-speech-rate", String(value)));
 watch(speechVolume, (value) => localStorage.setItem("new-concept-speech-volume", String(value)));
+watch(characterMatchPercent, (value) => localStorage.setItem("new-concept-character-match-percent", String(value)));
 onMounted(() => {
   refreshVoices();
   window.speechSynthesis?.addEventListener("voiceschanged", refreshVoices);
@@ -122,12 +128,14 @@ onUnmounted(() => {
       :speech-rate="speechRate"
       :speech-volume="speechVolume"
       :voices="voices"
+      :character-match-percent="characterMatchPercent"
       @update:lesson-number="practice.selectedLesson.value = $event"
       @update:filter="practice.filter.value = $event"
       @update:color-scheme="colorScheme.mode.value = $event"
       @update:voice-uri="voiceUri = $event"
       @update:speech-rate="speechRate = $event"
       @update:speech-volume="speechVolume = $event"
+      @update:character-match-percent="characterMatchPercent = $event"
       @reset="resetCurrentLesson"
     />
 
@@ -148,12 +156,14 @@ onUnmounted(() => {
         :speech-rate="speechRate"
         :speech-volume="speechVolume"
         :voices="voices"
+        :character-match-percent="characterMatchPercent"
         @update:lesson-number="practice.selectedLesson.value = $event"
         @update:filter="practice.filter.value = $event"
         @update:color-scheme="colorScheme.mode.value = $event"
         @update:voice-uri="voiceUri = $event"
         @update:speech-rate="speechRate = $event"
         @update:speech-volume="speechVolume = $event"
+        @update:character-match-percent="characterMatchPercent = $event"
         @reset="resetCurrentLesson"
       />
 
@@ -186,6 +196,7 @@ onUnmounted(() => {
         :speech-active="speechActive"
         :speech-paused="speechPaused"
         :active-speech-item-id="activeSpeechItemId"
+        :character-match-percent="characterMatchPercent"
         @update:display-mode="practice.displayMode.value = $event"
         @update:answer="practice.updateAnswer"
         @submit="practice.submit"

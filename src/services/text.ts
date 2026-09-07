@@ -47,8 +47,9 @@ export function normalizeText(value: string) {
   return expandAmbiguousContractions(value)[0] || "";
 }
 
-export function evaluateAnswer(input: string, answer: string, locale: AppLocale = "zh-CN"): AnswerFeedback {
+export function evaluateAnswer(input: string, answer: string, locale: AppLocale = "zh-CN", characterMatchThreshold = 0.5): AnswerFeedback {
   const t = (key: string, params?: Record<string, string | number>) => translate(locale, key, params);
+  const preciseSelectionThreshold = Math.min(1, Math.max(0, characterMatchThreshold));
   const actualVariants = expandAmbiguousContractions(input);
   const expectedVariants = expandAmbiguousContractions(answer);
   const actual = actualVariants[0] || "";
@@ -64,7 +65,7 @@ export function evaluateAnswer(input: string, answer: string, locale: AppLocale 
   if (!unsupportedWords.length && actualVariants.some((variant) => expectedVariants.includes(variant))) {
     return {
       level: "correct", title: t("feedback.correctTitle"), message: t("feedback.correctMessage"), similarity: 1,
-      missing: [], extra: [], ...buildDiffParts(answer, input), explanation: t("feedback.correctExplanation")
+      missing: [], extra: [], ...buildDiffParts(answer, input, preciseSelectionThreshold), explanation: t("feedback.correctExplanation")
     };
   }
 
@@ -74,7 +75,7 @@ export function evaluateAnswer(input: string, answer: string, locale: AppLocale 
   const similarity = Math.max(0, 1 - distance / Math.max(actualWords.length, expectedWords.length, 1));
   const missing = subtractWords(expectedWords, actualWords);
   const extra = [...subtractWords(actualWords, expectedWords), ...unsupportedWords];
-  const diff = buildDiffParts(answer, input);
+  const diff = buildDiffParts(answer, input, preciseSelectionThreshold);
   const explanation = explainDifference(missing, extra, locale);
   if (similarity >= 0.78) {
     return {
@@ -94,7 +95,7 @@ export function evaluateAnswer(input: string, answer: string, locale: AppLocale 
   };
 }
 
-function buildDiffParts(answer: string, input: string) {
+function buildDiffParts(answer: string, input: string, characterMatchThreshold: number) {
   const expected = tokenizeDisplay(answer);
   const actual = tokenizeDisplay(input);
   const expectedComponents = expected.words.flatMap((word, wordIndex) => word.normalizedParts.map((value) => ({ value, wordIndex })));
@@ -135,12 +136,16 @@ function buildDiffParts(answer: string, input: string) {
           expected.tokens[expectedWord.tokenIndex],
           actual.tokens[actualWord.tokenIndex]
         );
-        expectedCharacterParts.set(expectedWordIndex, characterDiff.expectedParts);
-        actualCharacterParts.set(actualWordIndex, characterDiff.actualParts);
-        recordInputError(
-          actualWord.start + characterDiff.firstIssueStart,
-          actualWord.start + characterDiff.firstIssueEnd
-        );
+        if (characterDiff.correctMatchRatio >= characterMatchThreshold || characterDiff.hasSingleInnerIssue) {
+          expectedCharacterParts.set(expectedWordIndex, characterDiff.expectedParts);
+          actualCharacterParts.set(actualWordIndex, characterDiff.actualParts);
+          recordInputError(
+            actualWord.start + characterDiff.firstIssueStart,
+            actualWord.start + characterDiff.firstIssueEnd
+          );
+        } else {
+          recordInputError(actualWord.start, actualWord.end);
+        }
       }
     }
     if (operation.type === "delete") {
@@ -191,10 +196,24 @@ function buildCharacterDiff(expectedText: string, actualText: string) {
   const expectedChars = [...expectedText];
   const actualChars = [...actualText];
   const operations = alignWords(expectedChars.map((char) => char.toLowerCase()), actualChars.map((char) => char.toLowerCase()));
+  const correctCharacterCount = operations.filter((operation) => operation.type === "equal").length;
+  const correctMatchRatio = correctCharacterCount / Math.max(expectedChars.length, actualChars.length, 1);
+  let issueGroupCount = 0;
+  let previousWasIssue = false;
+  operations.forEach((operation) => {
+    const isIssue = operation.type !== "equal";
+    if (isIssue && !previousWasIssue) issueGroupCount += 1;
+    previousWasIssue = isIssue;
+  });
+  const hasSingleInnerIssue = operations[0]?.type === "equal"
+    && operations[operations.length - 1]?.type === "equal"
+    && issueGroupCount === 1;
   const expectedParts: AnswerDiffPart[] = [];
   const actualParts: AnswerDiffPart[] = [];
   let firstIssueStart = actualChars.length;
   let firstIssueEnd = actualChars.length;
+  let firstIssueStarted = false;
+  let firstIssueFinished = false;
   let actualCursor = 0;
 
   function append(parts: AnswerDiffPart[], text: string, state: AnswerDiffPart["state"]) {
@@ -207,14 +226,20 @@ function buildCharacterDiff(expectedText: string, actualText: string) {
     const state = operation.type === "equal" ? "correct" : "wrong";
     if (operation.expectedIndex !== undefined) append(expectedParts, expectedChars[operation.expectedIndex], state);
     if (operation.actualIndex !== undefined) append(actualParts, actualChars[operation.actualIndex], state);
-    if (operation.type !== "equal" && firstIssueStart === actualChars.length) {
-      firstIssueStart = actualCursor;
-      firstIssueEnd = operation.actualIndex === undefined ? actualCursor : actualCursor + 1;
+    if (operation.type !== "equal" && !firstIssueFinished) {
+      if (!firstIssueStarted) {
+        firstIssueStarted = true;
+        firstIssueStart = actualCursor;
+        firstIssueEnd = actualCursor;
+      }
+      if (operation.actualIndex !== undefined) firstIssueEnd = actualCursor + 1;
+    } else if (operation.type === "equal" && firstIssueStarted) {
+      firstIssueFinished = true;
     }
     if (operation.actualIndex !== undefined) actualCursor += 1;
   });
 
-  return { expectedParts, actualParts, firstIssueStart, firstIssueEnd };
+  return { expectedParts, actualParts, firstIssueStart, firstIssueEnd, correctMatchRatio, hasSingleInnerIssue };
 }
 
 function tokenizeDisplay(value: string) {
