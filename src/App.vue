@@ -10,7 +10,7 @@ import TranslationExercise from "./components/TranslationExercise.vue";
 import { useColorScheme } from "./composables/useColorScheme";
 import { useI18n } from "./composables/useI18n";
 import { useTranslationPractice } from "./composables/useTranslationPractice";
-import { getEnglishVoices, speakEnglishSequence, stopSpeech, toggleSpeechPause } from "./services/speech";
+import { getEnglishVoices, speakEnglish, speakEnglishSequence, stopSpeech, toggleSpeechPause } from "./services/speech";
 import type { SpeechSegment } from "./types/practice";
 
 const { locale, t } = useI18n();
@@ -74,6 +74,17 @@ function speak(segments: SpeechSegment[], pauseAfterFirst = false) {
   });
 }
 
+let speechPreviewTimer: number | undefined;
+function previewSpeechSettings() {
+  if (speechActive.value) return;
+  speakEnglish("This is a preview of the current voice, speed and volume.", { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value });
+}
+
+watch([voiceUri, speechRate, speechVolume], () => {
+  if (speechPreviewTimer !== undefined) window.clearTimeout(speechPreviewTimer);
+  speechPreviewTimer = window.setTimeout(previewSpeechSettings, 300);
+});
+
 function toggleSpeech() {
   if (speechContinuationReady.value) {
     const remainingSegments = [...pendingSpeechSegments.value];
@@ -107,6 +118,7 @@ onMounted(() => {
   window.speechSynthesis?.addEventListener("voiceschanged", refreshVoices);
 });
 onUnmounted(() => {
+  if (speechPreviewTimer !== undefined) window.clearTimeout(speechPreviewTimer);
   window.speechSynthesis?.removeEventListener("voiceschanged", refreshVoices);
   stopSpeech();
 });
@@ -203,6 +215,7 @@ onUnmounted(() => {
         @clear="practice.clearAnswer"
         @speak="speak"
         @toggle-speech="toggleSpeech"
+        @show-all="practice.filter.value = 'all'"
       />
       <el-empty v-else :description="emptyMessage" class="empty-state">
         <el-button type="primary" @click="practice.filter.value = 'all'">{{ t('empty.showAll') }}</el-button>

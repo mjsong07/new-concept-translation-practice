@@ -88,8 +88,9 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
     const restored: Record<string, AnswerFeedback> = {};
     getLessonItems(lessons.find((item) => item.number === selectedLesson.value) || lessons[0]).forEach((item) => {
       const value = answers.value[item.id];
-      if (value && ((progress.value.mistakes[item.id] || 0) > 0 || progress.value.completed.includes(item.id))) {
-        restored[item.id] = evaluateAnswer(value, item.answer, locale.value, characterMatchPercent.value / 100);
+      if (value && (progress.value.mistakes[item.id] || 0) > 0) {
+        const result = evaluateAnswer(value, item.answer, locale.value, characterMatchPercent.value / 100);
+        if (result.level !== "correct") restored[item.id] = result;
       }
     });
     results.value = restored;
@@ -98,7 +99,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
   function updateAnswer(id: string, value: string) {
     answers.value[id] = value;
     progress.value.answers[id] = value;
-    if (results.value[id]) {
+    if (results.value[id]?.level === "correct") {
       const nextResults = { ...results.value };
       delete nextResults[id];
       results.value = nextResults;

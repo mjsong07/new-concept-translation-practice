@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from "vue";
-import { CircleCheckFilled, Delete, Headset, Histogram, MoreFilled, VideoPause, VideoPlay } from "@element-plus/icons-vue";
+import { CircleCheckFilled, Delete, Headset, Histogram, MoreFilled, RefreshRight, VideoPause, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, DisplayMode, ExerciseItem, MistakeHistoryEntry, SpeechSegment } from "../types/practice";
@@ -33,7 +33,10 @@ const emit = defineEmits<{
   clear: [id: string];
   speak: [segments: SpeechSegment[], pauseAfterFirst?: boolean];
   "toggle-speech": [];
+  "show-all": [];
 }>();
+
+const editedIds = new Set<string>();
 
 type TextareaInput = { focus: () => void; textarea?: HTMLTextAreaElement };
 const inputRefs = ref<Record<string, TextareaInput | null>>({});
@@ -84,6 +87,10 @@ watch(() => props.lessonNumber, async () => {
   focusItem(props.items[0]?.id);
 });
 
+watch(() => props.lessonNumber, () => {
+  editedIds.clear();
+});
+
 watch(() => props.displayMode, async (mode) => {
   if (mode !== "translation" || !shouldAutoFocus()) return;
   await nextTick();
@@ -107,6 +114,7 @@ function focusItem(id?: string, preventScroll = false) {
 
 async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) {
   const answer = props.answers[item.id] || "";
+  editedIds.delete(item.id);
   if (!answer.trim()) return;
   const anticipatedResult = evaluateAnswer(answer, item.answer, locale.value, props.characterMatchPercent / 100);
   const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
@@ -144,6 +152,18 @@ function onKeydown(event: KeyboardEvent, item: ExerciseItem) {
   submitAndAdvance(item, event.currentTarget as HTMLTextAreaElement);
 }
 
+function onAnswerInput(id: string, value: string) {
+  editedIds.add(id);
+  emit("update:answer", id, value);
+}
+
+function onBlurSubmit(item: ExerciseItem) {
+  if (!editedIds.has(item.id)) return;
+  editedIds.delete(item.id);
+  if (!(props.answers[item.id] || "").trim()) return;
+  emit("submit", item.id);
+}
+
 function rowState(item: ExerciseItem) {
   const result = props.results[item.id];
   if (result?.level === "correct" || (!result && completedSet.value.has(item.id))) return "is-correct";
@@ -166,6 +186,14 @@ function itemAriaLabel(item: ExerciseItem, index: number) {
 function openHistory(itemId = "") {
   historyFocusItemId.value = itemId;
   historyVisible.value = true;
+}
+
+async function redoFromHistory(itemId: string) {
+  if (!props.items.some((item) => item.id === itemId)) emit("show-all");
+  historyVisible.value = false;
+  emit("clear", itemId);
+  await nextTick();
+  focusItem(itemId);
 }
 
 function speakFromSentence(item: ExerciseItem) {
@@ -229,12 +257,13 @@ function historyFeedback(entry: MistakeHistoryEntry) {
                 <el-input
                   :ref="(instance: unknown) => setInputRef(item.id, instance)"
                   :model-value="answers[item.id] || ''"
-                  :class="{ 'has-result': Boolean(results[item.id]) }"
+                  :class="{ 'has-result': Boolean(results[item.id]), 'is-empty': !(answers[item.id] || '').trim() }"
                   type="textarea" :autosize="{ minRows: 1, maxRows: 5 }" resize="none" autocomplete="off"
                   :enterkeyhint="index < items.length - 1 ? 'next' : 'done'"
                   :aria-label="t('exercise.answerLabel', { item: itemAriaLabel(item, index) })"
-                  @update:model-value="emit('update:answer', item.id, $event)"
+                  @update:model-value="onAnswerInput(item.id, $event)"
                   @keydown="onKeydown($event, item)"
+                  @blur="onBlurSubmit(item)"
                 />
                 <div class="input-row-actions">
                   <span v-if="results[item.id]" class="input-result-label">{{ results[item.id].level === 'correct' ? t('exercise.correct') : t('exercise.incorrect') }}</span>
@@ -309,6 +338,7 @@ function historyFeedback(entry: MistakeHistoryEntry) {
           <header class="mistake-line-source">
             <p><strong v-if="group.item.speakerZh">{{ group.item.speakerZh }}：</strong>{{ group.item.prompt }}</p>
             <p><strong v-if="group.item.speakerEn">{{ group.item.speakerEn }}: </strong>{{ group.item.answer }}</p>
+            <el-button class="history-redo-button" text size="small" :icon="RefreshRight" @click="redoFromHistory(group.item.id)">{{ t('exercise.redoLine') }}</el-button>
           </header>
           <div class="mistake-attempt-list">
             <article v-for="entry in group.entries" :key="entry.id" class="mistake-attempt-row">

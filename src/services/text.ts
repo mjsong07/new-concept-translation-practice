@@ -65,7 +65,7 @@ export function evaluateAnswer(input: string, answer: string, locale: AppLocale 
   if (!unsupportedWords.length && actualVariants.some((variant) => expectedVariants.includes(variant))) {
     return {
       level: "correct", title: t("feedback.correctTitle"), message: t("feedback.correctMessage"), similarity: 1,
-      missing: [], extra: [], ...buildDiffParts(answer, input, preciseSelectionThreshold), explanation: t("feedback.correctExplanation")
+      missing: [], extra: [], ...buildCorrectParts(answer, input), explanation: t("feedback.correctExplanation")
     };
   }
 
@@ -92,6 +92,17 @@ export function evaluateAnswer(input: string, answer: string, locale: AppLocale 
   return {
     level: "wrong", title: t("feedback.wrongTitle"), message: t("feedback.wrongMessage"),
     similarity, missing, extra, ...diff, explanation
+  };
+}
+
+function buildCorrectParts(answer: string, input: string) {
+  const expected = tokenizeDisplay(answer);
+  const actual = tokenizeDisplay(input);
+  return {
+    referenceParts: expected.tokens.map((text): AnswerDiffPart => ({ text, state: "correct" })),
+    inputParts: actual.tokens.map((text): AnswerDiffPart => ({ text, state: "correct" })),
+    firstErrorOffset: 0,
+    firstErrorEnd: 0
   };
 }
 
