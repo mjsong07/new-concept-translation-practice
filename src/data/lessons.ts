@@ -10248,7 +10248,7 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Sensational news!",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "你听这段：由本报记者艾伦·琼斯报导。",
+        "prompt": "由本报记者艾伦·琼斯报导。",
         "answer": "By our reporter, Alan Jones."
       },
       {
@@ -10257,7 +10257,7 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Sensational news!",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "你听这段：卡伦·马什今天到达伦敦机场。",
+        "prompt": "卡伦·马什今天到达伦敦机场。",
         "answer": "Karen Marsh arrived at London Airport today."
       },
       {
@@ -10266,7 +10266,7 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Sensational news!",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "你听这段：她穿着一身蓝色的套装和一件貂皮大衣。",
+        "prompt": "她穿着一身蓝色的套装和一件貂皮大衣。",
         "answer": "She was wearing a blue dress and a mink coat."
       },
       {
@@ -10275,7 +10275,7 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Sensational news!",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "你听这段：她告诉我她刚拍完一部新片子。",
+        "prompt": "她告诉我她刚拍完一部新片子。",
         "answer": "She told me she had just made a new film."
       },
       {
@@ -10284,7 +10284,7 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Sensational news!",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "你听这段：她说她不准备再拍电影了。",
+        "prompt": "她说她不准备再拍电影了。",
         "answer": "She said she was not going to make another."
       },
       {
@@ -10293,7 +10293,7 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Sensational news!",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "你听这段：她说她准备退休。",
+        "prompt": "她说她准备退休。",
         "answer": "She said she was going to retire."
       },
       {
@@ -10302,7 +10302,7 @@ export const lessons: Lesson[] = [
         "lessonTitle": "Sensational news!",
         "speakerZh": "凯特",
         "speakerEn": "KATE",
-        "prompt": "你听这段：她告诉记者她感到很疲劳，早就不想再拍电影了。",
+        "prompt": "她告诉记者她感到很疲劳，早就不想再拍电影了。",
         "answer": "She told reporters she felt very tired and didn't want to make another film for a long time.'"
       },
       {

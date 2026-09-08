@@ -119,8 +119,11 @@ function buildDiffParts(answer: string, input: string, characterMatchThreshold: 
   const placeholdersBeforeWord = new Map<number, number>();
   let firstErrorOffset = input.length;
   let firstErrorEnd = input.length;
+  let lastErrorEnd = 0;
+  let hasUnsupportedText = false;
 
   function recordInputError(start: number, end: number) {
+    lastErrorEnd = Math.max(lastErrorEnd, end);
     if (start >= firstErrorOffset) return;
     firstErrorOffset = start;
     firstErrorEnd = end;
@@ -173,10 +176,12 @@ function buildDiffParts(answer: string, input: string, characterMatchThreshold: 
   const referenceState = new Map(expected.words.map((word, wordIndex) => [word.tokenIndex, wrongExpectedWords.has(wordIndex) ? "wrong" as const : "correct" as const]));
   const inputState = new Map(actual.words.map((word, wordIndex) => [word.tokenIndex, wrongActualWords.has(wordIndex) ? "wrong" as const : "correct" as const]));
   const inputParts: AnswerDiffPart[] = [];
-  const unsupportedOffset = input.search(/[\u3400-\u9fff]/);
-  if (unsupportedOffset >= 0) {
-    const unsupportedText = input.slice(unsupportedOffset).match(/^[\u3400-\u9fff]+/)?.[0] || "";
-    recordInputError(unsupportedOffset, unsupportedOffset + unsupportedText.length);
+  const unsupportedPattern = /[\u3400-\u9fff]+/g;
+  let unsupportedMatch = unsupportedPattern.exec(input);
+  while (unsupportedMatch) {
+    hasUnsupportedText = true;
+    recordInputError(unsupportedMatch.index, unsupportedMatch.index + unsupportedMatch[0].length);
+    unsupportedMatch = unsupportedPattern.exec(input);
   }
   actual.tokens.forEach((text, tokenIndex) => {
     const wordIndex = actual.wordIndexByToken.get(tokenIndex);
@@ -190,6 +195,11 @@ function buildDiffParts(answer: string, input: string, characterMatchThreshold: 
     inputParts.push({ text: `${input.trim() ? " " : ""}${Array(placeholdersBeforeWord.get(actual.words.length) || 0).fill("__").join(" ")}`, state: "wrong", placeholder: true });
   }
 
+  // 输入混入中文时把选中范围扩到最后一个错误结尾，让中英文错误同时被选中。
+  const selectionStart = Number.isFinite(firstErrorOffset) ? firstErrorOffset : 0;
+  const selectionEnd = hasUnsupportedText
+    ? Math.max(selectionStart, lastErrorEnd)
+    : Number.isFinite(firstErrorEnd) ? firstErrorEnd : 0;
   return {
     referenceParts: expected.tokens.flatMap((text, tokenIndex): AnswerDiffPart[] => {
       const wordIndex = expected.wordIndexByToken.get(tokenIndex);
@@ -198,8 +208,8 @@ function buildDiffParts(answer: string, input: string, characterMatchThreshold: 
         : [{ text, state: referenceState.get(tokenIndex) || "neutral" }];
     }),
     inputParts,
-    firstErrorOffset: Number.isFinite(firstErrorOffset) ? firstErrorOffset : 0,
-    firstErrorEnd: Number.isFinite(firstErrorEnd) ? firstErrorEnd : 0
+    firstErrorOffset: selectionStart,
+    firstErrorEnd: selectionEnd
   };
 }
 
