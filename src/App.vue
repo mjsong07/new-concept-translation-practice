@@ -62,7 +62,6 @@ function speak(segments: SpeechSegment[], pauseAfterFirst = false) {
         if (pendingSpeechSegments.value.length) {
           speechContinuationReady.value = true;
           speechPaused.value = true;
-          activeSpeechItemId.value = "";
           return;
         }
         speechActive.value = false;
@@ -76,7 +75,7 @@ function speak(segments: SpeechSegment[], pauseAfterFirst = false) {
 
 let speechPreviewTimer: number | undefined;
 function previewSpeechSettings() {
-  if (speechActive.value) return;
+  if (speechActive.value && !speechPaused.value) return;
   speakEnglish("This is a preview of the current voice, speed and volume.", { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value });
 }
 

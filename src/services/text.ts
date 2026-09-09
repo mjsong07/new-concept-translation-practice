@@ -12,7 +12,10 @@ function normalizeBase(value: string) {
     .replace(/\b([a-z]+)'m\b/g, "$1 am")
     .replace(/\b([a-z]+)'re\b/g, "$1 are")
     .replace(/\b([a-z]+)'ve\b/g, "$1 have")
-    .replace(/\b([a-z]+)'ll\b/g, "$1 will");
+    .replace(/\b([a-z]+)'ll\b/g, "$1 will")
+    .replace(/\bgonna\b/g, "going to")
+    .replace(/\bwanna\b/g, "want to")
+    .replace(/\bgotta\b/g, "got to");
   return result
     // 判题只比较单词与数字：中英文引号、感叹号等所有符号均等价并忽略。
     .replace(/[^a-z0-9\s]/g, " ")
