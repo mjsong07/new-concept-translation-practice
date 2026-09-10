@@ -35,10 +35,11 @@ function loadProgress(): StoredProgress {
     const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
     return {
       completed: saved.completed || [], mistakes: saved.mistakes || {}, attempts: saved.attempts || 0,
-      correct: saved.correct || 0, answers: saved.answers || {}, mistakeHistory: saved.mistakeHistory || []
+      correct: saved.correct || 0, answers: saved.answers || {}, lastCorrectAt: saved.lastCorrectAt || {},
+      mistakeHistory: saved.mistakeHistory || []
     };
   } catch {
-    return { completed: [], mistakes: {}, attempts: 0, correct: 0, answers: {}, mistakeHistory: [] };
+    return { completed: [], mistakes: {}, attempts: 0, correct: 0, answers: {}, lastCorrectAt: {}, mistakeHistory: [] };
   }
 }
 
@@ -120,18 +121,30 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
     const value = answers.value[id] || "";
     if (!item || !value.trim()) return;
     const result = evaluateAnswer(value, item.answer, locale.value, characterMatchPercent.value / 100);
+    const timestamp = Date.now();
     results.value = { ...results.value, [id]: result };
     progress.value.attempts += 1;
     if (result.level === "correct") {
       progress.value.correct += 1;
+      progress.value.lastCorrectAt[item.id] = timestamp;
       if (!progress.value.completed.includes(item.id)) progress.value.completed.push(item.id);
     } else {
       progress.value.completed = progress.value.completed.filter((itemId) => itemId !== item.id);
       progress.value.mistakes[item.id] = (progress.value.mistakes[item.id] || 0) + 1;
+      const lastCorrectAt = progress.value.lastCorrectAt[item.id] || 0;
+      const existingEntry = progress.value.mistakeHistory.find((entry) => entry.itemId === item.id && entry.createdAt > lastCorrectAt);
+      if (existingEntry) {
+        existingEntry.input = value;
+        existingEntry.missing = result.missing;
+        existingEntry.extra = result.extra;
+        existingEntry.explanation = result.explanation;
+        existingEntry.createdAt = timestamp;
+        return;
+      }
       const historyEntry: MistakeHistoryEntry = {
-        id: `${item.id}-${Date.now()}-${progress.value.attempts}`,
+        id: `${item.id}-${timestamp}-${progress.value.attempts}`,
         itemId: item.id, lesson: item.lesson, prompt: item.prompt, input: value, answer: item.answer,
-        missing: result.missing, extra: result.extra, explanation: result.explanation, createdAt: Date.now()
+        missing: result.missing, extra: result.extra, explanation: result.explanation, createdAt: timestamp
       };
       progress.value.mistakeHistory.unshift(historyEntry);
     }
@@ -143,6 +156,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
       delete answers.value[id];
       delete progress.value.answers[id];
       delete progress.value.mistakes[id];
+      delete progress.value.lastCorrectAt[id];
     });
     progress.value.completed = progress.value.completed.filter((id) => !ids.has(id));
     progress.value.mistakeHistory = progress.value.mistakeHistory.filter((entry) => entry.lesson !== lesson.value.number);

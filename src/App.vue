@@ -33,6 +33,7 @@ const speechVolume = ref(Number.isFinite(savedSpeechVolume) && savedSpeechVolume
 const speechActive = ref(false);
 const speechPaused = ref(false);
 const activeSpeechItemId = ref("");
+const activeWordId = ref("");
 const pendingSpeechSegments = ref<SpeechSegment[]>([]);
 const speechContinuationReady = ref(false);
 let speechRun = 0;
@@ -45,6 +46,7 @@ function refreshVoices() {
 
 function speak(segments: SpeechSegment[], pauseAfterFirst = false) {
   const run = ++speechRun;
+  activeWordId.value = "";
   speechPaused.value = false;
   speechContinuationReady.value = false;
   pendingSpeechSegments.value = pauseAfterFirst ? segments.slice(1) : [];
@@ -69,6 +71,21 @@ function speak(segments: SpeechSegment[], pauseAfterFirst = false) {
         speechContinuationReady.value = false;
         activeSpeechItemId.value = "";
       }
+    }
+  });
+}
+
+function speakWord(wordId: string, wordText: string) {
+  const run = ++speechRun;
+  speechActive.value = false;
+  speechPaused.value = false;
+  speechContinuationReady.value = false;
+  pendingSpeechSegments.value = [];
+  activeSpeechItemId.value = "";
+  activeWordId.value = wordId;
+  speakEnglish(wordText, { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value }, {
+    onEnd: () => {
+      if (run === speechRun) activeWordId.value = "";
     }
   });
 }
@@ -207,12 +224,14 @@ onUnmounted(() => {
         :speech-active="speechActive"
         :speech-paused="speechPaused"
         :active-speech-item-id="activeSpeechItemId"
+        :active-word-id="activeWordId"
         :character-match-percent="characterMatchPercent"
         @update:display-mode="practice.displayMode.value = $event"
         @update:answer="practice.updateAnswer"
         @submit="practice.submit"
         @clear="practice.clearAnswer"
         @speak="speak"
+        @speak-word="speakWord"
         @toggle-speech="toggleSpeech"
         @show-all="practice.filter.value = 'all'"
       />

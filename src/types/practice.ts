@@ -50,6 +50,7 @@ export interface StoredProgress {
   attempts: number;
   correct: number;
   answers: Record<string, string>;
+  lastCorrectAt: Record<string, number>;
   mistakeHistory: MistakeHistoryEntry[];
 }
 

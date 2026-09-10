@@ -278,6 +278,8 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .diff-word.is-wrong { color: #c73f32; text-decoration: underline; text-decoration-color: rgba(199,63,50,.35); text-underline-offset: 3px; }
 .diff-word.is-placeholder { padding: 0 2px; border-radius: 3px; color: #9a6a00; background: rgba(246,195,54,.28); font-weight: 800; text-decoration: none; }
 .diff-word.is-neutral { color: #65736f; }
+.clickable-word { cursor: pointer; }
+.clickable-word.is-word-active { color: #2f80ed; }
 .reading-list .sentence-row { padding: 4px 0; }
 .reading-sentence { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .reading-sentence .sentence-english { flex: 1; }
@@ -432,6 +434,7 @@ html.theme-dark {
   .question-with-speech.is-speaking p,
   .mobile-title-with-speech.is-speaking p,
   .mobile-title-with-speech.is-speaking .mobile-lesson-title { color: #5b9cf5; }
+  .clickable-word.is-word-active { color: #5b9cf5; }
   .sentence-answer-row .el-textarea.is-empty .el-textarea__inner { border-bottom-color: #c9a13f; }
   .sentence-answer-row .el-textarea.is-empty .el-textarea__inner:hover { border-bottom-color: #d9b44a; }
   .sentence-answer-row .el-textarea.is-empty .el-textarea__inner:focus { border-bottom: 2px solid #d9b44a; }

@@ -21,6 +21,7 @@ const props = defineProps<{
   speechActive: boolean;
   speechPaused: boolean;
   activeSpeechItemId: string;
+  activeWordId: string;
   characterMatchPercent: number;
 }>();
 
@@ -34,6 +35,7 @@ const emit = defineEmits<{
   speak: [segments: SpeechSegment[], pauseAfterFirst?: boolean];
   "toggle-speech": [];
   "show-all": [];
+  "speak-word": [wordId: string, wordText: string];
 }>();
 
 const editedIds = new Set<string>();
@@ -124,6 +126,7 @@ async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) 
   }
   emit("submit", item.id);
   await nextTick();
+  speakIfCorrect(item);
   const result = props.results[item.id];
   if (!shouldAutoFocus()) {
     if (isEdgeIOS) return;
@@ -138,6 +141,12 @@ async function submitAndAdvance(item: ExerciseItem, input: HTMLTextAreaElement) 
     return;
   }
   focusItem(nextItemId);
+}
+
+function speakIfCorrect(item: ExerciseItem) {
+  if (props.results[item.id]?.level === "correct") {
+    emit("speak", [{ text: item.answer, itemId: item.id, speaker: item.speakerEn }], false);
+  }
 }
 
 function selectError(input: HTMLTextAreaElement, result?: AnswerFeedback) {
@@ -157,11 +166,13 @@ function onAnswerInput(id: string, value: string) {
   emit("update:answer", id, value);
 }
 
-function onBlurSubmit(item: ExerciseItem) {
+async function onBlurSubmit(item: ExerciseItem) {
   if (!editedIds.has(item.id)) return;
   editedIds.delete(item.id);
   if (!(props.answers[item.id] || "").trim()) return;
   emit("submit", item.id);
+  await nextTick();
+  speakIfCorrect(item);
 }
 
 function rowState(item: ExerciseItem) {
@@ -209,6 +220,26 @@ function formatTime(timestamp: number) {
 function historyFeedback(entry: MistakeHistoryEntry) {
   return evaluateAnswer(entry.input, entry.answer, locale.value, props.characterMatchPercent / 100);
 }
+
+function clickableWords(text: string, itemId: string) {
+  const tokens = text.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?|\s+|[^A-Za-z0-9\s]+/g) || [];
+  return tokens.map((token, index) => ({
+    text: token,
+    wordId: `${itemId}:${index}`,
+    clickable: /^[A-Za-z0-9]/.test(token)
+  }));
+}
+
+function isWordToken(text: string) {
+  return /^[A-Za-z0-9]/.test(text);
+}
+
+function onTextClick(event: MouseEvent) {
+  const target = (event.target as HTMLElement).closest<HTMLElement>("[data-word-id]");
+  if (!target) return;
+  const wordId = target.dataset.wordId;
+  if (wordId) emit("speak-word", wordId, target.textContent || "");
+}
 </script>
 
 <template>
@@ -217,7 +248,7 @@ function historyFeedback(entry: MistakeHistoryEntry) {
       <div>
         <span class="lesson-kicker">LESSON {{ lessonNumber }}</span>
         <div class="lesson-title-row" :class="{ 'is-speaking': activeSpeechItemId === titleItemId }">
-          <h1>{{ visibleTitle }}</h1>
+          <h1 @click="onTextClick"><template v-if="displayMode === 'translation'">{{ lessonTitleZh }}</template><template v-else-if="displayMode === 'original'"><span v-for="tok in clickableWords(lessonTitle, titleItemId)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></template><template v-else>{{ lessonTitleZh }} · <span v-for="tok in clickableWords(lessonTitle, titleItemId)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></template></h1>
           <el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle, itemId: titleItemId }])" />
         </div>
       </div>
@@ -248,7 +279,7 @@ function historyFeedback(entry: MistakeHistoryEntry) {
               </div>
 
               <div v-if="results[item.id]" class="answer-comparison" :class="{ 'is-wrong': rowState(item) === 'is-wrong' }">
-                <p class="comparison-line" :class="{ 'has-speaker': item.speakerEn }"><strong v-if="item.speakerEn" class="speaker-prefix">{{ item.speakerEn }}:</strong><span class="comparison-text"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="`is-${part.state}`">{{ part.text }}</span></span></p>
+                <p class="comparison-line" :class="{ 'has-speaker': item.speakerEn }"><strong v-if="item.speakerEn" class="speaker-prefix">{{ item.speakerEn }}:</strong><span class="comparison-text" @click="onTextClick"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'clickable-word': isWordToken(part.text), 'is-word-active': activeWordId === `${item.id}-ref:${partIndex}` }]" :data-word-id="isWordToken(part.text) ? `${item.id}-ref:${partIndex}` : undefined">{{ part.text }}</span></span></p>
                 <p v-if="rowState(item) === 'is-wrong'" class="comparison-line" :class="{ 'has-speaker': item.speakerEn }"><strong v-if="item.speakerEn" class="speaker-prefix">{{ item.speakerEn }}:</strong><span class="comparison-text"><span v-for="(part, partIndex) in results[item.id].inputParts" :key="`${item.id}-input-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></span></p>
               </div>
 
@@ -294,14 +325,14 @@ function historyFeedback(entry: MistakeHistoryEntry) {
         </div>
         <section class="lesson-question is-english">
           <div class="lesson-question-copy">
-            <div class="mobile-title-with-speech" :class="{ 'is-speaking': activeSpeechItemId === titleItemId }"><strong class="mobile-lesson-title">{{ lessonTitle }}</strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle, itemId: titleItemId }])" /></div>
-            <div class="question-with-speech" :class="{ 'is-speaking': activeSpeechItemId === questionItemId }"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', [{ text: questionEn, itemId: questionItemId }])" /></div>
+            <div class="mobile-title-with-speech" :class="{ 'is-speaking': activeSpeechItemId === titleItemId }"><strong class="mobile-lesson-title" @click="onTextClick"><span v-for="tok in clickableWords(lessonTitle, titleItemId)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle, itemId: titleItemId }])" /></div>
+            <div class="question-with-speech" :class="{ 'is-speaking': activeSpeechItemId === questionItemId }"><p @click="onTextClick"><span v-for="tok in clickableWords(questionEn, questionItemId)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', [{ text: questionEn, itemId: questionItemId }])" /></div>
           </div>
         </section>
         <div class="sentence-list reading-list">
           <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row" :class="{ 'is-speaking': activeSpeechItemId === item.id }">
             <div class="sentence-number">{{ index + 1 }}</div>
-            <div class="sentence-content reading-sentence"><p class="sentence-english"><strong v-if="item.speakerEn" class="speaker-inline">{{ item.speakerEn }}:</strong>{{ item.answer }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakText')" @click="speakFromSentence(item)" /></div>
+            <div class="sentence-content reading-sentence"><p class="sentence-english" @click="onTextClick"><strong v-if="item.speakerEn" class="speaker-inline">{{ item.speakerEn }}:</strong><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakText')" @click="speakFromSentence(item)" /></div>
           </article>
         </div>
       </el-tab-pane>
@@ -316,15 +347,15 @@ function historyFeedback(entry: MistakeHistoryEntry) {
         </div>
         <section class="lesson-question is-bilingual">
           <div class="bilingual-question-copy">
-            <div class="mobile-title-with-speech" :class="{ 'is-speaking': activeSpeechItemId === titleItemId }"><strong class="mobile-lesson-title">{{ lessonTitleZh }} · {{ lessonTitle }}</strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle, itemId: titleItemId }])" /></div>
+            <div class="mobile-title-with-speech" :class="{ 'is-speaking': activeSpeechItemId === titleItemId }"><strong class="mobile-lesson-title" @click="onTextClick">{{ lessonTitleZh }} · <span v-for="tok in clickableWords(lessonTitle, titleItemId)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></strong><el-button circle text :icon="Headset" :aria-label="t('exercise.speakTitle')" @click="emit('speak', [{ text: lessonTitle, itemId: titleItemId }])" /></div>
             <div><p>{{ questionZh }}</p></div>
-            <div class="question-with-speech" :class="{ 'is-speaking': activeSpeechItemId === questionItemId }"><p>{{ questionEn }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', [{ text: questionEn, itemId: questionItemId }])" /></div>
+            <div class="question-with-speech" :class="{ 'is-speaking': activeSpeechItemId === questionItemId }"><p @click="onTextClick"><span v-for="tok in clickableWords(questionEn, questionItemId)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakQuestion')" @click="emit('speak', [{ text: questionEn, itemId: questionItemId }])" /></div>
           </div>
         </section>
         <div class="sentence-list reading-list bilingual-list">
           <article v-for="(item, index) in sentenceItems" :key="item.id" class="sentence-row" :class="{ 'is-speaking': activeSpeechItemId === item.id }">
             <div class="sentence-number">{{ index + 1 }}</div>
-            <div class="sentence-content"><p class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}</p><div class="reading-sentence"><p class="sentence-english"><strong v-if="item.speakerEn" class="speaker-inline">{{ item.speakerEn }}:</strong>{{ item.answer }}</p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakText')" @click="speakFromSentence(item)" /></div></div>
+            <div class="sentence-content"><p class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}</p><div class="reading-sentence"><p class="sentence-english" @click="onTextClick"><strong v-if="item.speakerEn" class="speaker-inline">{{ item.speakerEn }}:</strong><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></p><el-button circle text :icon="Headset" :aria-label="t('exercise.speakText')" @click="speakFromSentence(item)" /></div></div>
           </article>
         </div>
       </el-tab-pane>
@@ -337,7 +368,7 @@ function historyFeedback(entry: MistakeHistoryEntry) {
         <section v-for="(group, groupIndex) in historyGroups" :key="`${group.item.id}-${groupIndex}`" class="mistake-line-group">
           <header class="mistake-line-source">
             <p><strong v-if="group.item.speakerZh">{{ group.item.speakerZh }}：</strong>{{ group.item.prompt }}</p>
-            <p><strong v-if="group.item.speakerEn">{{ group.item.speakerEn }}: </strong>{{ group.item.answer }}</p>
+            <p @click="onTextClick"><strong v-if="group.item.speakerEn">{{ group.item.speakerEn }}: </strong><span v-for="tok in clickableWords(group.item.answer, group.item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
             <el-button class="history-redo-button" text size="small" :icon="RefreshRight" @click="redoFromHistory(group.item.id)">{{ t('exercise.redoLine') }}</el-button>
           </header>
           <div class="mistake-attempt-list">
