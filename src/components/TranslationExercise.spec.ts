@@ -20,10 +20,7 @@ const baseProps = {
   lessonNumber: 1,
   lessonTitle: "Excuse me!",
   lessonTitleZh: "对不起！",
-  questionEn: "Whose handbag is it?",
-  questionZh: "这是谁的手袋？",
   items: [item],
-  allItems: [item],
   answers: {},
   results: {},
   completedIds: [],
@@ -108,5 +105,32 @@ describe("TranslationExercise speech interaction", () => {
     await wrapper.find('[data-word-id="lesson-1-1:2"]').trigger("click");
 
     expect(wrapper.emitted("speak-word")).toEqual([["lesson-1-1:2", "me"]]);
+  });
+
+  it("does not validate the row when the row head is used for pronunciation while typing", async () => {
+    const wrapper = mountExercise({ answers: { [item.id]: "Excuse" } });
+    const input = wrapper.find("textarea");
+    const rowHead = wrapper.find(".translation-list button.sentence-number");
+
+    await input.setValue("Excuse me");
+    await rowHead.trigger("pointerdown");
+    await input.trigger("blur");
+    await rowHead.trigger("click");
+
+    expect(wrapper.emitted("submit")).toBeUndefined();
+    expect(wrapper.emitted("speak")).toBeTruthy();
+  });
+
+  it("lists mistake history from the first sentence to the last", () => {
+    const second: ExerciseItem = { ...item, id: "lesson-1-2", prompt: "谢谢。", answer: "Thank you." };
+    const wrapper = mountExercise({
+      items: [item, second],
+      mistakeHistory: [
+        { id: "h-2", itemId: second.id, lesson: 1, prompt: second.prompt, input: "Thanks", answer: second.answer, missing: ["you"], extra: ["Thanks"], explanation: "", createdAt: 200 },
+        { id: "h-1", itemId: item.id, lesson: 1, prompt: item.prompt, input: "Excuse you!", answer: item.answer, missing: ["me"], extra: ["you"], explanation: "", createdAt: 100 }
+      ]
+    });
+
+    expect(wrapper.findAll(".mistake-line-index").map((node) => node.text())).toEqual(["1", "2"]);
   });
 });

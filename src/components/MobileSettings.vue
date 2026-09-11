@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { ArrowLeft, ArrowRight, Setting } from "@element-plus/icons-vue";
+import { ArrowLeft, ArrowRight, Document, Setting } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
-import type { AppLocale, ColorSchemeMode, Lesson, PracticeFilter } from "../types/practice";
+import type { AppLocale, ColorSchemeMode, Lesson } from "../types/practice";
 
 const { locale, t } = useI18n();
 
@@ -10,13 +10,9 @@ const props = defineProps<{
   lessons: Lesson[];
   lessonNumber: number;
   lessonTitle: string;
-  filter: PracticeFilter;
   lessonCompleted: number;
   lessonCount: number;
   lessonPercent: number;
-  totalCompleted: number;
-  accuracy: number;
-  totalItems: number;
   colorScheme: ColorSchemeMode;
   voiceUri: string;
   speechRate: number;
@@ -27,20 +23,17 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   "update:lessonNumber": [value: number];
-  "update:filter": [value: PracticeFilter];
   "update:colorScheme": [value: ColorSchemeMode];
   "update:voiceUri": [value: string];
   "update:speechRate": [value: number];
   "update:speechVolume": [value: number];
   "update:characterMatchPercent": [value: number];
+  "show-notes": [];
   reset: [];
 }>();
 
 const visible = ref(false);
 const currentLessonIndex = computed(() => props.lessons.findIndex((lesson) => lesson.number === props.lessonNumber));
-const filterLabels = computed<Record<PracticeFilter, string>>(() => ({
-  all: t("filter.all"), unfinished: t("filter.unfinished"), mistakes: t("filter.mistakes")
-}));
 
 function selectAdjacentLesson(offset: number) {
   const lesson = props.lessons[currentLessonIndex.value + offset];
@@ -56,8 +49,9 @@ function selectAdjacentLesson(offset: number) {
     <div class="mobile-settings-summary">
       <strong>Lesson {{ lessonNumber }} · {{ lessonTitle }}</strong>
       <div class="mobile-settings-summary-bottom">
-        <small>{{ t('stats.mastered') }} {{ lessonCompleted }}/{{ lessonCount }} · {{ filterLabels[filter] }}</small>
+        <small>{{ lessonCompleted }}/{{ lessonCount }}</small>
         <div class="mobile-lesson-actions" role="group" :aria-label="t('settings.lessonNavigation')">
+          <button class="mobile-nav-button" type="button" :aria-label="t('notes.open')" :title="t('notes.open')" @click="emit('show-notes')"><el-icon><Document /></el-icon></button>
           <button class="mobile-nav-button" type="button" :disabled="currentLessonIndex <= 0" :aria-label="t('settings.previousLesson')" :title="t('settings.previousLesson')" @click="selectAdjacentLesson(-1)"><el-icon><ArrowLeft /></el-icon></button>
           <button class="mobile-nav-button" type="button" :disabled="currentLessonIndex < 0 || currentLessonIndex >= lessons.length - 1" :aria-label="t('settings.nextLesson')" :title="t('settings.nextLesson')" @click="selectAdjacentLesson(1)"><el-icon><ArrowRight /></el-icon></button>
           <button class="mobile-nav-button is-settings" type="button" :aria-label="t('settings.open')" :title="t('settings.open')" @click="visible = true"><el-icon><Setting /></el-icon></button>
@@ -95,27 +89,10 @@ function selectAdjacentLesson(offset: number) {
               />
             </el-select>
           </section>
-          <section class="header-practice-range">
-            <label>{{ t('settings.practiceRange') }}</label>
-            <el-segmented
-              :model-value="filter"
-              :options="[
-                { label: t('filter.all'), value: 'all' },
-                { label: t('filter.unfinished'), value: 'unfinished' },
-                { label: t('filter.mistakes'), value: 'mistakes' }
-              ]"
-              @update:model-value="emit('update:filter', $event as PracticeFilter)"
-            />
-          </section>
           <section class="mobile-dialog-progress">
             <div><span>{{ t('settings.progress') }}</span><strong>{{ lessonCompleted }} / {{ lessonCount }}</strong></div>
             <el-progress :percentage="lessonPercent" :show-text="false" :stroke-width="8" />
           </section>
-          <div class="mobile-dialog-stats">
-            <div><span>{{ t('stats.mastered') }}</span><strong>{{ totalCompleted }}</strong></div>
-            <div><span>{{ t('stats.accuracy') }}</span><strong>{{ accuracy }}%</strong></div>
-            <div><span>{{ t('stats.total') }}</span><strong>{{ totalItems }}</strong></div>
-          </div>
         </div>
       </template>
 

@@ -2,7 +2,7 @@ import { computed, ref, watch, type Ref } from "vue";
 import { lessons } from "../data/lessons";
 import { evaluateAnswer } from "../services/text";
 import { useI18n } from "./useI18n";
-import type { AnswerFeedback, DisplayMode, ExerciseItem, MistakeHistoryEntry, PracticeFilter, StoredProgress } from "../types/practice";
+import type { AnswerFeedback, DisplayMode, ExerciseItem, MistakeHistoryEntry, StoredProgress } from "../types/practice";
 
 const storageKey = "new-concept-translation-progress-v2";
 const selectedLessonStorageKey = "new-concept-translation-selected-lesson";
@@ -46,7 +46,6 @@ function loadProgress(): StoredProgress {
 export function useTranslationPractice(characterMatchPercent: Ref<number>) {
   const { locale } = useI18n();
   const selectedLesson = ref(loadSelectedLesson());
-  const filter = ref<PracticeFilter>("all");
   const displayMode = ref<DisplayMode>("translation");
   const progress = ref(loadProgress());
   const answers = ref<Record<string, string>>({ ...progress.value.answers });
@@ -54,15 +53,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
 
   const lesson = computed(() => lessons.find((item) => item.number === selectedLesson.value) || lessons[0]);
   const lessonItems = computed(() => getLessonItems(lesson.value));
-  const filteredItems = computed(() => {
-    if (filter.value === "unfinished") return lessonItems.value.filter((item) => !progress.value.completed.includes(item.id));
-    if (filter.value === "mistakes") return lessonItems.value.filter((item) => (progress.value.mistakes[item.id] || 0) > 0);
-    return lessonItems.value;
-  });
   const lessonCompleted = computed(() => lessonItems.value.filter((item) => progress.value.completed.includes(item.id)).length);
-  const totalCompleted = computed(() => progress.value.completed.length);
-  const totalItems = lessons.reduce((sum, item) => sum + getLessonItems(item).length, 0);
-  const accuracy = computed(() => progress.value.attempts ? Math.round((progress.value.correct / progress.value.attempts) * 100) : 0);
   const lessonPercent = computed(() => Math.round((lessonCompleted.value / Math.max(lessonItems.value.length, 1)) * 100));
   const lessonMistakeHistory = computed(() => progress.value.mistakeHistory.filter((entry) => entry.lesson === lesson.value.number));
 
@@ -161,12 +152,11 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
     progress.value.completed = progress.value.completed.filter((id) => !ids.has(id));
     progress.value.mistakeHistory = progress.value.mistakeHistory.filter((entry) => entry.lesson !== lesson.value.number);
     results.value = {};
-    filter.value = "all";
   }
 
   return {
-    lessons, selectedLesson, lesson, lessonItems, filteredItems, answers, results,
-    filter, displayMode, progress, lessonCompleted, totalCompleted, totalItems, accuracy, lessonPercent, lessonMistakeHistory,
+    lessons, selectedLesson, lesson, lessonItems, answers, results,
+    displayMode, progress, lessonCompleted, lessonPercent, lessonMistakeHistory,
     updateAnswer, clearAnswer, submit, resetLesson
   };
 }

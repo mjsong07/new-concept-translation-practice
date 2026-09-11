@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import { Document } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
-import type { AppLocale, ColorSchemeMode, Lesson, PracticeFilter } from "../types/practice";
+import type { AppLocale, ColorSchemeMode, Lesson } from "../types/practice";
 
 const { locale, t } = useI18n();
 
 defineProps<{
   lessons: Lesson[];
   lessonNumber: number;
-  filter: PracticeFilter;
   lessonCompleted: number;
   lessonCount: number;
   lessonPercent: number;
@@ -21,12 +21,12 @@ defineProps<{
 
 const emit = defineEmits<{
   "update:lessonNumber": [value: number];
-  "update:filter": [value: PracticeFilter];
   "update:colorScheme": [value: ColorSchemeMode];
   "update:voiceUri": [value: string];
   "update:speechRate": [value: number];
   "update:speechVolume": [value: number];
   "update:characterMatchPercent": [value: number];
+  "show-notes": [];
   reset: [];
 }>();
 </script>
@@ -64,19 +64,6 @@ const emit = defineEmits<{
           :value="lesson.number"
         />
       </el-select>
-    </section>
-
-    <section class="control-section">
-      <label class="control-label">{{ t('settings.practiceRange') }}</label>
-      <el-segmented
-        :model-value="filter"
-        :options="[
-          { label: t('filter.all'), value: 'all' },
-          { label: t('filter.unfinished'), value: 'unfinished' },
-          { label: t('filter.mistakes'), value: 'mistakes' }
-        ]"
-        @update:model-value="emit('update:filter', $event as PracticeFilter)"
-      />
     </section>
 
     <section class="control-section">
@@ -122,6 +109,7 @@ const emit = defineEmits<{
       <p>{{ t('settings.progressHint') }}</p>
     </section>
 
+    <el-button class="lesson-notes-button" plain :icon="Document" @click="emit('show-notes')">{{ t('notes.open') }}</el-button>
     <el-button class="reset-lesson-button" plain @click="emit('reset')">{{ t('settings.redo') }}</el-button>
 
     <div class="keyboard-hint">

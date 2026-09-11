@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import { TrophyBase, CircleCheck, EditPen } from "@element-plus/icons-vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import en from "element-plus/es/locale/lang/en";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
+import LessonNotesDialog from "./components/LessonNotesDialog.vue";
 import PracticeControls from "./components/PracticeControls.vue";
 import MobileSettings from "./components/MobileSettings.vue";
 import TranslationExercise from "./components/TranslationExercise.vue";
@@ -22,7 +22,7 @@ const characterMatchPercent = ref(Number.isFinite(savedCharacterMatchPercent) &&
   : 50);
 const practice = useTranslationPractice(characterMatchPercent);
 const elementLocale = computed(() => locale.value === "en" ? en : zhCn);
-const emptyMessage = computed(() => practice.filter.value === "mistakes" ? t("empty.noMistakes") : t("empty.completed"));
+const notesVisible = ref(false);
 const voices = ref<SpeechSynthesisVoice[]>([]);
 const voiceUri = ref(localStorage.getItem("new-concept-speech-voice") || "");
 const savedSpeechRate = Number(localStorage.getItem("new-concept-speech-rate"));
@@ -147,7 +147,6 @@ onUnmounted(() => {
     <PracticeControls
       :lessons="practice.lessons"
       :lesson-number="practice.selectedLesson.value"
-      :filter="practice.filter.value"
       :lesson-completed="practice.lessonCompleted.value"
       :lesson-count="practice.lessonItems.value.length"
       :lesson-percent="practice.lessonPercent.value"
@@ -158,12 +157,12 @@ onUnmounted(() => {
       :voices="voices"
       :character-match-percent="characterMatchPercent"
       @update:lesson-number="practice.selectedLesson.value = $event"
-      @update:filter="practice.filter.value = $event"
       @update:color-scheme="colorScheme.mode.value = $event"
       @update:voice-uri="voiceUri = $event"
       @update:speech-rate="speechRate = $event"
       @update:speech-volume="speechVolume = $event"
       @update:character-match-percent="characterMatchPercent = $event"
+      @show-notes="notesVisible = true"
       @reset="resetCurrentLesson"
     />
 
@@ -172,13 +171,9 @@ onUnmounted(() => {
         :lessons="practice.lessons"
         :lesson-number="practice.selectedLesson.value"
         :lesson-title="practice.lesson.value.title"
-        :filter="practice.filter.value"
         :lesson-completed="practice.lessonCompleted.value"
         :lesson-count="practice.lessonItems.value.length"
         :lesson-percent="practice.lessonPercent.value"
-        :total-completed="practice.totalCompleted.value"
-        :accuracy="practice.accuracy.value"
-        :total-items="practice.totalItems"
         :color-scheme="colorScheme.mode.value"
         :voice-uri="voiceUri"
         :speech-rate="speechRate"
@@ -186,12 +181,12 @@ onUnmounted(() => {
         :voices="voices"
         :character-match-percent="characterMatchPercent"
         @update:lesson-number="practice.selectedLesson.value = $event"
-        @update:filter="practice.filter.value = $event"
         @update:color-scheme="colorScheme.mode.value = $event"
         @update:voice-uri="voiceUri = $event"
         @update:speech-rate="speechRate = $event"
         @update:speech-volume="speechVolume = $event"
         @update:character-match-percent="characterMatchPercent = $event"
+        @show-notes="notesVisible = true"
         @reset="resetCurrentLesson"
       />
 
@@ -200,22 +195,13 @@ onUnmounted(() => {
           <span class="eyebrow">{{ t('header.eyebrow') }}</span>
           <h2>{{ t('header.title') }}</h2>
         </div>
-        <div class="stats-strip">
-          <div><el-icon><CircleCheck /></el-icon><span>{{ t('stats.mastered') }}<strong>{{ practice.totalCompleted.value }}</strong></span></div>
-          <div><el-icon><TrophyBase /></el-icon><span>{{ t('stats.accuracy') }}<strong>{{ practice.accuracy.value }}%</strong></span></div>
-          <div><el-icon><EditPen /></el-icon><span>{{ t('stats.total') }}<strong>{{ practice.totalItems }}</strong></span></div>
-        </div>
       </header>
 
       <TranslationExercise
-        v-if="practice.filteredItems.value.length"
         :lesson-number="practice.lesson.value.number"
         :lesson-title="practice.lesson.value.title"
         :lesson-title-zh="practice.lesson.value.titleZh"
-        :question-en="practice.lesson.value.questionEn"
-        :question-zh="practice.lesson.value.questionZh"
-        :items="practice.filteredItems.value"
-        :all-items="practice.lessonItems.value"
+        :items="practice.lessonItems.value"
         :answers="practice.answers.value"
         :results="practice.results.value"
         :completed-ids="practice.progress.value.completed"
@@ -233,11 +219,13 @@ onUnmounted(() => {
         @speak="speak"
         @speak-word="speakWord"
         @toggle-speech="toggleSpeech"
-        @show-all="practice.filter.value = 'all'"
       />
-      <el-empty v-else :description="emptyMessage" class="empty-state">
-        <el-button type="primary" @click="practice.filter.value = 'all'">{{ t('empty.showAll') }}</el-button>
-      </el-empty>
+
+      <LessonNotesDialog
+        v-model:visible="notesVisible"
+        :lesson-number="practice.lesson.value.number"
+        :lesson-title="practice.lesson.value.title"
+      />
 
       <footer>{{ t('footer.source') }}</footer>
     </div>
