@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { flushPromises, mount } from "@vue/test-utils";
-import { reactive } from "vue";
+import { h, reactive, ref } from "vue";
 import TranslationExercise from "./TranslationExercise.vue";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, ExerciseItem } from "../types/practice";
@@ -33,6 +33,25 @@ const baseProps = {
   characterMatchPercent: 50
 };
 
+const ElInputStub = {
+  props: ["modelValue"],
+  emits: ["update:modelValue", "keydown", "blur"],
+  setup(props: { modelValue: string }, { emit, expose }: { emit: (event: string, value?: unknown) => void; expose: (instance: object) => void }) {
+    const textarea = ref<HTMLTextAreaElement>();
+    expose({
+      focus: () => textarea.value?.focus(),
+      get textarea() { return textarea.value; }
+    });
+    return () => h("textarea", {
+      ref: textarea,
+      value: props.modelValue,
+      onInput: (event: Event) => emit("update:modelValue", (event.target as HTMLTextAreaElement).value),
+      onKeydown: (event: KeyboardEvent) => emit("keydown", event),
+      onBlur: () => emit("blur")
+    });
+  }
+};
+
 const global = {
   stubs: {
     "el-tabs": { template: "<div><slot /></div>" },
@@ -45,16 +64,12 @@ const global = {
     "el-dropdown-item": { template: "<div><slot /></div>" },
     "el-dialog": { template: "<div><slot /></div>" },
     "el-empty": true,
-    "el-input": {
-      props: ["modelValue"],
-      emits: ["update:modelValue", "keydown", "blur"],
-      template: "<textarea :value='modelValue' @input='$emit(\"update:modelValue\", $event.target.value)' @keydown='$emit(\"keydown\", $event)' @blur='$emit(\"blur\")' />"
-    }
+    "el-input": ElInputStub
   }
 };
 
 function mountExercise(props = {}) {
-  return mount(TranslationExercise, { props: { ...baseProps, ...props }, global });
+  return mount(TranslationExercise, { attachTo: document.body, props: { ...baseProps, ...props }, global });
 }
 
 describe("TranslationExercise speech interaction", () => {
@@ -64,6 +79,8 @@ describe("TranslationExercise speech interaction", () => {
 
   afterEach(() => {
     delete (window as { matchMedia?: unknown }).matchMedia;
+    vi.unstubAllGlobals();
+    document.body.innerHTML = "";
   });
 
   it("reads the sentence after a fully correct submission", async () => {
@@ -107,6 +124,42 @@ describe("TranslationExercise speech interaction", () => {
     expect(wrapper.emitted("speak-word")).toEqual([["lesson-1-1:2", "me"]]);
   });
 
+  it("shows an IPA tooltip after reading a clicked word", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => [{ word: "me", tags: ["n", "pron:M IY1 "] }]
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    const wrapper = mountExercise({ displayMode: "original" });
+
+    await wrapper.find('[data-word-id="lesson-1-1:2"]').trigger("click");
+    await flushPromises();
+
+    expect(fetchMock).toHaveBeenCalledWith("https://api.datamuse.com/words?sp=me&md=pr&max=1");
+    expect(wrapper.find(".pronunciation-tooltip").text()).toBe("/miː/");
+  });
+
+  it("focuses the current input after clearing its row", async () => {
+    const wrapper = mountExercise({ answers: { [item.id]: "Excuse me!" } });
+    const clearAction = wrapper.findAll("div").find((node) => node.text() === "清空当前行");
+
+    await clearAction?.trigger("click");
+    await flushPromises();
+
+    expect(wrapper.emitted("clear")).toEqual([[item.id]]);
+    expect(document.activeElement).toBe(wrapper.find("textarea").element);
+  });
+
+  it("reserves extra action width only for rows with a result label", () => {
+    const withoutResult = mountExercise();
+    const withResult = mountExercise({
+      results: { [item.id]: evaluateAnswer("Excuse me!", item.answer, "zh-CN", 0.5) }
+    });
+
+    expect(withoutResult.find(".sentence-answer-row").classes()).not.toContain("has-result");
+    expect(withResult.find(".sentence-answer-row").classes()).toContain("has-result");
+  });
+
   it("does not validate the row when the row head is used for pronunciation while typing", async () => {
     const wrapper = mountExercise({ answers: { [item.id]: "Excuse" } });
     const input = wrapper.find("textarea");
@@ -132,5 +185,22 @@ describe("TranslationExercise speech interaction", () => {
     });
 
     expect(wrapper.findAll(".mistake-line-index").map((node) => node.text())).toEqual(["1", "2"]);
+  });
+
+  it("keeps mistake history headers compact and places the summary last", () => {
+    const wrapper = mountExercise({
+      mistakeHistory: [
+        { id: "h-1", itemId: item.id, lesson: 1, prompt: item.prompt, input: "Excuse you!", answer: item.answer, missing: ["me"], extra: ["you"], explanation: "", createdAt: 100 }
+      ]
+    });
+    const group = wrapper.find(".mistake-line-group");
+
+    expect(wrapper.find(".history-dialog-heading").exists()).toBe(false);
+    expect(group.find(".mistake-line-prompt .history-redo-button").exists()).toBe(true);
+    expect(Array.from(group.element.children).map((child) => child.className)).toEqual([
+      "mistake-line-source",
+      "mistake-attempt-list",
+      "mistake-line-summary"
+    ]);
   });
 });

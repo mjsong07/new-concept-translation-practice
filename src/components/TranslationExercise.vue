@@ -42,6 +42,10 @@ const inputRefs = ref<Record<string, TextareaInput | null>>({});
 const isEdgeIOS = /EdgiOS/i.test(navigator.userAgent);
 const historyVisible = ref(false);
 const historyFocusItemId = ref("");
+const pronunciationText = ref("");
+const pronunciationTarget = ref<HTMLElement>();
+const pronunciationCache = new Map<string, string>();
+const requestedPronunciations = new Set<string>();
 let blurSubmitSuppressed = false;
 const completedSet = computed(() => new Set(props.completedIds));
 const titleItemId = computed(() => `lesson-${props.lessonNumber}-title`);
@@ -63,7 +67,6 @@ const historyGroups = computed(() => {
     return [{ item, label: itemLabel(item, index), entries: [...entries].sort((left, right) => left.createdAt - right.createdAt) }];
   });
 });
-const historyEntryCount = computed(() => historyGroups.value.reduce((sum, group) => sum + group.entries.length, 0));
 
 function shouldAutoFocus() {
   return !window.matchMedia("(max-width: 640px)").matches;
@@ -215,11 +218,15 @@ function openHistory(itemId = "") {
   historyVisible.value = true;
 }
 
-async function redoFromHistory(itemId: string) {
-  historyVisible.value = false;
+async function clearAndFocus(itemId: string) {
   emit("clear", itemId);
   await nextTick();
   focusItem(itemId);
+}
+
+async function redoFromHistory(itemId: string) {
+  historyVisible.value = false;
+  await clearAndFocus(itemId);
 }
 
 function speakFromSentence(item: ExerciseItem) {
@@ -260,16 +267,74 @@ function isWordToken(text: string) {
   return /^[A-Za-z0-9]/.test(text);
 }
 
+function pronunciationKey(word: string) {
+  return word.trim().replace(/’/g, "'").toLowerCase();
+}
+
+const arpabetToIpa: Record<string, string> = {
+  AA: "ɑ", AE: "æ", AH: "ʌ", AO: "ɔ", AW: "aʊ", AY: "aɪ",
+  B: "b", CH: "tʃ", D: "d", DH: "ð", EH: "ɛ", EY: "eɪ", F: "f",
+  G: "ɡ", HH: "h", IH: "ɪ", IY: "iː", JH: "dʒ", K: "k", L: "l",
+  M: "m", N: "n", NG: "ŋ", OW: "oʊ", OY: "ɔɪ", P: "p", R: "r",
+  S: "s", SH: "ʃ", T: "t", TH: "θ", UH: "ʊ", UW: "uː", V: "v",
+  W: "w", Y: "j", Z: "z", ZH: "ʒ"
+};
+
+type DatamuseEntry = { word: string; tags: unknown[] };
+
+function ipaFromDatamuse(entries: unknown, word: string) {
+  if (!Array.isArray(entries)) return "";
+  const entry = entries.find((candidate): candidate is DatamuseEntry =>
+    Boolean(candidate) &&
+    typeof candidate === "object" &&
+    (candidate as { word?: unknown }).word === word &&
+    Array.isArray((candidate as { tags?: unknown }).tags)
+  );
+  const pronunciation = entry?.tags.find((tag): tag is string => typeof tag === "string" && tag.startsWith("pron:"));
+  if (!pronunciation) return "";
+  const phonetic = pronunciation.slice(5).trim().split(/\s+/).map((token) => {
+    const phoneme = token.replace(/\d$/, "");
+    if (phoneme === "AH" && token.endsWith("0")) return "ə";
+    if (phoneme === "ER") return token.endsWith("0") ? "ɚ" : "ɝ";
+    return arpabetToIpa[phoneme] || "";
+  }).join("");
+  return phonetic ? `/${phonetic}/` : "";
+}
+
+async function loadPronunciation(word: string, target: HTMLElement) {
+  const key = pronunciationKey(word);
+  pronunciationTarget.value = target;
+  pronunciationText.value = pronunciationCache.get(key) || "";
+  if (!key || requestedPronunciations.has(key)) return;
+  requestedPronunciations.add(key);
+  try {
+    const response = await fetch(`https://api.datamuse.com/words?sp=${encodeURIComponent(key)}&md=pr&max=1`);
+    if (!response.ok) return;
+    const phonetic = ipaFromDatamuse(await response.json(), key);
+    if (!phonetic) return;
+    pronunciationCache.set(key, phonetic);
+    if (pronunciationTarget.value === target) pronunciationText.value = phonetic;
+  } catch {
+    return;
+  }
+}
+
 function onTextClick(event: MouseEvent) {
   const target = (event.target as HTMLElement).closest<HTMLElement>("[data-word-id]");
   if (!target) return;
   const wordId = target.dataset.wordId;
-  if (wordId) emit("speak-word", wordId, target.textContent || "");
+  const word = target.textContent || "";
+  if (!wordId) return;
+  emit("speak-word", wordId, word);
+  void loadPronunciation(word, target);
 }
 </script>
 
 <template>
   <main class="exercise-card lesson-practice">
+    <el-tooltip v-if="pronunciationTarget && pronunciationText" :visible="true" trigger="manual" placement="top" virtual-triggering :virtual-ref="pronunciationTarget">
+      <template #content><span class="pronunciation-tooltip">{{ pronunciationText }}</span></template>
+    </el-tooltip>
     <div class="exercise-topline">
       <div>
         <span class="lesson-kicker">LESSON {{ lessonNumber }}</span>
@@ -313,7 +378,7 @@ function onTextClick(event: MouseEvent) {
                 <p v-if="rowState(item) === 'is-wrong'" class="comparison-line" :class="{ 'has-speaker': item.speakerEn }"><strong v-if="item.speakerEn" class="speaker-prefix">{{ item.speakerEn }}:</strong><span class="comparison-text"><span v-for="(part, partIndex) in results[item.id].inputParts" :key="`${item.id}-input-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></span></p>
               </div>
 
-              <div class="sentence-answer-row" :class="{ 'has-speaker': item.speakerEn }">
+              <div class="sentence-answer-row" :class="{ 'has-speaker': item.speakerEn, 'has-result': Boolean(results[item.id]) }">
                 <span v-if="item.speakerEn" class="input-speaker" aria-hidden="true">{{ item.speakerEn }}:</span>
                 <el-input
                   :ref="(instance: unknown) => setInputRef(item.id, instance)"
@@ -332,7 +397,7 @@ function onTextClick(event: MouseEvent) {
                     <el-button class="row-more-button" text circle :icon="MoreFilled" :aria-label="t('exercise.openActions')" />
                     <template #dropdown>
                       <el-dropdown-menu>
-                        <el-dropdown-item :icon="Delete" :disabled="!answers[item.id]" @click="emit('clear', item.id)">{{ t('exercise.clearRow') }}</el-dropdown-item>
+                        <el-dropdown-item :icon="Delete" :disabled="!answers[item.id]" @click="clearAndFocus(item.id)">{{ t('exercise.clearRow') }}</el-dropdown-item>
                         <el-dropdown-item :icon="Histogram" @click="openHistory(item.id)">{{ t('exercise.history') }}</el-dropdown-item>
                       </el-dropdown-menu>
                     </template>
@@ -388,20 +453,21 @@ function onTextClick(event: MouseEvent) {
     <el-dialog v-model="historyVisible" class="mistake-history-dialog" :title="t('history.title')" width="min(680px, calc(100% - 24px))" append-to-body>
       <el-empty v-if="!historyGroups.length" :description="t('history.empty')" :image-size="80" />
       <template v-else>
-        <div class="history-dialog-heading">{{ t('history.attempts', { count: historyEntryCount }) }}</div>
         <section v-for="group in historyGroups" :key="group.item.id" class="mistake-line-group">
           <header class="mistake-line-source">
-            <p><strong class="mistake-line-index">{{ group.label }}</strong><strong v-if="group.item.speakerZh">{{ group.item.speakerZh }}：</strong>{{ group.item.prompt }}</p>
-            <p @click="onTextClick"><strong v-if="group.item.speakerEn">{{ group.item.speakerEn }}: </strong><span v-for="tok in clickableWords(group.item.answer, group.item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
-            <el-button class="history-redo-button" text size="small" :icon="RefreshRight" @click="redoFromHistory(group.item.id)">{{ t('exercise.redoLine') }}</el-button>
+            <div class="mistake-line-prompt">
+              <p><strong class="mistake-line-index">{{ group.label }}</strong><strong v-if="group.item.speakerZh">{{ group.item.speakerZh }}：</strong>{{ group.item.prompt }}</p>
+              <el-button class="history-redo-button" text size="small" :icon="RefreshRight" @click="redoFromHistory(group.item.id)">{{ t('exercise.redoLine') }}</el-button>
+            </div>
+            <p class="mistake-line-reference" @click="onTextClick"><strong v-if="group.item.speakerEn">{{ group.item.speakerEn }}: </strong><span v-for="tok in clickableWords(group.item.answer, group.item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
           </header>
-          <p class="mistake-line-summary">{{ groupSummary(group.entries) }}</p>
           <div class="mistake-attempt-list">
             <article v-for="entry in group.entries" :key="entry.id" class="mistake-attempt-row">
               <p><span v-for="(part, partIndex) in historyFeedback(entry).inputParts" :key="`${entry.id}-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></p>
               <time>{{ formatTime(entry.createdAt) }}</time>
             </article>
           </div>
+          <p class="mistake-line-summary">{{ groupSummary(group.entries) }}</p>
         </section>
       </template>
     </el-dialog>

@@ -1,5 +1,5 @@
 # Sentence Workshop
-
+2026
 A Chinese-to-English translation practice app based on the odd-numbered lessons and reference translations from New Concept English Book 1. It uses the Vue 3 + Vite + TypeScript + Element Plus architecture from `learn english`, with sentence-level checking, error highlighting, pronunciation, mistake filtering, and locally persisted progress.
 
 ## Local Development
