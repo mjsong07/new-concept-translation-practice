@@ -5,7 +5,8 @@ export default defineConfig({
   base: "./",
   plugins: [vue()],
   test: {
-    environment: "jsdom"
+    environment: "jsdom",
+    setupFiles: ["./vitest.setup.ts"]
   },
   build: {
     rollupOptions: {

@@ -298,10 +298,20 @@ async function clearAndFocus(itemId: string) {
   emit("clear", itemId);
   await nextTick();
   focusItem(itemId);
+  scrollToItem(itemId);
+}
+
+function scrollToItem(itemId: string) {
+  const element = getInputElement(itemId);
+  const target = element?.closest(".sentence-row") || element;
+  target?.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
 async function redoFromHistory(itemId: string) {
   historyVisible.value = false;
+  const item = props.items.find((candidate) => candidate.id === itemId);
+  if (item) switchToSection(item);
+  await nextTick();
   await clearAndFocus(itemId);
 }
 
@@ -532,7 +542,6 @@ function onTextClick(event: MouseEvent) {
 
                 <div v-if="results[item.id]" class="answer-comparison" :class="{ 'is-wrong': rowState(item) === 'is-wrong' }">
                   <p class="comparison-line"><span class="comparison-text" @click="onTextClick"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'clickable-word': /^[A-Za-z0-9]/.test(part.text) }]" :data-word-id="/^[A-Za-z0-9]/.test(part.text) ? `${item.id}-ref:${partIndex}` : undefined">{{ part.text }}</span></span></p>
-                  <p v-if="rowState(item) === 'is-wrong'" class="comparison-line"><span class="comparison-text"><span v-for="(part, partIndex) in results[item.id].inputParts" :key="`${item.id}-input-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></span></p>
                 </div>
 
                 <div v-if="!isFillMode(item)" class="sentence-answer-row">
