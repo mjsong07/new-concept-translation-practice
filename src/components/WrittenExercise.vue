@@ -669,12 +669,14 @@ function onTextClick(event: MouseEvent) {
   margin: 0;
   color: var(--ink);
   font-weight: 600;
+  white-space: pre-line;
 }
 
 .written-example-answer {
   margin: 4px 0 0;
   color: var(--green-dark);
   font-style: italic;
+  white-space: pre-line;
 }
 
 .written-fill-prompt {
