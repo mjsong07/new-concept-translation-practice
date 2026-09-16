@@ -357,7 +357,7 @@ function blankValue(item: ExerciseItem, blankIndex: number) {
 
 function blankWidth(item: ExerciseItem, blankIndex: number) {
   const word = (splitBlanks(item.answer)[blankIndex] || "").trim();
-  return `${Math.max(word.length, 2) + 1.5}ch`;
+  return `calc(${Math.max(word.length, 2)}ch + 26px)`;
 }
 
 function blankStartOffset(parts: string[], blankIndex: number) {
@@ -499,7 +499,6 @@ function onTextClick(event: MouseEvent) {
                         class="written-fill-input written-blank-input"
                         :class="{ 'is-empty': !blankValue(item, part.blankIndex).trim() }"
                         :style="{ width: blankWidth(item, part.blankIndex) }"
-                        :placeholder="t('exercise.fillPlaceholder')"
                         autocomplete="off"
                         :data-item-id="item.id"
                         :data-blank-index="part.blankIndex"
@@ -513,11 +512,13 @@ function onTextClick(event: MouseEvent) {
                   </div>
                   <p v-else class="sentence-chinese">{{ item.prompt }}</p>
                   <el-button
+                    v-if="!isFillMode(item)"
                     class="row-action-button" text circle size="small" :icon="Delete"
                     :disabled="!answers[item.id]" :aria-label="t('exercise.clearRow')"
                     @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="clearAndFocus(item.id)"
                   />
                   <el-button
+                    v-if="!isFillMode(item)"
                     class="row-action-button" text circle size="small" :icon="Histogram"
                     :aria-label="t('exercise.history')" @click="openHistory(item.id)"
                   />
