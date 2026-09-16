@@ -228,11 +228,15 @@ onUnmounted(() => {
         :mistake-history="practice.lessonMistakeHistory.value"
         :auto-advance-errors="autoAdvanceErrors"
         :character-match-percent="characterMatchPercent"
+        :speech-active="speechActive"
+        :speech-paused="speechPaused"
+        :active-speech-item-id="activeSpeechItemId"
         @update:answer="practice.updateAnswer"
         @submit="practice.submit"
         @clear="practice.clearAnswer"
         @speak="speak"
         @speak-word="speakWord"
+        @toggle-speech="toggleSpeech"
       />
 
       <TranslationExercise

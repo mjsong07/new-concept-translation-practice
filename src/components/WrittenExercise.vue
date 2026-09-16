@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from "vue";
-import { CircleCheckFilled, Delete, Histogram, RefreshRight } from "@element-plus/icons-vue";
+import { CircleCheckFilled, Delete, Histogram, RefreshRight, VideoPause, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, ExerciseItem, MistakeHistoryEntry, SpeechSegment, WrittenSectionMeta } from "../types/practice";
@@ -32,6 +32,9 @@ const props = defineProps<{
   mistakeHistory: MistakeHistoryEntry[];
   autoAdvanceErrors: boolean;
   characterMatchPercent: number;
+  speechActive: boolean;
+  speechPaused: boolean;
+  activeSpeechItemId: string;
 }>();
 
 const emit = defineEmits<{
@@ -40,6 +43,7 @@ const emit = defineEmits<{
   clear: [id: string];
   speak: [segments: SpeechSegment[]];
   "speak-word": [wordId: string, wordText: string];
+  "toggle-speech": [];
 }>();
 
 const { locale, t } = useI18n();
@@ -59,9 +63,6 @@ function sectionKeyOf(item?: ExerciseItem) {
 }
 
 const completedSet = computed(() => new Set(props.completedIds));
-const lessonSpeechSegments = computed<SpeechSegment[]>(() =>
-  props.items.map((item) => ({ text: item.answer, itemId: item.id, speaker: item.speakerEn }))
-);
 
 const structure = computed(() => {
   const metaByKey = new Map(props.sections.map((meta) => [meta.key, meta]));
@@ -182,7 +183,7 @@ function switchToSection(item: ExerciseItem) {
 
 function speakIfCorrect(item: ExerciseItem) {
   if (props.results[item.id]?.level === "correct") {
-    emit("speak", [{ text: item.answer, itemId: item.id, speaker: item.speakerEn }]);
+    emit("speak", [rowSpeechSegment(item)]);
   }
 }
 
@@ -317,9 +318,18 @@ async function redoFromHistory(itemId: string) {
 
 function speakFromSentence(item: ExerciseItem) {
   blurSubmitSuppressed = false;
-  const startIndex = lessonSpeechSegments.value.findIndex((segment) => segment.itemId === item.id);
-  if (startIndex < 0) return;
-  emit("speak", lessonSpeechSegments.value.slice(startIndex));
+  emit("speak", [rowSpeechSegment(item)]);
+}
+
+function rowSpeechSegment(item: ExerciseItem): SpeechSegment {
+  return { text: rowSpeechText(item), itemId: item.id, speaker: item.speakerEn };
+}
+
+function rowSpeechText(item: ExerciseItem) {
+  if (!isFillMode(item)) return item.answer;
+  const words = splitBlanks(item.answer);
+  let blankIndex = 0;
+  return item.prompt.replace(/_____/g, () => words[blankIndex++] || "");
 }
 
 function formatTime(timestamp: number) {
@@ -468,15 +478,15 @@ function onTextClick(event: MouseEvent) {
       <div class="lesson-sentence-count">{{ t('exercise.count', { count: items.length }) }}</div>
     </div>
 
-    <div class="translation-toolbar">
-      <span>{{ t('exercise.scopeHintWritten') }}</span>
-      <div>
-        <el-button text :icon="Histogram" @click="openHistory()">{{ t('exercise.history') }}</el-button>
-        <el-button plain :icon="Histogram" @click="emit('speak', lessonSpeechSegments)">{{ t('exercise.fullText') }}</el-button>
-      </div>
-    </div>
     <el-tabs class="display-tabs" :model-value="activeSection" stretch @update:model-value="activeSection = ($event as string)">
       <el-tab-pane v-for="section in structure.sections" :key="section.key" :label="section.key || t('exercise.practice')" :name="section.key">
+        <div class="translation-toolbar">
+          <span>{{ t('exercise.scopeHintWritten') }}</span>
+          <div>
+            <el-button text :icon="Histogram" @click="openHistory()">{{ t('exercise.history') }}</el-button>
+            <el-button v-if="speechActive" plain :icon="speechPaused ? VideoPlay : VideoPause" @click="emit('toggle-speech')">{{ speechPaused ? t('exercise.resume') : t('exercise.pause') }}</el-button>
+          </div>
+        </div>
         <section class="written-section">
           <header v-if="section.key || section.titleEn || section.titleZh" class="written-section-header">
             <span v-if="section.key" class="written-section-badge">{{ section.key }}</span>
@@ -491,7 +501,7 @@ function onTextClick(event: MouseEvent) {
             <p class="written-example-answer" @click="onTextClick"><span v-for="tok in clickableWords(section.exampleAnswer, `example-${section.key}`)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
           </div>
           <div class="sentence-list translation-list">
-            <article v-for="item in section.items" :key="item.id" class="sentence-row" :class="[rowState(item)]">
+            <article v-for="item in section.items" :key="item.id" class="sentence-row" :class="[rowState(item), { 'is-speaking': activeSpeechItemId === item.id }]">
               <button
                 class="sentence-number" type="button"
                 :aria-label="t('exercise.speakItem', { item: itemLabel(item) })"

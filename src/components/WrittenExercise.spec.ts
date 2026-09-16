@@ -19,7 +19,10 @@ const baseProps = {
   completedIds: [],
   mistakeHistory: [],
   autoAdvanceErrors: false,
-  characterMatchPercent: 50
+  characterMatchPercent: 50,
+  speechActive: false,
+  speechPaused: false,
+  activeSpeechItemId: ""
 };
 
 const ElInputStub = {
@@ -127,6 +130,19 @@ describe("WrittenExercise sections and inline blanks", () => {
     expect(wrapper.emitted("update:answer")).toEqual([
       ["lesson-66-A3", "from"],
       ["lesson-66-A3", "from, from"]
+    ]);
+  });
+
+  it("speaks only the current row with its blanks filled in", async () => {
+    const wrapper = mountExercise();
+    const rows = wrapper.findAll(".written-section")[0].findAll(".sentence-row");
+
+    await rows[0].find(".sentence-number").trigger("click");
+    await rows[2].find(".sentence-number").trigger("click");
+
+    expect(wrapper.emitted("speak")).toEqual([
+      [[{ text: "I am going to see him at ten o'clock.", itemId: "lesson-66-A1", speaker: "A" }]],
+      [[{ text: "Where do you come from? I come from France.", itemId: "lesson-66-A3", speaker: "A" }]]
     ]);
   });
 
