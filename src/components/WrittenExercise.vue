@@ -3,14 +3,30 @@ import { computed, nextTick, ref, watch } from "vue";
 import { CircleCheckFilled, Delete, Histogram, RefreshRight } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluateAnswer } from "../services/text";
-import type { AnswerFeedback, ExerciseItem, MistakeHistoryEntry, SpeechSegment } from "../types/practice";
+import type { AnswerFeedback, ExerciseItem, MistakeHistoryEntry, SpeechSegment, WrittenSectionMeta } from "../types/practice";
 
 type WrittenView = "practice" | "reading";
+
+interface PracticeSection {
+  key: string;
+  titleEn: string;
+  titleZh: string;
+  examplePrompt: string;
+  exampleAnswer: string;
+  items: ExerciseItem[];
+}
+
+interface PromptPart {
+  type: "text" | "blank";
+  text: string;
+  blankIndex: number;
+}
 
 const props = defineProps<{
   lessonNumber: number;
   lessonTitle: string;
   lessonTitleZh: string;
+  sections: WrittenSectionMeta[];
   items: ExerciseItem[];
   answers: Record<string, string>;
   results: Record<string, AnswerFeedback>;
@@ -45,6 +61,37 @@ const lessonSpeechSegments = computed<SpeechSegment[]>(() =>
   props.items.map((item) => ({ text: item.answer, itemId: item.id, speaker: item.speakerEn }))
 );
 
+const structure = computed(() => {
+  const metaByKey = new Map(props.sections.map((meta) => [meta.key, meta]));
+  const order: string[] = [];
+  const grouped = new Map<string, ExerciseItem[]>();
+  props.items.forEach((item) => {
+    const key = item.section || item.speakerEn || "";
+    if (!grouped.has(key)) {
+      grouped.set(key, []);
+      order.push(key);
+    }
+    grouped.get(key)!.push(item);
+  });
+  const labelById = new Map<string, string>();
+  const sections: PracticeSection[] = order.map((key) => {
+    const items = grouped.get(key)!;
+    items.forEach((item, index) => labelById.set(item.id, String(index + 1)));
+    const meta = metaByKey.get(key);
+    return {
+      key,
+      titleEn: meta?.titleEn || "",
+      titleZh: meta?.titleZh || "",
+      examplePrompt: meta?.examplePrompt || "",
+      exampleAnswer: meta?.exampleAnswer || "",
+      items
+    };
+  });
+  const lastSectionItems = sections.length ? sections[sections.length - 1].items : [];
+  const lastItemId = lastSectionItems.length ? lastSectionItems[lastSectionItems.length - 1].id : "";
+  return { sections, labelById, lastItemId };
+});
+
 const historyGroups = computed(() => {
   const entriesByItem = new Map<string, MistakeHistoryEntry[]>();
   props.mistakeHistory.forEach((entry) => {
@@ -53,10 +100,11 @@ const historyGroups = computed(() => {
     entries.push(entry);
     entriesByItem.set(entry.itemId, entries);
   });
-  return props.items.flatMap((item, index) => {
+  return props.items.flatMap((item) => {
     const entries = entriesByItem.get(item.id);
     if (!entries?.length) return [];
-    return [{ item, label: String(index + 1), entries: [...entries].sort((left, right) => left.createdAt - right.createdAt) }];
+    const label = structure.value.labelById.get(item.id) || "";
+    return [{ item, label, entries: [...entries].sort((left, right) => left.createdAt - right.createdAt) }];
   });
 });
 
@@ -72,13 +120,17 @@ watch(() => props.lessonNumber, async () => {
   focusItem(props.items[0]?.id);
 });
 
-function setInputRef(id: string, instance: unknown) {
-  inputRefs.value[id] = instance as InputRef | null;
+function inputKey(id: string, blankIndex = 0) {
+  return `${id}#${blankIndex}`;
 }
 
-function focusItem(id?: string, preventScroll = false) {
+function setInputRef(id: string, blankIndex: number, instance: unknown) {
+  inputRefs.value[inputKey(id, blankIndex)] = instance as InputRef | null;
+}
+
+function focusItem(id?: string, blankIndex = 0, preventScroll = false) {
   if (!id) return;
-  const input = inputRefs.value[id];
+  const input = inputRefs.value[inputKey(id, blankIndex)];
   if (!preventScroll || !input?.input) {
     input?.focus();
     return;
@@ -94,13 +146,13 @@ async function submitAndAdvance(item: ExerciseItem, element: HTMLInputElement | 
   const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
   const nextItemId = props.items[currentIndex + 1]?.id;
   if (!shouldAutoFocus() && anticipatedResult.level === "correct" && nextItemId) {
-    focusItem(nextItemId, true);
+    focusItem(nextItemId, 0, true);
   }
   emit("submit", item.id);
   await nextTick();
   speakIfCorrect(item);
   const result = props.results[item.id];
-  if (result?.level === "correct") errorAnchors.delete(item.id);
+  if (result?.level === "correct") clearErrorAnchors(item.id);
   if (!shouldAutoFocus()) {
     if (result?.level !== "correct") selectError(item.id, element, result);
     else if (!nextItemId) element.blur();
@@ -109,7 +161,7 @@ async function submitAndAdvance(item: ExerciseItem, element: HTMLInputElement | 
   if (result?.level !== "correct") {
     const target = getInputElement(item.id) || element;
     target.focus();
-    selectError(item.id, target, result);
+    selectError(item.id, target, result, true);
     return;
   }
   focusItem(nextItemId);
@@ -121,12 +173,30 @@ function speakIfCorrect(item: ExerciseItem) {
   }
 }
 
-function getInputElement(id: string): HTMLInputElement | HTMLTextAreaElement | undefined {
-  const instance = inputRefs.value[id];
+function getInputElement(id: string, blankIndex = 0): HTMLInputElement | HTMLTextAreaElement | undefined {
+  const instance = inputRefs.value[inputKey(id, blankIndex)];
   return instance?.input || instance?.textarea;
 }
 
-function selectError(itemId: string, element: HTMLInputElement | HTMLTextAreaElement, result?: AnswerFeedback) {
+function clearErrorAnchors(itemId: string) {
+  const item = props.items.find((candidate) => candidate.id === itemId);
+  const count = item ? Math.max(blankCount(item), 1) : 1;
+  for (let blankIndex = 0; blankIndex < count; blankIndex += 1) errorAnchors.delete(inputKey(itemId, blankIndex));
+  errorAnchors.delete(itemId);
+}
+
+function selectError(itemId: string, element: HTMLInputElement | HTMLTextAreaElement, result?: AnswerFeedback, allowFocus = false) {
+  const item = props.items.find((candidate) => candidate.id === itemId);
+  if (item && isFillMode(item) && result) {
+    const located = locateBlankError(item, result, props.answers[itemId] || "");
+    if (located) {
+      const target = getInputElement(itemId, located.blankIndex) || element;
+      if (allowFocus) target.focus();
+      target.setSelectionRange(located.start, located.end);
+      errorAnchors.set(inputKey(itemId, located.blankIndex), located.start);
+      return;
+    }
+  }
   const start = result?.firstErrorOffset || 0;
   const end = Math.max(start, result?.firstErrorEnd || start);
   element.setSelectionRange(start, end);
@@ -136,6 +206,15 @@ function selectError(itemId: string, element: HTMLInputElement | HTMLTextAreaEle
 function onKeydown(event: KeyboardEvent, item: ExerciseItem) {
   if (event.key !== "Enter" || event.isComposing || event.shiftKey) return;
   event.preventDefault();
+  if (isFillMode(item)) {
+    const host = (event.currentTarget as HTMLElement).closest<HTMLElement>("[data-blank-index]");
+    const blankIndex = host ? Number(host.dataset.blankIndex) : 0;
+    const count = blankCount(item);
+    if (blankIndex < count - 1 && !blankValue(item, blankIndex + 1).trim()) {
+      focusItem(item.id, blankIndex + 1);
+      return;
+    }
+  }
   submitAndAdvance(item, event.currentTarget as HTMLInputElement | HTMLTextAreaElement);
 }
 
@@ -169,12 +248,16 @@ function suppressBlurSubmit() {
   blurSubmitSuppressed = true;
 }
 
-async function onBlurSubmit(item: ExerciseItem) {
+async function onBlurSubmit(item: ExerciseItem, event?: FocusEvent) {
   if (blurSubmitSuppressed) {
     blurSubmitSuppressed = false;
     return;
   }
   if (!editedIds.has(item.id)) return;
+  if (isFillMode(item) && blankCount(item) > 1) {
+    const relatedRow = (event?.relatedTarget as HTMLElement | null)?.closest<HTMLElement>("[data-item-id]");
+    if (relatedRow?.dataset.itemId === item.id) return;
+  }
   editedIds.delete(item.id);
   if (!(props.answers[item.id] || "").trim()) return;
   emit("submit", item.id);
@@ -189,8 +272,8 @@ function rowState(item: ExerciseItem) {
   return "";
 }
 
-function itemLabel(_item: ExerciseItem, index: number) {
-  return String(index + 1);
+function itemLabel(item: ExerciseItem) {
+  return structure.value.labelById.get(item.id) || "";
 }
 
 function openHistory(itemId = "") {
@@ -234,16 +317,85 @@ function groupSummary(entries: MistakeHistoryEntry[]) {
   return parts.length ? parts.join(locale.value === "en" ? "; " : "；") : t("history.orderOnly");
 }
 
-function renderFillPrompt(prompt: string) {
-  return prompt.split("_____").map((segment, index, array) => {
-    const nodes = [segment];
-    if (index < array.length - 1) nodes.push("__");
-    return nodes;
-  }).flat();
-}
-
 function isFillMode(item: ExerciseItem) {
   return item.mode === "fill";
+}
+
+function splitBlanks(value: string) {
+  return value.split(",").map((part) => part.trim());
+}
+
+function promptParts(prompt: string): PromptPart[] {
+  const segments = prompt.split("_____");
+  return segments.flatMap((text, index) => {
+    const parts: PromptPart[] = [{ type: "text", text, blankIndex: index }];
+    if (index < segments.length - 1) parts.push({ type: "blank", text: "", blankIndex: index });
+    return parts;
+  });
+}
+
+function blankCount(item: ExerciseItem) {
+  return promptParts(item.prompt).filter((part) => part.type === "blank").length;
+}
+
+function blankValue(item: ExerciseItem, blankIndex: number) {
+  return splitBlanks(props.answers[item.id] || "")[blankIndex] || "";
+}
+
+function blankStartOffset(parts: string[], blankIndex: number) {
+  let offset = 0;
+  for (let index = 0; index < blankIndex; index += 1) offset += parts[index].length + 2; // ", "
+  return offset;
+}
+
+function locateBlankError(item: ExerciseItem, result: AnswerFeedback, joined: string) {
+  const parts = splitBlanks(joined);
+  if (!parts.length) return null;
+  for (let blankIndex = 0; blankIndex < parts.length; blankIndex += 1) {
+    const begin = blankStartOffset(parts, blankIndex);
+    const end = begin + parts[blankIndex].length;
+    if (result.firstErrorOffset <= end || blankIndex === parts.length - 1) {
+      const start = Math.max(0, Math.min(result.firstErrorOffset - begin, parts[blankIndex].length));
+      const stop = Math.max(start, Math.min(result.firstErrorEnd - begin, parts[blankIndex].length));
+      return { blankIndex, start, end: stop };
+    }
+  }
+  return null;
+}
+
+function onBlankInput(item: ExerciseItem, blankIndex: number, value: string) {
+  const count = blankCount(item);
+  const current = splitBlanks(props.answers[item.id] || "");
+  const next = Array.from({ length: count }, (_, index) => (index === blankIndex ? value : current[index] || ""));
+  while (next.length > 1 && !next[next.length - 1].trim()) next.pop();
+  const joined = next.join(", ");
+  editedIds.add(item.id);
+  emit("update:answer", item.id, joined);
+  if (props.autoAdvanceErrors) selectNextBlankError(item, blankIndex, joined);
+}
+
+function selectNextBlankError(item: ExerciseItem, blankIndex: number, joined: string) {
+  const element = getInputElement(item.id, blankIndex);
+  if (!element) return;
+  const anchor = errorAnchors.get(inputKey(item.id, blankIndex));
+  if (anchor === undefined) return;
+  const caret = element.selectionStart ?? 0;
+  if (caret > 0 && !/\s/.test((element.value || "").slice(caret - 1, caret))) return;
+  const result = evaluateAnswer(joined, item.answer, locale.value, props.characterMatchPercent / 100);
+  if (result.level === "correct") {
+    clearErrorAnchors(item.id);
+    return;
+  }
+  const located = locateBlankError(item, result, joined);
+  if (!located) return;
+  if (located.blankIndex === blankIndex && located.start === anchor) return;
+  errorAnchors.set(inputKey(item.id, located.blankIndex), located.start);
+  nextTick(() => {
+    const target = getInputElement(item.id, located.blankIndex);
+    if (!target) return;
+    target.focus();
+    target.setSelectionRange(located.start, located.end);
+  });
 }
 
 type ClickableToken = {
@@ -297,69 +449,89 @@ function onTextClick(event: MouseEvent) {
             <el-button plain :icon="Histogram" @click="emit('speak', lessonSpeechSegments)">{{ t('exercise.fullText') }}</el-button>
           </div>
         </div>
-        <div class="sentence-list translation-list">
-          <article v-for="(item, index) in items" :key="item.id" class="sentence-row" :class="[rowState(item)]">
-            <button
-              class="sentence-number" type="button"
-              :aria-label="t('exercise.speakItem', { item: itemLabel(item, index) })"
-              @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="speakFromSentence(item)"
-            >{{ itemLabel(item, index) }}</button>
-            <div class="sentence-content">
-              <div class="sentence-prompt-row">
-                <p class="sentence-chinese"><strong v-if="item.speakerEn">{{ item.speakerEn }}：</strong><template v-if="isFillMode(item)"><template v-for="(token, tokenIndex) in renderFillPrompt(item.prompt)" :key="tokenIndex"><span v-if="token === '__'" class="fill-blank">{{ t('exercise.fillPlaceholder') }}</span><template v-else>{{ token }}</template></template></template><template v-else>{{ item.prompt }}</template></p>
-                <el-button
-                  class="row-action-button" text circle size="small" :icon="Delete"
-                  :disabled="!answers[item.id]" :aria-label="t('exercise.clearRow')"
-                  @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="clearAndFocus(item.id)"
-                />
-                <el-button
-                  class="row-action-button" text circle size="small" :icon="Histogram"
-                  :aria-label="t('exercise.history')" @click="openHistory(item.id)"
-                />
-                <span v-if="results[item.id]" class="input-result-label">{{ results[item.id].level === 'correct' ? t('exercise.correct') : t('exercise.incorrect') }}</span>
-                <el-icon v-if="rowState(item) === 'is-correct'" class="row-status-icon"><CircleCheckFilled /></el-icon>
-                <el-tooltip v-else-if="rowState(item) === 'is-wrong'" trigger="click" placement="left" :show-after="0">
-                  <template #content><div class="error-tooltip"><strong>{{ t('exercise.errorHint') }}</strong><p>{{ results[item.id].explanation }}</p></div></template>
-                  <button class="error-info-button" type="button" :aria-label="t('exercise.viewError')">!</button>
-                </el-tooltip>
-              </div>
-
-              <div v-if="results[item.id]" class="answer-comparison" :class="{ 'is-wrong': rowState(item) === 'is-wrong' }">
-                <p class="comparison-line"><span class="comparison-text" @click="onTextClick"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'clickable-word': /^[A-Za-z0-9]/.test(part.text) }]" :data-word-id="/^[A-Za-z0-9]/.test(part.text) ? `${item.id}-ref:${partIndex}` : undefined">{{ part.text }}</span></span></p>
-                <p v-if="rowState(item) === 'is-wrong'" class="comparison-line"><span class="comparison-text"><span v-for="(part, partIndex) in results[item.id].inputParts" :key="`${item.id}-input-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></span></p>
-              </div>
-
-              <div v-if="isFillMode(item)" class="sentence-answer-row written-fill-row">
-                <el-input
-                  :ref="(instance: unknown) => setInputRef(item.id, instance)"
-                  :model-value="answers[item.id] || ''"
-                  class="written-fill-input"
-                  :class="{ 'is-empty': !(answers[item.id] || '').trim() }"
-                  :placeholder="t('exercise.fillPlaceholder')"
-                  autocomplete="off"
-                  :enterkeyhint="index < items.length - 1 ? 'next' : 'done'"
-                  :aria-label="t('exercise.answerLabel', { item: itemLabel(item, index) })"
-                  @update:model-value="onAnswerInput(item.id, $event)"
-                  @keydown="onKeydown($event, item)"
-                  @blur="onBlurSubmit(item)"
-                />
-              </div>
-              <div v-else class="sentence-answer-row">
-                <el-input
-                  :ref="(instance: unknown) => setInputRef(item.id, instance)"
-                  :model-value="answers[item.id] || ''"
-                  :class="{ 'is-empty': !(answers[item.id] || '').trim() }"
-                  type="textarea" :autosize="{ minRows: 1, maxRows: 5 }" resize="none" autocomplete="off"
-                  :enterkeyhint="index < items.length - 1 ? 'next' : 'done'"
-                  :aria-label="t('exercise.answerLabel', { item: itemLabel(item, index) })"
-                  @update:model-value="onAnswerInput(item.id, $event)"
-                  @keydown="onKeydown($event, item)"
-                  @blur="onBlurSubmit(item)"
-                />
-              </div>
+        <section v-for="section in structure.sections" :key="section.key" class="written-section">
+          <header v-if="section.key || section.titleEn || section.titleZh" class="written-section-header">
+            <span v-if="section.key" class="written-section-badge">{{ section.key }}</span>
+            <div class="written-section-titles">
+              <p v-if="section.titleEn" class="written-section-title-en">{{ section.titleEn }}</p>
+              <p v-if="section.titleZh" class="written-section-title-zh">{{ section.titleZh }}</p>
             </div>
-          </article>
-        </div>
+          </header>
+          <div v-if="section.examplePrompt" class="written-example">
+            <p class="written-example-label">{{ t('exercise.example') }}</p>
+            <p class="written-example-prompt">{{ section.examplePrompt }}</p>
+            <p class="written-example-answer" @click="onTextClick"><span v-for="tok in clickableWords(section.exampleAnswer, `example-${section.key}`)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
+          </div>
+          <div class="sentence-list translation-list">
+            <article v-for="item in section.items" :key="item.id" class="sentence-row" :class="[rowState(item)]">
+              <button
+                class="sentence-number" type="button"
+                :aria-label="t('exercise.speakItem', { item: itemLabel(item) })"
+                @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="speakFromSentence(item)"
+              >{{ itemLabel(item) }}</button>
+              <div class="sentence-content">
+                <div class="sentence-prompt-row">
+                  <div v-if="isFillMode(item)" class="sentence-chinese written-fill-prompt">
+                    <template v-for="(part, partIndex) in promptParts(item.prompt)" :key="`${item.id}-part-${partIndex}`">
+                      <span v-if="part.type === 'text'">{{ part.text }}</span>
+                      <el-input
+                        v-else
+                        :ref="(instance: unknown) => setInputRef(item.id, part.blankIndex, instance)"
+                        :model-value="blankValue(item, part.blankIndex)"
+                        class="written-fill-input written-blank-input"
+                        :class="{ 'is-empty': !blankValue(item, part.blankIndex).trim() }"
+                        :placeholder="t('exercise.fillPlaceholder')"
+                        autocomplete="off"
+                        :data-item-id="item.id"
+                        :data-blank-index="part.blankIndex"
+                        :enterkeyhint="item.id === structure.lastItemId ? 'done' : 'next'"
+                        :aria-label="t('exercise.answerLabel', { item: itemLabel(item) })"
+                        @update:model-value="onBlankInput(item, part.blankIndex, $event)"
+                        @keydown="onKeydown($event, item)"
+                        @blur="onBlurSubmit(item, $event)"
+                      />
+                    </template>
+                  </div>
+                  <p v-else class="sentence-chinese">{{ item.prompt }}</p>
+                  <el-button
+                    class="row-action-button" text circle size="small" :icon="Delete"
+                    :disabled="!answers[item.id]" :aria-label="t('exercise.clearRow')"
+                    @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="clearAndFocus(item.id)"
+                  />
+                  <el-button
+                    class="row-action-button" text circle size="small" :icon="Histogram"
+                    :aria-label="t('exercise.history')" @click="openHistory(item.id)"
+                  />
+                  <span v-if="results[item.id]" class="input-result-label">{{ results[item.id].level === 'correct' ? t('exercise.correct') : t('exercise.incorrect') }}</span>
+                  <el-icon v-if="rowState(item) === 'is-correct'" class="row-status-icon"><CircleCheckFilled /></el-icon>
+                  <el-tooltip v-else-if="rowState(item) === 'is-wrong'" trigger="click" placement="left" :show-after="0">
+                    <template #content><div class="error-tooltip"><strong>{{ t('exercise.errorHint') }}</strong><p>{{ results[item.id].explanation }}</p></div></template>
+                    <button class="error-info-button" type="button" :aria-label="t('exercise.viewError')">!</button>
+                  </el-tooltip>
+                </div>
+
+                <div v-if="results[item.id]" class="answer-comparison" :class="{ 'is-wrong': rowState(item) === 'is-wrong' }">
+                  <p class="comparison-line"><span class="comparison-text" @click="onTextClick"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'clickable-word': /^[A-Za-z0-9]/.test(part.text) }]" :data-word-id="/^[A-Za-z0-9]/.test(part.text) ? `${item.id}-ref:${partIndex}` : undefined">{{ part.text }}</span></span></p>
+                  <p v-if="rowState(item) === 'is-wrong'" class="comparison-line"><span class="comparison-text"><span v-for="(part, partIndex) in results[item.id].inputParts" :key="`${item.id}-input-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'is-placeholder': part.placeholder }]">{{ part.text }}</span></span></p>
+                </div>
+
+                <div v-if="!isFillMode(item)" class="sentence-answer-row">
+                  <el-input
+                    :ref="(instance: unknown) => setInputRef(item.id, 0, instance)"
+                    :model-value="answers[item.id] || ''"
+                    :class="{ 'is-empty': !(answers[item.id] || '').trim() }"
+                    type="textarea" :autosize="{ minRows: 1, maxRows: 5 }" resize="none" autocomplete="off"
+                    :enterkeyhint="item.id === structure.lastItemId ? 'done' : 'next'"
+                    :aria-label="t('exercise.answerLabel', { item: itemLabel(item) })"
+                    @update:model-value="onAnswerInput(item.id, $event)"
+                    @keydown="onKeydown($event, item)"
+                    @blur="onBlurSubmit(item)"
+                  />
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
       </el-tab-pane>
 
       <el-tab-pane :label="t('exercise.reading')" name="reading">
@@ -370,12 +542,12 @@ function onTextClick(event: MouseEvent) {
           </div>
         </div>
         <div class="sentence-list reading-list">
-          <article v-for="(item, index) in items" :key="item.id" class="sentence-row">
+          <article v-for="item in items" :key="item.id" class="sentence-row">
             <button
               class="sentence-number" type="button"
-              :aria-label="t('exercise.speakItem', { item: itemLabel(item, index) })"
+              :aria-label="t('exercise.speakItem', { item: itemLabel(item) })"
               @click="speakFromSentence(item)"
-            >{{ itemLabel(item, index) }}</button>
+            >{{ itemLabel(item) }}</button>
             <div class="sentence-content">
               <p class="sentence-chinese"><strong v-if="item.speakerEn">{{ item.speakerEn }}：</strong>{{ item.prompt }}</p>
               <p class="sentence-english" @click="onTextClick"><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
@@ -410,15 +582,103 @@ function onTextClick(event: MouseEvent) {
 </template>
 
 <style scoped>
-.written-fill-row {
+.written-section {
+  margin-bottom: 30px;
+}
+
+.written-section:last-child {
+  margin-bottom: 0;
+}
+
+.written-section-header {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  border: 1px solid rgba(32, 51, 48, .08);
+  border-radius: 14px;
+  background: #edf5f1;
+}
+
+.written-section-badge {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--green);
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.written-section-titles {
+  min-width: 0;
+}
+
+.written-section-title-en {
+  margin: 0;
+  color: var(--green-dark);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.written-section-title-zh {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.written-example {
+  margin: 0 0 14px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 12px 12px 0;
+  background: #f8f4e9;
+}
+
+.written-example-label {
+  margin: 0 0 6px;
+  color: #7c5910;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.written-example-prompt {
+  margin: 0;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.written-example-answer {
+  margin: 4px 0 0;
+  color: var(--green-dark);
+  font-style: italic;
+}
+
+.written-fill-prompt {
+  display: block;
+  min-width: 0;
+  line-height: 2;
 }
 
 .written-fill-input {
   width: 220px;
   max-width: 100%;
+}
+
+.written-blank-input {
+  width: 84px;
+  margin: 0 2px;
+  vertical-align: baseline;
+}
+
+.written-blank-input :deep(.el-input__wrapper) {
+  padding: 2px 6px;
 }
 
 :deep(.written-fill-input .el-input__wrapper) {
@@ -454,16 +714,5 @@ function onTextClick(event: MouseEvent) {
 
 .written-fill-input.is-empty :deep(.el-input__wrapper.is-focus) {
   border-bottom: 2px solid #c39a2f;
-}
-
-.fill-blank {
-  display: inline-block;
-  padding: 0 6px;
-  margin: 0 2px;
-  border-bottom: 2px solid var(--green);
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .05em;
 }
 </style>

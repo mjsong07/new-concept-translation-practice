@@ -9,10 +9,20 @@ export interface ExerciseItem {
   lessonTitle: string;
   kind?: "title" | "question" | "sentence";
   mode?: "translate" | "fill" | "sentence";
+  section?: string;
   speakerZh: string;
   speakerEn: string;
   prompt: string;
   answer: string;
+}
+
+// 偶数课书面练习的分区（对应教材 Written exercises 下的 A、B、C…）。
+export interface WrittenSectionMeta {
+  key: string;
+  titleEn: string;
+  titleZh: string;
+  examplePrompt?: string;
+  exampleAnswer?: string;
 }
 
 export interface Lesson {
@@ -22,6 +32,7 @@ export interface Lesson {
   questionEn: string;
   questionZh: string;
   kind?: "translation" | "written";
+  sections?: WrittenSectionMeta[];
   items: ExerciseItem[];
 }
 

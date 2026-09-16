@@ -2,6 +2,7 @@ import type { Lesson } from "../types/practice";
 
 // 偶数课书面练习（Written exercises）。
 // 数据来源：《新概念英语》第1册 PDF 第 132 页 Lesson 66。
+// section: 对应教材 Written exercises 下的分区字母（A、B、C…），分区标题与例句见 sections。
 // mode: 'fill' 表示根据例句填空（仅输入缺失词），'sentence' 表示根据例句写完整句子。
 export const writtenExercises: Lesson[] = [
   {
@@ -11,6 +12,20 @@ export const writtenExercises: Lesson[] = [
     questionEn: "What's the time?",
     questionZh: "几点钟？",
     kind: "written",
+    sections: [
+      {
+        key: "A",
+        titleEn: "Complete these sentences using in, at or from.",
+        titleZh: "用 in, at 或 from 完成以下句子。"
+      },
+      {
+        key: "B",
+        titleEn: "Answer these questions using I/you/he/she/we/they and . . . o'clock, a quarter to . . ., past . . ., half past . . .",
+        titleZh: "模仿例句回答问题。",
+        examplePrompt: "When must you come home? (1.00)",
+        exampleAnswer: "I must come home at one o'clock."
+      }
+    ],
     items: [
       {
         id: "lesson-66-A1",
@@ -18,6 +33,7 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "fill",
+        section: "A",
         speakerZh: "",
         speakerEn: "A",
         prompt: "I am going to see him _____ ten o'clock.",
@@ -29,6 +45,7 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "fill",
+        section: "A",
         speakerZh: "",
         speakerEn: "A",
         prompt: "It often rains _____ November.",
@@ -40,6 +57,7 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "fill",
+        section: "A",
         speakerZh: "",
         speakerEn: "A",
         prompt: "Where do you come _____? I come _____ France.",
@@ -51,6 +69,7 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "fill",
+        section: "A",
         speakerZh: "",
         speakerEn: "A",
         prompt: "I always go to work _____ the morning.",
@@ -62,6 +81,7 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "fill",
+        section: "A",
         speakerZh: "",
         speakerEn: "A",
         prompt: "What's the climate like _____ your country?",
@@ -73,6 +93,7 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "fill",
+        section: "A",
         speakerZh: "",
         speakerEn: "A",
         prompt: "It's cold _____ winter and hot _____ summer.",
@@ -84,10 +105,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must you come home? (1.15)",
-        answer: "I must come home at a quarter past one."
+        prompt: "When must she go to the library? (1.15)",
+        answer: "She must go to the library at a quarter past one."
       },
       {
         id: "lesson-66-B2",
@@ -95,10 +117,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must he come home? (2.30)",
-        answer: "He must come home at half past two."
+        prompt: "When must you and Sam see the dentist? (3.45)",
+        answer: "You and Sam must see the dentist at a quarter to four."
       },
       {
         id: "lesson-66-B3",
@@ -106,10 +129,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must she come home? (3.45)",
-        answer: "She must come home at a quarter to four."
+        prompt: "When must you type this letter? (2.00)",
+        answer: "I must type this letter at two o'clock."
       },
       {
         id: "lesson-66-B4",
@@ -117,10 +141,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must we go to school? (4.00)",
-        answer: "We must go to school at four o'clock."
+        prompt: "When must Sam and Penny see the boss? (1.30)",
+        answer: "Sam and Penny must see the boss at half past one."
       },
       {
         id: "lesson-66-B5",
@@ -128,10 +153,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must they come home? (5.15)",
-        answer: "They must come home at a quarter past five."
+        prompt: "When must George take his medicine? (3.15)",
+        answer: "George must take his medicine at a quarter past three."
       },
       {
         id: "lesson-66-B6",
@@ -139,10 +165,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must you go to bed? (6.30)",
-        answer: "I must go to bed at half past six."
+        prompt: "When must Sophie arrive in London? (2.30)",
+        answer: "Sophie must arrive in London at half past two."
       },
       {
         id: "lesson-66-B7",
@@ -150,10 +177,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must he get up? (7.00)",
-        answer: "He must get up at seven o'clock."
+        prompt: "When must I catch the bus? (3.30)",
+        answer: "You must catch the bus at half past three."
       },
       {
         id: "lesson-66-B8",
@@ -161,10 +189,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must she see the doctor? (7.45)",
-        answer: "She must see the doctor at a quarter to eight."
+        prompt: "When must you arrive there? (3.00)",
+        answer: "I must arrive there at three o'clock."
       },
       {
         id: "lesson-66-B9",
@@ -172,10 +201,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must we have lunch? (8.15)",
-        answer: "We must have lunch at a quarter past eight."
+        prompt: "When must they come home? (2.15)",
+        answer: "They must come home at a quarter past two."
       },
       {
         id: "lesson-66-B10",
@@ -183,10 +213,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must they leave home? (9.30)",
-        answer: "They must leave home at half past nine."
+        prompt: "When must you meet Sam? (1.45)",
+        answer: "I must meet Sam at a quarter to two."
       },
       {
         id: "lesson-66-B11",
@@ -194,10 +225,11 @@ export const writtenExercises: Lesson[] = [
         lessonTitle: "What's the time?",
         kind: "sentence",
         mode: "sentence",
+        section: "B",
         speakerZh: "",
         speakerEn: "B",
-        prompt: "When must you go to work? (10.00)",
-        answer: "I must go to work at ten o'clock."
+        prompt: "When must he telephone you? (2.45)",
+        answer: "He must telephone me at a quarter to three."
       }
     ]
   }

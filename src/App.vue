@@ -220,6 +220,7 @@ onUnmounted(() => {
         :lesson-number="practice.lesson.value.number"
         :lesson-title="practice.lesson.value.title"
         :lesson-title-zh="practice.lesson.value.titleZh"
+        :sections="practice.lesson.value.sections || []"
         :items="practice.lessonItems.value"
         :answers="practice.answers.value"
         :results="practice.results.value"
