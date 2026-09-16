@@ -5,8 +5,6 @@ import { useI18n } from "../composables/useI18n";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, ExerciseItem, MistakeHistoryEntry, SpeechSegment, WrittenSectionMeta } from "../types/practice";
 
-type WrittenView = "practice" | "reading";
-
 interface PracticeSection {
   key: string;
   titleEn: string;
@@ -53,8 +51,12 @@ type InputRef = { focus: () => void; input?: HTMLInputElement; textarea?: HTMLTe
 const inputRefs = ref<Record<string, InputRef | null>>({});
 const historyVisible = ref(false);
 const historyFocusItemId = ref("");
-const view = ref<WrittenView>("practice");
+const activeSection = ref(sectionKeyOf(props.items[0]));
 let blurSubmitSuppressed = false;
+
+function sectionKeyOf(item?: ExerciseItem) {
+  return item ? (item.section || item.speakerEn || "") : "";
+}
 
 const completedSet = computed(() => new Set(props.completedIds));
 const lessonSpeechSegments = computed<SpeechSegment[]>(() =>
@@ -115,6 +117,7 @@ function shouldAutoFocus() {
 watch(() => props.lessonNumber, async () => {
   editedIds.clear();
   errorAnchors.clear();
+  activeSection.value = sectionKeyOf(props.items[0]);
   if (!shouldAutoFocus()) return;
   await nextTick();
   focusItem(props.items[0]?.id);
@@ -144,9 +147,10 @@ async function submitAndAdvance(item: ExerciseItem, element: HTMLInputElement | 
   if (!answer.trim()) return;
   const anticipatedResult = evaluateAnswer(answer, item.answer, locale.value, props.characterMatchPercent / 100);
   const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
-  const nextItemId = props.items[currentIndex + 1]?.id;
-  if (!shouldAutoFocus() && anticipatedResult.level === "correct" && nextItemId) {
-    focusItem(nextItemId, 0, true);
+  const nextItem = props.items[currentIndex + 1];
+  if (!shouldAutoFocus() && anticipatedResult.level === "correct" && nextItem) {
+    switchToSection(nextItem);
+    focusItem(nextItem.id, 0, true);
   }
   emit("submit", item.id);
   await nextTick();
@@ -155,7 +159,7 @@ async function submitAndAdvance(item: ExerciseItem, element: HTMLInputElement | 
   if (result?.level === "correct") clearErrorAnchors(item.id);
   if (!shouldAutoFocus()) {
     if (result?.level !== "correct") selectError(item.id, element, result);
-    else if (!nextItemId) element.blur();
+    else if (!nextItem) element.blur();
     return;
   }
   if (result?.level !== "correct") {
@@ -164,7 +168,16 @@ async function submitAndAdvance(item: ExerciseItem, element: HTMLInputElement | 
     selectError(item.id, target, result, true);
     return;
   }
-  focusItem(nextItemId);
+  if (nextItem) {
+    switchToSection(nextItem);
+    await nextTick();
+    focusItem(nextItem.id);
+  }
+}
+
+function switchToSection(item: ExerciseItem) {
+  const key = sectionKeyOf(item);
+  if (key && key !== activeSection.value) activeSection.value = key;
 }
 
 function speakIfCorrect(item: ExerciseItem) {
@@ -342,6 +355,11 @@ function blankValue(item: ExerciseItem, blankIndex: number) {
   return splitBlanks(props.answers[item.id] || "")[blankIndex] || "";
 }
 
+function blankWidth(item: ExerciseItem, blankIndex: number) {
+  const word = (splitBlanks(item.answer)[blankIndex] || "").trim();
+  return `${Math.max(word.length, 2) + 1.5}ch`;
+}
+
 function blankStartOffset(parts: string[], blankIndex: number) {
   let offset = 0;
   for (let index = 0; index < blankIndex; index += 1) offset += parts[index].length + 2; // ", "
@@ -440,16 +458,16 @@ function onTextClick(event: MouseEvent) {
       <div class="lesson-sentence-count">{{ t('exercise.count', { count: items.length }) }}</div>
     </div>
 
-    <el-tabs class="display-tabs" :model-value="view" stretch @update:model-value="view = ($event as WrittenView)">
-      <el-tab-pane :label="t('exercise.practice')" name="practice">
-        <div class="translation-toolbar">
-          <span>{{ t('exercise.scopeHintWritten') }}</span>
-          <div>
-            <el-button text :icon="Histogram" @click="openHistory()">{{ t('exercise.history') }}</el-button>
-            <el-button plain :icon="Histogram" @click="emit('speak', lessonSpeechSegments)">{{ t('exercise.fullText') }}</el-button>
-          </div>
-        </div>
-        <section v-for="section in structure.sections" :key="section.key" class="written-section">
+    <div class="translation-toolbar">
+      <span>{{ t('exercise.scopeHintWritten') }}</span>
+      <div>
+        <el-button text :icon="Histogram" @click="openHistory()">{{ t('exercise.history') }}</el-button>
+        <el-button plain :icon="Histogram" @click="emit('speak', lessonSpeechSegments)">{{ t('exercise.fullText') }}</el-button>
+      </div>
+    </div>
+    <el-tabs class="display-tabs" :model-value="activeSection" stretch @update:model-value="activeSection = ($event as string)">
+      <el-tab-pane v-for="section in structure.sections" :key="section.key" :label="section.key || t('exercise.practice')" :name="section.key">
+        <section class="written-section">
           <header v-if="section.key || section.titleEn || section.titleZh" class="written-section-header">
             <span v-if="section.key" class="written-section-badge">{{ section.key }}</span>
             <div class="written-section-titles">
@@ -480,6 +498,7 @@ function onTextClick(event: MouseEvent) {
                         :model-value="blankValue(item, part.blankIndex)"
                         class="written-fill-input written-blank-input"
                         :class="{ 'is-empty': !blankValue(item, part.blankIndex).trim() }"
+                        :style="{ width: blankWidth(item, part.blankIndex) }"
                         :placeholder="t('exercise.fillPlaceholder')"
                         autocomplete="off"
                         :data-item-id="item.id"
@@ -533,28 +552,6 @@ function onTextClick(event: MouseEvent) {
           </div>
         </section>
       </el-tab-pane>
-
-      <el-tab-pane :label="t('exercise.reading')" name="reading">
-        <div class="translation-toolbar reading-toolbar">
-          <span></span>
-          <div>
-            <el-button plain :icon="Histogram" @click="emit('speak', lessonSpeechSegments)">{{ t('exercise.fullText') }}</el-button>
-          </div>
-        </div>
-        <div class="sentence-list reading-list">
-          <article v-for="item in items" :key="item.id" class="sentence-row">
-            <button
-              class="sentence-number" type="button"
-              :aria-label="t('exercise.speakItem', { item: itemLabel(item) })"
-              @click="speakFromSentence(item)"
-            >{{ itemLabel(item) }}</button>
-            <div class="sentence-content">
-              <p class="sentence-chinese"><strong v-if="item.speakerEn">{{ item.speakerEn }}：</strong>{{ item.prompt }}</p>
-              <p class="sentence-english" @click="onTextClick"><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
-            </div>
-          </article>
-        </div>
-      </el-tab-pane>
     </el-tabs>
 
     <el-dialog v-model="historyVisible" class="mistake-history-dialog" :title="t('history.title')" width="min(680px, calc(100% - 24px))" append-to-body>
@@ -583,34 +580,28 @@ function onTextClick(event: MouseEvent) {
 
 <style scoped>
 .written-section {
-  margin-bottom: 30px;
-}
-
-.written-section:last-child {
   margin-bottom: 0;
 }
 
 .written-section-header {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 14px;
-  padding: 14px 16px;
-  border: 1px solid rgba(32, 51, 48, .08);
-  border-radius: 14px;
-  background: #edf5f1;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
 }
 
 .written-section-badge {
   flex: 0 0 auto;
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   display: grid;
   place-items: center;
   border-radius: 50%;
   color: #fff;
   background: var(--green);
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -620,8 +611,9 @@ function onTextClick(event: MouseEvent) {
 
 .written-section-title-en {
   margin: 0;
-  color: var(--green-dark);
-  font-weight: 700;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
   line-height: 1.4;
 }
 
@@ -632,16 +624,16 @@ function onTextClick(event: MouseEvent) {
 }
 
 .written-example {
-  margin: 0 0 14px;
-  padding: 12px 16px;
+  margin: 0 0 10px;
+  padding: 8px 12px;
   border-left: 3px solid var(--gold);
-  border-radius: 0 12px 12px 0;
-  background: #f8f4e9;
+  border-radius: 0 10px 10px 0;
+  background: rgba(211, 169, 58, .12);
 }
 
 .written-example-label {
-  margin: 0 0 6px;
-  color: #7c5910;
+  margin: 0 0 4px;
+  color: #a8871f;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: .08em;
@@ -663,16 +655,14 @@ function onTextClick(event: MouseEvent) {
 .written-fill-prompt {
   display: block;
   min-width: 0;
-  line-height: 2;
+  line-height: 1.9;
 }
 
 .written-fill-input {
-  width: 220px;
   max-width: 100%;
 }
 
 .written-blank-input {
-  width: 84px;
   margin: 0 2px;
   vertical-align: baseline;
 }

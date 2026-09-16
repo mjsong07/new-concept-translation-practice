@@ -3,6 +3,8 @@ import { flushPromises, mount } from "@vue/test-utils";
 import { h, reactive, ref } from "vue";
 import WrittenExercise from "./WrittenExercise.vue";
 import { writtenExercises } from "../data/writtenExercises";
+import { evaluateAnswer } from "../services/text";
+import type { AnswerFeedback } from "../types/practice";
 
 const lesson66 = writtenExercises.find((lesson) => lesson.number === 66)!;
 
@@ -78,6 +80,7 @@ describe("WrittenExercise sections and inline blanks", () => {
     expect(sections[1].findAll(".sentence-number").map((node) => node.text())).toEqual([
       "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"
     ]);
+    expect(wrapper.find(".reading-list").exists()).toBe(false);
   });
 
   it("shows the example block before the input rows in section B", () => {
@@ -100,8 +103,10 @@ describe("WrittenExercise sections and inline blanks", () => {
 
     expect(multiBlankRow.findAll("textarea")).toHaveLength(2);
     expect(multiBlankRow.findAll("textarea").map((node) => node.attributes("data-blank-index"))).toEqual(["0", "1"]);
-    expect(multiBlankRow.find(".sentence-answer-row").exists()).toBe(false);
+    expect(multiBlankRow.findAll("textarea")[0].attributes("style")).toContain("5.5ch");
     expect(rows[0].findAll("textarea")).toHaveLength(1);
+    expect(rows[0].findAll("textarea")[0].attributes("style")).toContain("3.5ch");
+    expect(multiBlankRow.find(".sentence-answer-row").exists()).toBe(false);
     expect(rows[0].find(".sentence-answer-row").exists()).toBe(false);
   });
 
@@ -122,5 +127,23 @@ describe("WrittenExercise sections and inline blanks", () => {
       ["lesson-66-A3", "from"],
       ["lesson-66-A3", "from, from"]
     ]);
+  });
+
+  it("moves to the next section and focuses its first input after a correct last answer", async () => {
+    const answers = reactive<Record<string, string>>({ "lesson-66-A6": "in, in" });
+    const results = reactive<Record<string, AnswerFeedback>>({});
+    const itemById = new Map(lesson66.items.map((item) => [item.id, item]));
+    const wrapper = mountExercise({
+      answers,
+      results,
+      onSubmit: (id: string) => { results[id] = evaluateAnswer(answers[id], itemById.get(id)!.answer, "zh-CN", 0.5); }
+    });
+
+    const lastRow = wrapper.findAll(".written-section")[0].findAll(".sentence-row")[5];
+    await lastRow.findAll("textarea")[1].trigger("keydown", { key: "Enter" });
+    await flushPromises();
+
+    expect(document.activeElement).toBe(wrapper.findAll(".written-section")[1].find("textarea").element);
+    expect(wrapper.emitted("submit")).toEqual([["lesson-66-A6"]]);
   });
 });
