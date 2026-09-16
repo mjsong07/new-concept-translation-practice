@@ -2,6 +2,7 @@ export type ResultLevel = "idle" | "correct" | "close" | "wrong";
 export type DisplayMode = "translation" | "original" | "bilingual";
 export type ColorSchemeMode = "system" | "light" | "dark";
 export type AppLocale = "zh-CN" | "en";
+export type LessonFilter = "all" | "odd" | "even";
 
 export interface ExerciseItem {
   id: string;

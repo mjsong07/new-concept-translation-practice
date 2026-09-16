@@ -164,6 +164,9 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .mobile-settings-dialog .lesson-select-section { min-width: 0; display: grid; gap: 11px; }
 .mobile-settings-dialog .lesson-select-section > label { color: var(--muted); font-size: 15px; font-weight: 700; }
 .mobile-settings-dialog .lesson-select-section .el-select { width: 100%; }
+.mobile-settings-dialog .lesson-filter-section { min-width: 0; display: grid; gap: 11px; }
+.mobile-settings-dialog .lesson-filter-section > label { color: var(--muted); font-size: 15px; font-weight: 700; }
+.mobile-settings-dialog .lesson-filter-section .el-segmented { width: 100%; }
 .lesson-select-section .el-select__wrapper { min-height: 52px; padding: 8px 15px; }
 .lesson-select-section .el-select__selected-item, .lesson-select-section .el-select__placeholder { font-size: 17px; font-weight: 600; }
 .lesson-select-popper .el-select-dropdown__item { height: 44px; padding: 0 14px; font-size: 16px; line-height: 44px; }

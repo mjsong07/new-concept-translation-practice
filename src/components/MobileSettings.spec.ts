@@ -31,7 +31,8 @@ function mountSettings() {
       speechVolume: 1,
       voices: [],
       characterMatchPercent: 50,
-      autoAdvanceErrors: true
+      autoAdvanceErrors: true,
+      lessonFilter: "all"
     },
     global
   });

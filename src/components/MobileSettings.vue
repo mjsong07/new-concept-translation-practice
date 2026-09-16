@@ -2,7 +2,7 @@
 import { computed, ref } from "vue";
 import { ArrowLeft, ArrowRight, Document, Setting } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
-import type { AppLocale, ColorSchemeMode, Lesson } from "../types/practice";
+import type { AppLocale, ColorSchemeMode, Lesson, LessonFilter } from "../types/practice";
 
 const { locale, t } = useI18n();
 
@@ -20,10 +20,12 @@ const props = defineProps<{
   voices: SpeechSynthesisVoice[];
   characterMatchPercent: number;
   autoAdvanceErrors: boolean;
+  lessonFilter: LessonFilter;
 }>();
 
 const emit = defineEmits<{
   "update:lessonNumber": [value: number];
+  "update:lessonFilter": [value: LessonFilter];
   "update:colorScheme": [value: ColorSchemeMode];
   "update:voiceUri": [value: string];
   "update:speechRate": [value: number];
@@ -80,6 +82,18 @@ function resetLesson() {
             <span class="mobile-settings-title">{{ t('settings.title') }}</span>
             <el-button class="mobile-settings-done" type="primary" @click="visible = false">{{ t('settings.done') }}</el-button>
           </div>
+          <section class="lesson-filter-section">
+            <label>{{ t('settings.lessonFilter') }}</label>
+            <el-segmented
+              :model-value="lessonFilter"
+              :options="[
+                { label: t('filter.all'), value: 'all' },
+                { label: t('filter.odd'), value: 'odd' },
+                { label: t('filter.even'), value: 'even' }
+              ]"
+              @update:model-value="emit('update:lessonFilter', $event as LessonFilter)"
+            />
+          </section>
           <section class="lesson-select-section">
             <label>{{ t('settings.selectLesson') }}</label>
             <el-select

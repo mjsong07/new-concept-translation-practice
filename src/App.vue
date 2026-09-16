@@ -12,7 +12,7 @@ import { useColorScheme } from "./composables/useColorScheme";
 import { useI18n } from "./composables/useI18n";
 import { useTranslationPractice } from "./composables/useTranslationPractice";
 import { getEnglishVoices, speakEnglish, speakEnglishSequence, stopSpeech, toggleSpeechPause } from "./services/speech";
-import type { SpeechSegment } from "./types/practice";
+import type { LessonFilter, SpeechSegment } from "./types/practice";
 
 const { locale, t } = useI18n();
 const colorScheme = useColorScheme();
@@ -23,8 +23,33 @@ const characterMatchPercent = ref(Number.isFinite(savedCharacterMatchPercent) &&
   : 50);
 const savedAutoAdvanceErrors = localStorage.getItem("new-concept-auto-advance-errors");
 const autoAdvanceErrors = ref(savedAutoAdvanceErrors !== "false");
+const savedLessonFilter = localStorage.getItem("new-concept-lesson-filter");
+const lessonFilter = ref<LessonFilter>(savedLessonFilter === "odd" || savedLessonFilter === "even" ? savedLessonFilter : "all");
 const practice = useTranslationPractice(characterMatchPercent);
 const elementLocale = computed(() => locale.value === "en" ? en : zhCn);
+const visibleLessons = computed(() => {
+  if (lessonFilter.value === "all") return practice.lessons;
+  const wantOdd = lessonFilter.value === "odd";
+  return practice.lessons.filter((lesson) => (lesson.number % 2 === 1) === wantOdd);
+});
+const pendingFilteredLesson = ref<number | null>(null);
+
+watch(lessonFilter, () => {
+  if (pendingFilteredLesson.value !== null && visibleLessons.value.some((lesson) => lesson.number === pendingFilteredLesson.value)) {
+    practice.selectedLesson.value = pendingFilteredLesson.value;
+    pendingFilteredLesson.value = null;
+    return;
+  }
+  if (visibleLessons.value.length && !visibleLessons.value.some((lesson) => lesson.number === practice.selectedLesson.value)) {
+    pendingFilteredLesson.value = practice.selectedLesson.value;
+    practice.selectedLesson.value = visibleLessons.value[0].number;
+  }
+});
+
+function selectLesson(number: number) {
+  pendingFilteredLesson.value = null;
+  practice.selectedLesson.value = number;
+}
 const notesVisible = ref(false);
 const voices = ref<SpeechSynthesisVoice[]>([]);
 const voiceUri = ref(localStorage.getItem("new-concept-speech-voice") || "");
@@ -143,6 +168,7 @@ watch(speechRate, (value) => localStorage.setItem("new-concept-speech-rate", Str
 watch(speechVolume, (value) => localStorage.setItem("new-concept-speech-volume", String(value)));
 watch(characterMatchPercent, (value) => localStorage.setItem("new-concept-character-match-percent", String(value)));
 watch(autoAdvanceErrors, (value) => localStorage.setItem("new-concept-auto-advance-errors", String(value)));
+watch(lessonFilter, (value) => localStorage.setItem("new-concept-lesson-filter", value));
 onMounted(() => {
   refreshVoices();
   window.speechSynthesis?.addEventListener("voiceschanged", refreshVoices);
@@ -159,7 +185,7 @@ onUnmounted(() => {
   <el-config-provider :locale="elementLocale">
   <div class="app-shell">
     <PracticeControls
-      :lessons="practice.lessons"
+      :lessons="visibleLessons"
       :lesson-number="practice.selectedLesson.value"
       :lesson-completed="practice.lessonCompleted.value"
       :lesson-count="practice.lessonItems.value.length"
@@ -171,7 +197,9 @@ onUnmounted(() => {
       :voices="voices"
       :character-match-percent="characterMatchPercent"
       :auto-advance-errors="autoAdvanceErrors"
-      @update:lesson-number="practice.selectedLesson.value = $event"
+      :lesson-filter="lessonFilter"
+      @update:lesson-number="selectLesson($event)"
+      @update:lesson-filter="lessonFilter = $event"
       @update:color-scheme="colorScheme.mode.value = $event"
       @update:voice-uri="voiceUri = $event"
       @update:speech-rate="speechRate = $event"
@@ -184,7 +212,7 @@ onUnmounted(() => {
 
     <div class="workspace">
       <MobileSettings
-        :lessons="practice.lessons"
+        :lessons="visibleLessons"
         :lesson-number="practice.selectedLesson.value"
         :lesson-title="practice.lesson.value.title"
         :lesson-completed="practice.lessonCompleted.value"
@@ -197,7 +225,9 @@ onUnmounted(() => {
         :voices="voices"
         :character-match-percent="characterMatchPercent"
         :auto-advance-errors="autoAdvanceErrors"
-        @update:lesson-number="practice.selectedLesson.value = $event"
+        :lesson-filter="lessonFilter"
+        @update:lesson-number="selectLesson($event)"
+        @update:lesson-filter="lessonFilter = $event"
         @update:color-scheme="colorScheme.mode.value = $event"
         @update:voice-uri="voiceUri = $event"
         @update:speech-rate="speechRate = $event"
