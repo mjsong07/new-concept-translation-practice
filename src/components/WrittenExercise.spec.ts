@@ -106,9 +106,9 @@ describe("WrittenExercise sections and inline blanks", () => {
 
     expect(multiBlankRow.findAll("textarea")).toHaveLength(2);
     expect(multiBlankRow.findAll("textarea").map((node) => node.attributes("data-blank-index"))).toEqual(["0", "1"]);
-    expect(multiBlankRow.findAll("textarea")[0].attributes("style")).toContain("calc(4ch + 24px)");
+    expect(multiBlankRow.findAll("textarea")[0].attributes("style")).toContain("calc(4ch + 8px)");
     expect(rows[0].findAll("textarea")).toHaveLength(1);
-    expect(rows[0].findAll("textarea")[0].attributes("style")).toContain("calc(2ch + 24px)");
+    expect(rows[0].findAll("textarea")[0].attributes("style")).toContain("calc(2ch + 8px)");
     expect(multiBlankRow.find(".sentence-answer-row").exists()).toBe(false);
     expect(rows[0].find(".sentence-answer-row").exists()).toBe(false);
     expect(rows[0].find(".row-action-button").exists()).toBe(false);

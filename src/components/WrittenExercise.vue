@@ -382,7 +382,7 @@ function blankValue(item: ExerciseItem, blankIndex: number) {
 
 function blankWidth(item: ExerciseItem, blankIndex: number) {
   const word = (splitBlanks(item.answer)[blankIndex] || "").trim();
-  return `calc(${Math.max(word.length, 2)}ch + 24px)`;
+  return `calc(${Math.max(word.length, 2)}ch + 8px)`;
 }
 
 function blankStartOffset(parts: string[], blankIndex: number) {
@@ -694,7 +694,7 @@ function onTextClick(event: MouseEvent) {
 }
 
 .written-blank-input :deep(.el-input__wrapper) {
-  padding: 0 4px;
+  padding: 0;
 }
 
 :deep(.written-fill-input .el-input__wrapper) {
