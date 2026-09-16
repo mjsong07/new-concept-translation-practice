@@ -1,13 +1,22 @@
 import { computed, ref, watch, type Ref } from "vue";
-import { lessons } from "../data/lessons";
+import { lessons as oddLessons } from "../data/lessons";
+import { writtenExercises } from "../data/writtenExercises";
 import { evaluateAnswer } from "../services/text";
 import { useI18n } from "./useI18n";
-import type { AnswerFeedback, DisplayMode, ExerciseItem, MistakeHistoryEntry, StoredProgress } from "../types/practice";
+import type { AnswerFeedback, DisplayMode, ExerciseItem, Lesson, MistakeHistoryEntry, StoredProgress } from "../types/practice";
 
 const storageKey = "new-concept-translation-progress-v2";
 const selectedLessonStorageKey = "new-concept-translation-selected-lesson";
 
-function getLessonItems(lesson: (typeof lessons)[number]): ExerciseItem[] {
+const allLessons: Lesson[] = [
+  ...oddLessons.map((lesson): Lesson => ({ ...lesson, kind: "translation" })),
+  ...writtenExercises
+].sort((left, right) => left.number - right.number);
+
+function getLessonItems(lesson: Lesson): ExerciseItem[] {
+  if (lesson.kind === "written") {
+    return lesson.items.map((item) => ({ ...item, kind: "sentence" as const }));
+  }
   return [
     {
       id: `lesson-${lesson.number}-title`, lesson: lesson.number, lessonTitle: lesson.title,
@@ -24,9 +33,9 @@ function getLessonItems(lesson: (typeof lessons)[number]): ExerciseItem[] {
 function loadSelectedLesson() {
   try {
     const savedLesson = Number(localStorage.getItem(selectedLessonStorageKey));
-    return lessons.some((item) => item.number === savedLesson) ? savedLesson : lessons[0].number;
+    return allLessons.some((item) => item.number === savedLesson) ? savedLesson : allLessons[0].number;
   } catch {
-    return lessons[0].number;
+    return allLessons[0].number;
   }
 }
 
@@ -51,7 +60,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
   const answers = ref<Record<string, string>>({ ...progress.value.answers });
   const results = ref<Record<string, AnswerFeedback>>({});
 
-  const lesson = computed(() => lessons.find((item) => item.number === selectedLesson.value) || lessons[0]);
+  const lesson = computed(() => allLessons.find((item) => item.number === selectedLesson.value) || allLessons[0]);
   const lessonItems = computed(() => getLessonItems(lesson.value));
   const lessonCompleted = computed(() => lessonItems.value.filter((item) => progress.value.completed.includes(item.id)).length);
   const lessonPercent = computed(() => Math.round((lessonCompleted.value / Math.max(lessonItems.value.length, 1)) * 100));
@@ -78,7 +87,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
 
   function restoreLessonResults() {
     const restored: Record<string, AnswerFeedback> = {};
-    getLessonItems(lessons.find((item) => item.number === selectedLesson.value) || lessons[0]).forEach((item) => {
+    getLessonItems(allLessons.find((item) => item.number === selectedLesson.value) || allLessons[0]).forEach((item) => {
       const value = answers.value[item.id];
       if (value && (progress.value.mistakes[item.id] || 0) > 0) {
         const result = evaluateAnswer(value, item.answer, locale.value, characterMatchPercent.value / 100);
@@ -155,7 +164,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
   }
 
   return {
-    lessons, selectedLesson, lesson, lessonItems, answers, results,
+    lessons: allLessons, selectedLesson, lesson, lessonItems, answers, results,
     displayMode, progress, lessonCompleted, lessonPercent, lessonMistakeHistory,
     updateAnswer, clearAnswer, submit, resetLesson
   };

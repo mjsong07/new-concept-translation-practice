@@ -8,6 +8,7 @@ export interface ExerciseItem {
   lesson: number;
   lessonTitle: string;
   kind?: "title" | "question" | "sentence";
+  mode?: "translate" | "fill" | "sentence";
   speakerZh: string;
   speakerEn: string;
   prompt: string;
@@ -20,6 +21,7 @@ export interface Lesson {
   titleZh: string;
   questionEn: string;
   questionZh: string;
+  kind?: "translation" | "written";
   items: ExerciseItem[];
 }
 

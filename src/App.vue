@@ -7,6 +7,7 @@ import LessonNotesDialog from "./components/LessonNotesDialog.vue";
 import PracticeControls from "./components/PracticeControls.vue";
 import MobileSettings from "./components/MobileSettings.vue";
 import TranslationExercise from "./components/TranslationExercise.vue";
+import WrittenExercise from "./components/WrittenExercise.vue";
 import { useColorScheme } from "./composables/useColorScheme";
 import { useI18n } from "./composables/useI18n";
 import { useTranslationPractice } from "./composables/useTranslationPractice";
@@ -214,7 +215,27 @@ onUnmounted(() => {
         </div>
       </header>
 
+      <WrittenExercise
+        v-if="practice.lesson.value.kind === 'written'"
+        :lesson-number="practice.lesson.value.number"
+        :lesson-title="practice.lesson.value.title"
+        :lesson-title-zh="practice.lesson.value.titleZh"
+        :items="practice.lessonItems.value"
+        :answers="practice.answers.value"
+        :results="practice.results.value"
+        :completed-ids="practice.progress.value.completed"
+        :mistake-history="practice.lessonMistakeHistory.value"
+        :auto-advance-errors="autoAdvanceErrors"
+        :character-match-percent="characterMatchPercent"
+        @update:answer="practice.updateAnswer"
+        @submit="practice.submit"
+        @clear="practice.clearAnswer"
+        @speak="speak"
+        @speak-word="speakWord"
+      />
+
       <TranslationExercise
+        v-else
         :lesson-number="practice.lesson.value.number"
         :lesson-title="practice.lesson.value.title"
         :lesson-title-zh="practice.lesson.value.titleZh"
