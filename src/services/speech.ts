@@ -89,6 +89,7 @@ export function speakEnglishSequence(
   callbacks: {
     onStart?: () => void;
     onSegmentStart?: (segment: SpeechSegment, index: number) => void;
+    onWordStart?: (segment: SpeechSegment, index: number, characterOffset: number) => void;
     onEnd?: () => void;
   } = {}
 ) {
@@ -128,6 +129,10 @@ export function speakEnglishSequence(
         callbacks.onStart?.();
       }
       callbacks.onSegmentStart?.(segment, index);
+    };
+    utterance.onboundary = (event) => {
+      if (generation !== speechGeneration || event.name !== "word") return;
+      callbacks.onWordStart?.(segment, index, event.charIndex);
     };
     utterance.onend = () => {
       clearSpeechKeepAlive();

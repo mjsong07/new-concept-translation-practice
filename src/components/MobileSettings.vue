@@ -19,6 +19,7 @@ const props = defineProps<{
   speechVolume: number;
   voices: SpeechSynthesisVoice[];
   characterMatchPercent: number;
+  autoAdvanceErrors: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -28,6 +29,7 @@ const emit = defineEmits<{
   "update:speechRate": [value: number];
   "update:speechVolume": [value: number];
   "update:characterMatchPercent": [value: number];
+  "update:autoAdvanceErrors": [value: boolean];
   "show-notes": [];
   reset: [];
 }>();
@@ -40,6 +42,11 @@ function selectAdjacentLesson(offset: number) {
   if (!lesson) return;
   emit("update:lessonNumber", lesson.number);
   requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
+
+function resetLesson() {
+  visible.value = false;
+  emit("reset");
 }
 
 </script>
@@ -126,6 +133,11 @@ function selectAdjacentLesson(offset: number) {
         </section>
 
         <section>
+          <label>{{ t('settings.errorNavigation') }}</label>
+          <el-switch :model-value="autoAdvanceErrors" :active-text="t('settings.autoAdvanceErrors')" @update:model-value="emit('update:autoAdvanceErrors', $event)" />
+        </section>
+
+        <section>
           <label>{{ t('settings.voice') }}</label>
           <el-select :model-value="voiceUri" size="large" :placeholder="t('settings.systemVoice')" @update:model-value="emit('update:voiceUri', String($event))">
             <el-option v-for="voice in voices" :key="voice.voiceURI" :label="`${voice.name} · ${voice.lang}`" :value="voice.voiceURI" />
@@ -142,7 +154,7 @@ function selectAdjacentLesson(offset: number) {
           <el-slider :model-value="speechVolume" :min="0" :max="1" :step="0.05" @update:model-value="emit('update:speechVolume', Number($event))" />
         </section>
 
-        <el-button class="mobile-reset-button" plain type="danger" @click="emit('reset')">{{ t('settings.redoLong') }}</el-button>
+        <el-button class="mobile-reset-button" plain type="danger" @click="resetLesson">{{ t('settings.redoLong') }}</el-button>
       </div>
     </el-dialog>
   </div>

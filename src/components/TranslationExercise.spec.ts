@@ -29,7 +29,9 @@ const baseProps = {
   speechActive: false,
   speechPaused: false,
   activeSpeechItemId: "",
+  activeSpeechCharacterOffset: -1,
   activeWordId: "",
+  autoAdvanceErrors: true,
   characterMatchPercent: 50
 };
 
@@ -59,9 +61,6 @@ const global = {
     "el-button": { template: "<button><slot /></button>" },
     "el-icon": { template: "<i><slot /></i>" },
     "el-tooltip": { template: "<div><slot /><slot name='content' /></div>" },
-    "el-dropdown": { template: "<div><slot /><slot name='dropdown' /></div>" },
-    "el-dropdown-menu": { template: "<div><slot /></div>" },
-    "el-dropdown-item": { template: "<div><slot /></div>" },
     "el-dialog": { template: "<div><slot /></div>" },
     "el-empty": true,
     "el-input": ElInputStub
@@ -141,23 +140,13 @@ describe("TranslationExercise speech interaction", () => {
 
   it("focuses the current input after clearing its row", async () => {
     const wrapper = mountExercise({ answers: { [item.id]: "Excuse me!" } });
-    const clearAction = wrapper.findAll("div").find((node) => node.text() === "清空当前行");
+    const clearAction = wrapper.find('button[aria-label="清空当前行"]');
 
-    await clearAction?.trigger("click");
+    await clearAction.trigger("click");
     await flushPromises();
 
     expect(wrapper.emitted("clear")).toEqual([[item.id]]);
     expect(document.activeElement).toBe(wrapper.find("textarea").element);
-  });
-
-  it("reserves extra action width only for rows with a result label", () => {
-    const withoutResult = mountExercise();
-    const withResult = mountExercise({
-      results: { [item.id]: evaluateAnswer("Excuse me!", item.answer, "zh-CN", 0.5) }
-    });
-
-    expect(withoutResult.find(".sentence-answer-row").classes()).not.toContain("has-result");
-    expect(withResult.find(".sentence-answer-row").classes()).toContain("has-result");
   });
 
   it("does not validate the row when the row head is used for pronunciation while typing", async () => {
@@ -202,5 +191,39 @@ describe("TranslationExercise speech interaction", () => {
       "mistake-attempt-list",
       "mistake-line-summary"
     ]);
+  });
+
+  it("underlines the word currently being spoken", () => {
+    const wrapper = mountExercise({
+      displayMode: "original",
+      activeSpeechItemId: item.id,
+      activeSpeechCharacterOffset: 7
+    });
+
+    expect(wrapper.find('[data-word-id="lesson-1-1:2"]').classes()).toContain("is-speaking-word");
+  });
+
+  it("does not select the next error when automatic error navigation is disabled", async () => {
+    const answer = "This is a book.";
+    const testItem: ExerciseItem = { ...item, answer };
+    const answers = reactive<Record<string, string>>({ [item.id]: "This cat " });
+    const results = reactive<Record<string, AnswerFeedback>>({});
+    const wrapper = mountExercise({
+      items: [testItem],
+      answers,
+      results,
+      autoAdvanceErrors: false,
+      "onUpdate:answer": (id: string, value: string) => { answers[id] = value; },
+      onSubmit: (id: string) => { results[id] = evaluateAnswer(answers[id], answer, "zh-CN", 0.5); }
+    });
+    const input = wrapper.find("textarea");
+
+    await input.trigger("keydown", { key: "Enter" });
+    await flushPromises();
+    await input.setValue("This is cat ");
+    await flushPromises();
+
+    expect(input.element.selectionStart).toBe("This is cat ".length);
+    expect(input.element.selectionEnd).toBe("This is cat ".length);
   });
 });

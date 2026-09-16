@@ -17,6 +17,7 @@ defineProps<{
   speechVolume: number;
   voices: SpeechSynthesisVoice[];
   characterMatchPercent: number;
+  autoAdvanceErrors: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -26,6 +27,7 @@ const emit = defineEmits<{
   "update:speechRate": [value: number];
   "update:speechVolume": [value: number];
   "update:characterMatchPercent": [value: number];
+  "update:autoAdvanceErrors": [value: boolean];
   "show-notes": [];
   reset: [];
 }>();
@@ -83,6 +85,11 @@ const emit = defineEmits<{
       <label class="control-label">{{ t('settings.selectionThreshold', { percent: characterMatchPercent }) }}</label>
       <el-slider :model-value="characterMatchPercent" :min="0" :max="100" :step="5" @update:model-value="emit('update:characterMatchPercent', Number($event))" />
       <p>{{ t('settings.selectionThresholdHint') }}</p>
+    </section>
+
+    <section class="control-section auto-error-navigation-settings">
+      <label class="control-label">{{ t('settings.errorNavigation') }}</label>
+      <el-switch :model-value="autoAdvanceErrors" :active-text="t('settings.autoAdvanceErrors')" @update:model-value="emit('update:autoAdvanceErrors', $event)" />
     </section>
 
     <section class="control-section speech-settings">

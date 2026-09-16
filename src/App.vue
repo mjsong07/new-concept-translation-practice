@@ -20,6 +20,8 @@ const savedCharacterMatchPercent = savedCharacterMatchPercentValue === null ? Nu
 const characterMatchPercent = ref(Number.isFinite(savedCharacterMatchPercent) && savedCharacterMatchPercent >= 0 && savedCharacterMatchPercent <= 100
   ? savedCharacterMatchPercent
   : 50);
+const savedAutoAdvanceErrors = localStorage.getItem("new-concept-auto-advance-errors");
+const autoAdvanceErrors = ref(savedAutoAdvanceErrors !== "false");
 const practice = useTranslationPractice(characterMatchPercent);
 const elementLocale = computed(() => locale.value === "en" ? en : zhCn);
 const notesVisible = ref(false);
@@ -33,6 +35,7 @@ const speechVolume = ref(Number.isFinite(savedSpeechVolume) && savedSpeechVolume
 const speechActive = ref(false);
 const speechPaused = ref(false);
 const activeSpeechItemId = ref("");
+const activeSpeechCharacterOffset = ref(-1);
 const activeWordId = ref("");
 const pendingSpeechSegments = ref<SpeechSegment[]>([]);
 const speechContinuationReady = ref(false);
@@ -51,13 +54,20 @@ function speak(segments: SpeechSegment[], pauseAfterFirst = false) {
   speechContinuationReady.value = false;
   pendingSpeechSegments.value = pauseAfterFirst ? segments.slice(1) : [];
   activeSpeechItemId.value = "";
+  activeSpeechCharacterOffset.value = -1;
   const segmentsToPlay = pauseAfterFirst ? segments.slice(0, 1) : segments;
   speakEnglishSequence(segmentsToPlay, { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value }, {
     onStart: () => {
       if (run === speechRun) speechActive.value = true;
     },
     onSegmentStart: (segment) => {
-      if (run === speechRun) activeSpeechItemId.value = segment.itemId || "";
+      if (run === speechRun) {
+        activeSpeechItemId.value = segment.itemId || "";
+        activeSpeechCharacterOffset.value = -1;
+      }
+    },
+    onWordStart: (_segment, _index, characterOffset) => {
+      if (run === speechRun) activeSpeechCharacterOffset.value = characterOffset;
     },
     onEnd: () => {
       if (run === speechRun) {
@@ -70,6 +80,7 @@ function speak(segments: SpeechSegment[], pauseAfterFirst = false) {
         speechPaused.value = false;
         speechContinuationReady.value = false;
         activeSpeechItemId.value = "";
+        activeSpeechCharacterOffset.value = -1;
       }
     }
   });
@@ -82,6 +93,7 @@ function speakWord(wordId: string, wordText: string) {
   speechContinuationReady.value = false;
   pendingSpeechSegments.value = [];
   activeSpeechItemId.value = "";
+  activeSpeechCharacterOffset.value = -1;
   activeWordId.value = wordId;
   speakEnglish(wordText, { voiceURI: voiceUri.value, rate: speechRate.value, volume: speechVolume.value }, {
     onEnd: () => {
@@ -129,6 +141,7 @@ watch(voiceUri, (value) => localStorage.setItem("new-concept-speech-voice", valu
 watch(speechRate, (value) => localStorage.setItem("new-concept-speech-rate", String(value)));
 watch(speechVolume, (value) => localStorage.setItem("new-concept-speech-volume", String(value)));
 watch(characterMatchPercent, (value) => localStorage.setItem("new-concept-character-match-percent", String(value)));
+watch(autoAdvanceErrors, (value) => localStorage.setItem("new-concept-auto-advance-errors", String(value)));
 onMounted(() => {
   refreshVoices();
   window.speechSynthesis?.addEventListener("voiceschanged", refreshVoices);
@@ -156,12 +169,14 @@ onUnmounted(() => {
       :speech-volume="speechVolume"
       :voices="voices"
       :character-match-percent="characterMatchPercent"
+      :auto-advance-errors="autoAdvanceErrors"
       @update:lesson-number="practice.selectedLesson.value = $event"
       @update:color-scheme="colorScheme.mode.value = $event"
       @update:voice-uri="voiceUri = $event"
       @update:speech-rate="speechRate = $event"
       @update:speech-volume="speechVolume = $event"
       @update:character-match-percent="characterMatchPercent = $event"
+      @update:auto-advance-errors="autoAdvanceErrors = $event"
       @show-notes="notesVisible = true"
       @reset="resetCurrentLesson"
     />
@@ -180,12 +195,14 @@ onUnmounted(() => {
         :speech-volume="speechVolume"
         :voices="voices"
         :character-match-percent="characterMatchPercent"
+        :auto-advance-errors="autoAdvanceErrors"
         @update:lesson-number="practice.selectedLesson.value = $event"
         @update:color-scheme="colorScheme.mode.value = $event"
         @update:voice-uri="voiceUri = $event"
         @update:speech-rate="speechRate = $event"
         @update:speech-volume="speechVolume = $event"
         @update:character-match-percent="characterMatchPercent = $event"
+        @update:auto-advance-errors="autoAdvanceErrors = $event"
         @show-notes="notesVisible = true"
         @reset="resetCurrentLesson"
       />
@@ -210,7 +227,9 @@ onUnmounted(() => {
         :speech-active="speechActive"
         :speech-paused="speechPaused"
         :active-speech-item-id="activeSpeechItemId"
+        :active-speech-character-offset="activeSpeechCharacterOffset"
         :active-word-id="activeWordId"
+        :auto-advance-errors="autoAdvanceErrors"
         :character-match-percent="characterMatchPercent"
         @update:display-mode="practice.displayMode.value = $event"
         @update:answer="practice.updateAnswer"
