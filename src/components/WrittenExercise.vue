@@ -382,7 +382,7 @@ function blankValue(item: ExerciseItem, blankIndex: number) {
 
 function blankWidth(item: ExerciseItem, blankIndex: number) {
   const word = (splitBlanks(item.answer)[blankIndex] || "").trim();
-  return `calc(${Math.max(word.length, 2)}ch + 14px)`;
+  return `calc(${Math.max(word.length, 2)}ch + 24px)`;
 }
 
 function blankStartOffset(parts: string[], blankIndex: number) {
