@@ -395,6 +395,7 @@ html.theme-dark {
   .sentence-row.is-wrong .el-textarea__inner { border-bottom-color: #b66057; }
   .answer-comparison { border-left-color: #4d9d78; background: #172c22; }
   .answer-comparison.is-wrong { border-left-color: #d06458; background: #351e1b; }
+  .written-example { background: linear-gradient(rgba(211,169,58,.12), rgba(211,169,58,.12)), rgba(18, 29, 26, .95); }
   .comparison-line,
   .diff-word.is-neutral { color: #c9d2cf; }
   .sentence-row.is-speaking .sentence-english { color: #5b9cf5; }

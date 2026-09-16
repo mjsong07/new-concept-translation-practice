@@ -649,11 +649,30 @@ function onTextClick(event: MouseEvent) {
 }
 
 .written-example {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 23;
   margin: 0 0 10px;
   padding: 8px 12px;
   border-left: 3px solid var(--gold);
   border-radius: 0 10px 10px 0;
-  background: rgba(211, 169, 58, .12);
+  background: linear-gradient(rgba(211, 169, 58, .12), rgba(211, 169, 58, .12)), rgba(255, 253, 248, .97);
+  backdrop-filter: blur(10px);
+}
+
+.sentence-row {
+  scroll-margin-top: 140px;
+}
+
+@media (max-width: 640px) {
+  .written-example {
+    top: calc(env(safe-area-inset-top) + 168px);
+  }
+
+  .sentence-row {
+    scroll-margin-top: calc(env(safe-area-inset-top) + 260px);
+  }
 }
 
 .written-example-label {
