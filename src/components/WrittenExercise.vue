@@ -693,7 +693,7 @@ function onTextClick(event: MouseEvent) {
   vertical-align: baseline;
 }
 
-.written-blank-input :deep(.el-input__wrapper) {
+.written-fill-input.written-blank-input :deep(.el-input__wrapper) {
   padding: 0;
 }
 
