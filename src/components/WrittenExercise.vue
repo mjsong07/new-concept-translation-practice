@@ -290,6 +290,11 @@ function itemLabel(item: ExerciseItem) {
   return structure.value.labelById.get(item.id) || "";
 }
 
+function showComparison(item: ExerciseItem) {
+  if (!props.results[item.id]) return false;
+  return !(isFillMode(item) && rowState(item) === "is-correct");
+}
+
 function openHistory(itemId = "") {
   historyFocusItemId.value = itemId;
   historyVisible.value = true;
@@ -377,7 +382,7 @@ function blankValue(item: ExerciseItem, blankIndex: number) {
 
 function blankWidth(item: ExerciseItem, blankIndex: number) {
   const word = (splitBlanks(item.answer)[blankIndex] || "").trim();
-  return `calc(${Math.max(word.length, 2)}ch + 26px)`;
+  return `calc(${Math.max(word.length, 2)}ch + 14px)`;
 }
 
 function blankStartOffset(parts: string[], blankIndex: number) {
@@ -550,7 +555,7 @@ function onTextClick(event: MouseEvent) {
                   </el-tooltip>
                 </div>
 
-                <div v-if="results[item.id]" class="answer-comparison" :class="{ 'is-wrong': rowState(item) === 'is-wrong' }">
+                <div v-if="showComparison(item)" class="answer-comparison" :class="{ 'is-wrong': rowState(item) === 'is-wrong' }">
                   <p class="comparison-line"><span class="comparison-text" @click="onTextClick"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'clickable-word': /^[A-Za-z0-9]/.test(part.text) }]" :data-word-id="/^[A-Za-z0-9]/.test(part.text) ? `${item.id}-ref:${partIndex}` : undefined">{{ part.text }}</span></span></p>
                 </div>
 
@@ -675,7 +680,7 @@ function onTextClick(event: MouseEvent) {
 .written-fill-prompt {
   display: block;
   min-width: 0;
-  line-height: 1.9;
+  line-height: 1.6;
 }
 
 .written-fill-input {
@@ -683,12 +688,13 @@ function onTextClick(event: MouseEvent) {
 }
 
 .written-blank-input {
-  margin: 0 2px;
+  --el-input-height: 22px;
+  margin: 0 1px;
   vertical-align: baseline;
 }
 
 .written-blank-input :deep(.el-input__wrapper) {
-  padding: 2px 6px;
+  padding: 0 4px;
 }
 
 :deep(.written-fill-input .el-input__wrapper) {
