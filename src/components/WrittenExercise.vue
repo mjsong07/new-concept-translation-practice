@@ -478,7 +478,7 @@ function onTextClick(event: MouseEvent) {
     <div class="exercise-topline">
       <div>
         <span class="lesson-kicker">LESSON {{ lessonNumber }}</span>
-        <h1 class="lesson-title-row">{{ lessonTitleZh }} · {{ lessonTitle }}</h1>
+        <h1 class="lesson-title-row">{{ lessonTitle }}</h1>
       </div>
       <div class="lesson-sentence-count">{{ t('exercise.count', { count: items.length }) }}</div>
     </div>
@@ -501,9 +501,8 @@ function onTextClick(event: MouseEvent) {
             </div>
           </header>
           <div v-if="section.examplePrompt" class="written-example">
-            <p class="written-example-label">{{ t('exercise.example') }}</p>
-            <p class="written-example-prompt">{{ section.examplePrompt }}</p>
-            <p class="written-example-answer" @click="onTextClick"><span v-for="tok in clickableWords(section.exampleAnswer, `example-${section.key}`)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
+            <p class="written-example-prompt sentence-chinese">{{ section.examplePrompt }}</p>
+            <p class="written-example-answer sentence-chinese" @click="onTextClick"><span v-for="tok in clickableWords(section.exampleAnswer, `example-${section.key}`)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
           </div>
           <div class="sentence-list translation-list">
             <article v-for="item in section.items" :key="item.id" class="sentence-row" :class="[rowState(item), { 'is-speaking': activeSpeechItemId === item.id }]">
@@ -653,10 +652,10 @@ function onTextClick(event: MouseEvent) {
   position: sticky;
   top: 0;
   z-index: 23;
-  margin: 0 0 10px;
-  padding: 8px 12px;
+  margin: 0 0 8px;
+  padding: 6px 10px;
   border-left: 3px solid var(--gold);
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 8px 8px 0;
   background: linear-gradient(rgba(211, 169, 58, .12), rgba(211, 169, 58, .12)), rgba(255, 253, 248, .97);
   backdrop-filter: blur(10px);
 }
@@ -675,26 +674,14 @@ function onTextClick(event: MouseEvent) {
   }
 }
 
-.written-example-label {
-  margin: 0 0 4px;
-  color: #a8871f;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
 .written-example-prompt {
   margin: 0;
-  color: var(--ink);
-  font-weight: 600;
   white-space: pre-line;
 }
 
 .written-example-answer {
-  margin: 4px 0 0;
+  margin: 2px 0 0;
   color: var(--green-dark);
-  font-style: italic;
   white-space: pre-line;
 }
 
