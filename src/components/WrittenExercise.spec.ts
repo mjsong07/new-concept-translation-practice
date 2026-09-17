@@ -159,7 +159,7 @@ describe("WrittenExercise sections and inline blanks", () => {
     ]);
   });
 
-  it("moves to the next section and focuses its first input after a correct last answer", async () => {
+  it("stays on the current section after a correct last answer instead of switching tabs", async () => {
     const answers = reactive<Record<string, string>>({ "lesson-66-A6": "in, in" });
     const results = reactive<Record<string, AnswerFeedback>>({});
     const itemById = new Map(lesson66.items.map((item) => [item.id, item]));
@@ -173,7 +173,42 @@ describe("WrittenExercise sections and inline blanks", () => {
     await lastRow.findAll("textarea")[1].trigger("keydown", { key: "Enter" });
     await flushPromises();
 
-    expect(document.activeElement).toBe(wrapper.findAll(".written-section")[1].find("textarea").element);
+    expect(document.activeElement).not.toBe(wrapper.findAll(".written-section")[1].find("textarea").element);
     expect(wrapper.emitted("submit")).toEqual([["lesson-66-A6"]]);
+  });
+
+  it("renders pipe-joined examples as adjacent question-answer pairs", () => {
+    const wrapper = mountExercise({
+      sections: [
+        {
+          key: "C",
+          titleEn: "Answer these questions.",
+          titleZh: "模仿例句回答以下问题。",
+          examplePrompt: "Hasn't anyone opened the window yet? | Hasn't anyone opened the windows yet?",
+          exampleAnswer: "It hasn't been opened yet. It will be opened tomorrow. | They haven't been opened yet. They will be opened tomorrow."
+        }
+      ],
+      items: [
+        {
+          id: "lesson-66-C1",
+          lesson: 66,
+          lessonTitle: lesson66.title,
+          kind: "sentence",
+          mode: "sentence",
+          section: "C",
+          speakerZh: "",
+          speakerEn: "C",
+          prompt: "Hasn't anyone aired this room yet?",
+          answer: "It hasn't been aired yet. It will be aired tomorrow."
+        }
+      ]
+    });
+
+    const pairs = wrapper.findAll(".written-example-pair");
+    expect(pairs).toHaveLength(2);
+    expect(pairs[0].find(".written-example-prompt").text()).toBe("Hasn't anyone opened the window yet?");
+    expect(pairs[0].find(".written-example-answer").text()).toBe("It hasn't been opened yet. It will be opened tomorrow.");
+    expect(pairs[1].find(".written-example-prompt").text()).toBe("Hasn't anyone opened the windows yet?");
+    expect(pairs[1].find(".written-example-answer").text()).toBe("They haven't been opened yet. They will be opened tomorrow.");
   });
 });

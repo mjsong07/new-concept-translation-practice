@@ -149,9 +149,10 @@ async function submitAndAdvance(item: ExerciseItem, element: HTMLInputElement | 
   const anticipatedResult = evaluateAnswer(answer, item.answer, locale.value, props.characterMatchPercent / 100);
   const currentIndex = props.items.findIndex((candidate) => candidate.id === item.id);
   const nextItem = props.items[currentIndex + 1];
+  const nextInTab = nextItem && sectionKeyOf(nextItem) === activeSection.value ? nextItem : undefined;
   if (!shouldAutoFocus() && anticipatedResult.level === "correct" && nextItem) {
-    switchToSection(nextItem);
-    focusItem(nextItem.id, 0, true);
+    if (nextInTab) focusItem(nextItem.id, 0, true);
+    else element.blur();
   }
   emit("submit", item.id);
   await nextTick();
@@ -160,7 +161,7 @@ async function submitAndAdvance(item: ExerciseItem, element: HTMLInputElement | 
   if (result?.level === "correct") clearErrorAnchors(item.id);
   if (!shouldAutoFocus()) {
     if (result?.level !== "correct") selectError(item.id, element, result);
-    else if (!nextItem) element.blur();
+    else if (!nextInTab) element.blur();
     return;
   }
   if (result?.level !== "correct") {
@@ -169,10 +170,11 @@ async function submitAndAdvance(item: ExerciseItem, element: HTMLInputElement | 
     selectError(item.id, target, result, true);
     return;
   }
-  if (nextItem) {
-    switchToSection(nextItem);
+  if (nextInTab) {
     await nextTick();
-    focusItem(nextItem.id);
+    focusItem(nextInTab.id);
+  } else {
+    element.blur();
   }
 }
 
@@ -288,6 +290,15 @@ function rowState(item: ExerciseItem) {
 
 function itemLabel(item: ExerciseItem) {
   return structure.value.labelById.get(item.id) || "";
+}
+
+function examplePairs(section: PracticeSection) {
+  const prompts = section.examplePrompt.split(" | ");
+  const answers = section.exampleAnswer.split(" | ");
+  if (prompts.length > 1 && prompts.length === answers.length) {
+    return prompts.map((prompt, index) => ({ prompt, answer: answers[index] }));
+  }
+  return [{ prompt: section.examplePrompt, answer: section.exampleAnswer }];
 }
 
 function showComparison(item: ExerciseItem) {
@@ -501,8 +512,10 @@ function onTextClick(event: MouseEvent) {
             </div>
           </header>
           <div v-if="section.examplePrompt" class="written-example">
-            <p class="written-example-prompt sentence-chinese">{{ section.examplePrompt }}</p>
-            <p class="written-example-answer sentence-chinese" @click="onTextClick"><span v-for="tok in clickableWords(section.exampleAnswer, `example-${section.key}`)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
+            <div v-for="(pair, pairIndex) in examplePairs(section)" :key="`${section.key}-${pairIndex}`" class="written-example-pair">
+              <p class="written-example-prompt sentence-chinese">{{ pair.prompt }}</p>
+              <p class="written-example-answer sentence-chinese" @click="onTextClick"><span v-for="tok in clickableWords(pair.answer, `example-${section.key}-${pairIndex}`)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
+            </div>
           </div>
           <div class="sentence-list translation-list">
             <article v-for="item in section.items" :key="item.id" class="sentence-row" :class="[rowState(item), { 'is-speaking': activeSpeechItemId === item.id }]">
@@ -672,6 +685,12 @@ function onTextClick(event: MouseEvent) {
   .sentence-row {
     scroll-margin-top: calc(env(safe-area-inset-top) + 260px);
   }
+}
+
+.written-example-pair + .written-example-pair {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(168, 135, 31, .35);
 }
 
 .written-example-prompt {
