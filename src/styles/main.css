@@ -169,7 +169,8 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
 .mobile-settings-dialog .lesson-filter-section .el-segmented { width: 100%; }
 .lesson-select-section .el-select__wrapper { min-height: 52px; padding: 8px 15px; }
 .lesson-select-section .el-select__selected-item, .lesson-select-section .el-select__placeholder { font-size: 17px; font-weight: 600; }
-.lesson-select-popper .el-select-dropdown__item { height: 44px; padding: 0 14px; font-size: 16px; line-height: 44px; }
+.lesson-select-popper .el-select-dropdown__wrap { max-height: 340px; }
+.lesson-select-popper .el-select-dropdown__item { height: 30px; padding: 0 12px; font-size: 13px; line-height: 30px; }
 .mobile-settings-form .el-radio-button { flex: 1; }
 .mobile-settings-form .el-radio-button__inner { width: 100%; }
 .mobile-dialog-progress { padding: 15px; border-radius: 14px; background: #f4f7f5; }
