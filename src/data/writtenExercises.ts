@@ -4,7 +4,7 @@ import type { Lesson } from "../types/practice";
 // 数据来源：《新概念英语》第1册 PDF（扫描版）第 2-144 课全部偶数课，逐课对照原书转录。
 // section: 对应教材 Written exercises 下的分区字母（A、B、C…），分区标题与例句见 sections。
 // mode: 'fill' 表示根据例句填空（仅输入缺失词），'sentence' 表示根据例句写完整句子。
-// 一个分区内印有多个例句时，examplePrompt/exampleAnswer 内用换行分隔。
+// 一个分区内印有多个例句时，examplePrompt/exampleAnswer 内用 " | " 一一对应分隔；同一例句内的多行对话用换行分隔。
 // L68 A、L86 A 原书为"必要时填 the/has"（部分空不填），已改写为输入完整句子以便判分。
 export const writtenExercises: Lesson[] = [
   {
@@ -547,8 +547,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Write questions and answers using He, She, It, a or an.",
         titleZh: "模仿例句写出相应的疑问句，并回答。选用 He, She, It, a 或 an 等词。",
-        examplePrompt: "This is Miss Sophie Dupont. French/(Swedish)\nThis is a Volvo. Swedish/(French)",
-        exampleAnswer: "Is she a French student or a Swedish student? She isn't a Swedish student. She's a French student.\nIs it a Swedish car or a French car? It isn't a French car. It's a Swedish car.",
+        examplePrompt: "This is Miss Sophie Dupont. French/(Swedish) | This is a Volvo. Swedish/(French)",
+        exampleAnswer: "Is she a French student or a Swedish student? She isn't a Swedish student. She's a French student. | Is it a Swedish car or a French car? It isn't a French car. It's a Swedish car.",
       },
     ],
     items: [
@@ -765,8 +765,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Write questions and answers using his, her, he, she, a or an.",
         titleZh: "模仿例句写出相应的疑问句，并回答。选用 his, her, he, she, a 或 an 等词。",
-        examplePrompt: "keyboard operator\nengineer",
-        exampleAnswer: "What's her job? Is she a keyboard operator? Yes, she is.\nWhat's his job? Is he an engineer? Yes, he is.",
+        examplePrompt: "keyboard operator | engineer",
+        exampleAnswer: "What's her job? Is she a keyboard operator? Yes, she is. | What's his job? Is he an engineer? Yes, he is.",
       },
     ],
     items: [
@@ -1630,8 +1630,8 @@ export const writtenExercises: Lesson[] = [
         key: "A",
         titleEn: "Complete these sentences using a or an.",
         titleZh: "完成以下句子，用冠词 a 或 an 填空。",
-        examplePrompt: "It is _____ Swedish car.\nShe is _____ air hostess.",
-        exampleAnswer: "a\nan",
+        examplePrompt: "It is _____ Swedish car. | She is _____ air hostess.",
+        exampleAnswer: "a | an",
       },
       {
         key: "B",
@@ -3721,8 +3721,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Write sentences using these words.",
         titleZh: "模仿例句提问并回答。",
-        examplePrompt: "boy swimming/across the river\nchildren going/into the park",
-        exampleAnswer: "Where is the boy swimming?\nHe's swimming across the river.\nWhere are the children going?\nThey're going into the park.",
+        examplePrompt: "boy swimming/across the river | children going/into the park",
+        exampleAnswer: "Where is the boy swimming?\nHe's swimming across the river. | Where are the children going?\nThey're going into the park.",
       },
     ],
     items: [
@@ -4061,8 +4061,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Rewrite these sentences.",
         titleZh: "模仿例句改写以下句子。",
-        examplePrompt: "Put on your coat!\nPut on your shoes!",
-        exampleAnswer: "I'm going to put it on.\nI'm going to put them on.",
+        examplePrompt: "Put on your coat! | Put on your shoes!",
+        exampleAnswer: "I'm going to put it on. | I'm going to put them on.",
       },
     ],
     items: [
@@ -4267,8 +4267,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Write questions and answers using these words.",
         titleZh: "模仿例句提问并回答。",
-        examplePrompt: "passport/on the table\nbread/on the table",
-        exampleAnswer: "Is there a passport here?\nYes, there is. There's one on the table.\nIs there any bread here?\nYes, there is. There's some on the table.",
+        examplePrompt: "passport/on the table | bread/on the table",
+        exampleAnswer: "Is there a passport here?\nYes, there is. There's one on the table. | Is there any bread here?\nYes, there is. There's some on the table.",
       },
     ],
     items: [
@@ -4485,8 +4485,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Write questions and answers using these words.",
         titleZh: "模仿例句提问并回答。",
-        examplePrompt: "bread/on the table\nhammers/behind that box",
-        exampleAnswer: "Is there any bread here?\nYes, there is. There's some on the table.\nAre there any hammers here?\nYes, there are. There are some behind that box.",
+        examplePrompt: "bread/on the table | hammers/behind that box",
+        exampleAnswer: "Is there any bread here?\nYes, there is. There's some on the table. | Are there any hammers here?\nYes, there are. There are some behind that box.",
       },
     ],
     items: [
@@ -4708,15 +4708,15 @@ export const writtenExercises: Lesson[] = [
         key: "A",
         titleEn: "Rewrite these sentences.",
         titleZh: "模仿例句改写以下句子。",
-        examplePrompt: "He is taking his book.\nShe is putting on her coat.",
-        exampleAnswer: "He can take his book.\nShe can put on her coat.",
+        examplePrompt: "He is taking his book. | She is putting on her coat.",
+        exampleAnswer: "He can take his book. | She can put on her coat.",
       },
       {
         key: "B",
         titleEn: "Write questions and answers using I, he, she, it, we or they.",
         titleZh: "模仿例句写出相应的对话，选用 I，he，she，it，we 或 they 等代词。",
-        examplePrompt: "Can you put on your coat?\nCan you and Sam listen to the radio?",
-        exampleAnswer: "Yes, I can.\nWhat can you do?\nI can put on my coat.\nYes, we can.\nWhat can you and Sam do?\nWe can listen to the radio.",
+        examplePrompt: "Can you put on your coat? | Can you and Sam listen to the radio?",
+        exampleAnswer: "Yes, I can.\nWhat can you do?\nI can put on my coat. | Yes, we can.\nWhat can you and Sam do?\nWe can listen to the radio.",
       },
     ],
     items: [
@@ -5159,8 +5159,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Answer these questions using I, he or she.",
         titleZh: "模仿例句回答以下问题，选用 I, he 或 she。",
-        examplePrompt: "Does Penny like tomatoes?\nDo you like potatoes?",
-        exampleAnswer: "Yes, she does.\nShe likes tomatoes, but she doesn't want any.\nYes, I do.\nI like potatoes, but I don't want any.",
+        examplePrompt: "Does Penny like tomatoes? | Do you like potatoes?",
+        exampleAnswer: "Yes, she does.\nShe likes tomatoes, but she doesn't want any. | Yes, I do.\nI like potatoes, but I don't want any.",
       },
     ],
     items: [
@@ -6019,8 +6019,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Write questions and answers following the pattern in the example.",
         titleZh: "模仿例句提问并回答 。",
-        examplePrompt: "they/every day  go/to school by car\ntoday  go/to school on foot",
-        exampleAnswer: "What do they usually do every day?\nThey usually go to school by car every day.\nWhat are they doing today?\nThey are going to school on foot today.",
+        examplePrompt: "they/every day  go/to school by car | today  go/to school on foot",
+        exampleAnswer: "What do they usually do every day?\nThey usually go to school by car every day. | What are they doing today?\nThey are going to school on foot today.",
       },
     ],
     items: [
@@ -6122,8 +6122,8 @@ export const writtenExercises: Lesson[] = [
         key: "A",
         titleEn: "Rewrite these sentences using -s or -es where necessary.",
         titleZh: "根据需要为以下句子中用斜体书写的名词加上 -s 或 -es,或保持原形 。",
-        examplePrompt: "I don't have any banana, but I have some peach.\nI don't have any coffee, but I have some milk.",
-        exampleAnswer: "I don't have any bananas, but I have some peaches.\nI don't have any coffee, but I have some milk.",
+        examplePrompt: "I don't have any banana, but I have some peach. | I don't have any coffee, but I have some milk.",
+        exampleAnswer: "I don't have any bananas, but I have some peaches. | I don't have any coffee, but I have some milk.",
       },
       {
         key: "B",
@@ -6316,8 +6316,8 @@ export const writtenExercises: Lesson[] = [
         key: "A",
         titleEn: "Rewrite these sentences using He.",
         titleZh: "改写下列句子，用 He 作主语。",
-        examplePrompt: "I have a headache. / I must stay at home.",
-        exampleAnswer: "He has a headache. / He must stay at home.",
+        examplePrompt: "I have a headache. | I must stay at home.",
+        exampleAnswer: "He has a headache. | He must stay at home.",
       },
       {
         key: "B",
@@ -6901,8 +6901,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Write questions and answers using we/they and at/in/on.",
         titleZh: "模仿例句提问并回答，选用 we 或 they 作主语，介词可选用 at, in 或 on。",
-        examplePrompt: "Sam and Penny/the stationer's/Monday; you and Penny/Australia/July",
-        exampleAnswer: "Where were Sam and Penny on Monday? They were at the stationer's on Monday. / Where were you and Penny in July? We were in Australia in July.",
+        examplePrompt: "Sam and Penny/the stationer's/Monday | you and Penny/Australia/July",
+        exampleAnswer: "Where were Sam and Penny on Monday? They were at the stationer's on Monday. | Where were you and Penny in July? We were in Australia in July.",
       },
     ],
     items: [
@@ -7701,8 +7701,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Answer these questions.",
         titleZh: "模仿例句回答以下问题，注意时间状语的变化。",
-        examplePrompt: "It's eight o'clock. When did you see him? (half an hour ago) / It's Friday. When did she go to London? (the day before yesterday) / It's June. When did Mr Jones buy that car? (last month)",
-        exampleAnswer: "I saw him at half past seven. / She went to London on Wednesday. / He bought that car in May.",
+        examplePrompt: "It's eight o'clock. When did you see him? (half an hour ago) | It's Friday. When did she go to London? (the day before yesterday) | It's June. When did Mr Jones buy that car? (last month)",
+        exampleAnswer: "I saw him at half past seven. | She went to London on Wednesday. | He bought that car in May.",
       },
     ],
     items: [
@@ -7828,15 +7828,15 @@ export const writtenExercises: Lesson[] = [
         key: "A",
         titleEn: "Rewrite these sentences.",
         titleZh: "模仿例句改写以下句子。",
-        examplePrompt: "I don't have any eggs. / He doesn't have any coffee.",
-        exampleAnswer: "I haven't got many eggs. / He hasn't got much coffee.",
+        examplePrompt: "I don't have any eggs. | He doesn't have any coffee.",
+        exampleAnswer: "I haven't got many eggs. | He hasn't got much coffee.",
       },
       {
         key: "B",
         titleEn: "Make two statements for each question, as in the examples.",
         titleZh: "模仿例句用两种方式回答以下每个问题。",
-        examplePrompt: "Have you got any cheese? (grocer's) / Has he got any envelopes? (newsagent's)",
-        exampleAnswer: "I need a lot of cheese. I haven't got much. I must go to the grocer's to get some cheese. / He needs a lot of envelopes. He hasn't got many. He must go to the newsagent's to get some envelopes.",
+        examplePrompt: "Have you got any cheese? (grocer's) | Has he got any envelopes? (newsagent's)",
+        exampleAnswer: "I need a lot of cheese. I haven't got much. I must go to the grocer's to get some cheese. | He needs a lot of envelopes. He hasn't got many. He must go to the newsagent's to get some envelopes.",
       },
     ],
     items: [
@@ -8240,15 +8240,15 @@ export const writtenExercises: Lesson[] = [
         key: "A",
         titleEn: "Write responses using some or one.",
         titleZh: "模仿例句写出对应的回答，选用 some 或 one。",
-        examplePrompt: "Have some coffee. / Have a banana.",
-        exampleAnswer: "I've already had some. / I've already had one.",
+        examplePrompt: "Have some coffee. | Have a banana.",
+        exampleAnswer: "I've already had some. | I've already had one.",
       },
       {
         key: "B",
         titleEn: "Answer these questions.",
         titleZh: "模仿例句回答以下问题。",
         examplePrompt: "Have you had any vegetables or fruit? (I)",
-        exampleAnswer: "I haven't had any vegetables. / I've just had some fruit.",
+        exampleAnswer: "I haven't had any vegetables.\nI've just had some fruit.",
       },
     ],
     items: [
@@ -8725,14 +8725,14 @@ export const writtenExercises: Lesson[] = [
         titleEn: "Write questions and answers.",
         titleZh: "模仿例句就以下句子提问，并作出否定的回答。",
         examplePrompt: "He bought a house last year.",
-        exampleAnswer: "Did he buy a house last year? / He didn't buy a house last year.",
+        exampleAnswer: "Did he buy a house last year?\nHe didn't buy a house last year.",
       },
       {
         key: "B",
         titleEn: "Write questions and answers.",
         titleZh: "模仿例句提问并回答。",
         examplePrompt: "they/buy a new house/two weeks ago",
-        exampleAnswer: "Have they bought a new house yet? / Yes, they have already bought a new house. / When did they buy a new house? / They bought a new house two weeks ago.",
+        exampleAnswer: "Have they bought a new house yet?\nYes, they have already bought a new house.\nWhen did they buy a new house?\nThey bought a new house two weeks ago.",
       },
     ],
     items: [
@@ -8943,14 +8943,14 @@ export const writtenExercises: Lesson[] = [
         titleEn: "Write questions and answers.",
         titleZh: "模仿例句就以下句子提问，并作出否定的回答。",
         examplePrompt: "He read this book last week.",
-        exampleAnswer: "Did he read this book last week? / He didn't read this book last week.",
+        exampleAnswer: "Did he read this book last week?\nHe didn't read this book last week.",
       },
       {
         key: "B",
         titleEn: "Answer these questions.",
         titleZh: "模仿例句回答以下问题。",
-        examplePrompt: "Did you read this book last week? / What about Penny?",
-        exampleAnswer: "Yes, I read this book last week. / She hasn't read this book yet.",
+        examplePrompt: "Did you read this book last week?\nWhat about Penny?",
+        exampleAnswer: "Yes, I read this book last week.\nShe hasn't read this book yet.",
       },
     ],
     items: [
@@ -10185,8 +10185,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Answer these questions.",
         titleZh: "模仿例句回答以下问题。",
-        examplePrompt: "Could he answer all the questions? (Yes/easy)\nCould he answer all the questions? (No/difficult)",
-        exampleAnswer: "Yes, he could. They were easy enough for him to answer.\nNo, he couldn't. They were too difficult for him to answer.",
+        examplePrompt: "Could he answer all the questions? (Yes/easy) | Could he answer all the questions? (No/difficult)",
+        exampleAnswer: "Yes, he could. They were easy enough for him to answer. | No, he couldn't. They were too difficult for him to answer.",
       },
     ],
     items: [
@@ -11038,8 +11038,8 @@ export const writtenExercises: Lesson[] = [
         key: "B",
         titleEn: "Answer these questions.",
         titleZh: "模仿例句回答以下问题。",
-        examplePrompt: "Have you got any coffee?\nHave you got any biscuits?",
-        exampleAnswer: "I haven't got much coffee. I've got very little.\nI haven't got many biscuits. I've got very few.",
+        examplePrompt: "Have you got any coffee? | Have you got any biscuits?",
+        exampleAnswer: "I haven't got much coffee. I've got very little. | I haven't got many biscuits. I've got very few.",
       },
       {
         key: "C",
@@ -11052,8 +11052,8 @@ export const writtenExercises: Lesson[] = [
         key: "D",
         titleEn: "Write new sentences.",
         titleZh: "模仿例句改写以下句子。",
-        examplePrompt: "I've got some coffee.\nI've got some biscuits.",
-        exampleAnswer: "I've got less coffee than you have. I've got the least.\nI've got fewer biscuits than you have. I've got the fewest.",
+        examplePrompt: "I've got some coffee. | I've got some biscuits.",
+        exampleAnswer: "I've got less coffee than you have. I've got the least. | I've got fewer biscuits than you have. I've got the fewest.",
       },
     ],
     items: [
@@ -11335,8 +11335,8 @@ export const writtenExercises: Lesson[] = [
         key: "A",
         titleEn: "Complete these sentences.",
         titleZh: "模仿例句完成以下句子。",
-        examplePrompt: "This dress is long, but that one is _____.\nTom is intelligent, but Bill is _____.",
-        exampleAnswer: "longer\nmore intelligent",
+        examplePrompt: "This dress is long, but that one is _____. | Tom is intelligent, but Bill is _____.",
+        exampleAnswer: "longer | more intelligent",
       },
       {
         key: "B",

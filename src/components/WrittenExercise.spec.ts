@@ -207,8 +207,8 @@ describe("WrittenExercise sections and inline blanks", () => {
     const pairs = wrapper.findAll(".written-example-pair");
     expect(pairs).toHaveLength(2);
     expect(pairs[0].find(".written-example-prompt").text()).toBe("Hasn't anyone opened the window yet?");
-    expect(pairs[0].find(".written-example-answer").text()).toBe("It hasn't been opened yet. It will be opened tomorrow.");
+    expect(pairs[0].find(".written-example-answer").text()).toBe("It hasn't been opened yet.\nIt will be opened tomorrow.");
     expect(pairs[1].find(".written-example-prompt").text()).toBe("Hasn't anyone opened the windows yet?");
-    expect(pairs[1].find(".written-example-answer").text()).toBe("They haven't been opened yet. They will be opened tomorrow.");
+    expect(pairs[1].find(".written-example-answer").text()).toBe("They haven't been opened yet.\nThey will be opened tomorrow.");
   });
 });

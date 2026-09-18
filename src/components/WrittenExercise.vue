@@ -301,6 +301,10 @@ function examplePairs(section: PracticeSection) {
   return [{ prompt: section.examplePrompt, answer: section.exampleAnswer }];
 }
 
+function withSentenceBreaks(text: string) {
+  return text.replace(/([.?!]) (?=[A-Z"'“])/g, "$1\n");
+}
+
 function showComparison(item: ExerciseItem) {
   if (!props.results[item.id]) return false;
   return !(isFillMode(item) && rowState(item) === "is-correct");
@@ -513,8 +517,8 @@ function onTextClick(event: MouseEvent) {
           </header>
           <div v-if="section.examplePrompt" class="written-example">
             <div v-for="(pair, pairIndex) in examplePairs(section)" :key="`${section.key}-${pairIndex}`" class="written-example-pair">
-              <p class="written-example-prompt sentence-chinese">{{ pair.prompt }}</p>
-              <p class="written-example-answer sentence-chinese" @click="onTextClick"><span v-for="tok in clickableWords(pair.answer, `example-${section.key}-${pairIndex}`)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
+              <p class="written-example-prompt sentence-chinese">{{ withSentenceBreaks(pair.prompt) }}</p>
+              <p class="written-example-answer sentence-chinese" @click="onTextClick"><span v-for="tok in clickableWords(withSentenceBreaks(pair.answer), `example-${section.key}-${pairIndex}`)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
             </div>
           </div>
           <div class="sentence-list translation-list">
