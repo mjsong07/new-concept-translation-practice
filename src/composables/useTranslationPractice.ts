@@ -131,16 +131,6 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
     } else {
       progress.value.completed = progress.value.completed.filter((itemId) => itemId !== item.id);
       progress.value.mistakes[item.id] = (progress.value.mistakes[item.id] || 0) + 1;
-      const lastCorrectAt = progress.value.lastCorrectAt[item.id] || 0;
-      const existingEntry = progress.value.mistakeHistory.find((entry) => entry.itemId === item.id && entry.createdAt > lastCorrectAt);
-      if (existingEntry) {
-        existingEntry.input = value;
-        existingEntry.missing = result.missing;
-        existingEntry.extra = result.extra;
-        existingEntry.explanation = result.explanation;
-        existingEntry.createdAt = timestamp;
-        return;
-      }
       const historyEntry: MistakeHistoryEntry = {
         id: `${item.id}-${timestamp}-${progress.value.attempts}`,
         itemId: item.id, lesson: item.lesson, prompt: item.prompt, input: value, answer: item.answer,

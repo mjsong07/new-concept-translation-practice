@@ -322,6 +322,12 @@ async function clearAndFocus(itemId: string) {
   scrollToItem(itemId);
 }
 
+function insertNewline(itemId: string) {
+  const current = answers[itemId] || "";
+  onAnswerInput(itemId, current + "\n");
+  nextTick(() => focusItem(itemId));
+}
+
 function scrollToItem(itemId: string) {
   const element = getInputElement(itemId);
   const target = element?.closest(".sentence-row") || element;
@@ -552,6 +558,18 @@ function onTextClick(event: MouseEvent) {
                     </template>
                   </div>
                   <p v-else class="sentence-chinese">{{ item.prompt }}</p>
+                  <button
+                    v-if="!isFillMode(item)"
+                    type="button"
+                    class="row-action-button newline-button"
+                    :aria-label="t('exercise.insertNewline')"
+                    @mousedown.prevent @click="insertNewline(item.id)"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 10l-5 5 5 5"/>
+                      <path d="M20 4v8a5 5 0 0 1-5 5H4"/>
+                    </svg>
+                  </button>
                   <el-button
                     v-if="!isFillMode(item)"
                     class="row-action-button" text circle size="small" :icon="Delete"

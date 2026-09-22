@@ -222,6 +222,8 @@ button.sentence-number:focus-visible { outline: 2px solid rgba(47,128,237,.4); o
 .sentence-answer-row .el-textarea__inner:focus { border-bottom: 2px solid var(--green); box-shadow: none; }
 .row-action-button.el-button { flex: 0 0 auto; width: 24px; height: 24px; min-height: 24px; margin: 0; color: var(--muted); }
 .row-action-button.el-button:hover:not(.is-disabled) { color: var(--green); }
+.newline-button { display: inline-flex; align-items: center; justify-content: center; border: none; background: transparent; cursor: pointer; padding: 0; border-radius: 50%; }
+.newline-button:hover { color: var(--green); }
 .input-result-label { flex: 0 0 auto; margin-top: 4px; font-size: 11px; font-weight: 700; white-space: nowrap; }
 .sentence-row.is-correct .sentence-number { color: #fff; background: #42a56f; }
 .sentence-row.is-correct .sentence-chinese, .sentence-row.is-correct .row-status-icon, .sentence-row.is-correct .input-result-label { color: #278957; }
