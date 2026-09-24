@@ -284,6 +284,7 @@ button.sentence-number:focus-visible { outline: 2px solid rgba(47,128,237,.4); o
 .mistake-attempt-row time { color: var(--muted); font-size: 10px; }
 .lesson-notes-button { width: 100%; }
 .lesson-notes-dialog { border-radius: 20px; }
+.lesson-notes-dialog .el-dialog__body { max-height: 70vh; overflow-y: auto; padding-top: 4px; }
 .lesson-notes-body { color: var(--ink); font-size: 14px; line-height: 1.75; }
 .lesson-notes-body h2 { margin: 18px 0 8px; color: var(--green-dark); font-size: 19px; }
 .lesson-notes-body h3 { margin: 16px 0 7px; color: var(--green-dark); font-size: 16px; }
@@ -319,13 +320,14 @@ button.sentence-number:focus-visible { outline: 2px solid rgba(47,128,237,.4); o
 .lesson-textbook .textbook-zh { margin: 2px 0 8px; color: var(--muted); font-size: 14px; line-height: 1.5; }
 .class-notes-pages { display: grid; gap: 14px; }
 .class-notes-page { width: 100%; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 14px rgba(32,51,48,.08); }
-.lesson-content { max-height: 60vh; overflow: auto; padding-right: 4px; }
+.lesson-content { padding-right: 4px; }
 .lesson-content p { margin: 0 0 4px; color: var(--ink); font-size: 14px; line-height: 1.65; white-space: nowrap; }
 .lesson-content-subhead { margin-top: 12px !important; font-weight: 700; color: var(--green-dark); }
 .lesson-content-t { margin-top: 9px; font-weight: 700; color: var(--ink); }
 .lesson-content-s { padding-left: 1.4em; color: var(--green-dark); }
-.lesson-content-phonetic { color: var(--muted); font-style: italic; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .04em; }
 .lesson-content-word { font-weight: 700; color: var(--green-dark); margin-top: 8px; }
+.answer-toggle { margin-left: 6px; cursor: pointer; color: var(--muted); vertical-align: middle; font-size: 15px; }
+.answer-toggle:hover { color: var(--ink); }
 .homework-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px; }
 .homework-summary { grid-column: 1 / -1; }
 .homework-cell { display: flex; flex-direction: column; gap: 6px; }

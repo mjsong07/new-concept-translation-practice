@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
-import { Check, Edit } from "@element-plus/icons-vue";
+import { Check, Edit, View, Hide } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { lessonNotes } from "../data/lessonNotes";
 import { lessonContent } from "../data/lessonContent";
@@ -121,20 +121,47 @@ const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || 
 
 // Q§ 提问 / A§ 回答 / § 单词头词，做字体与颜色区分（原始 T:/S:/音标已在提取时剔除）。
 const DRILL = new Set(["Comprehension", "Asking questions", "Practices"]);
-const showAnswers = ref(true);
 function lineClass(line: string) {
   if (line.startsWith("Q§")) return "lesson-content-t";
   if (line.startsWith("A§")) return "lesson-content-s";
   if (line.startsWith("§")) return "lesson-content-word";
   return "";
 }
-function isAnswer(line: string) {
-  return line.startsWith("A§");
-}
 
 // 显示前去掉内部标记。
 function displayLine(line: string) {
   return line.replace(/^(Q§|A§|§)/, "");
+}
+
+// 操练块按“提问 -> 紧随其后的回答”分组；每个提问后面放一个小眼睛，单独切换它对应的回答。
+interface DrillGroup {
+  q: string;
+  answers: string[];
+}
+function drillGroups(lines: string[]): DrillGroup[] {
+  const groups: DrillGroup[] = [];
+  let cur: DrillGroup | null = null;
+  for (const line of lines) {
+    if (line.startsWith("Q§")) {
+      cur = { q: line, answers: [] };
+      groups.push(cur);
+    } else if (line.startsWith("A§") && cur) {
+      cur.answers.push(line);
+    }
+  }
+  return groups;
+}
+
+// 已隐藏回答的分组 key（blockIndex-groupIndex）。
+const hiddenGroups = ref<Set<string>>(new Set());
+function toggleGroup(key: string) {
+  const next = new Set(hiddenGroups.value);
+  if (next.has(key)) next.delete(key);
+  else next.add(key);
+  hiddenGroups.value = next;
+}
+function groupShown(key: string) {
+  return !hiddenGroups.value.has(key);
 }
 
 // Homework tab 顶部的作业要求（从 PDF homework 虚线框提取）。
@@ -196,15 +223,32 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         :label="block.category"
         :name="`content-${i}`"
       >
-        <div v-if="DRILL.has(block.category)" class="lesson-content-toolbar">
-          <el-button size="small" plain @click="showAnswers = !showAnswers">
-            {{ showAnswers ? t("notes.hideAnswers") : t("notes.showAnswers") }}
-          </el-button>
+        <!-- 问答操练：每个提问后放小眼睛，单独切换它对应的回答。 -->
+        <div v-if="DRILL.has(block.category)" class="lesson-content">
+          <template v-for="(g, gi) in drillGroups(block.lines)" :key="gi">
+            <p :class="lineClass(g.q)">
+              {{ displayLine(g.q) }}
+              <el-icon
+                class="answer-toggle"
+                :title="groupShown(i + '-' + gi) ? '隐藏回答' : '显示回答'"
+                @click="toggleGroup(i + '-' + gi)"
+              >
+                <View v-if="groupShown(i + '-' + gi)" />
+                <Hide v-else />
+              </el-icon>
+            </p>
+            <p
+              v-for="(a, ai) in g.answers"
+              v-show="groupShown(i + '-' + gi)"
+              :key="ai"
+              :class="lineClass(a)"
+            >{{ displayLine(a) }}</p>
+          </template>
         </div>
-        <div class="lesson-content">
+        <!-- 非问答类（Words/Grammar/Story）：直接列出行。 -->
+        <div v-else class="lesson-content">
           <p
             v-for="(line, j) in block.lines"
-            v-show="showAnswers || !isAnswer(line)"
             :key="j"
             :class="lineClass(line)"
           >{{ displayLine(line) }}</p>
