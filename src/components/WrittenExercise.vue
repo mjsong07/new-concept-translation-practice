@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from "vue";
-import { CircleCheckFilled, Delete, Histogram, RefreshRight, VideoPause, VideoPlay } from "@element-plus/icons-vue";
+import { Bottom, CircleCheckFilled, Delete, Histogram, RefreshRight, VideoPause, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, ExerciseItem, MistakeHistoryEntry, SpeechSegment, WrittenSectionMeta } from "../types/practice";
@@ -558,18 +558,12 @@ function onTextClick(event: MouseEvent) {
                     </template>
                   </div>
                   <p v-else class="sentence-chinese">{{ item.prompt }}</p>
-                  <button
+                  <el-button
                     v-if="!isFillMode(item)"
-                    type="button"
-                    class="row-action-button newline-button"
+                    class="row-action-button" text circle size="small" :icon="Bottom"
                     :aria-label="t('exercise.insertNewline')"
                     @mousedown.prevent @click="insertNewline(item.id)"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M9 10l-5 5 5 5"/>
-                      <path d="M20 4v8a5 5 0 0 1-5 5H4"/>
-                    </svg>
-                  </button>
+                  />
                   <el-button
                     v-if="!isFillMode(item)"
                     class="row-action-button" text circle size="small" :icon="Delete"
