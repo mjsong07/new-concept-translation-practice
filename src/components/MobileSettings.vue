@@ -40,7 +40,10 @@ const visible = ref(false);
 const currentLessonIndex = computed(() => props.lessons.findIndex((lesson) => lesson.number === props.lessonNumber));
 
 function selectAdjacentLesson(offset: number) {
-  const lesson = props.lessons[currentLessonIndex.value + offset];
+  // 循环翻页：第一课按“上一课”跳到最后一课，最后一课按“下一课”跳回第一课。
+  const total = props.lessons.length;
+  const nextIndex = (currentLessonIndex.value + offset + total) % total;
+  const lesson = props.lessons[nextIndex];
   if (!lesson) return;
   emit("update:lessonNumber", lesson.number);
   requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
@@ -61,8 +64,8 @@ function resetLesson() {
         <small>{{ lessonCompleted }}/{{ lessonCount }}</small>
         <div class="mobile-lesson-actions" role="group" :aria-label="t('settings.lessonNavigation')">
           <button class="mobile-nav-button" type="button" :aria-label="t('notes.open')" :title="t('notes.open')" @click="emit('show-notes')"><el-icon><Document /></el-icon></button>
-          <button class="mobile-nav-button" type="button" :disabled="currentLessonIndex <= 0" :aria-label="t('settings.previousLesson')" :title="t('settings.previousLesson')" @click="selectAdjacentLesson(-1)"><el-icon><ArrowLeft /></el-icon></button>
-          <button class="mobile-nav-button" type="button" :disabled="currentLessonIndex < 0 || currentLessonIndex >= lessons.length - 1" :aria-label="t('settings.nextLesson')" :title="t('settings.nextLesson')" @click="selectAdjacentLesson(1)"><el-icon><ArrowRight /></el-icon></button>
+          <button class="mobile-nav-button" type="button" :aria-label="t('settings.previousLesson')" :title="t('settings.previousLesson')" @click="selectAdjacentLesson(-1)"><el-icon><ArrowLeft /></el-icon></button>
+          <button class="mobile-nav-button" type="button" :aria-label="t('settings.nextLesson')" :title="t('settings.nextLesson')" @click="selectAdjacentLesson(1)"><el-icon><ArrowRight /></el-icon></button>
           <button class="mobile-nav-button is-settings" type="button" :aria-label="t('settings.open')" :title="t('settings.open')" @click="visible = true"><el-icon><Setting /></el-icon></button>
         </div>
       </div>
