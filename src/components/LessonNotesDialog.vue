@@ -141,12 +141,11 @@ function setupViewer() {
     inline: false,
     navbar: false,
     toolbar: {
-      zoomIn: 1, zoomOut: 1, oneToOne: 0, reset: 1,
-      prev: 1, next: 1, rotateLeft: 1, rotateRight: 1,
+      zoomIn: 1, zoomOut: 1, reset: 1,
+      prev: 1, next: 1,
     },
     movable: true,
     zoomable: true,
-    scalable: true,
     transition: false,
     // 切课时销毁，避免残留旧实例
     hide: destroyViewer,
