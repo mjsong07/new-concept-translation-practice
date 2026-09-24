@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from "vue";
-import { Bottom, CircleCheckFilled, Delete, Histogram, RefreshRight, VideoPause, VideoPlay } from "@element-plus/icons-vue";
+import { CircleCheckFilled, Delete, Histogram, RefreshRight, VideoPause, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, ExerciseItem, MistakeHistoryEntry, SpeechSegment, WrittenSectionMeta } from "../types/practice";
@@ -560,10 +560,15 @@ function onTextClick(event: MouseEvent) {
                   <p v-else class="sentence-chinese">{{ item.prompt }}</p>
                   <el-button
                     v-if="!isFillMode(item)"
-                    class="row-action-button newline-action" text circle size="small" :icon="Bottom"
+                    class="row-action-button newline-action" text circle size="small"
                     :aria-label="t('exercise.insertNewline')"
                     @mousedown.prevent @click="insertNewline(item.id)"
-                  />
+                  >
+                    <svg class="newline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M9 10l-5 5 5 5"/>
+                      <path d="M20 4v7a5 5 0 0 1-5 5H4"/>
+                    </svg>
+                  </el-button>
                   <el-button
                     v-if="!isFillMode(item)"
                     class="row-action-button" text circle size="small" :icon="Histogram"
