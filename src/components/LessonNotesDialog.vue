@@ -106,6 +106,8 @@ function saveHomework() {
 // 问答回答显隐状态（须在 reload 之前声明，因为下面 immediate watch 会立即调用 reload）。
 const hideAll = ref(false);
 const hiddenGroups = ref<Set<string>>(new Set());
+// 全部隐藏时，被单独点开“显示回答”的分组（blockIndex-groupIndex[-sub]）。
+const revealedGroups = ref<Set<string>>(new Set());
 
 function reload() {
   savedText.value = loadNotes(props.lessonNumber);
@@ -115,6 +117,7 @@ function reload() {
   activeTab.value = "mine";
   hideAll.value = false;
   hiddenGroups.value = new Set();
+  revealedGroups.value = new Set();
 }
 
 watch(() => props.lessonNumber, reload, { immediate: true });
@@ -205,16 +208,24 @@ function drillGroups(lines: string[]): DrillGroup[] {
   return groups;
 }
 
-// 已隐藏回答的分组 key（blockIndex-groupIndex）。
+// 单个分组的显隐 key（blockIndex-groupIndex[-sub]）。
+// 默认模式：显示所有回答，点眼睛=单独隐藏；全部隐藏模式：默认全藏，点眼睛=单独点开。
 function toggleGroup(key: string) {
-  const next = new Set(hiddenGroups.value);
+  const target = hideAll.value ? revealedGroups.value : hiddenGroups.value;
+  const next = new Set(target);
   if (next.has(key)) next.delete(key);
   else next.add(key);
-  hiddenGroups.value = next;
+  if (hideAll.value) revealedGroups.value = next;
+  else hiddenGroups.value = next;
 }
-// 全局“全部隐藏/显示”开关：开启后隐藏本 tab 全部回答。
+// 切到“全部隐藏/显示”时清空单行记录，从头开始。
+function toggleHideAll() {
+  hideAll.value = !hideAll.value;
+  hiddenGroups.value = new Set();
+  revealedGroups.value = new Set();
+}
 function groupShown(key: string) {
-  return !hideAll.value && !hiddenGroups.value.has(key);
+  return hideAll.value ? revealedGroups.value.has(key) : !hiddenGroups.value.has(key);
 }
 
 // Homework tab 顶部的作业要求（从 PDF homework 虚线框提取）。
@@ -279,7 +290,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         <!-- 问答操练：顶部全部显示/隐藏按钮，每题后小眼睛单独切换。 -->
         <div v-if="DRILL.has(block.category)" class="lesson-content" :class="{ 'all-hidden': hideAll }">
           <div class="lesson-content-toolbar">
-            <el-button size="small" plain @click="hideAll = !hideAll">
+            <el-button size="small" plain @click="toggleHideAll">
               {{ hideAll ? t("notes.showAnswersAll") : t("notes.hideAnswersAll") }}
             </el-button>
           </div>
