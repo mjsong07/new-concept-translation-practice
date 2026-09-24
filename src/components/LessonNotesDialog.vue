@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
+import { Check, Edit } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { lessonNotes } from "../data/lessonNotes";
+import { lessonContent } from "../data/lessonContent";
+import { lessonNotesPages } from "../data/lessonNotesPages";
+import { lessonHomework } from "../data/lessonHomework";
 import { renderMarkdown } from "../services/markdown";
 
 const { t } = useI18n();
@@ -16,7 +20,125 @@ const emit = defineEmits<{
   "update:visible": [value: boolean];
 }>();
 
-const notesHtml = computed(() => renderMarkdown(lessonNotes[props.lessonNumber] || ""));
+// ============ 我的笔记：默认只读，点击“编辑”后支持修改并保存到本机 ============
+const activeTab = ref("mine");
+const savedText = ref("");
+const draft = ref("");
+const editing = ref(false);
+
+function notesStorageKey(number: number) {
+  return `new-concept-lesson-notes-${number}`;
+}
+
+function loadNotes(number: number): string {
+  try {
+    const saved = localStorage.getItem(notesStorageKey(number));
+    if (saved != null) return saved;
+  } catch {
+    // 浏览器禁用本地存储时退回静态数据。
+  }
+  return lessonNotes[number] || "";
+}
+
+function startEdit() {
+  draft.value = savedText.value;
+  editing.value = true;
+}
+
+function cancelEdit() {
+  draft.value = savedText.value;
+  editing.value = false;
+}
+
+function saveNotes() {
+  savedText.value = draft.value;
+  try {
+    localStorage.setItem(notesStorageKey(props.lessonNumber), savedText.value);
+  } catch {
+    // 保存失败时仍保留本次会话中的编辑。
+  }
+  editing.value = false;
+}
+
+// ============ Homework：Questions / Homework / Summary & Recap 三个独立输入框 ============
+interface HomeworkDraft {
+  questions: string;
+  homework: string;
+  summary: string;
+}
+
+const emptyHomework = (): HomeworkDraft => ({ questions: "", homework: "", summary: "" });
+
+function homeworkStorageKey(number: number) {
+  return `new-concept-lesson-homework-${number}`;
+}
+
+function loadHomework(number: number): HomeworkDraft {
+  try {
+    const raw = localStorage.getItem(homeworkStorageKey(number));
+    if (raw) {
+      const parsed = JSON.parse(raw) as Partial<HomeworkDraft>;
+      return {
+        questions: parsed.questions || "",
+        homework: parsed.homework || "",
+        summary: parsed.summary || "",
+      };
+    }
+  } catch {
+    // 忽略损坏数据，按空草稿处理。
+  }
+  return emptyHomework();
+}
+
+const homework = ref<HomeworkDraft>(emptyHomework());
+
+function saveHomework() {
+  try {
+    localStorage.setItem(homeworkStorageKey(props.lessonNumber), JSON.stringify(homework.value));
+  } catch {
+    // 保存失败时仍保留本次会话中的输入。
+  }
+}
+
+// ============ 切课时重载 ============
+function reload() {
+  savedText.value = loadNotes(props.lessonNumber);
+  draft.value = savedText.value;
+  editing.value = false;
+  homework.value = loadHomework(props.lessonNumber);
+  activeTab.value = "mine";
+}
+
+watch(() => props.lessonNumber, reload, { immediate: true });
+
+const notesHtml = computed(() => renderMarkdown(savedText.value));
+
+// 课堂笔记正文：按类别（Words/Grammar/Comprehension/Asking questions/Story）切分，每类一个 tab，只读。
+const contentBlocks = computed(() => lessonContent[props.lessonNumber] || []);
+
+// 原书课堂笔记截图：保留图片版，方便与提取文字对照。
+const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || []);
+
+// Q§ 提问 / A§ 回答 / § 单词头词，做字体与颜色区分（原始 T:/S:/音标已在提取时剔除）。
+const DRILL = new Set(["Comprehension", "Asking questions", "Practices"]);
+const showAnswers = ref(true);
+function lineClass(line: string) {
+  if (line.startsWith("Q§")) return "lesson-content-t";
+  if (line.startsWith("A§")) return "lesson-content-s";
+  if (line.startsWith("§")) return "lesson-content-word";
+  return "";
+}
+function isAnswer(line: string) {
+  return line.startsWith("A§");
+}
+
+// 显示前去掉内部标记。
+function displayLine(line: string) {
+  return line.replace(/^(Q§|A§|§)/, "");
+}
+
+// Homework tab 顶部的作业要求（从 PDF homework 虚线框提取）。
+const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
 </script>
 
 <template>
@@ -24,12 +146,138 @@ const notesHtml = computed(() => renderMarkdown(lessonNotes[props.lessonNumber] 
     :model-value="visible"
     class="lesson-notes-dialog"
     :title="`${t('notes.title')} · Lesson ${lessonNumber} ${lessonTitle}`"
-    width="min(680px, calc(100% - 24px))"
+    width="min(720px, calc(100% - 24px))"
     append-to-body
     @update:model-value="emit('update:visible', $event as boolean)"
   >
-    <!-- 笔记为本地静态数据，renderMarkdown 已先转义再生成标记。 -->
-    <div v-if="notesHtml" class="lesson-notes-body" v-html="notesHtml"></div>
-    <el-empty v-else :description="t('notes.empty')" :image-size="80" />
+    <el-tabs v-model="activeTab" class="lesson-notes-tabs">
+      <!-- 我的笔记：默认只读，点击“编辑”后支持修改并保存到本机。 -->
+      <el-tab-pane :label="t('notes.tabMine')" name="mine">
+        <div class="lesson-notes-toolbar">
+          <el-button
+            v-if="!editing"
+            size="small"
+            type="primary"
+            plain
+            :icon="Edit"
+            @click="startEdit"
+          >
+            {{ t("notes.edit") }}
+          </el-button>
+          <template v-else>
+            <el-button size="small" type="primary" :icon="Check" @click="saveNotes">
+              {{ t("notes.save") }}
+            </el-button>
+            <el-button size="small" @click="cancelEdit">{{ t("notes.cancel") }}</el-button>
+          </template>
+        </div>
+
+        <!-- 编辑态：文本区。内容先经 renderMarkdown 转义，保存后再渲染，避免注入。 -->
+        <el-input
+          v-if="editing"
+          v-model="draft"
+          class="lesson-notes-editor"
+          type="textarea"
+          :rows="12"
+          :placeholder="t('notes.editHint')"
+        />
+        <div v-else-if="notesHtml" class="lesson-notes-body" v-html="notesHtml"></div>
+        <el-empty v-else :description="t('notes.empty')" :image-size="80">
+          <el-button size="small" type="primary" :icon="Edit" @click="startEdit">
+            {{ t("notes.edit") }}
+          </el-button>
+        </el-empty>
+      </el-tab-pane>
+
+      <!-- 课堂笔记正文：按类别 Words/Grammar/Practices/Story 各一个 tab，只读文字内容。 -->
+      <el-tab-pane
+        v-for="(block, i) in contentBlocks"
+        :key="i"
+        :label="block.category"
+        :name="`content-${i}`"
+      >
+        <div v-if="DRILL.has(block.category)" class="lesson-content-toolbar">
+          <el-button size="small" plain @click="showAnswers = !showAnswers">
+            {{ showAnswers ? t("notes.hideAnswers") : t("notes.showAnswers") }}
+          </el-button>
+        </div>
+        <div class="lesson-content">
+          <p
+            v-for="(line, j) in block.lines"
+            v-show="showAnswers || !isAnswer(line)"
+            :key="j"
+            :class="lineClass(line)"
+          >{{ displayLine(line) }}</p>
+        </div>
+      </el-tab-pane>
+
+      <!-- 原书截图：保留 PDF 原图，点击可放大，方便与上面提取的文字内容对照。 -->
+      <el-tab-pane :label="t('notes.tabOriginal')" name="original">
+        <div v-if="classNotesImages.length" class="class-notes-pages">
+          <el-image
+            v-for="(src, i) in classNotesImages"
+            :key="i"
+            :src="src"
+            :preview-src-list="classNotesImages"
+            :initial-index="i"
+            :preview-teleported="true"
+            :loading="i === 0 ? 'eager' : 'lazy'"
+            fit="contain"
+            class="class-notes-page"
+          />
+        </div>
+        <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
+      </el-tab-pane>
+
+      <!-- Homework：康奈尔笔记三栏，Questions / Homework / Summary & Recap。 -->
+      <el-tab-pane :label="t('notes.tabHomework')" name="homework">
+        <div v-if="homeworkTasks.length" class="homework-tasks">
+          <div class="homework-tasks-title">{{ t("notes.homeworkTasks") }}</div>
+          <ul class="homework-tasks-list">
+            <li v-for="(task, i) in homeworkTasks" :key="i">{{ task }}</li>
+          </ul>
+        </div>
+        <div class="homework-grid">
+          <div class="homework-cell homework-questions">
+            <label class="homework-label">{{ t("notes.homeworkQuestions") }}</label>
+            <el-input
+              v-model="homework.questions"
+              class="homework-input"
+              type="textarea"
+              :rows="3"
+              :autosize="{ minRows: 3, maxRows: 5 }"
+              :placeholder="t('notes.homeworkQuestionsHint')"
+            />
+          </div>
+          <div class="homework-cell homework-main">
+            <label class="homework-label">{{ t("notes.homeworkHomework") }}</label>
+            <el-input
+              v-model="homework.homework"
+              class="homework-input"
+              type="textarea"
+              :rows="4"
+              :autosize="{ minRows: 4, maxRows: 6 }"
+              :placeholder="t('notes.homeworkHomeworkHint')"
+            />
+          </div>
+          <div class="homework-cell homework-summary">
+            <label class="homework-label">{{ t("notes.homeworkSummary") }}</label>
+            <el-input
+              v-model="homework.summary"
+              class="homework-input"
+              type="textarea"
+              :rows="3"
+              :autosize="{ minRows: 3, maxRows: 5 }"
+              :placeholder="t('notes.homeworkSummaryHint')"
+            />
+          </div>
+        </div>
+        <div class="homework-actions">
+          <el-button size="small" type="primary" :icon="Check" @click="saveHomework">
+            {{ t("notes.save") }}
+          </el-button>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
   </el-dialog>
 </template>
