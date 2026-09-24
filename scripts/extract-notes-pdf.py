@@ -289,13 +289,24 @@ def extract_content(pages):
         lines = page_structured_lines(pidx)
         events = []   # (y, category)
         content = []  # {y, col, text, size}
-        # homework 虚线框在页面底部：丢弃其 y 及以下的所有行（与左右栏顺序无关）
-        hw_y = next((ln["y"] for ln in lines if ln["text"] == "homework"), None)
+        # homework 虚线框既可能在页尾，也可能夹在两个类别之间（如 Lesson3 Words -> homework -> Grammar）。
+        # 旧逻辑按“第一个 homework 标签以下全部丢弃”，会误切中间作业框之后的类别（Grammar 整块丢失）。
+        # 改为：丢弃每个 homework 标签所在区间——标签行本身 + 其后直到下一个类别标题之前的所有行；
+        # 页尾作业框之后没有类别标题，则丢弃到页尾。
+        cat_header_ys = sorted(ln["y"] for ln in lines if CAT_HEADER.match(ln["text"]))
+        hw_skip = []  # (y_start, y_end)
+        for ln in lines:
+            if ln["text"] == "homework":
+                y0 = ln["y"]
+                y1 = next((cy for cy in cat_header_ys if cy > y0), float("inf"))
+                hw_skip.append((y0, y1))
+        def in_hw(yy):
+            return any(y0 <= yy < y1 for y0, y1 in hw_skip)
         for ln in lines:
             t = ln["text"]
             if re.fullmatch(r"\d{1,3}", t):
                 continue
-            if hw_y is not None and ln["y"] >= hw_y:
+            if in_hw(ln["y"]):
                 continue
             m = CAT_HEADER.match(t)
             if m:
