@@ -273,8 +273,6 @@ def clean_block(cat, items):
             else:
                 merged.append(text)
         stripped = [strip_markers(l) for l in merged]
-        if cat == "Asking questions":
-            stripped = reorder_asking_questions(stripped)
         return stripped
     return lines
 
