@@ -236,7 +236,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         :name="`content-${i}`"
       >
         <!-- 问答操练：顶部全部显示/隐藏按钮，每题后小眼睛单独切换。 -->
-        <div v-if="DRILL.has(block.category)" class="lesson-content">
+        <div v-if="DRILL.has(block.category)" class="lesson-content" :class="{ 'all-hidden': hideAll }">
           <div class="lesson-content-toolbar">
             <el-button size="small" plain @click="hideAll = !hideAll">
               {{ hideAll ? t("notes.showAnswersAll") : t("notes.hideAnswersAll") }}

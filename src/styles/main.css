@@ -329,6 +329,7 @@ button.sentence-number:focus-visible { outline: 2px solid rgba(47,128,237,.4); o
 .answer-toggle { margin-left: 6px; cursor: pointer; color: var(--muted); vertical-align: middle; font-size: 15px; }
 .answer-toggle:hover { color: var(--ink); }
 .inline-subq { margin-left: 16px; font-weight: 700; color: var(--ink); }
+.lesson-content.all-hidden p { white-space: nowrap; }
 .homework-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px; }
 .homework-summary { grid-column: 1 / -1; }
 .homework-cell { display: flex; flex-direction: column; gap: 6px; }
