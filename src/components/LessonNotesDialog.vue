@@ -101,6 +101,10 @@ function saveHomework() {
 }
 
 // ============ 切课时重载 ============
+// 问答回答显隐状态（须在 reload 之前声明，因为下面 immediate watch 会立即调用 reload）。
+const hideAll = ref(false);
+const hiddenGroups = ref<Set<string>>(new Set());
+
 function reload() {
   savedText.value = loadNotes(props.lessonNumber);
   draft.value = savedText.value;
@@ -163,7 +167,6 @@ function drillGroups(lines: string[]): DrillGroup[] {
 }
 
 // 已隐藏回答的分组 key（blockIndex-groupIndex）。
-const hiddenGroups = ref<Set<string>>(new Set());
 function toggleGroup(key: string) {
   const next = new Set(hiddenGroups.value);
   if (next.has(key)) next.delete(key);
@@ -171,7 +174,6 @@ function toggleGroup(key: string) {
   hiddenGroups.value = next;
 }
 // 全局“全部隐藏/显示”开关：开启后隐藏本 tab 全部回答。
-const hideAll = ref(false);
 function groupShown(key: string) {
   return !hideAll.value && !hiddenGroups.value.has(key);
 }
