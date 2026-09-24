@@ -133,20 +133,28 @@ function displayLine(line: string) {
   return line.replace(/^(Q§|A§|§)/, "");
 }
 
-// 操练块按“提问 -> 紧随其后的回答”分组；每个提问后面放一个小眼睛，单独切换它对应的回答。
+// 操练块按“提问 -> 紧随其后的回答”分组；每个提问后面放小眼睛单独切换回答。
+// Asking questions 里无编号提示词（When...?/Why...?）作为副问题内联在编号提问后面，排版更紧凑。
 interface DrillGroup {
   q: string;
+  subQ: string | null;
   answers: string[];
+  subAnswers: string[];
 }
 function drillGroups(lines: string[]): DrillGroup[] {
   const groups: DrillGroup[] = [];
   let cur: DrillGroup | null = null;
   for (const line of lines) {
     if (line.startsWith("Q§")) {
-      cur = { q: line, answers: [] };
-      groups.push(cur);
+      if (/^Q§\d/.test(line)) {
+        cur = { q: line, subQ: null, answers: [], subAnswers: [] };
+        groups.push(cur);
+      } else if (cur && !cur.subQ) {
+        cur.subQ = line; // 无编号提示词，并入本题
+      }
     } else if (line.startsWith("A§") && cur) {
-      cur.answers.push(line);
+      if (cur.subQ) cur.subAnswers.push(line);
+      else cur.answers.push(line);
     }
   }
   return groups;
@@ -236,11 +244,28 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
                 <View v-if="groupShown(i + '-' + gi)" />
                 <Hide v-else />
               </el-icon>
+              <span v-if="g.subQ" class="inline-subq">
+                {{ displayLine(g.subQ) }}
+                <el-icon
+                  class="answer-toggle"
+                  :title="groupShown(i + '-' + gi + '-sub') ? '隐藏回答' : '显示回答'"
+                  @click="toggleGroup(i + '-' + gi + '-sub')"
+                >
+                  <View v-if="groupShown(i + '-' + gi + '-sub')" />
+                  <Hide v-else />
+                </el-icon>
+              </span>
             </p>
             <p
               v-for="(a, ai) in g.answers"
               v-show="groupShown(i + '-' + gi)"
               :key="ai"
+              :class="lineClass(a)"
+            >{{ displayLine(a) }}</p>
+            <p
+              v-for="(a, ai) in g.subAnswers"
+              v-show="groupShown(i + '-' + gi + '-sub')"
+              :key="'s' + ai"
               :class="lineClass(a)"
             >{{ displayLine(a) }}</p>
           </template>
