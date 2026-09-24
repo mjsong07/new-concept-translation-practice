@@ -146,6 +146,8 @@ function setupViewer() {
     },
     movable: true,
     zoomable: true,
+    scalable: false,
+    keyboard: false,
     transition: false,
     // 切课时销毁，避免残留旧实例
     hide: destroyViewer,
