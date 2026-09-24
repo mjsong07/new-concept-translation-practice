@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, ref, watch, nextTick, onBeforeUnmount } from "vue";
 import { Check, Edit, View, Hide } from "@element-plus/icons-vue";
+import Viewer from "viewerjs";
+import "viewerjs/dist/viewer.css";
 import { useI18n } from "../composables/useI18n";
 import { lessonNotes } from "../data/lessonNotes";
 import { lessonContent } from "../data/lessonContent";
@@ -124,6 +126,42 @@ const contentBlocks = computed(() => lessonContent[props.lessonNumber] || []);
 
 // 原书课堂笔记截图：保留图片版，方便与提取文字对照。
 const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || []);
+
+// 用 viewerjs 接管原书截图点击预览，原生支持鼠标滚轮 / 触控双指捏合放大缩小、拖动、旋转。
+const notesPagesEl = ref<HTMLElement | null>(null);
+let notesViewer: Viewer | null = null;
+function destroyViewer() {
+  notesViewer?.destroy();
+  notesViewer = null;
+}
+function setupViewer() {
+  destroyViewer();
+  if (!notesPagesEl.value || !notesPagesEl.value.querySelector("img")) return;
+  notesViewer = new Viewer(notesPagesEl.value, {
+    inline: false,
+    navbar: false,
+    toolbar: {
+      zoomIn: 1, zoomOut: 1, oneToOne: 0, reset: 1,
+      prev: 1, next: 1, rotateLeft: 1, rotateRight: 1,
+    },
+    movable: true,
+    zoomable: true,
+    scalable: true,
+    transition: false,
+    // 切课时销毁，避免残留旧实例
+    hide: destroyViewer,
+  });
+}
+watch(
+  () => [props.visible, classNotesImages.value] as const,
+  async ([visible]) => {
+    if (!visible) { destroyViewer(); return; }
+    await nextTick();
+    setupViewer();
+  },
+  { immediate: true }
+);
+onBeforeUnmount(destroyViewer);
 
 // Q§ 提问 / A§ 回答 / § 单词头词，做字体与颜色区分（原始 T:/S:/音标已在提取时剔除）。
 const DRILL = new Set(["Comprehension", "Asking questions", "Practices"]);
@@ -293,16 +331,13 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
 
       <!-- 原书截图：保留 PDF 原图，点击可放大，方便与上面提取的文字内容对照。 -->
       <el-tab-pane :label="t('notes.tabOriginal')" name="original">
-        <div v-if="classNotesImages.length" class="class-notes-pages">
-          <el-image
+        <div v-if="classNotesImages.length" ref="notesPagesEl" class="class-notes-pages">
+          <img
             v-for="(src, i) in classNotesImages"
             :key="i"
             :src="src"
-            :preview-src-list="classNotesImages"
-            :initial-index="i"
-            :preview-teleported="true"
+            :alt="`page ${i + 1}`"
             :loading="i === 0 ? 'eager' : 'lazy'"
-            fit="contain"
             class="class-notes-page"
           />
         </div>
