@@ -107,6 +107,8 @@ function reload() {
   editing.value = false;
   homework.value = loadHomework(props.lessonNumber);
   activeTab.value = "mine";
+  hideAll.value = false;
+  hiddenGroups.value = new Set();
 }
 
 watch(() => props.lessonNumber, reload, { immediate: true });
@@ -168,8 +170,10 @@ function toggleGroup(key: string) {
   else next.add(key);
   hiddenGroups.value = next;
 }
+// 全局“全部隐藏/显示”开关：开启后隐藏本 tab 全部回答。
+const hideAll = ref(false);
 function groupShown(key: string) {
-  return !hiddenGroups.value.has(key);
+  return !hideAll.value && !hiddenGroups.value.has(key);
 }
 
 // Homework tab 顶部的作业要求（从 PDF homework 虚线框提取）。
@@ -231,8 +235,13 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         :label="block.category"
         :name="`content-${i}`"
       >
-        <!-- 问答操练：每个提问后放小眼睛，单独切换它对应的回答。 -->
+        <!-- 问答操练：顶部全部显示/隐藏按钮，每题后小眼睛单独切换。 -->
         <div v-if="DRILL.has(block.category)" class="lesson-content">
+          <div class="lesson-content-toolbar">
+            <el-button size="small" plain @click="hideAll = !hideAll">
+              {{ hideAll ? t("notes.showAnswersAll") : t("notes.hideAnswersAll") }}
+            </el-button>
+          </div>
           <template v-for="(g, gi) in drillGroups(block.lines)" :key="gi">
             <p :class="lineClass(g.q)">
               {{ displayLine(g.q) }}

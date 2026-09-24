@@ -507,3 +507,5 @@ html.theme-dark {
     .mobile-check-action { background: rgba(18, 29, 26, .94); box-shadow: 0 8px 20px rgba(0, 0, 0, .3); }
   }
 }
+
+.lesson-content-toolbar { margin-bottom: 8px; }
