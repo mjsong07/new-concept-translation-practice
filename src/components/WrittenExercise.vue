@@ -323,7 +323,7 @@ async function clearAndFocus(itemId: string) {
 }
 
 function insertNewline(itemId: string) {
-  const current = answers[itemId] || "";
+  const current = props.answers[itemId] || "";
   onAnswerInput(itemId, current + "\n");
   nextTick(() => focusItem(itemId));
 }
