@@ -321,7 +321,7 @@ button.sentence-number:focus-visible { outline: 2px solid rgba(47,128,237,.4); o
 .class-notes-pages { display: grid; gap: 14px; }
 .class-notes-page { width: 100%; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 4px 14px rgba(32,51,48,.08); }
 .lesson-content { padding-right: 4px; }
-.lesson-content p { margin: 0 0 4px; color: var(--ink); font-size: 14px; line-height: 1.65; white-space: nowrap; }
+.lesson-content p { margin: 0 0 4px; color: var(--ink); font-size: 14px; line-height: 1.65; }
 .lesson-content-subhead { margin-top: 12px !important; font-weight: 700; color: var(--green-dark); }
 .lesson-content-t { margin-top: 9px; font-weight: 700; color: var(--ink); }
 .lesson-content-s { padding-left: 1.4em; color: var(--green-dark); }
