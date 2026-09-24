@@ -560,20 +560,20 @@ function onTextClick(event: MouseEvent) {
                   <p v-else class="sentence-chinese">{{ item.prompt }}</p>
                   <el-button
                     v-if="!isFillMode(item)"
-                    class="row-action-button" text circle size="small" :icon="Bottom"
+                    class="row-action-button newline-action" text circle size="small" :icon="Bottom"
                     :aria-label="t('exercise.insertNewline')"
                     @mousedown.prevent @click="insertNewline(item.id)"
+                  />
+                  <el-button
+                    v-if="!isFillMode(item)"
+                    class="row-action-button" text circle size="small" :icon="Histogram"
+                    :aria-label="t('exercise.history')" @click="openHistory(item.id)"
                   />
                   <el-button
                     v-if="!isFillMode(item)"
                     class="row-action-button" text circle size="small" :icon="Delete"
                     :disabled="!answers[item.id]" :aria-label="t('exercise.clearRow')"
                     @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="clearAndFocus(item.id)"
-                  />
-                  <el-button
-                    v-if="!isFillMode(item)"
-                    class="row-action-button" text circle size="small" :icon="Histogram"
-                    :aria-label="t('exercise.history')" @click="openHistory(item.id)"
                   />
                   <span v-if="results[item.id]" class="input-result-label">{{ results[item.id].level === 'correct' ? t('exercise.correct') : t('exercise.incorrect') }}</span>
                   <el-icon v-if="rowState(item) === 'is-correct'" class="row-status-icon"><CircleCheckFilled /></el-icon>
