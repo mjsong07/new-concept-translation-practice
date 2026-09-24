@@ -215,8 +215,9 @@ def page_structured_lines(idx):
     return out
 
 # 操练块里折行续句合并：T:/S: 问答被 PDF 折成两行时，把后续非“新条目”行并回上一行。
+# 注意：无编号的 T:（如 Asking questions 里的 "T:When ... ?" 提示词）也算新条目，不并入回答。
 DRILL = {"Comprehension", "Asking questions", "Practices"}
-NEW_ITEM = re.compile(r"^(?:\d+\s*T\s*[:：]|S\s*[:：]|Asking questions\s*\d*$)")
+NEW_ITEM = re.compile(r"^(?:\d*\s*T\s*[:：]|S\s*[:：]|Asking questions\s*\d*$)")
 
 def strip_markers(text: str) -> str:
     """去掉 T:/S: 前缀，保留编号；用 Q§/A§ 标记问答以便前端区分样式。"""
@@ -227,6 +228,29 @@ def strip_markers(text: str) -> str:
     if m:
         return "A§" + m.group(1).strip()
     return text
+
+def reorder_asking_questions(lines):
+    """Asking questions 每题：编号提问 -> 一般疑问回答 -> 无编号 T: 提示词(When/Why...) -> 特殊疑问回答。
+    把无编号 Q§ 提示词移到编号提问正后方。"""
+    out = []
+    i, n = 0, len(lines)
+    while i < n:
+        line = lines[i]
+        if line.startswith("Q§") and line[2:3].isdigit():
+            group = [line]
+            i += 1
+            rest = []
+            while i < n and not (lines[i].startswith("Q§") and lines[i][2:3].isdigit()):
+                if lines[i].startswith("Q§"):  # 无编号提示词，移到题目后
+                    group.append(lines[i])
+                else:
+                    rest.append(lines[i])
+                i += 1
+            out.extend(group + rest)
+        else:
+            out.append(line)
+            i += 1
+    return out
 
 def clean_block(cat, items):
     """items: [(page,col,y,text,size)] -> list[str]。"""
@@ -248,7 +272,10 @@ def clean_block(cat, items):
                 merged[-1] = (merged[-1] + " " + text).strip()
             else:
                 merged.append(text)
-        return [strip_markers(l) for l in merged]
+        stripped = [strip_markers(l) for l in merged]
+        if cat == "Asking questions":
+            stripped = reorder_asking_questions(stripped)
+        return stripped
     return lines
 
 def extract_content(pages):
