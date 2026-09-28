@@ -9,6 +9,7 @@ import { lessonContent } from "../data/lessonContent";
 import { lessonNotesPages } from "../data/lessonNotesPages";
 import { lessonTextPages } from "../data/lessonTextPages";
 import { lessonHomework } from "../data/lessonHomework";
+import { lessonGrammarPages } from "../data/lessonGrammarPages";
 import { renderMarkdown } from "../services/markdown";
 
 const { t } = useI18n();
@@ -56,8 +57,8 @@ function applyGroup(g: NotesGroup) {
     const i = visibleContentBlocks.value.findIndex(b => categoryGroup(b.category) === "study");
     activeTab.value = i >= 0 ? `content-${visibleContentBlocksIndex(visibleContentBlocks.value[i].category)}` : "original";
   } else if (g === "practice") {
-    const i = visibleContentBlocks.value.findIndex(b => categoryGroup(b.category) === "practice");
-    activeTab.value = i >= 0 ? `content-${visibleContentBlocksIndex(visibleContentBlocks.value[i].category)}` : "mine";
+    // 练习组第一个 tab 是「语法练习」截图，默认选中它。
+    activeTab.value = "grammar";
   } else {
     activeTab.value = "mine";
   }
@@ -177,6 +178,7 @@ const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || 
 
 // 课文原文：教材 PDF 渲染的课文页（对话 + 生词/注释/参考译文），与“原书”一致支持点击放大。
 const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
+const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
 
 // 用 viewerjs 接管原书截图点击预览，原生支持鼠标滚轮 / 触控双指捏合放大缩小、拖动、旋转。
 const notesPagesEl = ref<HTMLElement | null>(null);
@@ -230,17 +232,40 @@ function setupLessonTextViewer() {
     hide: destroyLessonTextViewer,
   });
 }
+// 语法练习页同样用 viewerjs 点击放大。
+const grammarPagesEl = ref<HTMLElement | null>(null);
+let grammarViewer: Viewer | null = null;
+function destroyGrammarViewer() {
+  grammarViewer?.destroy();
+  grammarViewer = null;
+}
+function setupGrammarViewer() {
+  destroyGrammarViewer();
+  if (!grammarPagesEl.value || !grammarPagesEl.value.querySelector("img")) return;
+  grammarViewer = new Viewer(grammarPagesEl.value, {
+    inline: false,
+    navbar: false,
+    toolbar: { zoomIn: 1, zoomOut: 1, reset: 1, prev: 1, next: 1 },
+    movable: true,
+    zoomable: true,
+    scalable: false,
+    keyboard: false,
+    transition: false,
+    hide: destroyGrammarViewer,
+  });
+}
 watch(
-  () => [props.visible, classNotesImages.value, lessonTextImages.value] as const,
+  () => [props.visible, classNotesImages.value, lessonTextImages.value, grammarImages.value] as const,
   async ([visible]) => {
-    if (!visible) { destroyViewer(); destroyLessonTextViewer(); return; }
+    if (!visible) { destroyViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); return; }
     await nextTick();
     setupViewer();
     setupLessonTextViewer();
+    setupGrammarViewer();
   },
   { immediate: true }
 );
-onBeforeUnmount(() => { destroyViewer(); destroyLessonTextViewer(); });
+onBeforeUnmount(() => { destroyViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); });
 
 // Q§ 提问 / A§ 回答 / § 单词头词，做字体与颜色区分（原始 T:/S:/音标已在提取时剔除）。
 const DRILL = new Set(["Comprehension", "Asking questions", "Practices"]);
@@ -403,6 +428,21 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           />
         </div>
         <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
+      </el-tab-pane>
+
+      <!-- 语法练习：教材《语法练习》对应课页截图，点击可放大。 -->
+      <el-tab-pane v-if="activeGroup === 'practice'" :label="t('notes.tabGrammar')" name="grammar">
+        <div v-if="grammarImages.length" ref="grammarPagesEl" class="class-notes-pages">
+          <img
+            v-for="(src, i) in grammarImages"
+            :key="i"
+            :src="src"
+            :alt="`grammar ${i + 1}`"
+            :loading="i === 0 ? 'eager' : 'lazy'"
+            class="class-notes-page"
+          />
+        </div>
+        <el-empty v-else :description="t('notes.noPractice')" :image-size="80" />
       </el-tab-pane>
 
       <!-- 课堂笔记正文：按类别 Words/Grammar/Practices/Story 各一个 tab，只读文字内容。 -->
