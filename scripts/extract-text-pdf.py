@@ -15,7 +15,8 @@ import pymupdf
 PDF = "/Users/jason.yang/Desktop/个人文件夹/学习/英语/新概念/《新概念英语》第1册+pdf课文.pdf"
 OUT = Path("/Users/jason.yang/Desktop/my-workspace/codex/new-concept-translation-practice/src/assets/lesson-text")
 
-APP_LESSONS = list(range(1, 145, 2))  # 1,3,...,143
+# App 中存在全部 1~144 课（奇数课翻译练习 + 偶数课书面练习），都需要教材原文页。
+APP_LESSONS = list(range(1, 145))  # 1,2,...,144
 
 
 def start_page(n: int) -> int:
