@@ -27,20 +27,35 @@ describe("LessonNotesDialog 多 tab", () => {
   function tabNames() {
     return tabs().map((i) => (i.textContent || "").trim());
   }
+  async function clickGroup(label: string) {
+    const btn = Array.from(document.body.querySelectorAll<HTMLButtonElement>(".notes-group-btn")).find(
+      (b) => (b.textContent || "").trim() === label,
+    );
+    await btn!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushPromises();
+  }
 
-  it("我的笔记在前、Homework 在后，中间按类别生成内容 tab", async () => {
+  it("三个分组：学习=Words/Grammar/原书/课文原文，练习=操练类，笔记总结=我的笔记/Homework", async () => {
     await mountDialog(71);
-    const names = tabNames();
-    expect(names[0]).toBe("我的笔记");
-    expect(names[names.length - 1]).toBe("Homework");
-    expect(names).toContain("Grammar");
-    expect(names).toContain("Words");
-    expect(names).toContain("Comprehension");
-    expect(names).toContain("Asking questions");
+    // 默认学习组
+    expect(tabNames()).toContain("Grammar");
+    expect(tabNames()).toContain("Words");
+    expect(tabNames()).toContain("原书");
+    expect(tabNames()).not.toContain("Homework");
+    // 练习组
+    await clickGroup("练习");
+    expect(tabNames()).toContain("Comprehension");
+    expect(tabNames()).toContain("Asking questions");
+    expect(tabNames()).not.toContain("Words");
+    // 笔记总结组
+    await clickGroup("笔记总结");
+    expect(tabNames()[0]).toBe("我的笔记");
+    expect(tabNames()[tabNames().length - 1]).toBe("Homework");
   });
 
   it("我的笔记：编辑后保存并渲染 Markdown，写入 localStorage", async () => {
     await mountDialog(71);
+    await clickGroup("笔记总结");
     const editBtn = Array.from(document.body.querySelectorAll<HTMLElement>(".el-button")).find(
       (b) => (b.textContent || "").trim() === "编辑",
     );
@@ -75,6 +90,7 @@ describe("LessonNotesDialog 多 tab", () => {
 
   it("Homework Tab：三个独立输入框，保存后写入 localStorage", async () => {
     await mountDialog(71);
+    await clickGroup("笔记总结");
     const hwTab = tabs().find((i) => (i.textContent || "").trim() === "Homework");
     await hwTab!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await flushPromises();

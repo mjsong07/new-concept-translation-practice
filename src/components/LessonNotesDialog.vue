@@ -24,7 +24,42 @@ const emit = defineEmits<{
 }>();
 
 // ============ 我的笔记：默认只读，点击“编辑”后支持修改并保存到本机 ============
-const activeTab = ref("mine");
+const activeTab = ref("original");
+
+// ============ 分组：学习 / 练习 / 笔记总结，每组下面挂若干子 tab ============
+type NotesGroup = "study" | "practice" | "summary";
+const activeGroup = ref<NotesGroup>("study");
+
+function contentIndexOf(category: string): number {
+  return contentBlocks.value.findIndex(b => b.category === category);
+}
+function visibleContentBlocksIndex(category: string): string {
+  return `content-${contentIndexOf(category)}`;
+}
+function categoryGroup(cat: string): NotesGroup {
+  return cat === "Words" || cat === "Grammar" ? "study" : "practice";
+}
+
+function switchGroup(g: NotesGroup) {
+  activeGroup.value = g;
+  const order: NotesGroup[] = ["study", "practice", "summary"];
+  // 找该分组下第一个可见的 tab
+  if (g === "study") {
+    const i = contentBlocks.value.findIndex(b => categoryGroup(b.category) === "study");
+    activeTab.value = i >= 0 ? `content-${i}` : "original";
+  } else if (g === "practice") {
+    const i = contentBlocks.value.findIndex(b => categoryGroup(b.category) === "practice");
+    activeTab.value = i >= 0 ? `content-${i}` : "mine";
+  } else {
+    activeTab.value = "mine";
+  }
+}
+
+const groupOptions = computed(() => [
+  { value: "study" as NotesGroup, label: t("notes.groupStudy") },
+  { value: "practice" as NotesGroup, label: t("notes.groupPractice") },
+  { value: "summary" as NotesGroup, label: t("notes.groupSummary") },
+]);
 const savedText = ref("");
 const draft = ref("");
 const editing = ref(false);
@@ -115,7 +150,8 @@ function reload() {
   draft.value = savedText.value;
   editing.value = false;
   homework.value = loadHomework(props.lessonNumber);
-  activeTab.value = "mine";
+  activeGroup.value = "study";
+  activeTab.value = "original";
   hideAll.value = false;
   hiddenGroups.value = new Set();
   revealedGroups.value = new Set();
@@ -127,6 +163,10 @@ const notesHtml = computed(() => renderMarkdown(savedText.value));
 
 // 课堂笔记正文：按类别（Words/Grammar/Comprehension/Asking questions/Story）切分，每类一个 tab，只读。
 const contentBlocks = computed(() => lessonContent[props.lessonNumber] || []);
+// 当前分组下显示的文字类 tab（Words/Grammar 归学习，其余操练类归练习）
+const visibleContentBlocks = computed(() =>
+  contentBlocks.value.filter(b => categoryGroup(b.category) === activeGroup.value)
+);
 
 // 原书课堂笔记截图：保留图片版，方便与提取文字对照。
 const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || []);
@@ -272,9 +312,19 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
     append-to-body
     @update:model-value="emit('update:visible', $event as boolean)"
   >
+    <div class="notes-group-bar">
+      <button
+        v-for="g in groupOptions"
+        :key="g.value"
+        type="button"
+        class="notes-group-btn"
+        :class="{ 'is-active': activeGroup === g.value }"
+        @click="switchGroup(g.value)"
+      >{{ g.label }}</button>
+    </div>
     <el-tabs v-model="activeTab" class="lesson-notes-tabs">
       <!-- 我的笔记：默认只读，点击“编辑”后支持修改并保存到本机。 -->
-      <el-tab-pane :label="t('notes.tabMine')" name="mine">
+      <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabMine')" name="mine">
         <div class="lesson-notes-toolbar">
           <el-button
             v-if="!editing"
@@ -313,10 +363,10 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
 
       <!-- 课堂笔记正文：按类别 Words/Grammar/Practices/Story 各一个 tab，只读文字内容。 -->
       <el-tab-pane
-        v-for="(block, i) in contentBlocks"
-        :key="i"
+        v-for="(block, i) in visibleContentBlocks"
+        :key="block.category"
         :label="block.category"
-        :name="`content-${i}`"
+        :name="`content-${visibleContentBlocksIndex(block.category)}`"
       >
         <!-- 问答操练：顶部全部显示/隐藏按钮，每题后小眼睛单独切换。 -->
         <div v-if="DRILL.has(block.category)" class="lesson-content" :class="{ 'all-hidden': hideAll }">
@@ -330,33 +380,33 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
               {{ displayLine(g.q) }}
               <el-icon
                 class="answer-toggle"
-                :title="groupShown(i + '-' + gi) ? '隐藏回答' : '显示回答'"
-                @click="toggleGroup(i + '-' + gi)"
+                :title="groupShown(contentIndexOf(block.category) + '-' + gi) ? '隐藏回答' : '显示回答'"
+                @click="toggleGroup(contentIndexOf(block.category) + '-' + gi)"
               >
-                <View v-if="groupShown(i + '-' + gi)" />
+                <View v-if="groupShown(contentIndexOf(block.category) + '-' + gi)" />
                 <Hide v-else />
               </el-icon>
               <span v-if="g.subQ" class="inline-subq">
                 {{ displayLine(g.subQ) }}
                 <el-icon
                   class="answer-toggle"
-                  :title="groupShown(i + '-' + gi + '-sub') ? '隐藏回答' : '显示回答'"
-                  @click="toggleGroup(i + '-' + gi + '-sub')"
+                  :title="groupShown(contentIndexOf(block.category) + '-' + gi + '-sub') ? '隐藏回答' : '显示回答'"
+                  @click="toggleGroup(contentIndexOf(block.category) + '-' + gi + '-sub')"
                 >
-                  <View v-if="groupShown(i + '-' + gi + '-sub')" />
+                  <View v-if="groupShown(contentIndexOf(block.category) + '-' + gi + '-sub')" />
                   <Hide v-else />
                 </el-icon>
               </span>
             </p>
             <p
               v-for="(a, ai) in g.answers"
-              v-show="groupShown(i + '-' + gi)"
+              v-show="groupShown(contentIndexOf(block.category) + '-' + gi)"
               :key="ai"
               :class="lineClass(a)"
             >{{ displayLine(a) }}</p>
             <p
               v-for="(a, ai) in g.subAnswers"
-              v-show="groupShown(i + '-' + gi + '-sub')"
+              v-show="groupShown(contentIndexOf(block.category) + '-' + gi + '-sub')"
               :key="'s' + ai"
               :class="lineClass(a)"
             >{{ displayLine(a) }}</p>
@@ -373,7 +423,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       </el-tab-pane>
 
       <!-- 原书截图：保留 PDF 原图，点击可放大，方便与上面提取的文字内容对照。 -->
-      <el-tab-pane :label="t('notes.tabOriginal')" name="original">
+      <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabOriginal')" name="original">
         <div v-if="classNotesImages.length" ref="notesPagesEl" class="class-notes-pages">
           <img
             v-for="(src, i) in classNotesImages"
@@ -388,7 +438,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       </el-tab-pane>
 
       <!-- 课文原文：教材 PDF 渲染的课文页，效果与“原书”一致，点击可放大。 -->
-      <el-tab-pane :label="t('notes.tabLessonText')" name="lesson-text">
+      <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabLessonText')" name="lesson-text">
         <div v-if="lessonTextImages.length" ref="lessonTextPagesEl" class="class-notes-pages">
           <img
             v-for="(src, i) in lessonTextImages"
@@ -403,7 +453,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       </el-tab-pane>
 
       <!-- Homework：康奈尔笔记三栏，Questions / Homework / Summary & Recap。 -->
-      <el-tab-pane :label="t('notes.tabHomework')" name="homework">
+      <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabHomework')" name="homework">
         <div v-if="homeworkTasks.length" class="homework-tasks">
           <div class="homework-tasks-title">{{ t("notes.homeworkTasks") }}</div>
           <ul class="homework-tasks-list">
