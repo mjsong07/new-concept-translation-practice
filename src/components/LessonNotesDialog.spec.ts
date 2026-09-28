@@ -11,11 +11,14 @@ describe("LessonNotesDialog 多 tab", () => {
     document.body.innerHTML = "";
   });
 
-  async function mountDialog(lessonNumber = 71) {
+  let current: any = null;
+  async function mountDialog(lessonNumber = 71, initialGroup = "study") {
+    current?.unmount();
     const wrapper = mount(LessonNotesDialog, {
       global: { plugins: [ElementPlus] },
-      props: { visible: true, lessonNumber, lessonTitle: "He's awful!" },
+      props: { visible: true, lessonNumber, lessonTitle: "He's awful!", initialGroup },
     });
+    current = wrapper;
     await flushPromises();
     await new Promise((r) => setTimeout(r, 0));
     return wrapper;
@@ -27,35 +30,24 @@ describe("LessonNotesDialog 多 tab", () => {
   function tabNames() {
     return tabs().map((i) => (i.textContent || "").trim());
   }
-  async function clickGroup(label: string) {
-    const btn = Array.from(document.body.querySelectorAll<HTMLButtonElement>(".notes-group-btn")).find(
-      (b) => (b.textContent || "").trim() === label,
-    );
-    await btn!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-    await flushPromises();
-  }
 
   it("三个分组：学习=Words/Grammar/原书/课文原文，练习=操练类，笔记总结=我的笔记/Homework", async () => {
-    await mountDialog(71);
-    // 默认学习组
+    await mountDialog(71, "study");
     expect(tabNames()).toContain("Grammar");
     expect(tabNames()).toContain("Words");
     expect(tabNames()).toContain("原书");
     expect(tabNames()).not.toContain("Homework");
-    // 练习组
-    await clickGroup("练习");
+    await mountDialog(71, "practice");
     expect(tabNames()).toContain("Comprehension");
     expect(tabNames()).toContain("Asking questions");
     expect(tabNames()).not.toContain("Words");
-    // 笔记总结组
-    await clickGroup("笔记总结");
+    await mountDialog(71, "summary");
     expect(tabNames()[0]).toBe("我的笔记");
     expect(tabNames()[tabNames().length - 1]).toBe("Homework");
   });
 
   it("我的笔记：编辑后保存并渲染 Markdown，写入 localStorage", async () => {
-    await mountDialog(71);
-    await clickGroup("笔记总结");
+    await mountDialog(71, "summary");
     const editBtn = Array.from(document.body.querySelectorAll<HTMLElement>(".el-button")).find(
       (b) => (b.textContent || "").trim() === "编辑",
     );
@@ -89,8 +81,7 @@ describe("LessonNotesDialog 多 tab", () => {
   });
 
   it("Homework Tab：三个独立输入框，保存后写入 localStorage", async () => {
-    await mountDialog(71);
-    await clickGroup("笔记总结");
+    await mountDialog(71, "summary");
     const hwTab = tabs().find((i) => (i.textContent || "").trim() === "Homework");
     await hwTab!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await flushPromises();

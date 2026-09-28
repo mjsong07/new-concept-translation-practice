@@ -303,9 +303,6 @@ button.sentence-number:focus-visible { outline: 2px solid rgba(47,128,237,.4); o
 .lesson-notes-tabs .el-tabs__item.is-active { color: var(--green); }
 .lesson-notes-tabs .el-tabs__active-bar { height: 3px; border-radius: 3px 3px 0 0; background: var(--coral); }
 .lesson-notes-tabs .el-tabs__content { max-height: 62vh; overflow-y: auto; }
-.notes-group-bar { display: flex; gap: 8px; margin: 0 0 12px; }
-.notes-group-btn { flex: 1; padding: 8px 0; border: 1px solid #d8e0db; border-radius: 10px; background: #f4f7f5; color: #5c6b66; font-size: 14px; font-weight: 700; cursor: pointer; transition: all .15s; }
-.notes-group-btn.is-active { background: var(--green); border-color: var(--green); color: #fff; }
 .lesson-notes-toolbar { margin-bottom: 10px; display: flex; justify-content: flex-end; gap: 8px; }
 .lesson-notes-editor .el-textarea__inner { min-height: 280px; padding: 14px 16px; border: 1px solid #cfd8d3; border-radius: 12px; box-shadow: none; background: #fff; color: var(--ink); font-size: 14px; line-height: 1.75; }
 .lesson-notes-editor .el-textarea__inner:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(23,88,79,.1); }
@@ -478,8 +475,6 @@ html.theme-dark {
   .lesson-notes-tabs .el-tabs__nav-wrap::after { background: #2a3935; }
   .lesson-notes-tabs .el-tabs__item { color: #91a29d; }
   .lesson-notes-tabs .el-tabs__item.is-active { color: #72ccb6; }
-  .notes-group-btn { background: #16211d; border-color: #2a3935; color: #91a29d; }
-  .notes-group-btn.is-active { background: #1f6f5b; border-color: #1f6f5b; color: #fff; }
   .lesson-notes-editor .el-textarea__inner { border-color: #40514b; background: #101916; color: #eef6f3; }
   .lesson-textbook .textbook-q { background: #23312d; }
   .lesson-textbook .textbook-title { color: #d9f2eb; }

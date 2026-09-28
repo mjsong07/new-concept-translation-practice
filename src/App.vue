@@ -51,6 +51,11 @@ function selectLesson(number: number) {
   practice.selectedLesson.value = number;
 }
 const notesVisible = ref(false);
+const notesGroup = ref<"study" | "practice" | "summary">("study");
+function openNotesGroup(g: "study" | "practice" | "summary") {
+  notesGroup.value = g;
+  notesVisible.value = true;
+}
 const voices = ref<SpeechSynthesisVoice[]>([]);
 const voiceUri = ref(localStorage.getItem("new-concept-speech-voice") || "");
 const savedSpeechRate = Number(localStorage.getItem("new-concept-speech-rate"));
@@ -235,6 +240,7 @@ onUnmounted(() => {
         @update:character-match-percent="characterMatchPercent = $event"
         @update:auto-advance-errors="autoAdvanceErrors = $event"
         @show-notes="notesVisible = true"
+        @show-notes-group="openNotesGroup"
         @reset="resetCurrentLesson"
       />
 
@@ -300,6 +306,7 @@ onUnmounted(() => {
         v-model:visible="notesVisible"
         :lesson-number="practice.lesson.value.number"
         :lesson-title="practice.lesson.value.title"
+        :initial-group="notesGroup"
       />
 
       <footer>{{ t('footer.source') }}</footer>

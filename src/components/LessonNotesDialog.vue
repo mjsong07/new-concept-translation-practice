@@ -17,6 +17,7 @@ const props = defineProps<{
   visible: boolean;
   lessonNumber: number;
   lessonTitle: string;
+  initialGroup?: "study" | "practice" | "summary";
 }>();
 
 const emit = defineEmits<{
@@ -40,26 +41,19 @@ function categoryGroup(cat: string): NotesGroup {
   return cat === "Words" || cat === "Grammar" ? "study" : "practice";
 }
 
-function switchGroup(g: NotesGroup) {
+// 应用某个分组：切换 activeGroup，并默认选中该组第一个 tab。
+function applyGroup(g: NotesGroup) {
   activeGroup.value = g;
-  const order: NotesGroup[] = ["study", "practice", "summary"];
-  // 找该分组下第一个可见的 tab
   if (g === "study") {
-    const i = contentBlocks.value.findIndex(b => categoryGroup(b.category) === "study");
-    activeTab.value = i >= 0 ? `content-${i}` : "original";
+    const i = visibleContentBlocks.value.findIndex(b => categoryGroup(b.category) === "study");
+    activeTab.value = i >= 0 ? `content-${visibleContentBlocksIndex(visibleContentBlocks.value[i].category)}` : "original";
   } else if (g === "practice") {
-    const i = contentBlocks.value.findIndex(b => categoryGroup(b.category) === "practice");
-    activeTab.value = i >= 0 ? `content-${i}` : "mine";
+    const i = visibleContentBlocks.value.findIndex(b => categoryGroup(b.category) === "practice");
+    activeTab.value = i >= 0 ? `content-${visibleContentBlocksIndex(visibleContentBlocks.value[i].category)}` : "mine";
   } else {
     activeTab.value = "mine";
   }
 }
-
-const groupOptions = computed(() => [
-  { value: "study" as NotesGroup, label: t("notes.groupStudy") },
-  { value: "practice" as NotesGroup, label: t("notes.groupPractice") },
-  { value: "summary" as NotesGroup, label: t("notes.groupSummary") },
-]);
 const savedText = ref("");
 const draft = ref("");
 const editing = ref(false);
@@ -150,22 +144,24 @@ function reload() {
   draft.value = savedText.value;
   editing.value = false;
   homework.value = loadHomework(props.lessonNumber);
-  activeGroup.value = "study";
-  activeTab.value = "original";
+  applyGroup(props.initialGroup || "study");
   hideAll.value = false;
   hiddenGroups.value = new Set();
   revealedGroups.value = new Set();
 }
-
-watch(() => props.lessonNumber, reload, { immediate: true });
 
 const notesHtml = computed(() => renderMarkdown(savedText.value));
 
 // 课堂笔记正文：按类别（Words/Grammar/Comprehension/Asking questions/Story）切分，每类一个 tab，只读。
 const contentBlocks = computed(() => lessonContent[props.lessonNumber] || []);
 // 当前分组下显示的文字类 tab（Words/Grammar 归学习，其余操练类归练习）
+// 该分组下、且确实有内容可渲染的文字块（Practices 等没有 Q§/A§ 时渲染为空，直接去掉）
+function blockHasContent(b: { category: string; lines: string[] }) {
+  if (DRILL.has(b.category)) return drillGroups(b.lines).length > 0;
+  return b.lines.some(l => l.trim() !== "");
+}
 const visibleContentBlocks = computed(() =>
-  contentBlocks.value.filter(b => categoryGroup(b.category) === activeGroup.value)
+  contentBlocks.value.filter(b => categoryGroup(b.category) === activeGroup.value && blockHasContent(b))
 );
 
 // 原书课堂笔记截图：保留图片版，方便与提取文字对照。
@@ -279,6 +275,15 @@ function drillGroups(lines: string[]): DrillGroup[] {
   return groups;
 }
 
+watch(() => props.lessonNumber, reload, { immediate: true });
+
+// 弹窗每次打开时，按顶栏图标选中的分组定位（切课时已在 reload 里处理）。
+let wasVisible = false;
+watch(() => props.visible, (v) => {
+  if (v && !wasVisible) applyGroup(props.initialGroup || "study");
+  wasVisible = v;
+});
+
 // 单个分组的显隐 key（blockIndex-groupIndex[-sub]）。
 // 默认模式：显示所有回答，点眼睛=单独隐藏；全部隐藏模式：默认全藏，点眼睛=单独点开。
 function toggleGroup(key: string) {
@@ -312,16 +317,6 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
     append-to-body
     @update:model-value="emit('update:visible', $event as boolean)"
   >
-    <div class="notes-group-bar">
-      <button
-        v-for="g in groupOptions"
-        :key="g.value"
-        type="button"
-        class="notes-group-btn"
-        :class="{ 'is-active': activeGroup === g.value }"
-        @click="switchGroup(g.value)"
-      >{{ g.label }}</button>
-    </div>
     <el-tabs v-model="activeTab" class="lesson-notes-tabs">
       <!-- 我的笔记：默认只读，点击“编辑”后支持修改并保存到本机。 -->
       <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabMine')" name="mine">
