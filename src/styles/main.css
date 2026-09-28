@@ -524,3 +524,17 @@ html.theme-dark {
 .lesson-notes-header-nav { width: 30px; height: 30px; padding: 0; display: grid; place-items: center; border: 1px solid #d8e0db; border-radius: 8px; background: #f4f7f5; color: #3a4a44; cursor: pointer; flex: 0 0 auto; }
 .lesson-notes-header-nav:active { background: #e3ebe7; }
 .lesson-notes-empty { padding: 24px 0; }
+
+/* 语法练习交互列表 */
+.grammar-exercise-list { display: flex; flex-direction: column; gap: 14px; padding: 4px 0; }
+.grammar-exercise-row { display: flex; gap: 10px; align-items: flex-start; }
+.grammar-exercise-num { flex: 0 0 22px; height: 22px; border-radius: 6px; background: #eef3f0; color: #5c6b66; font-size: 12px; font-weight: 700; display: grid; place-items: center; margin-top: 2px; }
+.grammar-exercise-main { flex: 1; min-width: 0; }
+.grammar-exercise-prompt { margin: 0 0 6px; font-size: 15px; line-height: 1.5; color: #1f2d28; }
+.grammar-exercise-inputrow { display: flex; align-items: center; gap: 8px; }
+.grammar-exercise-ansbtn { flex: 0 0 auto; width: 26px; height: 26px; border: none; border-radius: 7px; background: #1f6f5b; color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; }
+.grammar-exercise-input { flex: 1; min-width: 0; border: none; border-bottom: 1.5px solid #d8e0db; background: transparent; padding: 4px 2px; font-size: 14px; outline: none; }
+.grammar-exercise-input:focus { border-bottom-color: #1f6f5b; }
+.grammar-exercise-ref { flex: 1; font-size: 13px; color: #1f6f5b; }
+.grammar-screenshot-toggle { margin-top: 16px; }
+.grammar-screenshot-toggle summary { cursor: pointer; color: #5c6b66; font-size: 13px; }

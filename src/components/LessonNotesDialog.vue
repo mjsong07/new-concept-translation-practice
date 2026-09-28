@@ -10,6 +10,8 @@ import { lessonNotesPages } from "../data/lessonNotesPages";
 import { lessonTextPages } from "../data/lessonTextPages";
 import { lessonHomework } from "../data/lessonHomework";
 import { lessonGrammarPages } from "../data/lessonGrammarPages";
+import { lessonGrammarExercises } from "../data/lessonGrammarExercises";
+import { speakEnglish } from "../services/speech";
 import { renderMarkdown } from "../services/markdown";
 
 const { t } = useI18n();
@@ -179,6 +181,15 @@ const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || 
 // 课文原文：教材 PDF 渲染的课文页（对话 + 生词/注释/参考译文），与“原书”一致支持点击放大。
 const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
 const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
+const grammarItems = computed(() =>
+  (lessonGrammarExercises[props.lessonNumber] || []).filter(it => it.prompt.trim())
+);
+const grammarAnswers = ref<Record<number, string>>({});
+const grammarShown = ref<Set<number>>(new Set());
+function playGrammarAnswer(i: number, text: string) {
+  if (!text) return;
+  speakEnglish(text, { voiceURI: "", rate: 0.82, volume: 1 }, {});
+}
 
 // 用 viewerjs 接管原书截图点击预览，原生支持鼠标滚轮 / 触控双指捏合放大缩小、拖动、旋转。
 const notesPagesEl = ref<HTMLElement | null>(null);
@@ -430,19 +441,45 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
       </el-tab-pane>
 
-      <!-- 语法练习：教材《语法练习》对应课页截图，点击可放大。 -->
+      <!-- 语法练习：把 PDF 练习页转成可输入的填空/改写，行内带“答”朗读参考答案。 -->
       <el-tab-pane v-if="activeGroup === 'practice'" :label="t('notes.tabGrammar')" name="grammar">
-        <div v-if="grammarImages.length" ref="grammarPagesEl" class="class-notes-pages">
-          <img
-            v-for="(src, i) in grammarImages"
-            :key="i"
-            :src="src"
-            :alt="`grammar ${i + 1}`"
-            :loading="i === 0 ? 'eager' : 'lazy'"
-            class="class-notes-page"
-          />
+        <div v-if="grammarItems.length" class="grammar-exercise-list">
+          <div v-for="(item, i) in grammarItems" :key="i" class="grammar-exercise-row">
+            <span class="grammar-exercise-num">{{ i + 1 }}</span>
+            <div class="grammar-exercise-main">
+              <p class="grammar-exercise-prompt">{{ item.prompt }}</p>
+              <div class="grammar-exercise-inputrow">
+                <button
+                  class="grammar-exercise-ansbtn"
+                  type="button"
+                  :title="t('notes.speakAnswer')"
+                  @click="playGrammarAnswer(i, item.answer)"
+                >答</button>
+                <input
+                  v-model="grammarAnswers[i]"
+                  class="grammar-exercise-input"
+                  type="text"
+                  :placeholder="t('notes.yourAnswer')"
+                />
+                <span v-if="item.answer" class="grammar-exercise-ref">{{ item.answer }}</span>
+              </div>
+            </div>
+          </div>
         </div>
         <el-empty v-else :description="t('notes.noPractice')" :image-size="80" />
+        <details v-if="grammarImages.length" class="grammar-screenshot-toggle">
+          <summary>{{ t('notes.viewScreenshot') }}</summary>
+          <div ref="grammarPagesEl" class="class-notes-pages">
+            <img
+              v-for="(src, i) in grammarImages"
+              :key="i"
+              :src="src"
+              :alt="`grammar ${i + 1}`"
+              :loading="i === 0 ? 'eager' : 'lazy'"
+              class="class-notes-page"
+            />
+          </div>
+        </details>
       </el-tab-pane>
 
       <!-- 课堂笔记正文：按类别 Words/Grammar/Practices/Story 各一个 tab，只读文字内容。 -->
