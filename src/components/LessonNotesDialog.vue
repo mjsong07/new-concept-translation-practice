@@ -10,6 +10,7 @@ import { lessonNotesPages } from "../data/lessonNotesPages";
 import { lessonTextPages } from "../data/lessonTextPages";
 import { lessonHomework } from "../data/lessonHomework";
 import { lessonGrammarPages } from "../data/lessonGrammarPages";
+import { lessonGrammarCambridgePages } from "../data/lessonGrammarCambridgePages";
 import { lessonGrammarExercises } from "../data/lessonGrammarExercises";
 import { speakEnglish } from "../services/speech";
 import { renderMarkdown } from "../services/markdown";
@@ -190,6 +191,7 @@ const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || 
 // 课文原文：教材 PDF 渲染的课文页（对话 + 生词/注释/参考译文），与“原书”一致支持点击放大。
 const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
 const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
+const cambridgeImages = computed(() => lessonGrammarCambridgePages(props.lessonNumber));
 const grammarItems = computed(() =>
   (lessonGrammarExercises[props.lessonNumber] || []).filter(it => it.prompt.trim())
 );
@@ -462,7 +464,18 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
             class="class-notes-page"
           />
         </div>
-        <el-empty v-else :description="t('notes.noPractice')" :image-size="80" />
+        <div v-if="cambridgeImages.length" class="grammar-cambridge-block">
+          <p class="grammar-cambridge-title">剑桥初级英语语法</p>
+          <img
+            v-for="(src, i) in cambridgeImages"
+            :key="`cam-${i}`"
+            :src="src"
+            :alt="`cambridge ${i + 1}`"
+            loading="lazy"
+            class="class-notes-page"
+          />
+        </div>
+        <el-empty v-if="!grammarImages.length && !cambridgeImages.length" :description="t('notes.noPractice')" :image-size="80" />
       </el-tab-pane>
 
       <!-- 语法填空：把 PDF 练习页转成可输入的填空/改写，行内带“答”朗读参考答案。 -->

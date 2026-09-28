@@ -538,3 +538,7 @@ html.theme-dark {
 .grammar-exercise-ref { flex: 1; font-size: 13px; color: #1f6f5b; }
 .grammar-screenshot-toggle { margin-top: 16px; }
 .grammar-screenshot-toggle summary { cursor: pointer; color: #5c6b66; font-size: 13px; }
+
+/* 剑桥初级英语语法截图块 */
+.grammar-cambridge-block { margin-top: 20px; }
+.grammar-cambridge-title { margin: 0 0 8px; font-size: 15px; font-weight: 700; color: #b5651d; border-left: 3px solid #b5651d; padding-left: 8px; }
