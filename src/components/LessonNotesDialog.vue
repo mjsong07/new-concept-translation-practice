@@ -164,6 +164,10 @@ function reload() {
   hideAll.value = false;
   hiddenGroups.value = new Set();
   revealedGroups.value = new Set();
+  // 切课后内容滚动条回到顶部
+  nextTick(() => {
+    document.querySelector(".lesson-notes-dialog .el-tabs__content")?.scrollTo({ top: 0 });
+  });
 }
 
 const notesHtml = computed(() => renderMarkdown(savedText.value));
