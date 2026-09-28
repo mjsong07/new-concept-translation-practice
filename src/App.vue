@@ -50,6 +50,13 @@ function selectLesson(number: number) {
   pendingFilteredLesson.value = null;
   practice.selectedLesson.value = number;
 }
+function notesAdjacentLesson(offset: number) {
+  const list = visibleLessons.value;
+  const idx = list.findIndex((l) => l.number === practice.selectedLesson.value);
+  if (idx < 0 || list.length === 0) return;
+  const next = list[(idx + offset + list.length) % list.length];
+  selectLesson(next.number);
+}
 const notesVisible = ref(false);
 const notesGroup = ref<"study" | "practice" | "summary">("study");
 function openNotesGroup(g: "study" | "practice" | "summary") {
@@ -307,6 +314,8 @@ onUnmounted(() => {
         :lesson-number="practice.lesson.value.number"
         :lesson-title="practice.lesson.value.title"
         :initial-group="notesGroup"
+        @prev-lesson="notesAdjacentLesson(-1)"
+        @next-lesson="notesAdjacentLesson(1)"
       />
 
       <footer>{{ t('footer.source') }}</footer>

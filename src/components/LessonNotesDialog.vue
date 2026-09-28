@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick, onBeforeUnmount } from "vue";
-import { Check, Edit, View, Hide } from "@element-plus/icons-vue";
+import { Check, Edit, View, Hide, ArrowLeft, ArrowRight } from "@element-plus/icons-vue";
 import Viewer from "viewerjs";
 import "viewerjs/dist/viewer.css";
 import { useI18n } from "../composables/useI18n";
@@ -22,7 +22,15 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   "update:visible": [value: boolean];
+  "prev-lesson": [];
+  "next-lesson": [];
 }>();
+
+const groupLabel = computed(() => {
+  if (props.initialGroup === "practice") return t("notes.groupPractice");
+  if (props.initialGroup === "summary") return t("notes.groupSummary");
+  return t("notes.groupStudy");
+});
 
 // ============ 我的笔记：默认只读，点击“编辑”后支持修改并保存到本机 ============
 const activeTab = ref("original");
@@ -312,11 +320,18 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
   <el-dialog
     :model-value="visible"
     class="lesson-notes-dialog"
-    :title="`${t('notes.title')} · Lesson ${lessonNumber} ${lessonTitle}`"
+    :title="`${groupLabel} · Lesson ${lessonNumber} ${lessonTitle}`"
     width="min(720px, calc(100% - 24px))"
     append-to-body
     @update:model-value="emit('update:visible', $event as boolean)"
   >
+    <template #header>
+      <div class="lesson-notes-header">
+        <button class="lesson-notes-header-nav" type="button" :title="t('settings.previousLesson')" @click="emit('prev-lesson')"><el-icon><ArrowLeft /></el-icon></button>
+        <span class="lesson-notes-header-title">{{ groupLabel }} · Lesson {{ lessonNumber }} {{ lessonTitle }}</span>
+        <button class="lesson-notes-header-nav" type="button" :title="t('settings.nextLesson')" @click="emit('next-lesson')"><el-icon><ArrowRight /></el-icon></button>
+      </div>
+    </template>
     <el-tabs v-model="activeTab" class="lesson-notes-tabs">
       <!-- 我的笔记：默认只读，点击“编辑”后支持修改并保存到本机。 -->
       <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabMine')" name="mine">
@@ -354,6 +369,38 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
             {{ t("notes.edit") }}
           </el-button>
         </el-empty>
+      </el-tab-pane>
+
+
+
+      <!-- 课文原文：教材 PDF 渲染的课文页，效果与“原书”一致，点击可放大。 -->
+      <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabLessonText')" name="lesson-text">
+        <div v-if="lessonTextImages.length" ref="lessonTextPagesEl" class="class-notes-pages">
+          <img
+            v-for="(src, i) in lessonTextImages"
+            :key="i"
+            :src="src"
+            :alt="`lesson text ${i + 1}`"
+            :loading="i === 0 ? 'eager' : 'lazy'"
+            class="class-notes-page"
+          />
+        </div>
+        <el-empty v-else :description="t('notes.lessonTextEmpty')" :image-size="80" />
+      </el-tab-pane>
+
+      <!-- 原书截图：保留 PDF 原图，点击可放大，方便与上面提取的文字内容对照。 -->
+      <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabOriginal')" name="original">
+        <div v-if="classNotesImages.length" ref="notesPagesEl" class="class-notes-pages">
+          <img
+            v-for="(src, i) in classNotesImages"
+            :key="i"
+            :src="src"
+            :alt="`page ${i + 1}`"
+            :loading="i === 0 ? 'eager' : 'lazy'"
+            class="class-notes-page"
+          />
+        </div>
+        <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
       </el-tab-pane>
 
       <!-- 课堂笔记正文：按类别 Words/Grammar/Practices/Story 各一个 tab，只读文字内容。 -->
@@ -416,37 +463,6 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           >{{ displayLine(line) }}</p>
         </div>
       </el-tab-pane>
-
-      <!-- 原书截图：保留 PDF 原图，点击可放大，方便与上面提取的文字内容对照。 -->
-      <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabOriginal')" name="original">
-        <div v-if="classNotesImages.length" ref="notesPagesEl" class="class-notes-pages">
-          <img
-            v-for="(src, i) in classNotesImages"
-            :key="i"
-            :src="src"
-            :alt="`page ${i + 1}`"
-            :loading="i === 0 ? 'eager' : 'lazy'"
-            class="class-notes-page"
-          />
-        </div>
-        <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
-      </el-tab-pane>
-
-      <!-- 课文原文：教材 PDF 渲染的课文页，效果与“原书”一致，点击可放大。 -->
-      <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabLessonText')" name="lesson-text">
-        <div v-if="lessonTextImages.length" ref="lessonTextPagesEl" class="class-notes-pages">
-          <img
-            v-for="(src, i) in lessonTextImages"
-            :key="i"
-            :src="src"
-            :alt="`lesson text ${i + 1}`"
-            :loading="i === 0 ? 'eager' : 'lazy'"
-            class="class-notes-page"
-          />
-        </div>
-        <el-empty v-else :description="t('notes.lessonTextEmpty')" :image-size="80" />
-      </el-tab-pane>
-
       <!-- Homework：康奈尔笔记三栏，Questions / Homework / Summary & Recap。 -->
       <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabHomework')" name="homework">
         <div v-if="homeworkTasks.length" class="homework-tasks">
@@ -497,5 +513,11 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         </div>
       </el-tab-pane>
     </el-tabs>
+    <el-empty
+      v-if="activeGroup === 'practice' && visibleContentBlocks.length === 0"
+      :description="t('notes.noPractice')"
+      :image-size="100"
+      class="lesson-notes-empty"
+    />
   </el-dialog>
 </template>

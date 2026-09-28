@@ -128,6 +128,10 @@ kbd { min-width: 48px; display: inline-block; padding: 1px 6px; border: 1px soli
   .mobile-nav-button { width: 30px; height: 30px; padding: 0; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.15); border-radius: 9px; color: #fff; background: rgba(255,255,255,.08); font-size: 15px; cursor: pointer; transition: opacity .2s ease, background .2s ease, transform .2s ease; }
   .mobile-nav-button:active:not(:disabled) { transform: scale(.96); background: rgba(255,255,255,.16); }
   .mobile-nav-button.is-settings { border-color: transparent; background: var(--coral); }
+  /* 三个分组图标：加大间隙并用不同底色区分 */
+  .notes-icon-study { background: rgba(64, 191, 128, .28); border-color: rgba(64, 191, 128, .6); color: #7fe0b0; }
+  .notes-icon-practice { background: rgba(245, 176, 65, .26); border-color: rgba(245, 176, 65, .6); color: #ffd27a; }
+  .notes-icon-summary { background: rgba(150, 120, 230, .28); border-color: rgba(150, 120, 230, .6); color: #c6b0ff; }
   .mobile-nav-button:disabled { opacity: .3; cursor: not-allowed; }
   .exercise-card { padding: 12px; border-radius: 18px; }
   .exercise-topline, .exercise-card > .el-progress { display: none; }
@@ -512,3 +516,10 @@ html.theme-dark {
 }
 
 .lesson-content-toolbar { margin-bottom: 8px; }
+
+/* 学习笔记弹窗 header：左右翻课按钮 + 标题 */
+.lesson-notes-header { display: flex; align-items: center; gap: 10px; width: 100%; }
+.lesson-notes-header-title { flex: 1; font-size: 16px; font-weight: 700; color: #1f2d28; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lesson-notes-header-nav { width: 30px; height: 30px; padding: 0; display: grid; place-items: center; border: 1px solid #d8e0db; border-radius: 8px; background: #f4f7f5; color: #3a4a44; cursor: pointer; flex: 0 0 auto; }
+.lesson-notes-header-nav:active { background: #e3ebe7; }
+.lesson-notes-empty { padding: 24px 0; }

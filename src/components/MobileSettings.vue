@@ -64,9 +64,9 @@ function resetLesson() {
       <div class="mobile-settings-summary-bottom">
         <small>{{ lessonCompleted }}/{{ lessonCount }}</small>
         <div class="mobile-lesson-actions" role="group" :aria-label="t('settings.lessonNavigation')">
-          <button class="mobile-nav-button" type="button" :aria-label="t('notes.groupStudy')" :title="t('notes.groupStudy')" @click="emit('show-notes-group','study')"><el-icon><Reading /></el-icon></button>
-          <button class="mobile-nav-button" type="button" :aria-label="t('notes.groupPractice')" :title="t('notes.groupPractice')" @click="emit('show-notes-group','practice')"><el-icon><EditPen /></el-icon></button>
-          <button class="mobile-nav-button" type="button" :aria-label="t('notes.groupSummary')" :title="t('notes.groupSummary')" @click="emit('show-notes-group','summary')"><el-icon><Notebook /></el-icon></button>
+          <button class="mobile-nav-button notes-icon-study" type="button" :aria-label="t('notes.groupStudy')" :title="t('notes.groupStudy')" @click="emit('show-notes-group','study')"><el-icon><Reading /></el-icon></button>
+          <button class="mobile-nav-button notes-icon-practice" type="button" :aria-label="t('notes.groupPractice')" :title="t('notes.groupPractice')" @click="emit('show-notes-group','practice')"><el-icon><EditPen /></el-icon></button>
+          <button class="mobile-nav-button notes-icon-summary" type="button" :aria-label="t('notes.groupSummary')" :title="t('notes.groupSummary')" @click="emit('show-notes-group','summary')"><el-icon><Notebook /></el-icon></button>
           <button class="mobile-nav-button" type="button" :aria-label="t('settings.previousLesson')" :title="t('settings.previousLesson')" @click="selectAdjacentLesson(-1)"><el-icon><ArrowLeft /></el-icon></button>
           <button class="mobile-nav-button" type="button" :aria-label="t('settings.nextLesson')" :title="t('settings.nextLesson')" @click="selectAdjacentLesson(1)"><el-icon><ArrowRight /></el-icon></button>
           <button class="mobile-nav-button is-settings" type="button" :aria-label="t('settings.open')" :title="t('settings.open')" @click="visible = true"><el-icon><Setting /></el-icon></button>
