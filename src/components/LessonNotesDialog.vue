@@ -11,6 +11,7 @@ import { lessonTextPages } from "../data/lessonTextPages";
 import { lessonHomework } from "../data/lessonHomework";
 import { lessonGrammarPages } from "../data/lessonGrammarPages";
 import { lessonGrammarCambridgePages } from "../data/lessonGrammarCambridgePages";
+import { lessonGrammarCambridgeAnswerPages } from "../data/lessonGrammarCambridgeAnswers";
 import { lessonGrammarExercises } from "../data/lessonGrammarExercises";
 import { speakEnglish } from "../services/speech";
 import { renderMarkdown } from "../services/markdown";
@@ -196,6 +197,7 @@ const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || 
 const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
 const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
 const cambridgeImages = computed(() => lessonGrammarCambridgePages(props.lessonNumber));
+const cambridgeAnswerImages = computed(() => lessonGrammarCambridgeAnswerPages(props.lessonNumber));
 const grammarItems = computed(() =>
   (lessonGrammarExercises[props.lessonNumber] || []).filter(it => it.prompt.trim())
 );
@@ -532,6 +534,20 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           />
         </div>
         <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
+        <!-- 关联的书末「练习答案」页：对应本课语法单元的练习答案截图。 -->
+        <template v-if="cambridgeAnswerImages.length">
+          <div class="lesson-content-subhead">{{ t("notes.cambridgeAnswers") }}</div>
+          <div class="class-notes-pages">
+            <img
+              v-for="(src, i) in cambridgeAnswerImages"
+              :key="'a' + i"
+              :src="src"
+              :alt="`cambridge answers ${i + 1}`"
+              :loading="i === 0 ? 'eager' : 'lazy'"
+              class="class-notes-page"
+            />
+          </div>
+        </template>
       </el-tab-pane>
       <!-- Homework：康奈尔笔记三栏，Questions / Homework / Summary & Recap。 -->
       <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabHomework')" name="homework">

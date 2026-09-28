@@ -96,4 +96,17 @@ describe("LessonNotesDialog 多 tab", () => {
     expect(inputs[1].value).toContain("**awful** 糟糕的");
     expect(inputs[1].value).toContain("核心：一般过去时");
   });
+  it("剑桥语法 tab：展示讲解页并关联显示书末练习答案页（Lesson 125 → Unit 33 答案 291/292）", async () => {
+    await mountDialog(125, "study");
+    const cambridgeTab = tabs().find((i) => (i.textContent || "").trim() === "剑桥语法");
+    await cambridgeTab!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushPromises();
+
+    const subheads = Array.from(document.body.querySelectorAll<HTMLElement>(".lesson-content-subhead"));
+    expect(subheads.some((h) => (h.textContent || "").trim() === "练习答案")).toBe(true);
+
+    const ansImgs = Array.from(document.body.querySelectorAll<HTMLImageElement>("img[alt^='cambridge answers']"));
+    expect(ansImgs.length).toBe(2);
+  });
+
 });
