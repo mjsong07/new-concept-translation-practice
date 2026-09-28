@@ -31,11 +31,11 @@ describe("LessonNotesDialog 多 tab", () => {
     return tabs().map((i) => (i.textContent || "").trim());
   }
 
-  it("三个分组：学习=Words/Grammar/原书/课文原文，练习=操练类，笔记总结=Homework（我的笔记已合并移除）", async () => {
+  it("三个分组：学习=Words/Grammar/笔记/原文，练习=操练类，笔记总结=Homework（我的笔记已合并移除）", async () => {
     await mountDialog(71, "study");
     expect(tabNames()).toContain("Grammar");
     expect(tabNames()).toContain("Words");
-    expect(tabNames()).toContain("原书");
+    expect(tabNames()).toContain("笔记");
     expect(tabNames()).not.toContain("Homework");
     await mountDialog(71, "practice");
     expect(tabNames()).toContain("Comprehension");
