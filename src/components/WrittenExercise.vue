@@ -185,7 +185,7 @@ function switchToSection(item: ExerciseItem) {
 
 function speakIfCorrect(item: ExerciseItem) {
   if (props.results[item.id]?.level === "correct") {
-    emit("speak", [rowSpeechSegment(item)]);
+    emit("speak", [speechSegment(item, answerSpeechText(item))]);
   }
 }
 
@@ -342,17 +342,35 @@ async function redoFromHistory(itemId: string) {
   await clearAndFocus(itemId);
 }
 
-function speakFromSentence(item: ExerciseItem) {
+// 序号按钮：朗读序号右边显示的题目句（填空模式读还原后的完整句）。
+function speakPrompt(item: ExerciseItem) {
   blurSubmitSuppressed = false;
-  emit("speak", [rowSpeechSegment(item)]);
+  emit("speak", [speechSegment(item, promptSpeechText(item))]);
 }
 
-function rowSpeechSegment(item: ExerciseItem): SpeechSegment {
-  return { text: rowSpeechText(item), itemId: item.id, speaker: item.speakerEn };
+// “答”按钮：朗读参考答案。
+function speakReferenceAnswer(item: ExerciseItem) {
+  blurSubmitSuppressed = false;
+  emit("speak", [speechSegment(item, answerSpeechText(item))]);
 }
 
-function rowSpeechText(item: ExerciseItem) {
+function speechSegment(item: ExerciseItem, text: string): SpeechSegment {
+  return { text, itemId: item.id, speaker: item.speakerEn };
+}
+
+// 序号右边的题目句：写句子模式即题目本身；填空模式把空填上还原完整句。
+function promptSpeechText(item: ExerciseItem) {
+  if (!isFillMode(item)) return item.prompt;
+  return filledSentence(item);
+}
+
+// 参考答案：写句子模式即参考答案；填空模式读还原后的完整句。
+function answerSpeechText(item: ExerciseItem) {
   if (!isFillMode(item)) return item.answer;
+  return filledSentence(item);
+}
+
+function filledSentence(item: ExerciseItem) {
   const words = splitBlanks(item.answer);
   let blankIndex = 0;
   return item.prompt.replace(/_____/g, () => words[blankIndex++] || "");
@@ -532,7 +550,7 @@ function onTextClick(event: MouseEvent) {
               <button
                 class="sentence-number" type="button"
                 :aria-label="t('exercise.speakItem', { item: itemLabel(item) })"
-                @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="speakFromSentence(item)"
+                @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="speakPrompt(item)"
               >{{ itemLabel(item) }}</button>
               <div class="sentence-content">
                 <div class="sentence-prompt-row">
@@ -592,7 +610,12 @@ function onTextClick(event: MouseEvent) {
                   <p class="comparison-line"><span class="comparison-text" @click="onTextClick"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'clickable-word': /^[A-Za-z0-9]/.test(part.text) }]" :data-word-id="/^[A-Za-z0-9]/.test(part.text) ? `${item.id}-ref:${partIndex}` : undefined">{{ part.text }}</span></span></p>
                 </div>
 
-                <div v-if="!isFillMode(item)" class="sentence-answer-row">
+                <div v-if="!isFillMode(item)" class="sentence-answer-row written-answer-row">
+                  <button
+                    class="answer-speak" type="button"
+                    :aria-label="t('exercise.speakAnswer')"
+                    @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="speakReferenceAnswer(item)"
+                  >{{ t('exercise.answerSpeakLabel') }}</button>
                   <el-input
                     :ref="(instance: unknown) => setInputRef(item.id, 0, instance)"
                     :model-value="answers[item.id] || ''"
@@ -778,5 +801,43 @@ function onTextClick(event: MouseEvent) {
 
 .written-fill-input.is-empty :deep(.el-input__wrapper.is-focus) {
   border-bottom: 2px solid #c39a2f;
+}
+
+.written-answer-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.written-answer-row :deep(.el-textarea) {
+  flex: 1;
+  min-width: 0;
+}
+
+.answer-speak {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin-top: 3px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 7px;
+  color: #fff;
+  background: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.answer-speak:hover {
+  filter: brightness(1.08);
+}
+
+.answer-speak:focus-visible {
+  outline: 2px solid rgba(66, 165, 111, .4);
+  outline-offset: 2px;
 }
 </style>
