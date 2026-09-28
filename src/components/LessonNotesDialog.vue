@@ -327,9 +327,11 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
   >
     <template #header>
       <div class="lesson-notes-header">
-        <button class="lesson-notes-header-nav" type="button" :title="t('settings.previousLesson')" @click="emit('prev-lesson')"><el-icon><ArrowLeft /></el-icon></button>
         <span class="lesson-notes-header-title">{{ groupLabel }} · Lesson {{ lessonNumber }} {{ lessonTitle }}</span>
-        <button class="lesson-notes-header-nav" type="button" :title="t('settings.nextLesson')" @click="emit('next-lesson')"><el-icon><ArrowRight /></el-icon></button>
+        <div class="lesson-notes-header-navs">
+          <button class="lesson-notes-header-nav" type="button" :title="t('settings.previousLesson')" @click="emit('prev-lesson')"><el-icon><ArrowLeft /></el-icon></button>
+          <button class="lesson-notes-header-nav" type="button" :title="t('settings.nextLesson')" @click="emit('next-lesson')"><el-icon><ArrowRight /></el-icon></button>
+        </div>
       </div>
     </template>
     <el-tabs v-model="activeTab" class="lesson-notes-tabs">

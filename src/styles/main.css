@@ -519,6 +519,7 @@ html.theme-dark {
 
 /* 学习笔记弹窗 header：左右翻课按钮 + 标题 */
 .lesson-notes-header { display: flex; align-items: center; gap: 10px; width: 100%; }
+.lesson-notes-header-navs { display: flex; gap: 6px; flex: 0 0 auto; }
 .lesson-notes-header-title { flex: 1; font-size: 16px; font-weight: 700; color: #1f2d28; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .lesson-notes-header-nav { width: 30px; height: 30px; padding: 0; display: grid; place-items: center; border: 1px solid #d8e0db; border-radius: 8px; background: #f4f7f5; color: #3a4a44; cursor: pointer; flex: 0 0 auto; }
 .lesson-notes-header-nav:active { background: #e3ebe7; }
