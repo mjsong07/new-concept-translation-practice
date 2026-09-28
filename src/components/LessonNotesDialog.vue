@@ -150,12 +150,17 @@ const hiddenGroups = ref<Set<string>>(new Set());
 // 全部隐藏时，被单独点开“显示回答”的分组（blockIndex-groupIndex[-sub]）。
 const revealedGroups = ref<Set<string>>(new Set());
 
+let didInit = false;
 function reload() {
   savedText.value = loadNotes(props.lessonNumber);
   draft.value = savedText.value;
   editing.value = false;
   homework.value = loadHomework(props.lessonNumber);
-  applyGroup(props.initialGroup || "study");
+  // 首次打开按顶栏图标选的分组定位；之后（弹窗 header 左右切课）保留上一次选中的 tab。
+  if (!didInit) {
+    applyGroup(props.initialGroup || "study");
+    didInit = true;
+  }
   hideAll.value = false;
   hiddenGroups.value = new Set();
   revealedGroups.value = new Set();
