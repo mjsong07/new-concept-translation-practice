@@ -3,7 +3,7 @@ import { flushPromises, mount } from "@vue/test-utils";
 import ElementPlus from "element-plus";
 import LessonNotesDialog from "./LessonNotesDialog.vue";
 
-// 注册真实 Element Plus，验证「我的笔记 + 各类别内容 tab + Homework」结构与交互；
+// 注册真实 Element Plus，验证「各类别内容 tab + Homework」结构与交互；
 // el-dialog 带 append-to-body，内容渲染进 document.body。
 describe("LessonNotesDialog 多 tab", () => {
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe("LessonNotesDialog 多 tab", () => {
     return tabs().map((i) => (i.textContent || "").trim());
   }
 
-  it("三个分组：学习=Words/Grammar/原书/课文原文，练习=操练类，笔记总结=我的笔记/Homework", async () => {
+  it("三个分组：学习=Words/Grammar/原书/课文原文，练习=操练类，笔记总结=Homework（我的笔记已合并移除）", async () => {
     await mountDialog(71, "study");
     expect(tabNames()).toContain("Grammar");
     expect(tabNames()).toContain("Words");
@@ -42,32 +42,7 @@ describe("LessonNotesDialog 多 tab", () => {
     expect(tabNames()).toContain("Asking questions");
     expect(tabNames()).not.toContain("Words");
     await mountDialog(71, "summary");
-    expect(tabNames()[0]).toBe("我的笔记");
-    expect(tabNames()[tabNames().length - 1]).toBe("Homework");
-  });
-
-  it("我的笔记：编辑后保存并渲染 Markdown，写入 localStorage", async () => {
-    await mountDialog(71, "summary");
-    const editBtn = Array.from(document.body.querySelectorAll<HTMLElement>(".el-button")).find(
-      (b) => (b.textContent || "").trim() === "编辑",
-    );
-    await editBtn!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-    await flushPromises();
-
-    const textarea = document.body.querySelector<HTMLTextAreaElement>(".lesson-notes-editor textarea")!;
-    textarea.value = "**awful** 糟糕的";
-    await textarea.dispatchEvent(new Event("input", { bubbles: true }));
-    await flushPromises();
-
-    const saveBtn = Array.from(document.body.querySelectorAll<HTMLElement>(".el-button")).find(
-      (b) => (b.textContent || "").trim() === "保存",
-    );
-    await saveBtn!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-    await flushPromises();
-
-    const body = document.body.querySelector(".lesson-notes-body")!;
-    expect(body.innerHTML).toContain("<strong>awful</strong>");
-    expect(localStorage.getItem("new-concept-lesson-notes-71")).toContain("糟糕的");
+    expect(tabNames()).toEqual(["Homework"]);
   });
 
   it("Grammar 内容 tab：展示提取的课堂笔记文字（只读）", async () => {
@@ -80,7 +55,7 @@ describe("LessonNotesDialog 多 tab", () => {
     expect(content.textContent || "").toContain("I loved you.");
   });
 
-  it("Homework Tab：三个独立输入框，保存后写入 localStorage", async () => {
+  it("Homework Tab：Questions 与 Summary & Recap 两个输入框（原 Homework 输入框已移除），保存后写入 localStorage", async () => {
     await mountDialog(71, "summary");
     const hwTab = tabs().find((i) => (i.textContent || "").trim() === "Homework");
     await hwTab!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
@@ -90,13 +65,11 @@ describe("LessonNotesDialog 多 tab", () => {
     expect(tasks).toBeTruthy();
 
     const inputs = document.body.querySelectorAll<HTMLTextAreaElement>(".homework-input textarea");
-    expect(inputs.length).toBe(3);
+    expect(inputs.length).toBe(2);
     inputs[0].value = "为什么用过去时？";
     inputs[0].dispatchEvent(new Event("input", { bubbles: true }));
-    inputs[1].value = "单词造句*3";
+    inputs[1].value = "核心：一般过去时";
     inputs[1].dispatchEvent(new Event("input", { bubbles: true }));
-    inputs[2].value = "核心：一般过去时";
-    inputs[2].dispatchEvent(new Event("input", { bubbles: true }));
     await flushPromises();
 
     const saveBtn = Array.from(document.body.querySelectorAll<HTMLElement>(".el-button")).find(
@@ -107,7 +80,20 @@ describe("LessonNotesDialog 多 tab", () => {
 
     const saved = JSON.parse(localStorage.getItem("new-concept-lesson-homework-71") || "{}");
     expect(saved.questions).toBe("为什么用过去时？");
-    expect(saved.homework).toBe("单词造句*3");
     expect(saved.summary).toBe("核心：一般过去时");
+    expect(saved.homework).toBeUndefined();
+  });
+
+  it("我的笔记内容迁移：Summary & Recap 为空时，原我的笔记内容并入其中", async () => {
+    localStorage.setItem("new-concept-lesson-notes-71", "**awful** 糟糕的\n核心：一般过去时");
+    await mountDialog(71, "summary");
+    const hwTab = tabs().find((i) => (i.textContent || "").trim() === "Homework");
+    await hwTab!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushPromises();
+
+    const inputs = document.body.querySelectorAll<HTMLTextAreaElement>(".homework-input textarea");
+    // inputs[0] = Questions, inputs[1] = Summary & Recap
+    expect(inputs[1].value).toContain("**awful** 糟糕的");
+    expect(inputs[1].value).toContain("核心：一般过去时");
   });
 });

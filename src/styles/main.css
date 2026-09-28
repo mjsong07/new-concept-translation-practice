@@ -337,6 +337,7 @@ button.sentence-number:focus-visible { outline: 2px solid rgba(47,128,237,.4); o
 /* 全部隐藏时每行尽量单行，超出宽度仍自动换行，避免右侧被裁切。 */
 .lesson-content.all-hidden p { overflow-wrap: anywhere; }
 .homework-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px; }
+.homework-questions { grid-column: 1 / -1; }
 .homework-summary { grid-column: 1 / -1; }
 .homework-cell { display: flex; flex-direction: column; gap: 6px; }
 .homework-label { color: var(--green-dark); font-size: 12px; font-weight: 700; letter-spacing: .04em; }

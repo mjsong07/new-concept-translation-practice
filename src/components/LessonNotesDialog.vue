@@ -63,7 +63,8 @@ function applyGroup(g: NotesGroup) {
     // 练习组第一个 tab 是「语法练习」截图，默认选中它。
     activeTab.value = "grammar";
   } else {
-    activeTab.value = "mine";
+    // 笔记总结组（我的笔记已合并移除）：默认选中 Homework tab。
+    activeTab.value = "homework";
   }
 }
 const savedText = ref("");
@@ -104,34 +105,37 @@ function saveNotes() {
   editing.value = false;
 }
 
-// ============ Homework：Questions / Homework / Summary & Recap 三个独立输入框 ============
+// ============ Homework：Questions / Summary & Recap 两个输入框（原 Homework 输入框已移除） ============
 interface HomeworkDraft {
   questions: string;
-  homework: string;
   summary: string;
 }
 
-const emptyHomework = (): HomeworkDraft => ({ questions: "", homework: "", summary: "" });
+const emptyHomework = (): HomeworkDraft => ({ questions: "", summary: "" });
 
 function homeworkStorageKey(number: number) {
   return `new-concept-lesson-homework-${number}`;
 }
 
 function loadHomework(number: number): HomeworkDraft {
+  let questions = "";
+  let summary = "";
   try {
     const raw = localStorage.getItem(homeworkStorageKey(number));
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<HomeworkDraft>;
-      return {
-        questions: parsed.questions || "",
-        homework: parsed.homework || "",
-        summary: parsed.summary || "",
-      };
+      questions = parsed.questions || "";
+      summary = parsed.summary || "";
     }
   } catch {
     // 忽略损坏数据，按空草稿处理。
   }
-  return emptyHomework();
+  // 迁移：原「我的笔记」内容并入 Summary & Recap（仅当总结为空且笔记非空时）。
+  if (!summary.trim()) {
+    const notes = loadNotes(number);
+    if (notes.trim()) summary = notes;
+  }
+  return { questions, summary };
 }
 
 const homework = ref<HomeworkDraft>(emptyHomework());
@@ -382,46 +386,6 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       </div>
     </template>
     <el-tabs v-model="activeTab" class="lesson-notes-tabs">
-      <!-- 我的笔记：默认只读，点击“编辑”后支持修改并保存到本机。 -->
-      <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabMine')" name="mine">
-        <div class="lesson-notes-toolbar">
-          <el-button
-            v-if="!editing"
-            size="small"
-            type="primary"
-            plain
-            :icon="Edit"
-            @click="startEdit"
-          >
-            {{ t("notes.edit") }}
-          </el-button>
-          <template v-else>
-            <el-button size="small" type="primary" :icon="Check" @click="saveNotes">
-              {{ t("notes.save") }}
-            </el-button>
-            <el-button size="small" @click="cancelEdit">{{ t("notes.cancel") }}</el-button>
-          </template>
-        </div>
-
-        <!-- 编辑态：文本区。内容先经 renderMarkdown 转义，保存后再渲染，避免注入。 -->
-        <el-input
-          v-if="editing"
-          v-model="draft"
-          class="lesson-notes-editor"
-          type="textarea"
-          :rows="12"
-          :placeholder="t('notes.editHint')"
-        />
-        <div v-else-if="notesHtml" class="lesson-notes-body" v-html="notesHtml"></div>
-        <el-empty v-else :description="t('notes.empty')" :image-size="80">
-          <el-button size="small" type="primary" :icon="Edit" @click="startEdit">
-            {{ t("notes.edit") }}
-          </el-button>
-        </el-empty>
-      </el-tab-pane>
-
-
-
       <!-- 课文原文：教材 PDF 渲染的课文页，效果与“原书”一致，点击可放大。 -->
       <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabLessonText')" name="lesson-text">
         <div v-if="lessonTextImages.length" ref="lessonTextPagesEl" class="class-notes-pages">
@@ -587,17 +551,6 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
               :rows="3"
               :autosize="{ minRows: 3, maxRows: 5 }"
               :placeholder="t('notes.homeworkQuestionsHint')"
-            />
-          </div>
-          <div class="homework-cell homework-main">
-            <label class="homework-label">{{ t("notes.homeworkHomework") }}</label>
-            <el-input
-              v-model="homework.homework"
-              class="homework-input"
-              type="textarea"
-              :rows="4"
-              :autosize="{ minRows: 4, maxRows: 6 }"
-              :placeholder="t('notes.homeworkHomeworkHint')"
             />
           </div>
           <div class="homework-cell homework-summary">
