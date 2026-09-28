@@ -464,18 +464,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
             class="class-notes-page"
           />
         </div>
-        <div v-if="cambridgeImages.length" class="grammar-cambridge-block">
-          <p class="grammar-cambridge-title">剑桥初级英语语法</p>
-          <img
-            v-for="(src, i) in cambridgeImages"
-            :key="`cam-${i}`"
-            :src="src"
-            :alt="`cambridge ${i + 1}`"
-            loading="lazy"
-            class="class-notes-page"
-          />
-        </div>
-        <el-empty v-if="!grammarImages.length && !cambridgeImages.length" :description="t('notes.noPractice')" :image-size="80" />
+        <el-empty v-else :description="t('notes.noPractice')" :image-size="80" />
       </el-tab-pane>
 
       <!-- 语法填空：把 PDF 练习页转成可输入的填空/改写，行内带“答”朗读参考答案。 -->
@@ -565,6 +554,20 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
             :class="lineClass(line)"
           >{{ displayLine(line) }}</p>
         </div>
+      </el-tab-pane>
+      <!-- 剑桥初级英语语法：学习组，紧跟 Grammar 之后。 -->
+      <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabCambridge')" name="cambridge">
+        <div v-if="cambridgeImages.length" class="class-notes-pages">
+          <img
+            v-for="(src, i) in cambridgeImages"
+            :key="i"
+            :src="src"
+            :alt="`cambridge ${i + 1}`"
+            :loading="i === 0 ? 'eager' : 'lazy'"
+            class="class-notes-page"
+          />
+        </div>
+        <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
       </el-tab-pane>
       <!-- Homework：康奈尔笔记三栏，Questions / Homework / Summary & Recap。 -->
       <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabHomework')" name="homework">
