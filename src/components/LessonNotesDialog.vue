@@ -7,6 +7,7 @@ import { useI18n } from "../composables/useI18n";
 import { lessonNotes } from "../data/lessonNotes";
 import { lessonContent } from "../data/lessonContent";
 import { lessonNotesPages } from "../data/lessonNotesPages";
+import { lessonTextPages } from "../data/lessonTextPages";
 import { lessonHomework } from "../data/lessonHomework";
 import { renderMarkdown } from "../services/markdown";
 
@@ -130,6 +131,9 @@ const contentBlocks = computed(() => lessonContent[props.lessonNumber] || []);
 // 原书课堂笔记截图：保留图片版，方便与提取文字对照。
 const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || []);
 
+// 课文原文：教材 PDF 渲染的课文页（对话 + 生词/注释/参考译文），与“原书”一致支持点击放大。
+const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
+
 // 用 viewerjs 接管原书截图点击预览，原生支持鼠标滚轮 / 触控双指捏合放大缩小、拖动、旋转。
 const notesPagesEl = ref<HTMLElement | null>(null);
 let notesViewer: Viewer | null = null;
@@ -156,16 +160,43 @@ function setupViewer() {
     hide: destroyViewer,
   });
 }
+
+// 课文原文页同样用 viewerjs 点击放大。
+const lessonTextPagesEl = ref<HTMLElement | null>(null);
+let lessonTextViewer: Viewer | null = null;
+function destroyLessonTextViewer() {
+  lessonTextViewer?.destroy();
+  lessonTextViewer = null;
+}
+function setupLessonTextViewer() {
+  destroyLessonTextViewer();
+  if (!lessonTextPagesEl.value || !lessonTextPagesEl.value.querySelector("img")) return;
+  lessonTextViewer = new Viewer(lessonTextPagesEl.value, {
+    inline: false,
+    navbar: false,
+    toolbar: {
+      zoomIn: 1, zoomOut: 1, reset: 1,
+      prev: 1, next: 1,
+    },
+    movable: true,
+    zoomable: true,
+    scalable: false,
+    keyboard: false,
+    transition: false,
+    hide: destroyLessonTextViewer,
+  });
+}
 watch(
-  () => [props.visible, classNotesImages.value] as const,
+  () => [props.visible, classNotesImages.value, lessonTextImages.value] as const,
   async ([visible]) => {
-    if (!visible) { destroyViewer(); return; }
+    if (!visible) { destroyViewer(); destroyLessonTextViewer(); return; }
     await nextTick();
     setupViewer();
+    setupLessonTextViewer();
   },
   { immediate: true }
 );
-onBeforeUnmount(destroyViewer);
+onBeforeUnmount(() => { destroyViewer(); destroyLessonTextViewer(); });
 
 // Q§ 提问 / A§ 回答 / § 单词头词，做字体与颜色区分（原始 T:/S:/音标已在提取时剔除）。
 const DRILL = new Set(["Comprehension", "Asking questions", "Practices"]);
@@ -354,6 +385,21 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           />
         </div>
         <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
+      </el-tab-pane>
+
+      <!-- 课文原文：教材 PDF 渲染的课文页，效果与“原书”一致，点击可放大。 -->
+      <el-tab-pane :label="t('notes.tabLessonText')" name="lesson-text">
+        <div v-if="lessonTextImages.length" ref="lessonTextPagesEl" class="class-notes-pages">
+          <img
+            v-for="(src, i) in lessonTextImages"
+            :key="i"
+            :src="src"
+            :alt="`lesson text ${i + 1}`"
+            :loading="i === 0 ? 'eager' : 'lazy'"
+            class="class-notes-page"
+          />
+        </div>
+        <el-empty v-else :description="t('notes.lessonTextEmpty')" :image-size="80" />
       </el-tab-pane>
 
       <!-- Homework：康奈尔笔记三栏，Questions / Homework / Summary & Recap。 -->
