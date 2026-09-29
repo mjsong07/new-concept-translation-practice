@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { speakEnglishSequence, stopSpeech } from "./speech";
+import { getEnglishVoices, speakEnglishSequence, stopSpeech } from "./speech";
 
 class MockUtterance {
   lang = "";
@@ -38,5 +38,36 @@ describe("speakEnglishSequence", () => {
     utterance.onboundary?.({ charIndex: 7, name: "word" } as SpeechSynthesisEvent);
 
     expect(onWordStart).toHaveBeenCalledWith(segment, 0, 7);
+  });
+});
+
+describe("getEnglishVoices (非 Apple / Android 分支)", () => {
+  function stubVoices(voices: SpeechSynthesisVoice[]) {
+    vi.stubGlobal("speechSynthesis", {
+      getVoices: () => voices,
+      cancel: vi.fn(),
+      pause: vi.fn(),
+      resume: vi.fn(),
+      speak: vi.fn()
+    });
+  }
+
+  it("在 Android 上识别 Google TTS 英语音色（不依赖 Apple 音色名）", () => {
+    const female = { name: "Google UK English Female", lang: "en-GB", voiceURI: "com.google.android.tts:eng-gbr-f00" } as SpeechSynthesisVoice;
+    const us = { name: "Google US English", lang: "en-US", voiceURI: "com.google.android.tts:eng-usa" } as SpeechSynthesisVoice;
+    stubVoices([female, us]);
+    expect(getEnglishVoices().map((v) => v.name)).toEqual(["Google UK English Female", "Google US English"]);
+  });
+
+  it("无 Google 音色时回退到任意英语音色，避免语音列表为空", () => {
+    const generic = { name: "English (United States)", lang: "en-US", voiceURI: "com.foo.tts:eng" } as SpeechSynthesisVoice;
+    stubVoices([generic]);
+    expect(getEnglishVoices().map((v) => v.name)).toEqual(["English (United States)"]);
+  });
+
+  it("非英语音色不进入列表", () => {
+    const zh = { name: "Google 普通話", lang: "zh-CN", voiceURI: "com.google.android.tts:zho-cmn" } as SpeechSynthesisVoice;
+    stubVoices([zh]);
+    expect(getEnglishVoices()).toEqual([]);
   });
 });

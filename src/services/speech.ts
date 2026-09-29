@@ -1,8 +1,20 @@
 import type { SpeechSegment, SpeechSettings } from "../types/practice";
 
-const supportedVoiceNames = ["Tessa", "Moira", "Samantha", "Karen", "Daniel", "Rishi"] as const;
-const femaleVoiceNames = new Set(["Tessa", "Moira", "Samantha", "Karen"]);
-const maleVoiceNames = new Set(["Daniel", "Rishi"]);
+// 以下音色名为 Apple 系统（macOS/iOS）内置英语语音。Android 上 Google TTS
+// 的音色名完全不同（如 “Google US English”“Google UK English Female” 等）。
+const appleVoiceNames = ["Tessa", "Moira", "Samantha", "Karen", "Daniel", "Rishi"] as const;
+const appleFemaleVoiceNames = new Set(["Tessa", "Moira", "Samantha", "Karen"]);
+const appleMaleVoiceNames = new Set(["Daniel", "Rishi"]);
+const isApplePlatform = /Mac|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+function appleVoiceName(voice: SpeechSynthesisVoice) {
+  return appleVoiceNames.find((name) => new RegExp(`\\b${name}\\b`, "i").test(voice.name));
+}
+
+function isGoogleEnglishVoice(voice: SpeechSynthesisVoice) {
+  if (!voice.lang.toLowerCase().startsWith("en")) return false;
+  return /\bGoogle\b/i.test(voice.name) || /google/i.test(voice.voiceURI);
+}
 const femaleSpeakers = new Set([
   "AMY", "ANN", "ANNA", "CAROL", "CAROLINE", "CATHERINE", "CHARLOTTE", "CHRISTINE", "HELEN", "JANE",
   "JEAN", "JENNY", "JILL", "JULIE", "KATE", "LINDA", "LIZ", "LOUISE", "LUCY", "MISS MARSH", "NAOKO",
@@ -33,22 +45,34 @@ function keepLongChromeSpeechAlive() {
   }, 10000);
 }
 
-function supportedName(voice: SpeechSynthesisVoice) {
-  return supportedVoiceNames.find((name) => new RegExp(`\\b${name}\\b`, "i").test(voice.name));
-}
-
 export function getEnglishVoices() {
   if (!("speechSynthesis" in window)) return [];
   const quality = /premium|enhanced|neural|natural/i;
-  const candidates = window.speechSynthesis.getVoices()
-    .filter((voice) => voice.lang.toLowerCase().startsWith("en") && supportedName(voice))
+  const english = window.speechSynthesis.getVoices()
+    .filter((voice) => voice.lang.toLowerCase().startsWith("en"));
+
+  let candidates: SpeechSynthesisVoice[];
+  if (isApplePlatform) {
+    // macOS / iOS：保留人工挑选的 Apple 音色，避免声音列表被系统内置语音刷屏。
+    candidates = english.filter((voice) => appleVoiceName(voice));
+  } else {
+    // Android / 其他平台：优先 Google TTS 英语音色；若设备上没有任何 Google 音色，
+    // 回退到任意英语音色。否则语音列表为空，会导致部分安卓设备静默无声。
+    const google = english.filter(isGoogleEnglishVoice);
+    candidates = google.length ? google : english;
+  }
+  const ranked = [...candidates]
     .sort((left, right) => Number(quality.test(right.name)) - Number(quality.test(left.name)));
-  const voicesByName = new Map<string, SpeechSynthesisVoice>();
-  candidates.forEach((voice) => {
-    const name = supportedName(voice);
-    if (name && !voicesByName.has(name)) voicesByName.set(name, voice);
-  });
-  return supportedVoiceNames.flatMap((name) => voicesByName.get(name) || []);
+
+  const seen = new Set<string>();
+  const result: SpeechSynthesisVoice[] = [];
+  for (const voice of ranked) {
+    const key = appleVoiceName(voice) || voice.name;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push(voice);
+  }
+  return result;
 }
 
 function speakerGender(speaker: string): "female" | "male" | "unknown" {
@@ -59,8 +83,8 @@ function speakerGender(speaker: string): "female" | "male" | "unknown" {
 }
 
 function assignSpeakerVoices(segments: SpeechSegment[], voices: SpeechSynthesisVoice[], preferred?: SpeechSynthesisVoice) {
-  const femaleVoices = voices.filter((voice) => femaleVoiceNames.has(supportedName(voice) || ""));
-  const maleVoices = voices.filter((voice) => maleVoiceNames.has(supportedName(voice) || ""));
+  const femaleVoices = voices.filter((voice) => appleFemaleVoiceNames.has(appleVoiceName(voice) || ""));
+  const maleVoices = voices.filter((voice) => appleMaleVoiceNames.has(appleVoiceName(voice) || ""));
   const voicePools = {
     female: femaleVoices.length ? [...femaleVoices] : [...voices],
     male: maleVoices.length ? [...maleVoices] : [...voices],
