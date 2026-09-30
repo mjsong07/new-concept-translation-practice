@@ -1,4 +1,12 @@
 import type { SpeechSegment, SpeechSettings } from "../types/practice";
+import { isEdgeSpeaking, speakEdgeSequence, stopEdgeSpeech, toggleEdgePause } from "./edgeTts";
+
+// 系统 TTS 无声/无英文语音时使用的微软 Edge 音色（按说话人性别选择）。
+const edgeVoiceByGender: Record<"female" | "male" | "unknown", string> = {
+  female: "en-GB-SoniaNeural",
+  male: "en-GB-RyanNeural",
+  unknown: "en-GB-SoniaNeural"
+};
 
 // 以下音色名为 Apple 系统（macOS/iOS）内置英语语音。Android 上 Google TTS
 // 的音色名完全不同（如 “Google US English”“Google UK English Female” 等）。
@@ -117,9 +125,19 @@ export function speakEnglishSequence(
     onEnd?: () => void;
   } = {}
 ) {
-  if (!("speechSynthesis" in window)) return false;
   const segments = sourceSegments.filter((segment) => segment.text.trim());
   if (!segments.length) return false;
+
+  // 系统 TTS 不可用，或虽有 speechSynthesis 但没有任何英文语音（如部分无谷歌
+  // 服务的安卓平板）→ 走在线 Edge TTS 兜底。
+  if (!("speechSynthesis" in window) || getEnglishVoices().length === 0) {
+    const edgeSegments = segments.map((segment) => ({
+      segment,
+      voice: edgeVoiceByGender[segment.speaker ? speakerGender(segment.speaker) : "unknown"]
+    }));
+    void speakEdgeSequence(edgeSegments, settings, callbacks);
+    return true;
+  }
 
   const generation = ++speechGeneration;
   window.speechSynthesis.cancel();
@@ -180,6 +198,8 @@ export function speakEnglish(text: string, settings: SpeechSettings, callbacks: 
 }
 
 export function toggleSpeechPause(shouldPause = !window.speechSynthesis?.paused) {
+  // 在线兜底播放中：暂停/继续由 <audio> 元素负责。
+  if (isEdgeSpeaking()) return toggleEdgePause(shouldPause);
   if (!("speechSynthesis" in window) || !window.speechSynthesis.speaking) return false;
   if (shouldPause) window.speechSynthesis.pause();
   else window.speechSynthesis.resume();
@@ -191,4 +211,5 @@ export function stopSpeech() {
   clearSpeechKeepAlive();
   window.speechSynthesis?.cancel();
   activeUtterance = null;
+  stopEdgeSpeech();
 }

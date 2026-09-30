@@ -1,6 +1,20 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getEnglishVoices, speakEnglishSequence, stopSpeech } from "./speech";
 
+// 在线兜底模块整体 mock，便于断言系统 TTS 无声时确实切到 Edge。
+const { edgeSpeak, edgeStop, edgeIsSpeaking, edgeTogglePause } = vi.hoisted(() => ({
+  edgeSpeak: vi.fn().mockResolvedValue(true),
+  edgeStop: vi.fn(),
+  edgeIsSpeaking: vi.fn(() => false),
+  edgeTogglePause: vi.fn(() => false)
+}));
+vi.mock("./edgeTts", () => ({
+  speakEdgeSequence: edgeSpeak,
+  stopEdgeSpeech: edgeStop,
+  isEdgeSpeaking: edgeIsSpeaking,
+  toggleEdgePause: edgeTogglePause
+}));
+
 class MockUtterance {
   lang = "";
   rate = 1;
@@ -17,16 +31,17 @@ class MockUtterance {
 afterEach(() => {
   stopSpeech();
   vi.unstubAllGlobals();
+  vi.clearAllMocks();
 });
 
 describe("speakEnglishSequence", () => {
-  it("reports the character offset for each spoken word boundary", () => {
+  it("系统有英文语音时走 speechSynthesis，并报告逐词边界", () => {
     const speak = vi.fn();
     vi.stubGlobal("SpeechSynthesisUtterance", MockUtterance);
     vi.stubGlobal("speechSynthesis", {
       cancel: vi.fn(),
       resume: vi.fn(),
-      getVoices: () => [],
+      getVoices: () => [{ name: "English (United States)", lang: "en-US", voiceURI: "test-en" }] as SpeechSynthesisVoice[],
       speak
     });
     const onWordStart = vi.fn();
@@ -37,7 +52,28 @@ describe("speakEnglishSequence", () => {
     utterance.onstart?.();
     utterance.onboundary?.({ charIndex: 7, name: "word" } as SpeechSynthesisEvent);
 
+    expect(edgeSpeak).not.toHaveBeenCalled();
     expect(onWordStart).toHaveBeenCalledWith(segment, 0, 7);
+  });
+
+  it("系统无英文语音时切换到在线 Edge 兜底", () => {
+    vi.stubGlobal("SpeechSynthesisUtterance", MockUtterance);
+    vi.stubGlobal("speechSynthesis", {
+      cancel: vi.fn(),
+      resume: vi.fn(),
+      getVoices: () => [],
+      speak: vi.fn()
+    });
+    const onSegmentStart = vi.fn();
+    const segment = { text: "Excuse me!", speaker: "JANE", itemId: "lesson-1-1" };
+
+    speakEnglishSequence([segment], { voiceURI: "", rate: 0.82, volume: 1 }, { onSegmentStart });
+
+    expect(edgeSpeak).toHaveBeenCalledWith(
+      [{ segment, voice: "en-GB-SoniaNeural" }],
+      { voiceURI: "", rate: 0.82, volume: 1 },
+      { onSegmentStart }
+    );
   });
 });
 
