@@ -30,9 +30,18 @@ export interface EdgeSpeechCallbacks {
   onEnd?: () => void;
 }
 
-/** 代理 base URL。默认同源（"/tts"）；可经 localStorage 覆盖，指向局域网内的代理机器。 */
+/**
+ * 在线 TTS 代理的默认 base URL。
+ *
+ * 前端静态页托管在 GitHub Pages（mjsong07.github.io），本身没有后端；发音请求
+ * 跨域打到 Render 上运行的 edge-tts-proxy（其 CORS 为 *）。同源部署在 Render
+ * 上时这个绝对地址也仍然命中 /tts。可用 localStorage 覆盖以指向局域网代理。
+ */
+const DEFAULT_EDGE_TTS_BASE = "https://new-concept-translation-practice.onrender.com";
+
+/** 代理 base URL。默认走 Render 线上代理；可经 localStorage 覆盖。 */
 export function edgeBaseUrl(): string {
-  return localStorage.getItem("new-concept-edge-tts-base") || "";
+  return localStorage.getItem("new-concept-edge-tts-base") || DEFAULT_EDGE_TTS_BASE;
 }
 
 let edgeGeneration = 0;
