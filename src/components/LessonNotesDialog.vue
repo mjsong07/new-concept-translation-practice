@@ -7,6 +7,7 @@ import { useI18n } from "../composables/useI18n";
 import { lessonNotes } from "../data/lessonNotes";
 import { lessonContent } from "../data/lessonContent";
 import { lessonNotesPages } from "../data/lessonNotesPages";
+import { lessonTeacherNotesPages } from "../data/lessonTeacherNotesPages";
 import { lessonTextPages } from "../data/lessonTextPages";
 import { lessonHomework } from "../data/lessonHomework";
 import { lessonGrammarPages } from "../data/lessonGrammarPages";
@@ -170,9 +171,15 @@ function reload() {
   hideAll.value = false;
   hiddenGroups.value = new Set();
   revealedGroups.value = new Set();
+  if (activeGroup.value === "study" && activeTab.value === "teacher-notes" && teacherNotesImages.value.length === 0) {
+    activeTab.value = "original";
+  }
   // 切课后内容滚动条回到顶部
   nextTick(() => {
-    document.querySelector(".lesson-notes-dialog .el-tabs__content")?.scrollTo({ top: 0 });
+    const tabsContent = document.querySelector(".lesson-notes-dialog .el-tabs__content") as HTMLElement | null;
+    if (!tabsContent) return;
+    if (typeof tabsContent.scrollTo === "function") tabsContent.scrollTo({ top: 0 });
+    else tabsContent.scrollTop = 0;
   });
 }
 
@@ -192,6 +199,7 @@ const visibleContentBlocks = computed(() =>
 
 // 原书课堂笔记截图：保留图片版，方便与提取文字对照。
 const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || []);
+const teacherNotesImages = computed(() => lessonTeacherNotesPages[props.lessonNumber] || []);
 
 // 课文原文：教材 PDF 渲染的课文页（对话 + 生词/注释/参考译文），与“原书”一致支持点击放大。
 const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
@@ -232,6 +240,32 @@ function setupViewer() {
     transition: false,
     // 切课时销毁，避免残留旧实例
     hide: destroyViewer,
+  });
+}
+
+// 老师版 Repetition drill(a) 截图，同样支持点击放大。
+const teacherNotesPagesEl = ref<HTMLElement | null>(null);
+let teacherNotesViewer: Viewer | null = null;
+function destroyTeacherNotesViewer() {
+  teacherNotesViewer?.destroy();
+  teacherNotesViewer = null;
+}
+function setupTeacherNotesViewer() {
+  destroyTeacherNotesViewer();
+  if (!teacherNotesPagesEl.value || !teacherNotesPagesEl.value.querySelector("img")) return;
+  teacherNotesViewer = new Viewer(teacherNotesPagesEl.value, {
+    inline: false,
+    navbar: false,
+    toolbar: {
+      zoomIn: 1, zoomOut: 1, reset: 1,
+      prev: 1, next: 1,
+    },
+    movable: true,
+    zoomable: true,
+    scalable: false,
+    keyboard: false,
+    transition: false,
+    hide: destroyTeacherNotesViewer,
   });
 }
 
@@ -283,17 +317,18 @@ function setupGrammarViewer() {
   });
 }
 watch(
-  () => [props.visible, classNotesImages.value, lessonTextImages.value, grammarImages.value] as const,
+  () => [props.visible, classNotesImages.value, teacherNotesImages.value, lessonTextImages.value, grammarImages.value] as const,
   async ([visible]) => {
-    if (!visible) { destroyViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); return; }
+    if (!visible) { destroyViewer(); destroyTeacherNotesViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); return; }
     await nextTick();
     setupViewer();
+    setupTeacherNotesViewer();
     setupLessonTextViewer();
     setupGrammarViewer();
   },
   { immediate: true }
 );
-onBeforeUnmount(() => { destroyViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); });
+onBeforeUnmount(() => { destroyViewer(); destroyTeacherNotesViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); });
 
 // Q§ 提问 / A§ 回答 / § 单词头词，做字体与颜色区分（原始 T:/S:/音标已在提取时剔除）。
 const DRILL = new Set(["Comprehension", "Asking questions", "Practices"]);
@@ -416,6 +451,20 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           />
         </div>
         <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
+      </el-tab-pane>
+
+      <!-- 老师版 repetition drill(a)：偶数课从 Play the examples... 到 (b) 前的截图。 -->
+      <el-tab-pane v-if="activeGroup === 'study' && teacherNotesImages.length" :label="t('notes.tabTeacherNotes')" name="teacher-notes">
+        <div ref="teacherNotesPagesEl" class="class-notes-pages">
+          <img
+            v-for="(src, i) in teacherNotesImages"
+            :key="i"
+            :src="src"
+            :alt="`teacher notes ${i + 1}`"
+            :loading="i === 0 ? 'eager' : 'lazy'"
+            class="class-notes-page"
+          />
+        </div>
       </el-tab-pane>
 
       <!-- 语法练习截图：教材《语法练习》对应课页，点击可放大。 -->

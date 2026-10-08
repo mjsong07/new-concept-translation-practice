@@ -36,6 +36,7 @@ describe("LessonNotesDialog 多 tab", () => {
     expect(tabNames()).toContain("Grammar");
     expect(tabNames()).toContain("Words");
     expect(tabNames()).toContain("笔记");
+    expect(tabNames()).not.toContain("老师笔记");
     expect(tabNames()).not.toContain("Homework");
     await mountDialog(71, "practice");
     expect(tabNames()).toContain("Comprehension");
@@ -43,6 +44,15 @@ describe("LessonNotesDialog 多 tab", () => {
     expect(tabNames()).not.toContain("Words");
     await mountDialog(71, "summary");
     expect(tabNames()).toEqual(["Homework"]);
+  });
+
+  it("偶数课学习分组：在“笔记”右侧显示“老师笔记”tab", async () => {
+    await mountDialog(122, "study");
+    const names = tabNames();
+    const notesIdx = names.indexOf("笔记");
+    const teacherIdx = names.indexOf("老师笔记");
+    expect(notesIdx).toBeGreaterThanOrEqual(0);
+    expect(teacherIdx).toBeGreaterThan(notesIdx);
   });
 
   it("Grammar 内容 tab：展示提取的课堂笔记文字（只读）", async () => {

@@ -7,6 +7,8 @@ import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback } from "../types/practice";
 
 const lesson66 = writtenExercises.find((lesson) => lesson.number === 66)!;
+const lesson8 = writtenExercises.find((lesson) => lesson.number === 8)!;
+const lesson16 = writtenExercises.find((lesson) => lesson.number === 16)!;
 
 const baseProps = {
   lessonNumber: lesson66.number,
@@ -17,12 +19,15 @@ const baseProps = {
   answers: {},
   results: {},
   completedIds: [],
+  displayMode: "translation" as const,
   mistakeHistory: [],
   autoAdvanceErrors: false,
   characterMatchPercent: 50,
   speechActive: false,
   speechPaused: false,
-  activeSpeechItemId: ""
+  activeSpeechItemId: "",
+  activeSpeechCharacterOffset: -1,
+  activeWordId: ""
 };
 
 const ElInputStub = {
@@ -83,7 +88,6 @@ describe("WrittenExercise sections and inline blanks", () => {
     expect(sections[1].findAll(".sentence-number").map((node) => node.text())).toEqual([
       "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"
     ]);
-    expect(wrapper.find(".reading-list").exists()).toBe(false);
   });
 
   it("shows the example block before the input rows in section B", () => {
@@ -210,5 +214,90 @@ describe("WrittenExercise sections and inline blanks", () => {
     expect(pairs[0].find(".written-example-answer").text()).toBe("It hasn't been opened yet.\nIt will be opened tomorrow.");
     expect(pairs[1].find(".written-example-prompt").text()).toBe("Hasn't anyone opened the windows yet?");
     expect(pairs[1].find(".written-example-answer").text()).toBe("They haven't been opened yet.\nThey will be opened tomorrow.");
+  });
+
+  it("偶数课显示“原文”页签内容，且每行可点击发音", async () => {
+    const wrapper = mountExercise({
+      lessonNumber: lesson8.number,
+      lessonTitle: lesson8.title,
+      lessonTitleZh: lesson8.titleZh,
+      sections: lesson8.sections || [],
+      items: lesson8.items,
+      displayMode: "original"
+    });
+
+    const lineRow = wrapper.find(".written-original .sentence-row");
+    const lineButton = lineRow.find(".sentence-number");
+    const lineTextNode = lineRow.find(".sentence-english");
+    expect(lineRow.exists()).toBe(true);
+    expect(lineButton.exists()).toBe(true);
+    expect(lineTextNode.exists()).toBe(true);
+    expect(wrapper.text()).not.toContain("Words");
+    expect(wrapper.text()).not.toContain("Grammar");
+
+    const lineText = lineTextNode.text().trim();
+    await lineButton.trigger("click");
+
+    const speakEvents = wrapper.emitted("speak");
+    expect(speakEvents?.length).toBe(1);
+    const segment = speakEvents?.[0]?.[0]?.[0] as { text: string; itemId: string; speaker: string };
+    expect(segment.text).toBe(lineText);
+    expect(segment.itemId).toBe("lesson-8-original-0");
+    expect(segment.speaker).toBe("ORIGINAL");
+  });
+
+  it("偶数课的译文+原文与原文分别呈现整课视图", () => {
+    const bilingualWrapper = mountExercise({
+      lessonNumber: lesson8.number,
+      lessonTitle: lesson8.title,
+      lessonTitleZh: lesson8.titleZh,
+      sections: lesson8.sections || [],
+      items: lesson8.items,
+      displayMode: "bilingual"
+    });
+    const originalWrapper = mountExercise({
+      lessonNumber: lesson8.number,
+      lessonTitle: lesson8.title,
+      lessonTitleZh: lesson8.titleZh,
+      sections: lesson8.sections || [],
+      items: lesson8.items,
+      displayMode: "original"
+    });
+
+    expect(originalWrapper.find(".written-original").exists()).toBe(true);
+    expect(bilingualWrapper.find(".bilingual-list").exists()).toBe(true);
+  });
+
+  it("偶数课译文页支持全文发音", async () => {
+    const wrapper = mountExercise();
+    const fullTextButton = wrapper.findAll("button").find((node) => node.text() === "全文");
+
+    expect(fullTextButton).toBeTruthy();
+    await fullTextButton!.trigger("click");
+
+    const speakEvents = wrapper.emitted("speak");
+    expect(speakEvents?.length).toBe(1);
+    const segments = speakEvents?.[0]?.[0] as { text: string; itemId: string; speaker: string }[];
+    expect(segments.length).toBe(lesson66.items.length);
+    expect(segments[0]).toEqual({ text: "I am going to see him at ten o'clock.", itemId: "lesson-66-A1", speaker: "A" });
+    expect(segments[2]).toEqual({ text: "Where do you come from? I come from France.", itemId: "lesson-66-A3", speaker: "A" });
+  });
+
+  it("偶数课原文会清理 OCR：去掉 S/T 前缀、Qur->our、以及单词断裂空格", () => {
+    const wrapper = mountExercise({
+      lessonNumber: lesson16.number,
+      lessonTitle: lesson16.title,
+      lessonTitleZh: lesson16.titleZh,
+      sections: lesson16.sections || [],
+      items: lesson16.items,
+      displayMode: "original"
+    });
+
+    const lines = wrapper.findAll(".written-original .sentence-english").map((node) => node.text().trim());
+    expect(lines.length).toBeGreaterThan(0);
+    expect(lines.some((line) => /^\s*[ST]\s*:/i.test(line))).toBe(false);
+    expect(lines.some((line) => /\bQur\b/.test(line))).toBe(false);
+    expect(lines.some((line) => /\bbl\s+ue\b/i.test(line))).toBe(false);
+    expect(lines).toContain("our tickets are not white.");
   });
 });

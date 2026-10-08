@@ -1,5 +1,6 @@
 import { computed, ref, watch, type Ref } from "vue";
 import { lessons as oddLessons } from "../data/lessons";
+import { getLessonTeacherTranslationItems } from "../data/lessonTeacherTranslations";
 import { writtenExercises } from "../data/writtenExercises";
 import { evaluateAnswer } from "../services/text";
 import { useI18n } from "./useI18n";
@@ -62,6 +63,10 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
 
   const lesson = computed(() => allLessons.find((item) => item.number === selectedLesson.value) || allLessons[0]);
   const lessonItems = computed(() => getLessonItems(lesson.value));
+  const lessonTeacherTranslationItems = computed(() => lesson.value.kind === "written"
+    ? getLessonTeacherTranslationItems(lesson.value.number, lesson.value.title)
+    : []);
+  const allLessonItems = computed(() => [...lessonItems.value, ...lessonTeacherTranslationItems.value]);
   const lessonCompleted = computed(() => lessonItems.value.filter((item) => progress.value.completed.includes(item.id)).length);
   const lessonPercent = computed(() => Math.round((lessonCompleted.value / Math.max(lessonItems.value.length, 1)) * 100));
   const lessonMistakeHistory = computed(() => progress.value.mistakeHistory.filter((entry) => entry.lesson === lesson.value.number));
@@ -87,7 +92,8 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
 
   function restoreLessonResults() {
     const restored: Record<string, AnswerFeedback> = {};
-    getLessonItems(allLessons.find((item) => item.number === selectedLesson.value) || allLessons[0]).forEach((item) => {
+    const activeLesson = allLessons.find((item) => item.number === selectedLesson.value) || allLessons[0];
+    [...getLessonItems(activeLesson), ...(activeLesson.kind === "written" ? getLessonTeacherTranslationItems(activeLesson.number, activeLesson.title) : [])].forEach((item) => {
       const value = answers.value[item.id];
       if (value && (progress.value.mistakes[item.id] || 0) > 0) {
         const result = evaluateAnswer(value, item.answer, locale.value, characterMatchPercent.value / 100);
@@ -117,7 +123,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
   }
 
   function submit(id: string) {
-    const item = lessonItems.value.find((candidate) => candidate.id === id);
+    const item = allLessonItems.value.find((candidate) => candidate.id === id);
     const value = answers.value[id] || "";
     if (!item || !value.trim()) return;
     const result = evaluateAnswer(value, item.answer, locale.value, characterMatchPercent.value / 100);
@@ -131,17 +137,38 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
     } else {
       progress.value.completed = progress.value.completed.filter((itemId) => itemId !== item.id);
       progress.value.mistakes[item.id] = (progress.value.mistakes[item.id] || 0) + 1;
-      const historyEntry: MistakeHistoryEntry = {
-        id: `${item.id}-${timestamp}-${progress.value.attempts}`,
-        itemId: item.id, lesson: item.lesson, prompt: item.prompt, input: value, answer: item.answer,
-        missing: result.missing, extra: result.extra, explanation: result.explanation, createdAt: timestamp
-      };
-      progress.value.mistakeHistory.unshift(historyEntry);
+      const latestEntry = progress.value.mistakeHistory[0];
+      const lastCorrectAt = progress.value.lastCorrectAt[item.id] || 0;
+      const canMergeLatest =
+        latestEntry?.itemId === item.id
+        && lastCorrectAt <= latestEntry.createdAt;
+
+      if (canMergeLatest && latestEntry) {
+        const merged: MistakeHistoryEntry = {
+          ...latestEntry,
+          id: `${item.id}-${timestamp}-${progress.value.attempts}`,
+          prompt: item.prompt,
+          input: value,
+          answer: item.answer,
+          missing: result.missing,
+          extra: result.extra,
+          explanation: result.explanation,
+          createdAt: timestamp
+        };
+        progress.value.mistakeHistory = [merged, ...progress.value.mistakeHistory.slice(1)];
+      } else {
+        const historyEntry: MistakeHistoryEntry = {
+          id: `${item.id}-${timestamp}-${progress.value.attempts}`,
+          itemId: item.id, lesson: item.lesson, prompt: item.prompt, input: value, answer: item.answer,
+          missing: result.missing, extra: result.extra, explanation: result.explanation, createdAt: timestamp
+        };
+        progress.value.mistakeHistory.unshift(historyEntry);
+      }
     }
   }
 
   function resetLesson() {
-    const ids = new Set(lessonItems.value.map((item) => item.id));
+    const ids = new Set(allLessonItems.value.map((item) => item.id));
     ids.forEach((id) => {
       delete answers.value[id];
       delete progress.value.answers[id];
@@ -154,7 +181,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
   }
 
   return {
-    lessons: allLessons, selectedLesson, lesson, lessonItems, answers, results,
+    lessons: allLessons, selectedLesson, lesson, lessonItems, lessonTeacherTranslationItems, answers, results,
     displayMode, progress, lessonCompleted, lessonPercent, lessonMistakeHistory,
     updateAnswer, clearAnswer, submit, resetLesson
   };
