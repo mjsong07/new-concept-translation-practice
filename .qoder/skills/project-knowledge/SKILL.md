@@ -13,4 +13,9 @@ description: 了解、维护或排查 new-concept-translation-practice 项目时
 - 需要快速追溯 Codex 历史结论时，读取 references/history-summary.md。
 - 需要查看完整用户与助手对话时，读取 references/chat-history/README.md，再按会话链接打开对应归档。
 
+用户长期偏好：
+
+- 默认不生成新的测试用例（单测/集成测试/E2E）；由用户自行测试。
+- 仅在用户明确提出时，才补充或修改测试用例。
+
 以当前代码和实际验证结果为准。发现知识过期时，在完成任务后同步更新对应参考文档。
