@@ -1,0 +1,2799 @@
+> Original work: New Concept English Book 1 by L. G. Alexander. The even-numbered lesson texts below were extracted from the user's local teacher-notes images (OCR) and proofread line by line against those notes. This structured extract is intended for personal study only and is not a substitute for the original work. All rights remain with the author and relevant rights holders. Please obtain and support the original work through authorized channels.
+
+# Even-Numbered Lesson Texts
+
+> Coverage: all 72 even-numbered lessons from Lesson 2 through Lesson 144. Lines prefixed with "T:" / "S:" mark teacher / student speakers in the pattern drills.
+
+## Lesson 2 · Is this your...?
+
+T: Look at number 1.
+S: Is this your pen?
+T: Yes, it is.
+Number 2.
+S: Is this your pencil?
+T: Yes, it is.
+Number 3.
+S: Is this your book?
+T: Yes, it is.
+T: Now you ask the questions.
+Ready?
+T: Yes, it is.
+Number 4.
+S: Is this your watch?
+T: Yes, it is.
+Number 5.
+S: Is this your coat?
+T: Yes, it is.
+Number 6.
+S: Is this your dress?
+T: Yes, it is.
+Number 7.
+S: Is this your skirt?
+T: Yes, it is. Number 8.
+S: Is this your shirt?
+T: Yes, it is.
+Number 9.
+S: Is this your car?
+T: Yes, it is.
+Number 10.
+S: Is this your house?
+T: Yes, it is.
+
+## Lesson 4 · Is this your...?
+
+T: Look at number 1.
+Is this your pen?
+S: Yes, it is.
+T: Number 2.
+Is this your pencil?
+S: Yes, it is.
+T: Number 3. Is this your book?
+S: Yes, it is.
+T: Number 4.
+Is this your watch?
+S: Yes, it is.
+T: Number 5.
+Is this your coat?
+S: No, it isn't.
+T: Number 6.
+Is this your dress?
+S: Yes, it is.
+T: Number 7.
+Is this your skirt?
+S: No, it isn't.
+T: Number 8.
+Is this your shirt?
+S: Yes, it is.
+T: Number 9.
+Is this your car?
+S: Yes, it is.
+T: Number 10.
+Is this your house?
+S: No, it isn't.
+11.
+T: Number 11.
+Is this your suit?
+S: Yes, it is.
+T: Number 12.
+Is this your school?
+S: No, it isn't.
+13.
+T: Number 13.
+Is this your teacher?
+S: Yes, it is.
+T: Number 14.
+Is this your son?
+S: No, it isn't.
+T: Number 15.
+Is this your daughter?
+S: Yes, it is.
+
+## Lesson 6 · What make is it?
+
+Play the examples on the tape.
+播放录音上的例子。
+T: Look at number 8.
+That's a Volvo.
+Is it a Swedish car or a French car?
+S: It isn't a French car.
+It's a Swedish car.
+T: Number 9.
+That's a Peugeot.
+Is it a French car or a Swedish car?
+S: It isn't a Swedish car.
+It's a French car.
+T: Number 10.
+That's a Mercedes.
+Is it a German car or a Japanese car?
+S: It isn't a Japanese car.
+It's a German car.
+T: Number 11.
+That's a Toyota.
+Is it a Japanese car or a German car?
+S: It isn't a German car.
+It's a Japanese car.
+T: Number 12. That's a Daewoo.
+Is it a British car or a Korean car?
+S: It isn't a British car.
+It's a Korean car.
+T: Number 13. That's a Mini.
+Is it an American car or an English car?
+S: It isn't an American car.
+It's an English car.
+T: Number 14. That's a Ford.
+Is it a Swedish car or an American car?
+S: It isn't a Swedish car.
+It's an American car.
+T: Number 15.
+That's a Fiat.
+Is it an Italian car or an American car?
+S: It isn't an American car.
+It's an Italian car.
+
+## Lesson 8 · What's your job?
+
+T: Look at number 11.
+What's his job?
+Is he a policeman or a taxi driver?
+S: He isn't a taxi driver.
+He's a policeman.
+T: Number 12.
+What's her job?
+Is she a policewoman or an air hostess?
+S: She isn't an air hostess.
+She's a policewoman.
+T: Number 13.
+What's his job?
+Is he a taxi driver or a policeman?
+S: He isn't a policeman.
+He's a taxi driver.
+T: Number 14. What's her job?
+Is she an air hostess or a policewoman?
+S: She isn't a policewoman.
+She's an air hostess.
+T: Number 15.
+What's his job?
+Is he a postman or a milkman?
+S: He isn't a milkman.
+He's a postman.
+T: Number 16.
+What's her job?
+Is she a nurse or a housewife?
+S: She isn't a housewife.
+She's a nurse.
+T: Number 17.
+What's his job?
+Is he a mechanic or a hairdresser?
+S: He isn't a hairdresser.
+He's a mechanic.
+T: Number 18.
+What's his job?
+Is he a hairdresser or a mechanic?
+S: He isn't a mechanic.
+He's a hairdresser.
+T: Number 19.
+What's her job?
+Is she a housewife or a nurse?
+S: She isn't a nurse.
+She's a housewife.
+T: Number 20.
+What's his job?
+Is he a milkman or a postman?
+S: He isn't a postman.
+He's a milkman.
+
+## Lesson 10 · Look at...
+
+T: Look at number 11.
+Is that man fat or thin?
+S: He's not thin.
+He's fat.
+T: Number 17.
+Is Steven hot or cold?
+S: He's not cold.
+He's hot.
+T: Number 20.
+Is that air hostess young or old?
+S: She's not old.
+She's young.
+T: Number 12.
+Is that woman thin or fat?
+S: She's not fat.
+She's thin.
+T: Number 18.
+Is Emma cold or hot?
+S: She's not hot.
+She's cold.
+T: Number 14.
+Is that policewoman short or tall?
+S: She's not tall.
+She's short.
+T: Number 19.
+Is that milkman old or young?
+S: He's not young.
+He's old.
+T: Number 15.
+Is that mechanic dirty or clean?
+S: He's not clean.
+He's dirty.
+T: Number 13.
+Is that policeman tall or short?
+S: He's not short.
+He's tall.
+T: Number 16.
+Is that nurse clean or dirty?
+S: She's not dirty.
+She's clean.
+
+## Lesson 12 · Whose is this...? This is my/your/his/her... Whose is that...? That is my/your/his/her...
+
+T: Look at number 22.
+Whose is that handbag?
+Is it Sophie's?
+S: It isn't Sophie's.
+It's Stella's.
+T: Number 23.
+Whose is that car?
+Is it Steven's?
+S: It isn't Steven's.
+It's Paul's.
+T: Number 24.
+Whose is that coat?
+Is it Stella's?
+S: It isn't Stella's.
+It's Sophie's.
+T: Number 25.
+Whose is that umbrella?
+Is it Paul's?
+S: It isn't Paul's.
+It's Steven's.
+T: Number 26.
+Whose is that pen?
+Is it your father's?
+S: It isn't my father's.
+It's my son's.
+T: Number 27.
+Whose is that dress?
+Is it your mother's?
+S: It isn't my mother's.
+It's my daughter's.
+T: Number 28.
+Whose is that suit?
+Is it your son's?
+S: It isn't my son's.
+It's my father's.
+T: Number 29.
+Whose is that skirt?
+Is it your daughter's?
+S: It isn't my daughter's.
+It's my mother's.
+T: Number 30.
+Whose is that blouse?
+Is it your mother's?
+S: It isn't my mother's.
+It's my sister's.
+T: Number 31. Whose is that tie?
+Is it your father's?
+S: It isn't my father's.
+It's my brother's.
+
+## Lesson 14 · What colour's your...?
+
+Play the examples on the tape.
+T: Look at number 20.
+What colour's Steven's umbrella?
+Is it brown?
+S: It isn't brown. It's black.
+T: Number 50.
+What colour's Sophie's coat?
+Is it white?
+S: It isn't white. It's grey.
+T: Number 90. What colour's the boy's tie?
+Is it yellow?
+S: It isn't yellow. It's orange.
+T: Number 30.
+What colour's Paul's car?
+Is it red?
+S: It isn't red. It's blue.
+T: Number 80.
+What colour's Anna's blouse?
+Is it orange?
+S: It isn't orange.
+It's yellow.
+T: Number 40.
+What colour's Tim's shirt?
+Is it blue?
+S: It isn't blue.
+It's white.
+T: Number 100.
+What colour's Steven's hat?
+Is it green and red?
+S: It isn't green and red.
+It's grey and black.
+T: Number 60.
+What colour's the woman's case?
+Is it grey?
+S: It isn't grey.
+It's brown.
+T: Number 101.
+What colour's Helen's dog?
+Is it grey and black?
+S: It isn't grey and black.
+It's brown and white.
+T: Number 70.
+What colour's Anna's carpet?
+Is it green?
+S: It isn't green.
+It's red.
+
+## Lesson 16 · Are you...?
+
+T: Look at number 90.
+What colour are your tickets?
+Are they white?
+S: Our tickets are not white.
+They are yellow.
+T: Number 107.
+What colour are your pens?
+Are they red?
+S: Our pens are not red.
+They are blue.
+T: Number 102.
+What colour are your passports?
+Are they blue?
+S: Our passports are not blue.
+They are green.
+T: Number 104.
+What colour are your handbags?
+Are they grey?
+S: Our handbags are not grey.
+They are white.
+T: Number 110.
+What colour are your blouses?
+Are they orange?
+S: Our blouses are not orange.
+They are yellow.
+T: Number 80.
+What colour are your coats?
+Are they black?
+S: Our coats are not black.
+They are grey.
+T: Number 109.
+What colour are your dresses?
+Are they brown?
+S: Our dresses are not brown.
+They are green.
+T: Number 70.
+What colour are your shirts?
+Are they blue?
+S: Our shirts are not blue.
+They are white.
+T: Number 101.
+What colour are your hats?
+Are they green and red?
+S: Our hats are not green and red.
+They are black and grey.
+T: Number 105.
+What colour are your ties?
+Are they red?
+S: Our ties are not red.
+They are orange.
+
+## Lesson 18 · What are their jobs?
+
+T: Look at number 100.
+What are their jobs?
+Are they mechanics?
+S: They aren't mechanics.
+They're sales reps.
+T: Number 900.
+What are their jobs?
+Are they keyboard operators?
+S: They aren't keyboard operators.
+They're nurses.
+T: Number 1002.
+What are their jobs?
+Are they postmen?
+S: They aren't postmen.
+They're milkmen.
+T: Number 1000.
+What are their jobs?
+Are they policewomen?
+S: They aren't policewomen.
+They're air hostesses.
+T: Number 400.
+What are their jobs?
+Are they Customs officers?
+S: They aren't Customs officers.
+They're engineers.
+T: Number 800.
+What are their jobs?
+Are they hairdressers?
+S: They aren't hairdressers.
+They're taxi drivers.
+T: Number 600.
+What are their jobs?
+Are they engineers?
+S: They aren't engineers.
+They're teachers.
+T: Number 1001.
+What are their jobs?
+Are they policewomen?
+S: They aren't policewomen.
+They're housewives.
+T: Number 500.
+What are their jobs?
+Are they milkmen?
+S: They aren't milkmen.
+They're hairdressers.
+T: Number 200.
+What are their jobs?
+Are they nurses?
+S: They aren't nurses.
+They're keyboard operators.
+Take great care to differentiate between 'soft s' /s/ plurals (Nos. 100-300), 'hard s' /z/ plurals (Nos. 400-800 and 1001), /iz/ plurals (Nos. 900 and 1000), and irregular plurals (Nos. 1002-1005).
+
+## Lesson 20 · Look at them!
+
+T: Look at number 105.
+Look at that boy's shoes.
+Are they dirty?
+S: They're not dirty.
+They're clean.
+T: Number 217.
+Look at those postmen.
+Are they cold?
+S: They're not cold.
+They're hot.
+T: Number 321.
+Look at those hairdressers.
+Are they thin?
+S: They're not thin.
+They're fat.
+T: Number 433.
+Look at those shoes.
+Are they small?
+S: They're not small.
+They're big.
+T: Number 545.
+Look at those shops.
+Are they shut?
+S: They're not shut.
+They're open.
+T: Number 657.
+Look at those cases.
+Are they heavy?
+S: They're not heavy.
+They're light.
+T: Number 769.
+Look at grandmother and grandfather.
+Are they young?
+S: They're not young.
+They're old.
+T: Number 881.
+Look at those hats.
+Are they new?
+S: They're not new. They're old.
+T: Number 999.
+Look at those policemen.
+Are they short?
+S: They're not short.
+They're tall.
+T: Number 1000.
+Look at those trousers.
+Are they long?
+S: They're not long.
+They're short.
+
+## Lesson 22 · Give me/him/her/us/them a... Which one?
+
+T: Look at numbers 1001 and 1002.
+S: Give me a cup please.
+T: Which one?
+This dirty one?
+S: No, not this dirty one.
+That clean one.
+T: Numbers 1003 and 1004.
+S: Give me a glass please.
+T: Which one?
+That full one?
+S: No, not that full one.
+This empty one.
+T: Numbers 1005 and 1006.
+S: Give me a bottle please.
+T: Which one?
+This large one?
+S: No, not this large one.
+That small one.
+T: Now you do the same.
+Ready?
+2 As in (2) above.
+3 As in (3) above.
+T: Numbers 1007 and 1008.
+S: Give me a box please.
+T: Which one?
+That little one?
+S: No, not that little one.
+This big one.
+T: Numbers 1009 and 1010.
+S: Give me a tin please.
+T: Which one?
+This new one?
+S: No, not this new one.
+That old one.
+T: Numbers 1011 and 1012.
+S: Give me a knife please.
+T: Which one?
+That blunt one?
+S: No, not that blunt one.
+This sharp one.
+T: Numbers 1013 and 1014.
+S: Give me a spoon please.
+T: Which one?
+This new one?
+S: No, not this new one.
+That old one.
+T: Numbers 1015 and 1016.
+S: Give me a fork please.
+T: Which one?
+That small one?
+S: No, not that small one.
+This large one.
+
+## Lesson 24 · Give me/him/her/us/them some... Which ones?
+
+T: Look at number 1117.
+S: Give me some pens please.
+T: Which ones?
+S: The ones on the desk.
+T: Number 1218.
+S: Give me some ties please.
+T: Which ones?
+S: The ones on the chair.
+T: Number 1319.
+S: Give me some spoons please.
+T: Which ones?
+S: The ones on the table.
+T: Now you do the same.
+Ready?
+T: Number 1420.
+S: Give me some plates please.
+T: Which ones?
+S: The ones on the cupboard.
+T: Number 1521.
+S: Give me some cigarettes please.
+T: Which ones?
+S: The ones on the television.
+T: Number 1622.
+S: Give me some boxes please.
+T: Which ones?
+S: The ones on the floor.
+T: Number 1723.
+S: Give me some bottles please.
+T: Which ones?
+S: The ones on the dressing table.
+T: Number 1824.
+S: Give me some books please.
+T: Which ones?
+S: The ones on the shelf.
+T: Number 1925.
+S: Give me some magazines please.
+T: Which ones?
+S: The ones on the bed.
+T: Number 2000.
+S: Give me some newspapers please.
+T: Which ones?
+S: The ones on the stereo.
+
+## Lesson 26 · Where is it?
+
+T: Look at number 3000.
+Is there a clean cup on the floor?
+S: No, there isn't one on the floor.
+There's a clean one on the table.
+(2)
+T: Number 4000.
+Is there a large box on the shelf?
+S: No, there isn't one on the shelf.
+There's a large one on the floor.
+(3)
+T: Number 5000.
+Is there an empty glass in the refrigerator?
+S: No, there isn't one in the refrigerator.
+There's an empty one in the cupboard.
+T: Now you do the same.
+Ready?
+T: Number 6000.
+Is there a sharp knife on the tin?
+S: No, there isn't one on the tin.
+There's a sharp one on the plate.
+T: Number 7000.
+Is there a dirty fork on the plate?
+S: No, there isn't one on the plate.
+There's a dirty one on the tin.
+T: Number 8000.
+Is there a full bottle in the cupboard?
+S: No, there isn't one in the cupboard.
+There's a full one in the refrigerator.
+T: Number 9000.
+Is there a blunt pencil on the table?
+S: No, there isn't one on the table.
+There's a blunt one on the desk.
+T: Number 10000.
+Is there a small spoon in the glass?
+S: No, there isn't one in the glass.
+There's a small one in the cup.
+
+## Lesson 28 · Where are they?
+
+T: Look at number 1120.
+Are there any books on the dressing table?
+S: No, there aren't any books.
+There are some cigarettes.
+T: Where are they?
+S: They're near that box.
+T: Number 5560.
+Are there any ties on the floor?
+S: No, there aren't any ties.
+There are some shoes.
+T: Where are they?
+S: They're near the bed.
+T: Number 8890.
+Are there any glasses on the cupboard?
+S: No, there aren't any glasses.
+There are some bottles.
+T: Where are they?
+S: They're near those tins.
+T: Number 9999.
+Are there any newspapers on the shelf?
+S: No, there aren't any newspapers.
+There are some tickets.
+T: Where are they?
+S: They're in that handbag.
+T: Number 6670.
+Are there any forks on the table?
+S: No, there aren't any forks.
+There are some knives.
+T: Where are they?
+S: They're in that box.
+T: Number 10001.
+Are there any cups on the television?
+S: No, there aren't any cups.
+There are some glasses.
+T: Where are they?
+S: They're near those bottles.
+
+## Lesson 30 · What must I do?
+
+Play the examples on the tape.
+T: Look at number 2... open.
+S: Open your desk.
+T: Number 6... put on.
+S: Put on your watch.
+T: Number 13... turn on.
+S: Turn on the light.
+T: Now you do the same.
+Ready?
+T: Number 1... shut.
+S: Shut your handbag.
+T: Number 7... take off.
+S: Take off your shoes.
+T: Number 14... turn off.
+S: Turn off the tap.
+T: Number 19... sweep.
+S: Sweep the bedroom.
+T: Number 21... clean.
+S: Clean the windows.
+T: Number 24... dust.
+S: Dust the cupboard.
+T: Number 30... empty.
+S: Empty the suitcase.
+11.
+T: Number 32... read.
+S: Read this magazine.
+12.
+T: Number 34... sharpen.
+S: Sharpen these pencils.
+
+## Lesson 32 · What's he/she/it doing?
+
+Play the examples on the tape.
+T: Look at number 20000.
+Is Nicola making the bed?
+S: No, she isn't making the bed.
+T: What's she doing?
+S: She's typing a letter.
+T: Number 90000.
+Is Jack putting on his shirt?
+S: No, he isn't putting on his shirt.
+T: What's he doing?
+S: He's reading a magazine.
+T: Number 70000.
+Is the dog drinking its milk?
+S: No, it isn't drinking its milk.
+T: What's it doing?
+S: It's eating a bone.
+T: Number 80000.
+Is your sister emptying the basket?
+S: No, she isn't emptying the basket.
+T: What's she doing?
+S: She's looking at a picture.
+T: Number 600000.
+Is Tim cleaning his teeth?
+S: No, he isn't cleaning his teeth.
+T: What's he doing?
+S: He's sharpening a pencil.
+T: Number 400000.
+Is the cat eating?
+S: No, it isn't eating.
+T: What's it doing?
+S: It's drinking its milk.
+T: Number 60000.
+Is Sally dusting the dressing table?
+S: No, she isn't dusting the dressing table.
+T: What's she doing?
+S: She's shutting the door.
+T: Number 40000.
+Is Mr Richards turning on the light?
+S: No, he isn't turning on the light.
+T: What's he doing?
+S: He's opening the window.
+
+## Lesson 34 · What are they doing?
+
+T: Look at number 220231.
+What are the cooks doing?
+Are they washing dishes?
+S: No, they aren't washing dishes.
+They're cooking.
+T: Number 331342.
+What are the children doing?
+Are they crying?
+S: No, they aren't crying.
+They're sleeping.
+T: Number 442453.
+What are the men doing?
+Are they cooking?
+S: No, they aren't cooking.
+They're shaving.
+T: Number 553564.
+What are the children doing?
+Are they sleeping?
+S: No, they aren't sleeping.
+They're crying.
+T: Number 664675.
+What are the dogs doing?
+Are they drinking milk?
+S: No, they aren't drinking milk.
+They're eating bones.
+T: Number 775786.
+What are the women doing?
+Are they airing the room?
+S: No, they aren't airing the room. They're typing letters.
+T: Number 886897.
+What are the children doing?
+Are they looking at a picture?
+S: No, they aren't looking at a picture.
+They're doing their homework.
+T: Number 997998.
+What are the women doing?
+Are they sweeping the floor?
+S: No, they aren't sweeping the floor.
+They're washing dishes.
+T: Number 1000001.
+What are the birds doing?
+Are they sitting on a tree?
+S: No, they aren't sitting on a tree. They're flying over the river.
+T: Number 1000000.
+What are the man and the woman doing?
+Are they waiting for a bus?
+S: No, they aren't waiting for a bus.
+They're walking over the bridge.
+11.
+T: Number 1500000.
+What are the man and the woman doing?
+Are they walking over the bridge?
+S: No, they aren't walking over the bridge.
+They're waiting for a bus.
+T: Number 2000000.
+What are the boy and the girl doing?
+Are they climbing a tree?
+S: No, they aren't climbing a tree.
+They're jumping off the wall.
+
+## Lesson 36 · Where ...?
+
+T: Look at number 1.
+Where's the man going?
+S: He's going into the shop.
+T: Number 2.
+Where's the woman going?
+S: She's going out of the shop.
+T: Number 3.
+Where's the boy sitting?
+S: He's sitting beside his mother.
+T: Number 4.
+Where are the man and the woman walking?
+S: They're walking across the street.
+T: Number 5.
+Where are the cats running?
+S: They're running along the wall.
+T: Number 6.
+Where are the children jumping?
+S: They're jumping off the branch.
+T: Number 7.
+Where's the man walking?
+S: He's walking between two policemen.
+T: Number 8.
+Where's the girl sitting?
+S: She's sitting near the tree.
+T: Number 9.
+Where's the aeroplane flying?
+S: It's flying under the bridge.
+T: Number 10.
+Where's the aeroplane flying?
+S: It's flying over the bridge.
+T: Number 11.
+Where are they sitting?
+S: They're sitting on the grass.
+T: Number 12.
+Where are they reading?
+S: They're reading in the living room.
+
+## Lesson 38 · What are you going to do? What are you doing now?
+
+T: Look at number 1.
+What are you going to do?
+S: I'm going to shave.
+T: Number 2. What are you doing now?
+S: Now I'm shaving.
+T: Number 5. What are you both going to do?
+S: We're going to do our homework.
+T: Number 6.
+What are you both doing now?
+S: Now we're doing our homework.
+T: Number 9.
+What are you both going to do?
+S: We're going to listen to the stereo.
+T: Number 10.
+What are you both doing now?
+S: Now we're listening to the stereo.
+T: Number 3.
+What are you going to do?
+S: I'm going to wait for a bus.
+T: Number 4.
+What are you doing now?
+S: Now I'm waiting for a bus.
+T: Number 7.
+What are you going to do?
+S: I'm going to paint this bookcase.
+T: Number 8.
+What are you doing now?
+S: Now I'm painting this bookcase.
+T: Number 11.
+What are you going to do?
+S: I'm going to wash the dishes.
+T: Number 12.
+What are you doing now?
+S: Now I'm washing the dishes.
+
+## Lesson 40 · What are you going to do? I'm going to ...
+
+T: Are you going to put on your hat?
+S: Yes, I'm going to put it on.
+T: Are you going to take off your shoes?
+S: Yes, I'm going to take them off.
+T: Are you going to turn on the light?
+S: Yes, I'm going to turn it on.
+T: Are you going to turn off the taps?
+S: Yes, I'm going to turn them off.
+T: Now you answer the questions.
+T: Are you going to put on your suit?
+S: Yes, I'm going to put it on.
+T: Are you going to take off your hat?
+S: Yes, I'm going to take it off.
+T: Are you going to turn on the lights?
+S: Yes, I'm going to turn them on.
+T: Are you going to turn off the television?
+S: Yes, I'm going to turn it off.
+T: Are you going to turn off the lights?
+S: Yes, I'm going to turn them off.
+T: Are you going to turn on the stereo?
+S: Yes, I'm going to turn it on.
+
+## Lesson 42 · Is there a ... in/on that ...? Is there any ... in/on that ...?
+
+T: Look at number 13.
+Is there a passport here?
+S: Yes, there is.
+There's one on the table.
+T: Number 14.
+Is there any milk here?
+S: Yes, there is.
+There's some on the table.
+T: Number 15.
+Is there a spoon here?
+S: Yes, there is.
+There's one on the plate.
+T: Number 16.
+Is there a tie here?
+S: Yes, there is.
+There's one on the chair.
+T: Number 17.
+Is there any bread here?
+S: Yes, there is.
+There's some on the table.
+T: Number 18.
+Is there a hammer here?
+S: Yes, there is.
+There's one on the bookcase.
+T: Number 19.
+Is there any tea here?
+S: Yes, there is.
+There's some on the table.
+T: Number 20.
+Is there a vase here?
+S: Yes, there is.
+There's one on the stereo.
+T: Number 30.
+Is there a suit here?
+S: Yes, there is.
+There's one in the wardrobe.
+T: Number 40.
+Is there any tobacco here?
+S: Yes, there is.
+There's some in the tin.
+T: Number 50.
+Is there any chocolate here?
+S: Yes, there is.
+There's some on the desk.
+T: Number 60.
+Is there any cheese here?
+S: Yes, there is.
+There's some on the plate.
+
+## Lesson 44 · Are there any ...? Is there any ...?
+
+T: Look at number 70.
+Is there any bread here?
+S: Yes, there is.
+There's some on the table.
+T: Number 80.
+Are there any hammers here?
+S: Yes, there are.
+There are some behind that box.
+T: Number 90.
+Is there any milk here?
+S: Yes, there is.
+There's some in front of the door.
+T: Number 100.
+Is there any soap here?
+S: Yes, there is.
+There's some on the cupboard.
+T: Number 200.
+Are there any newspapers here?
+S: Yes, there are.
+There are some behind that vase.
+T: Number 300.
+Is there any water here?
+S: Yes, there is.
+There's some in those glasses.
+T: Number 400.
+Is there any tea here?
+S: Yes, there is.
+There's some in those cups.
+T: Number 500.
+Are there any cups here?
+S: Yes, there are.
+There are some in front of that kettle.
+T: Number 600.
+Is there any chocolate here?
+S: Yes, there is.
+There's some behind that book.
+T: Number 700.
+Are there any teapots here?
+S: Yes, there are.
+There are some in the cupboard.
+T: Number 800.
+Are there any cars here?
+S: Yes, there are.
+There are some in front of that building.
+T: Number 900.
+Is there any coffee here?
+S: Yes, there is.
+There's some on the table.
+
+## Lesson 46 · Can you ...?
+
+T: Can you put on your coat?
+S: Yes, I can.
+T: What can you do?
+S: I can put on my coat.
+T: Can Penny wait for the bus?
+S: Yes, she can.
+T: What can she do?
+S: She can wait for the bus.
+T: Can you and Tom listen to the stereo?
+S: Yes, we can.
+T: What can you and Tom do?
+S: We can listen to the stereo.
+T: Can Penny and Jane wash the dishes?
+S: Yes, they can.
+T: What can Penny and Jane do?
+S: They can wash the dishes.
+T: Can George take these flowers to her?
+S: Yes, he can.
+T: What can George do?
+S: He can take these flowers to her.
+T: Can the cat drink its milk?
+S: Yes, it can.
+T: What can the cat do?
+S: It can drink its milk.
+T: Can I paint this bookcase?
+S: Yes, you can.
+T: What can I do?
+S: You can paint this bookcase.
+T: Can you see that aeroplane?
+S: Yes, I can.
+T: What can you see?
+S: I can see that aeroplane.
+
+## Lesson 48 · Do you like ...? Do you want ...?
+
+Play the examples on the tape.
+T: Look at the 1st picture.
+Do you like eggs?
+S: Yes, I do.
+I like eggs, but I don't want one.
+T: The 2nd picture.
+Do you like butter?
+S: Yes, I do.
+I like butter, but I don't want any.
+T: The 3rd picture.
+Do you like honey?
+S: Yes, I do.
+I like honey, but I don't want any.
+T: The 4th picture.
+Do you like bananas?
+S: Yes, I do.
+I like bananas, but I don't want one.
+T: The 5th picture.
+Do you like jam?
+S: Yes, I do.
+I like jam, but I don't want any.
+T: The 6th picture.
+Do you like oranges?
+S: Yes, I do.
+I like oranges, but I don't want one.
+T: The 7th picture.
+Do you like ice cream?
+S: Yes, I do.
+I like ice cream, but I don't want one.
+T: The 8th picture.
+Do you like whisky?
+S: Yes, I do.
+I like whisky, but I don't want any.
+T: The 9th picture.
+Do you like apples?
+S: Yes, I do.
+I like apples, but I don't want one.
+T: The 10th picture.
+Do you like wine?
+S: Yes, I do.
+I like wine, but I don't want any.
+T: The 11th picture.
+Do you like biscuits?
+S: Yes, I do.
+I like biscuits, but I don't want one.
+T: The 12th picture.
+Do you like beer?
+S: Yes, I do.
+I like beer, but I don't want any.
+
+## Lesson 50 · He likes ... But he doesn't like ...
+
+Play the examples on the tape.
+T: Look at the 13th picture.
+Does Penny like tomatoes?
+S: Yes, she does.
+She likes tomatoes, but she doesn't want any.
+T: The 14th picture.
+Do you like potatoes?
+S: Yes, I do.
+I like potatoes, but I don't want any.
+T: The 15th picture.
+Does Tom like cabbage?
+S: Yes, he does.
+He likes cabbage, but he doesn't want any.
+T: The 16th picture.
+Does Tom like lettuce?
+S: Yes, he does.
+He likes lettuce, but he doesn't want any.
+T: The 17th picture.
+Do you like peas?
+S: Yes, I do.
+I like peas, but I don't want any.
+T: The 18th picture.
+Does Anna like beans?
+S: Yes, she does.
+She likes beans, but she doesn't want any.
+T: The 19th picture.
+Do you like bananas?
+S: Yes, I do.
+I like bananas, but I don't want any.
+T: The 20th picture.
+Does Mr Jones like oranges?
+S: Yes, he does.
+He likes oranges, but he doesn't want any.
+T: The 21st picture.
+Does George like apples?
+S: Yes, he does.
+He likes apples, but he doesn't want any.
+T: The 22nd picture.
+Does Elizabeth like pears?
+S: Yes, she does.
+She likes pears, but she doesn't want any.
+T: The 23rd picture.
+Do you like grapes?
+S: Yes, I do.
+I like grapes, but I don't want any.
+T: The 24th picture.
+Does Betty like peaches?
+S: Yes, she does.
+She likes peaches, but she doesn't want any.
+
+## Lesson 52 · What nationality are they? Where do they come from?
+
+Play the examples on the tape.
+T: Look at the 20th picture.
+Do you come from Brazil?
+S: No, I don't come from Brazil.
+I come from the US.
+T: The 21st picture.
+Does he come from the US?
+S: No, he doesn't come from the US.
+He comes from Brazil.
+T: The 22nd picture.
+Does she come from England?
+S: No, she doesn't come from England.
+She comes from Holland.
+T: The 23rd picture.
+Do you both come from Holland?
+S: No, we don't come from Holland.
+We come from England.
+T: The 24th picture.
+Do they come from Germany?
+S: No, they don't come from Germany.
+They come from France.
+T: The 25th picture.
+Do I come from France?
+S: No, you don't come from France.
+You come from Germany.
+T: The 26th picture.
+Does he come from Italy?
+S: No, he doesn't come from Italy.
+He comes from Greece.
+T: The 27th picture.
+Do we both come from Greece?
+S: No, you don't come from Greece.
+You come from Italy.
+
+## Lesson 54 · What nationality are they? Where do they come from?
+
+T: Where do you come from?
+Are you Australian?
+S: Yes, I come from Australia.
+T: Where does he come from?
+Is he Austrian?
+S: Yes, he comes from Austria.
+T: Where does he come from?
+Is he Canadian?
+S: Yes, he comes from Canada.
+1 As in (1) above.
+T: Where do you both come from?
+Are you both Chinese?
+S: Yes, we come from China.
+T: Where do I come from?
+Am I Finnish?
+S: Yes, you come from Finland.
+T: Where does she come from?
+Is she Indian?
+S: Yes, she comes from India.
+T: Where do we both come from?
+Are we both Japanese?
+S: Yes, you come from Japan.
+T: Where do you come from?
+Are you Korean?
+S: Yes, I came from Korea.
+T: Where do you both come from?
+Are you both Nigerian?
+S: Yes, we come from Nigeria.
+T: Where does she come from?
+Is she Turkish?
+S: Yes, she comes from Turkey.
+
+## Lesson 56 · What do they usually do?
+
+T: Look at the 1st picture.
+What does she often do in the morning?
+S: She often dusts the cupboard in the morning.
+T: The 2nd picture.
+What does she always do in the morning?
+S: She always makes the bed in the morning.
+T: The 3rd picture.
+What does he always do in the morning?
+S: He always shaves in the morning.
+T: The 4th picture.
+What do they sometimes do in the evening?
+S: They sometimes listen to the stereo in the evening.
+T: The 21st picture.
+What does he always do every day?
+S: He always cleans the blackboard every day.
+T: The 22nd picture.
+What do they always do at night?
+S: They always go to bed at night.
+T: The 23rd picture.
+What does she usually do every day?
+S: She usually washes the dishes every day.
+T: The 24th picture.
+What do they usually do in the afternoon?
+S: They usually type letters in the afternoon.
+T: The 31st picture.
+What do they sometimes do in the evening?
+S: It usually drinks milk every day.
+T: The 32nd picture.
+What do they sometimes do in the evening?
+S: They sometimes watch television in the evening.
+T: The 33rd picture.
+What does she always do at noon?
+S: She always eats her lunch at noon.
+T: The 34th picture.
+What does he often do in the evening?
+S: He often reads his newspaper in the evening.
+
+## Lesson 58 · What's the time?
+
+T: Look at the 13th and 14th pictures.
+What does he usually do every day?
+S: He usually shaves at 7 o'clock every day.
+T: What is he doing today?
+S: He is shaving at 8 o'clock today.
+T: The 15th and 16th pictures.
+What does she usually do in the morning?
+S: She usually drinks tea in the morning.
+T: What is she doing this morning?
+S: She is drinking coffee this morning.
+T: The 17th and 18th pictures.
+What do they usually do in the afternoon?
+S: They usually play in the garden in the afternoon.
+T: What are they doing this afternoon?
+S: They are swimming in the river this afternoon.
+T: The 19th and 20th pictures.
+What do you usually do in the evening?
+S: I usually cook a meal in the evening.
+T: What are you doing this evening?
+S: I am reading a book this evening.
+T: The 21st and 22nd pictures.
+What do you all usually do at night?
+S: We usually watch television at night.
+T: What are you all doing tonight?
+S: We are listening to the stereo tonight.
+
+## Lesson 60 · What's the time?
+
+T: Look at the 13th picture.
+Do you have any butter?
+S: I don't have any butter, but I have some cheese.
+T: The 20th picture.
+Do you and Penny have any beans?
+S: We don't have any beans, but we have some potatoes.
+T: The 33rd picture.
+Do Penny and Tom have any wine?
+S: They don't have any wine, but they have some beer.
+T: The 16th picture.
+Do you have any honey?
+S: I don't have any honey, but I have some jam.
+T: The 19th picture.
+Do you and Tom have any bread?
+S: We don't have any bread, but we have some biscuits.
+T: The 26th picture.
+Do Tom and Penny have any grapes?
+S: They don't have any grapes, but they have some bananas.
+T: The 29th picture.
+Do you have any mince?
+S: I don't have any mince, but I have some steak.
+T: The 15th picture.
+Do the children have any butter?
+S: They don't have any butter, but they have some eggs.
+T: The 24th picture.
+Do you have any lettuces?
+S: I don't have any lettuces, but I have some cabbages.
+T: The 22nd picture.
+Do you and Penny have any beans?
+S: We don't have any beans, but we have some peas.
+
+## Lesson 62 · What's the matter with them? What must they do?
+
+T: Look at the 41st picture.
+What's the matter with her?
+Does she have an earache?
+S: She doesn't have an earache.
+She has a headache.
+T: What must she do?
+S: She must take an aspirin.
+T: The 52nd picture.
+What's the matter with George?
+Does he have a headache?
+S: He doesn't have a headache.
+He has an earache.
+T: What must he do?
+S: He must see a doctor.
+T: The 63rd picture.
+What's the matter with him?
+Does he have a stomach ache?
+S: He doesn't have a stomach ache.
+He has a toothache.
+T: What must he do?
+S: He must see a dentist.
+T: The 74th picture.
+What's the matter with Jane?
+Does she have a toothache?
+S: She doesn't have a toothache.
+She has a stomach ache.
+T: What must she do?
+S: She must take some medicine.
+T: The 85th picture.
+What's the matter with Sam?
+Does he have a stomach ache?
+S: He doesn't have a stomach ache.
+He has a temperature.
+T: What must he do?
+S: He must go to bed.
+T: The 96th picture.
+What's the matter with Dave?
+Does he have a headache?
+S: He doesn't have a headache.
+He has flu.
+T: What must he do?
+S: He must stay in bed.
+T: The 107th picture.
+What's the matter with Jimmy?
+Does he have a headache?
+S: He doesn't have a headache.
+He has measles.
+T: What must we do?
+S: We must call the doctor.
+T: The 118th picture.
+What's the matter with Susan?
+Does she have an earache?
+S: She doesn't have an earache.
+She has mumps.
+T: What must we do?
+S: We must call the doctor.
+
+## Lesson 64 · Don't...! You mustn't...!
+
+Play the examples on the tape.
+T: Don't take any aspirins!
+S: You mustn't take any aspirins.
+T: Don't take this medicine!
+S: You mustn't take this medicine.
+T: Don't call the doctor!
+S: You mustn't call the doctor.
+T: Now you do the same.
+Ready?
+T: Don't play with matches!
+S: You mustn't play with matches.
+T: Don't talk in the library!
+S: You mustn't talk in the library.
+T: Don't make a noise!
+S: You mustn't make a noise.
+T: Don't drive so quickly!
+S: You mustn't drive so quickly.
+T: Don't lean out of the window!
+S: You mustn't lean out of the window.
+T: Don't break that vase!
+S: You mustn't break that vase.
+
+## Lesson 66 · What's the time?
+
+Play the examples on the tape.
+T: Look at the 1st clock.
+When must you come home?
+S: I must come home at one o'clock.
+T: The 2nd clock.
+When must she go to the library?
+S: She must go to the library at a quarter past one.
+T: The 12th clock.
+When must you and Tom see the dentist?
+S: We must see the dentist at a quarter to four.
+T: Now you do the same.
+T: The 5th clock.
+When must you type this letter?
+S: I must type this letter at two o'clock.
+T: The 3rd clock.
+When must Sam and Penny see the boss?
+S: They must see the boss at half past one.
+6.
+T: The 10th clock.
+When must George take his medicine?
+S: He must take his medicine at a quarter past three.
+T: The 7th clock.
+When must Sophie drive to London?
+S: She must drive to London at half past two.
+T: The 11th clock.
+When must I catch the bus?
+S: You must catch the bus at half past three.
+T: The 9th clock.
+When must you arrive there?
+S: I must arrive there at three o'clock.
+T: The 6th clock.
+When must they come home?
+S: They must come home at a quarter past two.
+T: The 4th clock.
+When must you meet Tom?
+S: I must meet Tom at a quarter to two.
+T: The 8th clock.
+When must he telephone you?
+S: He must telephone me at a quarter to three.
+
+## Lesson 68 · What's the time?
+
+T: When were you at church?
+S: I was at church on Sunday.
+T: When was Tom at the hairdresser's?
+S: He was at the hairdresser's on Thursday.
+T: When was Mrs Jones at the butcher's?
+S: She was at the butcher's on Wednesday.
+T: When were you at home?
+S: I was at home on Sunday.
+T: When was Miss Grey at the office?
+S: She was at the office on Tuesday.
+T: When was Mary at the baker's?
+S: She was at the baker's on Friday.
+T: When were you at the dairy?
+S: I was at the dairy on Saturday.
+T: When was Mrs Jones at the greengrocer's?
+S: She was at the greengrocer's on Tuesday.
+T: When was Mrs Williams at the grocer's?
+S: She was at the grocer's on Monday.
+T: When were you at school?
+S: I was at school on Monday.
+
+## Lesson 70 · When were they there?
+
+T: When were Sam and Penny at the stationer's?
+S: They were at the stationer's on Monday.
+T: When were you and Susan at the office?
+S: We were at the office on March 23rd.
+T: When was I in India?
+S: You were in India in 1985.
+T: When were you and Penny in Australia?
+S: We were in Australia in July.
+T: When was I at the dairy?
+S: You were at the dairy on Saturday.
+T: When were George and I in Austria?
+S: You were in Austria in August.
+T: When were they all at home?
+S: They were at home on May 25th.
+T: When was I at the hairdresser's?
+S: You were at the hairdresser's on Wednesday.
+T: When were you and David in Finland?
+S: We were in Finland in December.
+
+## Lesson 72 · When did you...?
+
+T: Look at the first picture.
+What did you do yesterday?
+S: I aired the room yesterday.
+T: The sixth picture.
+What did she do last night?
+S: She listened to the stereo last night.
+T: The eleventh picture.
+What did he do this morning?
+S: He shaved this morning.
+T: The thirteenth picture.
+What did she do the night before last?
+S: She telephoned her husband the night before last.
+T: The fourteenth picture.
+What did you do last night?
+S: I called the doctor last night.
+T: The fifteenth picture.
+What did she do the day before yesterday?
+S: She emptied the basket the day before yesterday.
+T: The seventh picture.
+What did I do yesterday morning?
+S: You boiled an egg yesterday morning.
+T: The second picture.
+What did you and Tom do yesterday?
+S: We cleaned our shoes yesterday.
+T: the ninth picture.
+What did the children do yesterday afternoon?
+S: They played in the garden yesterday afternoon.
+T: The tenth picture.
+What did he do today?
+S: He stayed in bed today.
+
+## Lesson 74 · What did they do?
+
+T: Look at picture 101.
+Why did he cut himself this morning?
+S: Because he shaved hurriedly.
+T: Picture 102.
+What did he take?
+S: He took a cake.
+T: What did he do with it?
+S: He ate it quickly.
+T: Picture 103.
+What did you give him?
+S: I gave him a glass of water.
+T: What did he do with it?
+S: He drank it thirstily.
+T: Picture 104.
+When did you meet her?
+S: I met her the day before yesterday.
+T: How did she greet you?
+S: She greeted me warmly.
+T: Picture 105.
+Why did you both arrive home late?
+S: Because the bus went slowly.
+T: Picture 106.
+What did the keyboard operators do this morning?
+S: They worked very hard.
+T: Picture 107.
+How did you enjoy yourselves last night?
+S: We enjoyed ourselves very much.
+T: Picture 108.
+How did he swim this afternoon?
+S: He swam very well.
+
+## Lesson 76 · When did you...?
+
+T: Look at picture 109.
+When did you look at that photograph?
+S: I looked at that photograph an hour ago.
+T: Picture 116.
+When did they watch television?
+Every day this week.
+S: They watched television every day this week.
+T: Picture 120.
+When did he paint that bookcase?
+The year before last.
+S: He painted that bookcase the year before last.
+T: Now you do the same.
+Ready?
+T: Picture 110.
+When did the cat jump off the wall?
+A minute ago.
+S: It jumped off the wall a minute ago.
+T: Picture 113.
+When did you work in an office?
+The year before last.
+S: I worked in an office the year before last.
+T: Picture 119.
+When did she dust the cupboard?
+Three days ago.
+S: She dusted the cupboard three days ago.
+T: Picture 118.
+When did she thank her father?
+An hour ago.
+S: She thanked her father an hour ago.
+T: Picture 115.
+When did she type those letters?
+A month ago.
+S: She typed those letters a month ago.
+T: Picture 111.
+When did he walk across the park?
+Last week.
+S: He walked across the park last week.
+
+## Lesson 78 · When did you...?
+
+T: It's eight o'clock.
+When did you see him?
+Half an hour ago.
+S: I saw him at half past seven.
+T: It's Friday.
+When did she go to London?
+The day before yesterday.
+S: She went to London on Wednesday.
+T: It's June.
+When did Mr Jones buy that car?
+Last month.
+S: He bought it in May.
+T: Now you do the same.
+Ready?
+T: It's 1988.
+When did you paint this room?
+Last year.
+S: I painted it in 1987.
+T: It's the fifth of January.
+When did she meet him?
+Two months ago.
+S: She met him on the fifth of November. T: It's a quarter past eleven.
+When did they arrive?
+Half an hour ago.
+S: They arrived at a quarter to eleven.
+T: It's Sunday.
+When did he lose his pen?
+Yesterday.
+S: He lost it on Saturday.
+T: It's March.
+When did you call the doctor?
+The month before last.
+S: I called the doctor in January.
+T: It's 1988.
+When did they buy this house?
+The year before last.
+S: They bought it in 1986.
+T: It's August the first.
+When did she speak to him?
+A month ago.
+S: She spoke to him on July the first.
+
+## Lesson 80 · I must go to the ...
+
+T: Look at number 120.
+Have you got any?
+S: I need a lot of cheese.
+I haven't got much.
+T: Number 438.
+Has he got any?
+S: He needs a lot of envelopes.
+He hasn't got many.
+T: Number 543.
+Have they got any?
+S: They need a lot of bread.
+They haven't got much.
+T: Number 121.
+Has she got any?
+S: She needs a lot of eggs.
+She hasn't got many.
+T: Number 439.
+Has he got any?
+S: He needs a lot of writing paper.
+He hasn't got much.
+T: Number 441.
+Have I got any?
+S: You need a lot of magazines.
+You haven't got many.
+T: Number 333.
+Have you got any?
+S: I need a lot of beef.
+I haven't got much.
+T: Number 122.
+Has she got any?
+S: She needs a lot of butter.
+She hasn't got much.
+T: Number 228.
+Have they got any?
+S: They need a lot of bananas.
+They haven't got many.
+T: Number 546.
+Have I got any?
+S: You need a lot of medicine.
+You haven't got much.
+
+## Lesson 82 · I had...
+
+T: Look at number 760.
+What are they going to do?
+S: They are going to have breakfast.
+T: Number 870.
+What are they doing?
+S: They are having lunch.
+T: Number 980.
+What must they do?
+S: They must have tea.
+T: Number 1010.
+What did they do?
+S: They had dinner.
+T: Number 1020.
+What must they do?
+S: They must have a meal.
+T: Number 1030.
+What is Tom going to do?
+S: He is going to have a swim.
+T: Number 1040.
+What is he doing?
+S: He is having a bath.
+T: Number 1050.
+What did he do?
+S: He had a haircut.
+T: Number 1060.
+What are they doing?
+S: They are having a lesson. T: Number 1070.
+What did they do?
+S: They had a party.
+T: Number 1080.
+What must they do?
+S: They must have a holiday.
+T: Number 1090.
+What are they going to do?
+S: They are going to have a good time.
+
+## Lesson 84 · Have you had...?
+
+T: Look at number 1000.
+Have you had any vegetables?
+S: I haven't had any vegetables.
+I've just had some fruit.
+T: Number 9000.
+Has he had any beans?
+S: He hasn't had any beans.
+He's just had some peas.
+T: Number 17000.
+Have they had any coffee?
+S: They haven't had any coffee.
+They've just had some tea.
+T: Now you answer the questions.
+T: Number 4000.
+Have you had any apples?
+S: I haven't had any apples.
+I've just had some peaches.
+T: Number 7000.
+Have I had any cabbage?
+S: You haven't had any cabbage.
+You've just had some lettuce.
+T: Number 19000.
+Have you had any beer?
+S: I haven't had any beer.
+I've just had some wine.
+T: Number 12000.
+Has he had any lamb?
+S: He hasn't had any lamb.
+He's just had some beef.
+T: Number 16000.
+Have they had any tea?
+S: They haven't had any tea.
+They've just had some milk.
+T: Number 6000.
+Has she had any meat?
+S: She hasn't had any meat.
+She's just had some vegetables.
+T: Number 14000.
+Have you had any chicken?
+S: I haven't had any chicken.
+I've just had some steak.
+
+## Lesson 86 · What have you done?
+
+T: Look at the first picture.
+What has she just done?
+S: She has just aired the room.
+T: The second picture.
+What have they just done?
+S: They have just cleaned their shoes.
+T: The third picture.
+What has he just done?
+S: He has just opened the window.
+T: The fourth picture.
+What has he just done?
+S: He has just sharpened his pencil.
+T: The fifth picture.
+What has she just done?
+S: She has just turned on the television.
+T: The sixth picture.
+What have they just done?
+S: They have just listened to the news.
+T: The seventh picture.
+What has she just done?
+S: She has just boiled some milk.
+T: The eighth picture.
+What has he just done?
+S: He has just answered the telephone.
+T: The ninth picture.
+What has she just done?
+S: She has just emptied the basket.
+T: The tenth picture.
+What has she just done?
+S: She has just asked a question.
+T: The eleventh picture.
+What has she just done?
+S: She has just typed a letter.
+T: The twelfth picture.
+What has she just done?
+S: She has just washed her hands.
+T: The thirteenth picture.
+What has he just done?
+S: He has just walked across the park.
+T: The fourteenth picture.
+What has he just done?
+S: He has just painted the bookcase. T: The fifteenth picture.
+What has she just done?
+S: She has just dusted the cupboard.
+
+## Lesson 88 · Have you... yet?
+
+T: Did you buy a new car last year?
+S: Yes, I bought a new car last year.
+T: What about Sam?
+S: He hasn't bought a new car yet.
+T: Did you find your pen yesterday?
+S: Yes, I found my pen yesterday.
+T: What about Penny?
+S: She hasn't found her pen yet.
+T: Did you get a new television set last year?
+S: Yes, I got a new television set last year.
+T: What about Sam and Penny?
+S: They haven't got a new television set yet.
+T: Now you answer the questions.
+Ready?
+T: Did you have breakfast at 8 o'clock?
+S: Yes, I had breakfast at 8 o'clock.
+T: What about your mother?
+S: She hasn't had breakfast yet.
+T: Did you leave the office early this afternoon?
+S: Yes, I left the office early this afternoon.
+T: What about the boss?
+S: He hasn't left the office yet.
+T: Did you hear the news last night?
+S: Yes, I heard the news last night.
+T: What about Frank?
+S: He hasn't heard the news yet. T: Did you make your bed this morning?
+S: Yes, I made my bed this morning.
+T: What about Susan and Jane?
+S: They haven't made their beds yet.
+T: Did you meet Harry yesterday?
+S: Yes, I met Harry yesterday.
+T: What about your wife?
+S: She hasn't met Harry yet.
+
+## Lesson 90 · Have you... yet?
+
+Play the examples on the tape.
+T: Did you read this book last week?
+S: Yes, I read this book last week.
+T: What about Penny?
+S: She hasn't read this book yet.
+T: Did you do your homework last night?
+S: Yes, I did my homework last night.
+T: What about Ron?
+S: He hasn't done his homework yet.
+T: Did you swim across the river last week?
+S: Yes, I swam across the river last week.
+T: What about Ron and Betty?
+S: They haven't swum across the river yet.
+T: Did you go to London yesterday?
+S: Yes, I went to London yesterday.
+T: What about your mother?
+S: She hasn't gone to London yet.
+T: Did you see that film last week?
+S: Yes, I saw that film last week.
+T: What about the children?
+S: They haven't seen that film yet. T: Did you speak to the boss this morning?
+S: Yes, I spoke to the boss this morning.
+T: What about Mr Jones?
+S: He hasn't spoken to the boss yet.
+T: Did you put on your coat a minute ago?
+S: Yes, I put on my coat a minute ago.
+T: What about John?
+S: He hasn't put on his coat yet.
+T: Did you take your medicine this morning?
+S: Yes, I took my medicine this morning.
+T: What about Penny?
+S: She hasn't taken her medicine yet.
+
+## Lesson 92 · When will ...?
+
+Play the examples on the tape.
+T: Look at the 1st picture.
+It rained yesterday.
+S: Yes, and it'll rain again tomorrow.
+T: The 4th picture.
+He got up late yesterday.
+S: Yes, and he'll get up late again tomorrow.
+T: The 13th picture.
+She swept the floor yesterday.
+S: Yes, and she'll sweep the floor again tomorrow.
+T: Now you do the same.
+Ready?
+T: The 2nd picture.
+It snowed yesterday.
+S: Yes, and it'll snow again tomorrow.
+T: The 6th picture.
+He finished work late yesterday.
+S: Yes, and he'll finish work late again tomorrow.
+T: The 15th picture.
+They repaired his car yesterday.
+S: Yes, and they'll repair his car again tomorrow.
+T: The 10th picture.
+She telephoned him yesterday.
+S: Yes, and she'll telephone him again tomorrow.
+T: The 8th picture.
+They drove home late yesterday.
+S: Yes, and they'll drive home late again tomorrow.
+T: The 11th picture.
+He had a shave yesterday.
+S: Yes, and he'll have a shave again tomorrow.
+T: The 16th picture.
+He made an appointment yesterday.
+S: Yes, and he'll make an appointment again tomorrow.
+
+## Lesson 94 · When did you/will you go to ...?
+
+T: Look at number 2.
+Will you go to Athens next week?
+S: No, I shan't go to Athens next week.
+I shall go to Beijing.
+T: Number 1.
+Will you and Jane fly to Berlin this week?
+S: No, we shan't fly to Berlin this week.
+We shall fly to Athens.
+T: Number 3.
+Will Sam leave for Bombay next month?
+S: No, he won't leave for Bombay next month.
+He will leave for Berlin.
+T: Number 4.
+Will Penny return to Geneva next year?
+S: No, she won't return to Geneva next year.
+She will return to Bombay.
+T: Number 5.
+Will you fly to London tomorrow?
+S: No, I shan't fly to London tomorrow. I shall fly to Geneva.
+T: Number 6.
+Will you and Tom go to Madrid next year?
+S: No, we shan't go to Madrid next year.
+We shall go to London.
+T: Number 7. Will Tom arrive from Moscow the week after next?
+S: No, he won't arrive from Moscow the week after next.
+He will arrive from Madrid.
+T: Number 8.
+Will Alice and Mary stay in New York next month?
+S: No, they won't stay in New York next month.
+They will stay in Moscow.
+T: Number 9.
+Will you fly to Paris tomorrow?
+S: No, I shan't fly to Paris tomorrow. I shall fly to New York.
+T: Number 10.
+Will Tom and George go to Rome next year?
+S: No, they won't go to Rome next year.
+They will go to Paris.
+
+## Lesson 96 · What's the exact time?
+
+T: I went to Beijing a year ago.
+What about you?
+S: I shall go to Beijing in a year's time.
+T: Tom flew to Stockholm two weeks ago.
+What about Penny?
+S: She will fly to Stockholm in two weeks' time.
+T: Frank and Alan returned to Tokyo two days ago.
+What about you and Jean?
+S: We shall return to Tokyo in two days' time.
+T: You went to Sydney a month ago. What about me?
+S: You will go to Sydney in a month's time.
+T: A train left for Geneva an hour ago.
+What about the next train?
+S: It will leave for Geneva in an hour's time.
+T: Alice flew to Rome two days ago.
+What about you?
+S: I shall fly to Rome in two days' time.
+T: Tom and Mary went to London an hour ago.
+What about you and Jean?
+S: We shall go to London in an hour's time.
+T: A plane left for Berlin three hours ago.
+What about the next plane?
+S: It will leave for Berlin in three hours' time.
+T: Smith returned to New York a year ago.
+What about Jones?
+S: He will return to New York in a year's time.
+T: Janet returned from Paris six weeks ago.
+What about her husband?
+S: He will return from Paris in six weeks' time.
+
+## Lesson 98 · Whose is it? Whose are they?
+
+T: Look at number 1.
+Are these your keys?
+S: Yes, they're mine.
+They belong to me.
+T: Number 2.
+Is this John's letter?
+S: Yes, it's his.
+It belongs to him.
+T: Number 3.
+Are these my clothes?
+S: Yes, they're yours.
+They belong to you.
+T: Number 4.
+Is this Jane's passport?
+S: Yes, it's hers.
+It belongs to her.
+T: Number 5.
+Are these their tickets?
+S: Yes, they're theirs.
+They belong to them.
+T: Number 6.
+Is this your watch?
+S: Yes, it's mine.
+It belongs to me.
+T: Number 7.
+Are these her flowers?
+S: Yes, they're hers.
+They belong to her.
+T: Number 8.
+Is this my boat?
+S: Yes, it's yours.
+It belongs to you.
+T: Number 9.
+Is this Jim's phrasebook?
+S: Yes, it's his.
+It belongs to him.
+T: Number 10.
+Are these hammers Frank's and Harry's?
+S: Yes, they're theirs.
+They belong to them.
+T: Number 11. Is this our car?
+S: Yes, it's ours.
+It belongs to us.
+T: Number 12.
+Are these the children's pens?
+S: Yes, they're theirs.
+They belong to them.
+
+## Lesson 100 · He says that... She says that... They say that...
+
+T: Look at number 1.
+I feel tired.
+What's that?
+S: He says that he feels tired.
+T: Number 6.
+I've got a headache.
+What's that?
+S: She says that she's got a headache.
+T: Number 12.
+We want some money.
+What's that?
+S: They say that they want some money.
+T: Now you do the same.
+Ready?
+T: Number 3.
+I'm cold.
+What's that?
+S: She says that she is cold.
+T: Number 8.
+We have toothache.
+What's that?
+S: They say that they have toothache.
+T: Number 11.
+I need an X-ray.
+What's that?
+S: He says that he needs an X-ray.
+T: Number 15.
+We can repair this car.
+What's that?
+S: They say that they can repair this car.
+T: Number 13.
+I must wait for a bus.
+What's that?
+S: She says that she must wait for a bus.
+T: Number 2.
+We feel thirsty.
+What's that?
+S: They say that they feel thirsty.
+T: Number 14.
+I shall catch the bus.
+What's that?
+S: He says that he will catch the bus.
+
+## Lesson 102 · He says he... She says she... They say they...
+
+T: Look at number 3.
+I am cold.
+What's that?
+S: She says she is cold.
+T: Number 5.
+I have a cold.
+What's that?
+S: He says he has a cold.
+T: Number 10.
+I need a licence.
+What's that?
+S: She says she needs a licence.
+T: Now you do the same.
+Ready?
+T: Number 16.
+I shall sell this house.
+What's that?
+S: He says he will sell this house.
+T: Number 7.
+I have an earache.
+What's that?
+S: He says he has an earache.
+T: Number 9.
+I want a haircut.
+What's that?
+S: He says he wants a haircut.
+T: Number 15.
+We must repair this car.
+What's that?
+S: They say they must repair this car.
+T: Number 6.
+I've got a headache. What's that?
+S: She says she's got a headache.
+T: Number 12.
+We want some money. What's that?
+S: They say they want some money.
+T: Number 3.
+I feel cold.
+What's that?
+S: She says she feels cold.
+
+## Lesson 104 · Too, very, enough
+
+T: Look at picture A. Could he answer all the questions?
+S: Yes, he could.
+They were easy enough for him to answer.
+T: Picture B.
+Could he answer all the questions?
+S: No, he couldn't.
+They were too difficult for him to answer.
+T: Picture I.
+Could they hear the stereo?
+S: Yes, they could.
+It was loud enough for them to hear.
+T: Picture J.
+Could they hear the stereo?
+S: No, they couldn't.
+It was too low for them to hear.
+T: Picture Q. Could she eat the orange?
+S: Yes, she could.
+It was sweet enough for her to eat.
+T: Picture P.
+Could she eat the orange?
+S: No, she couldn't.
+It was too sour for her to eat.
+T: Picture E.
+Could he buy the car?
+S: Yes, he could.
+It was cheap enough for him to buy.
+T: Picture F.
+Could he buy the car?
+S: No, he couldn't.
+It was too expensive for him to buy.
+T: Picture K.
+Could he climb over the wall?
+S: Yes, he could.
+It was low enough for him to climb.
+T: Picture L.
+Could he climb the wall?
+S: No, he couldn't.
+It was too high for him to climb.
+
+## Lesson 106 · I want you/him/her/them to... Tell him/her/them to...
+
+T: Look at picture K.
+Why is the lady pointing at the suitcase?
+S: Because she wants him to carry it.
+T: Picture R.
+Why is he giving her his photograph?
+S: Because he wants her to keep it.
+T: Picture V.
+Why is she saying goodbye to them?
+S: Because she doesn't want them to miss it.
+T: Picture Z.
+Why is she taking the knife from him?
+S: Because she doesn't want him to cut himself.
+4.
+As in (4) above.
+T: Picture Q. Why is the policeman talking to the man and the woman?
+S: Because he wants them to move it.
+T: Picture Y.
+Why is the woman telling the girl to be careful?
+S: Because she doesn't want her to lose it.
+T: Picture M. Why is he putting a record on?
+S: Because he wants them to listen to it.
+T: Picture S.
+Why is she talking to the little boy?
+S: Because she doesn't want him to hurt himself.
+T: Picture N. Why is the attendant talking to the man?
+S: Because he wants him to describe it.
+T: Picture X.
+Why is the man showing his new car to his wife?
+S: Because he doesn't want her to drive it.
+
+## Lesson 108 · How do they compare?
+
+T: This policeman is tall.
+S: But that one is taller.
+He is the tallest policeman I have ever seen.
+T: This woman is short.
+S: But that one is shorter.
+She is the shortest woman I have ever seen.
+T: These cars are cheap.
+S: But those cars are cheaper.
+They are the cheapest cars I have ever seen.
+T: Now you do the same.
+Ready?
+T: This knife is sharp.
+S: But that one is sharper.
+It is the sharpest knife I have ever seen.
+T: This girl is pretty.
+S: But that one is prettier.
+She is the prettiest girl I have ever seen.
+T: These office assistants are lazy.
+S: But those office assistants are lazier.
+They are the laziest office assistants I have ever seen.
+T: This church is big.
+S: But that one is bigger.
+It is the biggest church I have ever seen.
+T: This test is easy.
+S: But that one is easier.
+It is the easiest test I have ever seen.
+T: This knife is blunt.
+S: But that one is blunter.
+It is the bluntest knife I have ever seen.
+T: This boy is thin.
+S: But that one is thinner.
+He is the thinnest boy I have ever seen.
+
+## Lesson 110 · How do they compare?
+
+T: I've got some coffee.
+S: I've got less than you have.
+I've got very little.
+T: I've got some books.
+S: I've got fewer than you have.
+I've got very few
+T: I've got some meat.
+S: I've got less than you have.
+I've got very little.
+T: I've got some money.
+S: I've got less than you have.
+I've got very little.
+T: I've got some vegetables.
+S: I've got fewer than you have.
+I've got very few
+T: I've got some biscuits.
+S: I've got fewer than you have.
+I've got very few
+T: I've got some stationery.
+S: I've got less than you have.
+I've got very little.
+T: I've got some chocolate.
+S: I've got less than you have.
+I've got very little.
+T: I've got some presents.
+S: I've got fewer than you have.
+I've got very few
+T: I've got some ink.
+S: I've got less than you have.
+I've got very little.
+
+## Lesson 112 · How do they compare?
+
+T: Look at picture a.
+Is the red apple sweeter than the green one?
+S: No, it isn't.
+The red apple is as sweet as the green one.
+T: Picture c.
+Is the man shorter than the woman?
+S: No, he isn't.
+The man is as short as the woman.
+T: Picture l.
+Is the television on the left more expensive than the television on the right?
+S: No, it isn't.
+The television on the left is not as expensive as the television on the right.
+T: Now you do the same.
+Ready? 1 As in (1) above.
+T: Picture e.
+Is the red pencil blunter than the green one?
+S: No, it isn't.
+The red pencil is as blunt as the green one.
+T: Picture k.
+Is the white handbag newer than the black one?
+S: No, it isn't.
+The white handbag is not as new as the black one.
+T: Picture b.
+Is the policeman taller than the policewoman?
+S: No, he isn't.
+The policeman is as tall as the policewoman.
+T: Picture i.
+Is the woman on the left smarter than the woman on the right?
+S: No, she isn't.
+The woman on the left is not as smart as the woman on the right.
+T: Picture d.
+Is the boy older than the girl?
+S: No, he isn't.
+The boy is as old as the girl.
+T: Picture j.
+Is the brown case lighter than the blue one?
+S: No, it isn't.
+The brown case is not as light as the blue one.
+T: Picture f.
+Is the white knife sharper than the black one?
+S: No, it isn't.
+The white knife is as sharp as the black one.
+
+## Lesson 114 · I've got none.
+
+T: I'm hungry.
+S: So am I.
+T: I'm not tired.
+S: Neither am I.
+T: I want some coffee.
+S: So do I.
+T: I don't want any tea.
+S: Neither do I.
+T: Now you do the same.
+T: I was at the party last night.
+S: So was I.
+T: I wasn't tired this morning.
+S: Neither was I.
+T: I can swim very well.
+S: So can I.
+T: I can't speak Chinese.
+S: Neither can I.
+T: I saw George last night.
+S: So did I.
+T: I didn't buy a new car last year.
+S: Neither did I.
+T: I've got a cold.
+S: So have I.
+T: I haven't got a headache.
+S: Neither have I.
+
+## Lesson 116 · Every, no, any and some
+
+T: Did you see anyone yesterday?
+S: No, I saw no one.
+T: Did you hear anything?
+S: No, I heard nothing.
+T: Did anyone speak to you?
+S: No, no one spoke to me.
+T: Did you go anywhere yesterday?
+S: No, I went nowhere.
+T: Did you buy anything this morning?
+S: No, I bought nothing.
+T: Did you write to anyone yesterday?
+S: No, I wrote to no one.
+T: Did anyone meet you at the station?
+S: No, no one met me.
+T: Did anything happen?
+S: No, nothing happened.
+T: Did anyone come when I was out?
+S: No, no one came.
+T: Did anybody tell you?
+S: No, nobody told me.
+
+## Lesson 118 · What were you doing?
+
+T: What were you doing when he arrived?
+I was having a bath.
+S: I was having a bath when he arrived.
+T: What was Mary doing when the telephone rang?
+She was washing the dishes.
+S: She was washing the dishes when the telephone rang.
+T: What was your mother doing when the postman came?
+She was making the beds.
+S: She was making the beds when the postman came.
+T: Now you do the same.
+Ready?
+T: What were you doing when it happened?
+I was telephoning my sister.
+S: I was telephoning my sister when it happened.
+T: What were the children doing when the milk boiled over?
+They were reading
+S: They were reading when the milk boiled over.
+T: What were you doing when the baby broke that cup?
+I was making tea.
+S: I was making tea when the baby broke that cup.
+T: What were you doing when your mother came into the room?
+I was listening to the stereo.
+S: I was listening to the stereo when my mother came into the room
+T: What was your father doing when he heard the news?
+He was working in the garden.
+S: He was working in the garden when he heard the news.
+T: What was your sister doing when George knocked at the door?
+She was cleaning her shoes.
+S: She was cleaning her shoes when George knocked at the door.
+T: What was your son doing when his friends arrived?
+He was doing his homework.
+S: He was doing his homework when his friends arrived.
+
+## Lesson 120 · It had already happened.
+
+T: Did you read the book?
+Yes; but I saw the film first.
+S: I read the book after I had seen the film
+T: Did you go to the doctor?
+Yes, but I made an appointment first.
+S: I went to the doctor after I had made an appointment.
+T: Did the boss leave the office?
+Yes, but he finished his work first.
+S: He left the office after he had finished his work.
+T: Now you do the same.
+Ready? 1 As in (1) above.
+T: Did your wife go out?
+Yes, but she finished the housework first.
+S: She went out after she had finished the housework.
+T: Did your teacher give you your exercise book?
+Yes, but he corrected it first.
+S: He gave me my exercise book after he had corrected it.
+T: Did your sister go on holiday?
+Yes, but she took the examination first.
+S: She went on holiday after she had taken the examination.
+T: Did you buy a new car?
+Yes, but I sold my old one first.
+S: I bought a new car after I had sold my old one.
+T: Did your mother sweep the floor?
+Yes, but she dusted the cupboard first.
+S: She swept the floor after she had dusted the cupboard.
+T: Did you drink the milk?
+Yes, but I boiled it first.
+S: I drank the milk after I had boiled it.
+T: Did the children go to bed?
+Yes, but they had a bath first.
+S: The children went to bed after they had had a bath.
+
+## Lesson 122 · Who (whom), which and that
+
+T: Isn't he the mechanic?
+Didn't he repair your car?
+S: Yes, he's the mechanic who repaired my car.
+T: Aren't they the thieves?
+Didn't the police catch them?
+S: Yes, they're the thieves whom the police caught.
+T: Isn't that the car?
+Didn't you sell it last year?
+S: Yes, that's the car which I sold last year.
+T: Aren't they the children?
+Don't they live next door?
+S: Yes, they're the children who live next door.
+T: Isn't that the porter?
+Didn't he carry your suitcase?
+S: Yes, he's the porter who carried my suitcase.
+T: Aren't they the windows?
+Didn't the children break them yesterday?
+S: Yes, they're the windows which the children broke yesterday.
+T: Isn't that the coin?
+Didn't you find it in the garden?
+S: Yes, that's the coin which I found in the garden.
+T: Isn't she the woman?
+Didn't you drive her to London?
+S: Yes, she's the woman whom I drove to London.
+T: Aren't these the books?
+Didn't you buy them last week?
+S: Yes, they're the books which I bought last week.
+T: Aren't they the people?
+Didn't you invite them to your party?
+S: Yes, they're the people whom I invited to my party.
+
+## Lesson 124 · (Who) / (whom), (which) and (that)
+
+T: Isn't this the test?
+Didn't you speak to me about it?
+S: Yes, this is the test I spoke to you about.
+T: Isn't that the person?
+Didn't you speak to him?
+S: Yes. that's the person I spoke to.
+T: Isn't she the girl?
+Didn't you ask me about her?
+S: Yes, she's the girl I asked you about.
+T: Aren't these the photographs?
+Didn't you look at them?
+S: Yes, these are the photographs I looked at.
+T: Aren't they the actors?
+Didn't you read about them?
+S: Yes, they're the actors I read about.
+T: Isn't that the ship?
+Didn't you travel on it?
+S: Yes, that's the ship I travelled on. T: Isn't that the city?
+Didn't your friends come from there?
+S: Yes, that's the city my friends came from
+T: Isn't that the programme?
+Don't you always listen to it?
+S: Yes, that's the programme I always listen to.
+T: Isn't that the shop?
+Didn't you get your hat from there?
+S: Yes. that's the shop I got my hat from
+T: Isn't that the chair?
+Didn't you sit on it?
+S: Yes, that's the chair I sat on.
+
+## Lesson 126 · Have to and do not need to
+
+Play the examples on the tape.
+T: I must leave now. What about you?
+S: I have to leave, too.
+T: I don't have to get up early tomorrow. What about you?
+S: I don't need to get up early, either.
+T: Tom must change some money.
+What about Mary?
+S: She has to change some money, too.
+T: Mary doesn't have to drive to London tomorrow. What about Tim?
+S: He doesn't need to drive to London, either.
+T: I must go by air.
+What about you?
+S: I have to go by air, too.
+T: I don't have to meet her at the station.
+What about you?
+S: I don't need to meet her at the station, either.
+T: Tom doesn't have to be there early.
+What about Alice?
+S: She doesn't need to be there early, either.
+T: Alan must decide immediately.
+What about George?
+S: He has to decide immediately, too.
+T: I don't have to take a taxi.
+What about you?
+S: I don't need to take a taxi, either.
+T: I must catch that bus.
+What about you?
+S: I have to catch that bus, too.
+
+## Lesson 128 · He can't be... He must be...
+
+Play the examples on the tape.
+T: Is he a doctor or a dentist?
+S: He can't be a doctor.
+He must be a dentist.
+T: Is she Danish or Norwegian?
+S: She can't be Danish.
+She must be Norwegian.
+T: Are they listening to the stereo or watching television?
+S: They can't be listening to the stereo.
+They must be watching television.
+T: Is it the 1st or the 2nd today?
+S: It can't be the 1st.
+It must be the 2nd.
+T: Are they Austrian or German?
+S: They can't be Austrian.
+They must be German.
+T: Is she 32 or 30?
+S: She can't be 32.
+She must be 30. T: Is it cheap or expensive?
+S: It can't be cheap.
+It must be expensive.
+T: Is he shaving or having a bath?
+S: He can't be shaving.
+He must be having a bath.
+T: Is he the oldest or the youngest in the family?
+S: He can't be the oldest.
+He must be the youngest.
+T: Are they mechanics or engineers?
+S: They can't be mechanics.
+They must be engineers.
+
+## Lesson 130 · He can't have been... He must have been...
+
+T: Was he a conductor or a bus driver?
+S: He can't have been a conductor.
+He must have been a bus driver.
+T: Was she Chinese or Japanese?
+S: She can't have been Chinese.
+She must have been Japanese.
+T: Were they listening to the stereo or watching television?
+S: They can't have been listening to the stereo.
+They must have been watching television.
+T: Was it the 24th or the 25th yesterday?
+S: It can't have been the 24th.
+It must have been the 25th.
+T: Were they English or American?
+S: They can't have been English.
+They must have been American.
+T: Was your pencil sharp or blunt?
+S: It can't have been sharp.
+It must have been blunt.
+T: Was she dusting the table or sweeping the floor?
+S: She can't have been dusting the table.
+She must have been sweeping the floor.
+T: Was he the oldest or the youngest in the family?
+S: He can't have been the oldest.
+He must have been the youngest.
+T: Was she 20 or 25?
+S: She can't have been 20.
+She must have been 25.
+T: Were they mechanics or engineers?
+S: They can't have been mechanics.
+They must have been engineers.
+
+## Lesson 132 · He may be... He may have been... I'm not sure.
+
+Play the examples on the tape.
+T: Do you think he's in his room?
+S: I'm not sure.
+He may be in his room
+T: Do you think they were reading?
+S: I'm not sure, They may have been reading.
+T: Do you think they were in the garden?
+S: I'm not sure.
+They may have been in the garden.
+T: Do you think this bread is fresh?
+S: I'm not sure.
+It may be fresh.
+T: Do you think she was Danish?
+S: I'm not sure.
+She may have been Danish. T: Do you think he was repairing the car?
+S: I'm not sure.
+He may have been repairing the car.
+T: Do you think they are playing in the garden?
+S: I'm not sure.
+They may be playing in the garden.
+T: Do you think they will offer you a job?
+S: I'm not sure.
+They may offer me a job.
+T: Do you think she's only 29?
+S: I'm not sure.
+She may be only 29.
+T: Do you think my answer was right?
+S: I'm not sure.
+It may have been right.
+
+## Lesson 134 · He said (that) he... He told me (that) he...
+
+T: I'm tired.
+What did he say?
+S: He said he was tired.
+T: I'm reading.
+What did she tell you?
+S: She told me she was reading.
+T: I want to leave.
+What did he say?
+S: He said he wanted to leave.
+T: I don't want to go to the cinema.
+What did she tell you?
+S: She told me she didn't want to go to the cinema.
+T: It's expensive.
+What did he say?
+S: He said it was expensive.
+T: Tom is waiting for you.
+What did she tell you?
+S: She told me Tom was waiting for me.
+T: Alice feels tired.
+What did he say?
+S: He said Alice felt tired.
+T: It isn't urgent.
+What did she tell you?
+S: She told me it wasn't urgent.
+T: I'm not joking.
+What did he say?
+S: He said he wasn't joking.
+T: The children aren't hungry.
+What did she tell you?
+
+## Lesson 136 · He said (that) he... He told me (that) he...
+
+T: I'll leave tomorrow
+What did he say?
+S: He said he would leave tomorrow
+T: I can understand English.
+What did she tell you?
+S: She told me she could understand English.
+T: I may go to the cinema this evening.
+What did he say?
+S: He said he might go to the cinema this evening.
+T: I'm not going to come tomorrow
+What did she tell you?
+S: She told me she was not going to come tomorrow
+T: George won't travel by air.
+What did he say?
+S: He said George wouldn't travel by air.
+T: I can't afford a new car.
+What did she tell you?
+S: She told me she couldn't afford a new car.
+T: I may not retire.
+What did he say?
+S: He said he might not retire.
+T: It will rain tomorrow
+What did she tell you?
+S: She told me it would rain tomorrow
+T: The children can come with us.
+What did he say?
+S: He said the children could come with us.
+T: Penny may be right.
+What did she tell you?
+S: She told me Penny might be right.
+
+## Lesson 138 · If...
+
+T: What will you do if you win a lot of money?
+Stay at the best hotels.
+S: If I win a lot of money, I'll stay at the best hotels.
+T: What will he do if he misses the bus?
+Take a taxi.
+S: If he misses the bus, he'll take a taxi.
+T: What will he do if he doesn't sell his old car?
+He won't buy a new one.
+S: If he doesn't sell his old car, he won't buy a new one.
+T: Now you do the same.
+Ready?
+T: What will you do if they offer you more money?
+Work less.
+S: If they offer me more money, I'll work less.
+T: What will he do if she doesn't type the letter?
+Type it himself.
+S: If she doesn't type the letter, he'll type it himself.
+T: What will the children do if they come home early?
+Play in the garden.
+S: If the children come home early, they'll play in the garden.
+T: What will you do if you are ill tomorrow? I won't go to work.
+S: If I am ill tomorrow, I won't go to work.
+T: What will you do if you go to the party?
+Enjoy myself.
+S: If I go to the party, I'll enjoy myself.
+T: What will you do if he asks you?
+Tell him the truth.
+S: If he asks me, I'll tell him the truth.
+T: What will they do if it rains tomorrow? Stay at home.
+S: If it rains tomorrow, they'll stay at home.
+
+## Lesson 140 · He wants to know if/why/what/when
+
+T: Are you tired?
+What does he want to know?
+S: He wants to know if you are tired.
+T: Why is Mary late?
+What does she want to know?
+S: She wants to know why Mary is late.
+T: Does Tom get up early?
+What does he want to know?
+S: He wants to know if Tom gets up early.
+T: Is Tom doing his homework?
+What does she want to know?
+S: She wants to know if Tom is doing his homework.
+T: What are you cooking?
+What does he want to know?
+S: He wants to know what you are cooking.
+T: When does Tom arrive?
+What does she want to know?
+S: She wants to know when Tom arrives.
+T: Will the children go to bed early?
+What does he want to know?
+S: He wants to know if the children will go to bed early.
+T: When will you have a bath?
+What does she want to know?
+S: She wants to know when you'll have a bath.
+T: Did Tom go to bed early?
+What does he want to know?
+S: He wants to know if Tom went to bed early.
+T: When did Tom go to bed?
+What does she want to know?
+S: She wants to know when Tom went to bed.
+
+## Lesson 142 · Someone invited Sally to a party. Sally was invited to a party.
+
+T: Does anyone ever open this window?
+S: Yes, it is opened regularly.
+T: Does anyone ever take him to school?
+S: Yes, he is taken to school regularly.
+T: Did anyone ever repair that car?
+S: Yes, it was repaired regularly.
+T: Does anyone ever air this room?
+S: Yes, it is aired regularly.
+T: Does anyone ever correct these exercise books?
+S: Yes, they are corrected regularly.
+T: Does anyone ever invite him to a party?
+S: Yes, he is invited regularly.
+T: Does anyone ever meet them at the station?
+S: Yes, they are met at the station regularly.
+T: Did anyone ever sharpen this knife?
+S: Yes, it was sharpened regularly.
+T: Did anyone ever sharpen these knives?
+S: Yes, they were sharpened regularly.
+T: Did anyone ever watch them?
+S: Yes, they were watched regularly.
+
+## Lesson 144 · He hasn't been served yet. He will be served soon.
+
+T: Has anyone opened the window yet?
+S: Yes, it has already been opened.
+T: Has anyone corrected these exercise books yet?
+S: Yes, they have already been corrected.
+T: Will anyone sweep the floor?
+S: Yes, it'll be swept soon.
+T: Will anyone tell them about it?
+S: Yes, they'll be told about it soon.
+T: Has anyone invited them yet?
+S: Yes, they have already been invited.
+T: Will anyone serve him?
+S: Yes, he'll be served soon. T: Has anyone repaired this car yet?
+S: Yes, it has already been repaired.
+T: Will anyone find them?
+S: Yes, they'll be found soon.
+T: Has anyone sharpened this knife yet?
+S: Yes, it has already been sharpened.
+T: Will anyone sharpen these knives?
+S: Yes, they'll be sharpened soon.
+
