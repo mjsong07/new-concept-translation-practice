@@ -37,7 +37,8 @@ const groupLabel = computed(() => {
 });
 
 // ============ 我的笔记：默认只读，点击“编辑”后支持修改并保存到本机 ============
-const activeTab = ref("original");
+const activeTab = ref("lesson-text");
+let lastStudyTab = "lesson-text";
 
 // ============ 分组：学习 / 练习 / 笔记总结，每组下面挂若干子 tab ============
 type NotesGroup = "study" | "practice" | "summary";
@@ -50,12 +51,11 @@ function categoryGroup(cat: string): NotesGroup {
   return cat === "Words" || cat === "Grammar" ? "study" : "practice";
 }
 
-// 应用某个分组：切换 activeGroup，并默认选中该组第一个 tab。
 function applyGroup(g: NotesGroup) {
+  if (activeGroup.value === "study") lastStudyTab = activeTab.value;
   activeGroup.value = g;
   if (g === "study") {
-    const i = visibleContentBlocks.value.findIndex(b => categoryGroup(b.category) === "study");
-    activeTab.value = i >= 0 ? visibleContentBlocks.value[i].category : "original";
+    activeTab.value = availableTabs.value.includes(lastStudyTab) ? lastStudyTab : availableTabs.value[0];
   } else if (g === "practice") {
     // 练习组第一个 tab 是「语法练习」截图，默认选中它。
     activeTab.value = "grammar";

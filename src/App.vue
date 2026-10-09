@@ -218,7 +218,7 @@ onUnmounted(() => {
       @update:speech-volume="speechVolume = $event"
       @update:character-match-percent="characterMatchPercent = $event"
       @update:auto-advance-errors="autoAdvanceErrors = $event"
-      @show-notes="notesVisible = true"
+      @show-notes="openNotesGroup('study')"
       @reset="resetCurrentLesson"
     />
 
@@ -246,7 +246,7 @@ onUnmounted(() => {
         @update:speech-volume="speechVolume = $event"
         @update:character-match-percent="characterMatchPercent = $event"
         @update:auto-advance-errors="autoAdvanceErrors = $event"
-        @show-notes="notesVisible = true"
+        @show-notes="openNotesGroup('study')"
         @show-notes-group="openNotesGroup"
         @reset="resetCurrentLesson"
       />
