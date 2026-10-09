@@ -51,7 +51,7 @@ const emit = defineEmits<{
   "update:answer": [id: string, value: string];
   submit: [id: string];
   clear: [id: string];
-  speak: [segments: SpeechSegment[]];
+  speak: [segments: SpeechSegment[], pauseAfterFirst?: boolean];
   "speak-word": [wordId: string, wordText: string];
   "toggle-speech": [];
 }>();
@@ -565,11 +565,8 @@ function originalLineItemId(lineIndex: number) {
 function speakOriginalLine(line: string, lineIndex: number) {
   const text = line.trim();
   if (!text) return;
-  emit("speak", [{
-    text,
-    itemId: originalLineItemId(lineIndex),
-    speaker: "ORIGINAL"
-  }]);
+  // 与奇数课一致：从当前行开始朗读，读完当前句暂停，点“继续”读完剩余全文。
+  emit("speak", originalSpeechSegments.value.slice(lineIndex), true);
 }
 
 // 序号右边的题目句：写句子模式即题目本身；填空模式把空填上还原完整句。
