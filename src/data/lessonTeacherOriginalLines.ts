@@ -84,7 +84,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: Yes, it is."
   ],
   "6": [
-    "Play the examples on the tape.",
     "播放录音上的例子。",
     "T: Look at number 8.",
     "That's a Volvo.",
@@ -269,7 +268,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "It's my brother's."
   ],
   "14": [
-    "Play the examples on the tape.",
     "T: Look at number 20.",
     "What colour's Steven's umbrella?",
     "Is it brown?",
@@ -647,7 +645,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: They're near those bottles."
   ],
   "30": [
-    "Play the examples on the tape.",
     "T: Look at number 2... open.",
     "S: Open your desk.",
     "T: Number 6... put on.",
@@ -678,7 +675,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: Sharpen these pencils."
   ],
   "32": [
-    "Play the examples on the tape.",
     "T: Look at number 20000.",
     "Is Nicola making the bed?",
     "S: No, she isn't making the bed.",
@@ -1013,7 +1009,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: I can see that aeroplane."
   ],
   "48": [
-    "Play the examples on the tape.",
     "T: Look at the 1st picture.",
     "Do you like eggs?",
     "S: Yes, I do.",
@@ -1064,7 +1059,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "I like beer, but I don't want any."
   ],
   "50": [
-    "Play the examples on the tape.",
     "T: Look at the 13th picture.",
     "Does Penny like tomatoes?",
     "S: Yes, she does.",
@@ -1115,7 +1109,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "She likes peaches, but she doesn't want any."
   ],
   "52": [
-    "Play the examples on the tape.",
     "T: Look at the 20th picture.",
     "Do you come from Brazil?",
     "S: No, I don't come from Brazil.",
@@ -1338,7 +1331,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: We must call the doctor."
   ],
   "64": [
-    "Play the examples on the tape.",
     "T: Don't take any aspirins!",
     "S: You mustn't take any aspirins.",
     "T: Don't take this medicine!",
@@ -1361,7 +1353,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: You mustn't break that vase."
   ],
   "66": [
-    "Play the examples on the tape.",
     "T: Look at the 1st clock.",
     "When must you come home?",
     "S: I must come home at one o'clock.",
@@ -1793,7 +1784,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: She hasn't met Harry yet."
   ],
   "90": [
-    "Play the examples on the tape.",
     "T: Did you read this book last week?",
     "S: Yes, I read this book last week.",
     "T: What about Penny?",
@@ -1827,7 +1817,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: She hasn't taken her medicine yet."
   ],
   "92": [
-    "Play the examples on the tape.",
     "T: Look at the 1st picture.",
     "It rained yesterday.",
     "S: Yes, and it'll rain again tomorrow.",
@@ -2428,7 +2417,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: Yes, that's the chair I sat on."
   ],
   "126": [
-    "Play the examples on the tape.",
     "T: I must leave now. What about you?",
     "S: I have to leave, too.",
     "T: I don't have to get up early tomorrow. What about you?",
@@ -2458,7 +2446,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "S: I have to catch that bus, too."
   ],
   "128": [
-    "Play the examples on the tape.",
     "T: Is he a doctor or a dentist?",
     "S: He can't be a doctor.",
     "He must be a dentist.",
@@ -2522,7 +2509,6 @@ export const lessonTeacherOriginalLines: Record<number, string[]> = {
     "They must have been engineers."
   ],
   "132": [
-    "Play the examples on the tape.",
     "T: Do you think he's in his room?",
     "S: I'm not sure.",
     "He may be in his room",

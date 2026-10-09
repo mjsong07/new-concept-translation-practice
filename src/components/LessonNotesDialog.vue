@@ -189,8 +189,12 @@ function blockHasContent(b: { category: string; lines: string[] }) {
   if (DRILL.has(b.category)) return drillGroups(b.lines).length > 0;
   return b.lines.some(l => l.trim() !== "");
 }
+// 统一 content 类 tab 顺序：先 Words 再 Grammar，其余操练类按固定顺序（数据源里各课块存储顺序不一致）。
+const categoryOrder: Record<string, number> = { Words: 0, Grammar: 1, Comprehension: 2, "Asking questions": 3, Practices: 4, Story: 5 };
 const visibleContentBlocks = computed(() =>
-  contentBlocks.value.filter(b => categoryGroup(b.category) === activeGroup.value && blockHasContent(b))
+  contentBlocks.value
+    .filter(b => categoryGroup(b.category) === activeGroup.value && blockHasContent(b))
+    .sort((a, b) => (categoryOrder[a.category] ?? 99) - (categoryOrder[b.category] ?? 99))
 );
 
 // 当前分组 + 当前课下实际存在的 tab（与模板中 el-tab-pane 的渲染条件保持一致，顺序即显示顺序）。

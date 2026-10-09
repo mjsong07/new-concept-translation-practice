@@ -60,7 +60,9 @@ describe("LessonNotesDialog 多 tab", () => {
     const g = tabs().find((i) => (i.textContent || "").trim() === "Grammar");
     await g!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await flushPromises();
-    const content = document.body.querySelector(".lesson-content")!;
+    // tab 顺序统一为 Words 在前，需取当前可见面板的内容而非 DOM 中第一个。
+    const content = Array.from(document.body.querySelectorAll<HTMLElement>(".lesson-content"))
+      .find((el) => el.closest(".el-tab-pane")?.style.display !== "none")!;
     expect(content.textContent || "").toContain("⼀般过去时");
     expect(content.textContent || "").toContain("I loved you.");
   });

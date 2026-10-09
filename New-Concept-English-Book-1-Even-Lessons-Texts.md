@@ -90,7 +90,6 @@ S: Yes, it is.
 
 ## Lesson 6 · What make is it?
 
-Play the examples on the tape.
 播放录音上的例子。
 T: Look at number 8.
 That's a Volvo.
@@ -279,7 +278,6 @@ It's my brother's.
 
 ## Lesson 14 · What colour's your...?
 
-Play the examples on the tape.
 T: Look at number 20.
 What colour's Steven's umbrella?
 Is it brown?
@@ -665,7 +663,6 @@ S: They're near those bottles.
 
 ## Lesson 30 · What must I do?
 
-Play the examples on the tape.
 T: Look at number 2... open.
 S: Open your desk.
 T: Number 6... put on.
@@ -697,7 +694,6 @@ S: Sharpen these pencils.
 
 ## Lesson 32 · What's he/she/it doing?
 
-Play the examples on the tape.
 T: Look at number 20000.
 Is Nicola making the bed?
 S: No, she isn't making the bed.
@@ -1040,7 +1036,6 @@ S: I can see that aeroplane.
 
 ## Lesson 48 · Do you like ...? Do you want ...?
 
-Play the examples on the tape.
 T: Look at the 1st picture.
 Do you like eggs?
 S: Yes, I do.
@@ -1092,7 +1087,6 @@ I like beer, but I don't want any.
 
 ## Lesson 50 · He likes ... But he doesn't like ...
 
-Play the examples on the tape.
 T: Look at the 13th picture.
 Does Penny like tomatoes?
 S: Yes, she does.
@@ -1144,7 +1138,6 @@ She likes peaches, but she doesn't want any.
 
 ## Lesson 52 · What nationality are they? Where do they come from?
 
-Play the examples on the tape.
 T: Look at the 20th picture.
 Do you come from Brazil?
 S: No, I don't come from Brazil.
@@ -1373,7 +1366,6 @@ S: We must call the doctor.
 
 ## Lesson 64 · Don't...! You mustn't...!
 
-Play the examples on the tape.
 T: Don't take any aspirins!
 S: You mustn't take any aspirins.
 T: Don't take this medicine!
@@ -1397,7 +1389,6 @@ S: You mustn't break that vase.
 
 ## Lesson 66 · What's the time?
 
-Play the examples on the tape.
 T: Look at the 1st clock.
 When must you come home?
 S: I must come home at one o'clock.
@@ -1841,7 +1832,6 @@ S: She hasn't met Harry yet.
 
 ## Lesson 90 · Have you... yet?
 
-Play the examples on the tape.
 T: Did you read this book last week?
 S: Yes, I read this book last week.
 T: What about Penny?
@@ -1876,7 +1866,6 @@ S: She hasn't taken her medicine yet.
 
 ## Lesson 92 · When will ...?
 
-Play the examples on the tape.
 T: Look at the 1st picture.
 It rained yesterday.
 S: Yes, and it'll rain again tomorrow.
@@ -2494,7 +2483,6 @@ S: Yes, that's the chair I sat on.
 
 ## Lesson 126 · Have to and do not need to
 
-Play the examples on the tape.
 T: I must leave now. What about you?
 S: I have to leave, too.
 T: I don't have to get up early tomorrow. What about you?
@@ -2525,7 +2513,6 @@ S: I have to catch that bus, too.
 
 ## Lesson 128 · He can't be... He must be...
 
-Play the examples on the tape.
 T: Is he a doctor or a dentist?
 S: He can't be a doctor.
 He must be a dentist.
@@ -2591,7 +2578,6 @@ They must have been engineers.
 
 ## Lesson 132 · He may be... He may have been... I'm not sure.
 
-Play the examples on the tape.
 T: Do you think he's in his room?
 S: I'm not sure.
 He may be in his room
