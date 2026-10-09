@@ -572,7 +572,8 @@ function speakOriginalLine(line: string, lineIndex: number) {
 function speakBilingualLine(item: ExerciseItem) {
   const text = item.answer?.trim();
   if (!text) return;
-  emit("speak", [speechSegment(item, text)]);
+  const lineIndex = props.translationItems.findIndex((candidate) => candidate.id === item.id);
+  emit("speak", lessonSpeechSegments.value.slice(lineIndex), true);
 }
 
 // 序号右边的题目句：写句子模式即题目本身；填空模式把空填上还原完整句。
