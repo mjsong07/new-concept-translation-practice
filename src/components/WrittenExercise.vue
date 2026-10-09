@@ -566,13 +566,13 @@ function speakOriginalLine(line: string, lineIndex: number) {
   const text = line.trim();
   if (!text) return;
   // 与奇数课一致：从当前行开始朗读，读完当前句暂停，点”继续”读完剩余全文。
-  emit(“speak”, originalSpeechSegments.value.slice(lineIndex), true);
+  emit("speak", originalSpeechSegments.value.slice(lineIndex), true);
 }
 
 function speakBilingualLine(item: ExerciseItem) {
   const text = item.answer?.trim();
   if (!text) return;
-  emit(“speak”, [speechSegment(item, text)]);
+  emit("speak", [speechSegment(item, text)]);
 }
 
 // 序号右边的题目句：写句子模式即题目本身；填空模式把空填上还原完整句。
@@ -900,8 +900,9 @@ function onTextClick(event: MouseEvent) {
                       <p class="comparison-line"><span class="comparison-text" @click="onTextClick"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'clickable-word': isWordToken(part.text), 'is-word-active': activeWordId === `${item.id}-ref:${partIndex}` }]" :data-word-id="isWordToken(part.text) ? `${item.id}-ref:${partIndex}` : undefined">{{ part.text }}</span></span></p>
                     </div>
 
-                    <div v-if="!isFillMode(item) && lessonNumber % 2 !== 0" class="sentence-answer-row written-answer-row">
+                    <div v-if="!isFillMode(item)" class="sentence-answer-row written-answer-row">
                       <button
+                        v-if="tab.key !== 'translation'"
                         class="answer-speak" type="button"
                         :aria-label="t('exercise.speakAnswer')"
                         @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="speakReferenceAnswer(item)"
