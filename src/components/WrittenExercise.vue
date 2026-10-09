@@ -565,8 +565,14 @@ function originalLineItemId(lineIndex: number) {
 function speakOriginalLine(line: string, lineIndex: number) {
   const text = line.trim();
   if (!text) return;
-  // 与奇数课一致：从当前行开始朗读，读完当前句暂停，点“继续”读完剩余全文。
-  emit("speak", originalSpeechSegments.value.slice(lineIndex), true);
+  // 与奇数课一致：从当前行开始朗读，读完当前句暂停，点”继续”读完剩余全文。
+  emit(“speak”, originalSpeechSegments.value.slice(lineIndex), true);
+}
+
+function speakBilingualLine(item: ExerciseItem) {
+  const text = item.answer?.trim();
+  if (!text) return;
+  emit(“speak”, [speechSegment(item, text)]);
 }
 
 // 序号右边的题目句：写句子模式即题目本身；填空模式把空填上还原完整句。
@@ -834,7 +840,7 @@ function onTextClick(event: MouseEvent) {
                   <button
                     class="sentence-number" type="button"
                     :aria-label="t('exercise.speakItem', { item: itemLabel(item) })"
-                    @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="speakPrompt(item)"
+                    @mousedown.prevent @pointerdown="suppressBlurSubmit" @click="tab.key === 'translation' ? speakBilingualLine(item) : speakPrompt(item)"
                   >{{ itemLabel(item) }}</button>
                   <div class="sentence-content">
                     <div class="sentence-prompt-row">
@@ -894,7 +900,7 @@ function onTextClick(event: MouseEvent) {
                       <p class="comparison-line"><span class="comparison-text" @click="onTextClick"><span v-for="(part, partIndex) in results[item.id].referenceParts" :key="`${item.id}-reference-${partIndex}`" class="diff-word" :class="[`is-${part.state}`, { 'clickable-word': isWordToken(part.text), 'is-word-active': activeWordId === `${item.id}-ref:${partIndex}` }]" :data-word-id="isWordToken(part.text) ? `${item.id}-ref:${partIndex}` : undefined">{{ part.text }}</span></span></p>
                     </div>
 
-                    <div v-if="!isFillMode(item)" class="sentence-answer-row written-answer-row">
+                    <div v-if="!isFillMode(item) && lessonNumber % 2 !== 0" class="sentence-answer-row written-answer-row">
                       <button
                         class="answer-speak" type="button"
                         :aria-label="t('exercise.speakAnswer')"
@@ -928,7 +934,7 @@ function onTextClick(event: MouseEvent) {
             </div>
             <div class="sentence-list reading-list bilingual-list">
               <article v-for="item in translationItems" :key="item.id" class="sentence-row" :class="{ 'is-speaking': activeSpeechItemId === item.id }">
-                <button class="sentence-number" type="button" :aria-label="t('exercise.speakItem', { item: itemLabel(item) })" @click="speakPrompt(item)">{{ itemLabel(item) }}</button>
+                <button class="sentence-number" type="button" :aria-label="t('exercise.speakItem', { item: itemLabel(item) })" @click="speakBilingualLine(item)">{{ itemLabel(item) }}</button>
                 <div class="sentence-content">
                   <p class="sentence-chinese">{{ item.prompt }}</p>
                   <p class="sentence-english" @click="onTextClick"><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
