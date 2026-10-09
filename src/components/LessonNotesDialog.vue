@@ -171,8 +171,9 @@ function reload() {
   hideAll.value = false;
   hiddenGroups.value = new Set();
   revealedGroups.value = new Set();
-  if (activeGroup.value === "study" && activeTab.value === "teacher-notes" && teacherNotesImages.value.length === 0) {
-    activeTab.value = "original";
+  // 切课后当前 tab 若在新课中不存在（如老师笔记、某类别正文缺失），回退到该分组第一个 tab；存在则保持选中。
+  if (!availableTabs.value.includes(activeTab.value)) {
+    activeTab.value = availableTabs.value[0];
   }
   // 切课后内容滚动条回到顶部
   nextTick(() => {
@@ -196,6 +197,16 @@ function blockHasContent(b: { category: string; lines: string[] }) {
 const visibleContentBlocks = computed(() =>
   contentBlocks.value.filter(b => categoryGroup(b.category) === activeGroup.value && blockHasContent(b))
 );
+
+// 当前分组 + 当前课下实际存在的 tab（与模板中 el-tab-pane 的渲染条件保持一致，顺序即显示顺序）。
+const availableTabs = computed<string[]>(() => {
+  if (activeGroup.value === "summary") return ["homework"];
+  const tabs = activeGroup.value === "study" ? ["lesson-text", "original"] : ["grammar", "grammar-ex"];
+  if (activeGroup.value === "study" && teacherNotesImages.value.length) tabs.push("teacher-notes");
+  visibleContentBlocks.value.forEach(b => tabs.push(`content-${contentIndexOf(b.category)}`));
+  if (activeGroup.value === "study") tabs.push("cambridge");
+  return tabs;
+});
 
 // 原书课堂笔记截图：保留图片版，方便与提取文字对照。
 const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || []);
