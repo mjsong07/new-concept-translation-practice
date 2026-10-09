@@ -48,9 +48,6 @@ const activeGroup = ref<NotesGroup>("study");
 function contentIndexOf(category: string): number {
   return contentBlocks.value.findIndex(b => b.category === category);
 }
-function visibleContentBlocksIndex(category: string): string {
-  return `content-${contentIndexOf(category)}`;
-}
 function categoryGroup(cat: string): NotesGroup {
   return cat === "Words" || cat === "Grammar" ? "study" : "practice";
 }
@@ -60,7 +57,7 @@ function applyGroup(g: NotesGroup) {
   activeGroup.value = g;
   if (g === "study") {
     const i = visibleContentBlocks.value.findIndex(b => categoryGroup(b.category) === "study");
-    activeTab.value = i >= 0 ? `content-${visibleContentBlocksIndex(visibleContentBlocks.value[i].category)}` : "original";
+    activeTab.value = i >= 0 ? visibleContentBlocks.value[i].category : "original";
   } else if (g === "practice") {
     // 练习组第一个 tab 是「语法练习」截图，默认选中它。
     activeTab.value = "grammar";
@@ -203,7 +200,7 @@ const availableTabs = computed<string[]>(() => {
   if (activeGroup.value === "summary") return ["homework"];
   const tabs = activeGroup.value === "study" ? ["lesson-text", "original"] : ["grammar", "grammar-ex"];
   if (activeGroup.value === "study" && teacherNotesImages.value.length) tabs.push("teacher-notes");
-  visibleContentBlocks.value.forEach(b => tabs.push(`content-${contentIndexOf(b.category)}`));
+  visibleContentBlocks.value.forEach(b => tabs.push(b.category));
   if (activeGroup.value === "study") tabs.push("cambridge");
   return tabs;
 });
@@ -526,7 +523,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         v-for="(block, i) in visibleContentBlocks"
         :key="block.category"
         :label="block.category"
-        :name="`content-${visibleContentBlocksIndex(block.category)}`"
+        :name="block.category"
       >
         <!-- 问答操练：顶部全部显示/隐藏按钮，每题后小眼睛单独切换。 -->
         <div v-if="DRILL.has(block.category)" class="lesson-content" :class="{ 'all-hidden': hideAll }">
