@@ -13,8 +13,6 @@ import { lessonHomework } from "../data/lessonHomework";
 import { lessonGrammarPages } from "../data/lessonGrammarPages";
 import { lessonGrammarCambridgePages } from "../data/lessonGrammarCambridgePages";
 import { lessonGrammarCambridgeAnswerPages } from "../data/lessonGrammarCambridgeAnswers";
-import { lessonGrammarExercises } from "../data/lessonGrammarExercises";
-import { speakEnglish } from "../services/speech";
 import { renderMarkdown } from "../services/markdown";
 
 const { t } = useI18n();
@@ -198,7 +196,7 @@ const visibleContentBlocks = computed(() =>
 // 当前分组 + 当前课下实际存在的 tab（与模板中 el-tab-pane 的渲染条件保持一致，顺序即显示顺序）。
 const availableTabs = computed<string[]>(() => {
   if (activeGroup.value === "summary") return ["homework"];
-  const tabs = activeGroup.value === "study" ? ["lesson-text", "original"] : ["grammar", "grammar-ex"];
+  const tabs = activeGroup.value === "study" ? ["lesson-text", "original"] : ["grammar"];
   if (activeGroup.value === "study" && teacherNotesImages.value.length) tabs.push("teacher-notes");
   visibleContentBlocks.value.forEach(b => tabs.push(b.category));
   if (activeGroup.value === "study") tabs.push("cambridge");
@@ -214,15 +212,6 @@ const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || [
 const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
 const cambridgeImages = computed(() => lessonGrammarCambridgePages(props.lessonNumber));
 const cambridgeAnswerImages = computed(() => lessonGrammarCambridgeAnswerPages(props.lessonNumber));
-const grammarItems = computed(() =>
-  (lessonGrammarExercises[props.lessonNumber] || []).filter(it => it.prompt.trim())
-);
-const grammarAnswers = ref<Record<number, string>>({});
-const grammarShown = ref<Set<number>>(new Set());
-function playGrammarAnswer(i: number, text: string) {
-  if (!text) return;
-  speakEnglish(text, { voiceURI: "", rate: 0.82, volume: 1 }, {});
-}
 
 // 用 viewerjs 接管原书截图点击预览，原生支持鼠标滚轮 / 触控双指捏合放大缩小、拖动、旋转。
 const notesPagesEl = ref<HTMLElement | null>(null);
@@ -486,34 +475,6 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
             :loading="i === 0 ? 'eager' : 'lazy'"
             class="class-notes-page"
           />
-        </div>
-        <el-empty v-else :description="t('notes.noPractice')" :image-size="80" />
-      </el-tab-pane>
-
-      <!-- 语法填空：把 PDF 练习页转成可输入的填空/改写，行内带“答”朗读参考答案。 -->
-      <el-tab-pane v-if="activeGroup === 'practice'" :label="t('notes.tabGrammarEx')" name="grammar-ex">
-        <div v-if="grammarItems.length" class="grammar-exercise-list">
-          <div v-for="(item, i) in grammarItems" :key="i" class="grammar-exercise-row">
-            <span class="grammar-exercise-num">{{ i + 1 }}</span>
-            <div class="grammar-exercise-main">
-              <p class="grammar-exercise-prompt">{{ item.prompt }}</p>
-              <div class="grammar-exercise-inputrow">
-                <button
-                  class="grammar-exercise-ansbtn"
-                  type="button"
-                  :title="t('notes.speakAnswer')"
-                  @click="playGrammarAnswer(i, item.answer)"
-                >答</button>
-                <input
-                  v-model="grammarAnswers[i]"
-                  class="grammar-exercise-input"
-                  type="text"
-                  :placeholder="t('notes.yourAnswer')"
-                />
-                <span v-if="item.answer" class="grammar-exercise-ref">{{ item.answer }}</span>
-              </div>
-            </div>
-          </div>
         </div>
         <el-empty v-else :description="t('notes.noPractice')" :image-size="80" />
       </el-tab-pane>
