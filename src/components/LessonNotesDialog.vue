@@ -560,14 +560,33 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         <template v-if="cambridgeAnswerImages.length">
           <div class="lesson-content-subhead">{{ t("notes.cambridgeAnswers") }}</div>
           <div class="class-notes-pages">
-            <img
-              v-for="(src, i) in cambridgeAnswerImages"
-              :key="'a' + i"
-              :src="src"
-              :alt="`cambridge answers ${i + 1}`"
-              :loading="i === 0 ? 'eager' : 'lazy'"
-              class="class-notes-page"
-            />
+            <div
+              v-for="(answer, i) in cambridgeAnswerImages"
+              :key="answer.page"
+              class="class-notes-page cambridge-answer-page"
+            >
+              <img
+                :src="answer.src"
+                :alt="`cambridge answers ${i + 1}`"
+                :loading="i === 0 ? 'eager' : 'lazy'"
+                width="908"
+                height="1366"
+              />
+              <svg viewBox="0 0 908 1366" class="cambridge-answer-overlay" aria-hidden="true">
+                <rect
+                  v-for="(region, j) in answer.regions"
+                  :key="j"
+                  :x="region.x"
+                  :y="region.y"
+                  :width="region.width"
+                  :height="region.height"
+                  fill="none"
+                  stroke="#e53935"
+                  stroke-width="2"
+                  vector-effect="non-scaling-stroke"
+                />
+              </svg>
+            </div>
           </div>
         </template>
       </el-tab-pane>
@@ -618,3 +637,24 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
     />
   </el-dialog>
 </template>
+
+<style scoped>
+.cambridge-answer-page {
+  position: relative;
+}
+
+.cambridge-answer-page > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+
+.cambridge-answer-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+</style>
