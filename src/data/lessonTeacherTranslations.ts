@@ -2737,7 +2737,8 @@ const lessonTeacherTranslationPairs: Record<number, TeacherTranslationPair[]> = 
 
 
 export function getLessonTeacherTranslationItems(lessonNumber: number, lessonTitle: string): ExerciseItem[] {
-  return (lessonTeacherTranslationPairs[lessonNumber] || []).map(({ original, translation }, index) => ({
+  // 先生成 ID 再过滤，避免已有答题记录对应到其他句子。
+  return (lessonTeacherTranslationPairs[lessonNumber] || []).map<ExerciseItem>(({ original, translation }, index) => ({
     id: `lesson-${lessonNumber}-original-${index}`,
     lesson: lessonNumber,
     lessonTitle,
@@ -2748,7 +2749,7 @@ export function getLessonTeacherTranslationItems(lessonNumber: number, lessonTit
     speakerEn: "ORIGINAL",
     prompt: translation,
     answer: original
-  }));
+  })).filter(({ answer }) => answer !== "Play the examples on the tape." && answer !== "播放录音上的例子。");
 }
 
 export function getLessonTeacherTranslationPairs(lessonNumber: number) {
