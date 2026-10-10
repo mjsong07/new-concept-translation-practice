@@ -414,7 +414,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
             >{{ itemLabel(item, index) }}</button>
             <div class="sentence-content">
               <div class="sentence-prompt-row">
-                <p class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}</p>
+                <div class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}<PronunciationRecorder :text="item.answer" suppress-blur-on-pointer @interact="suppressBlurSubmit" /></div>
                 <el-button
                   class="row-action-button" text circle size="small" :icon="Delete"
                   :disabled="!answers[item.id]" :aria-label="t('exercise.clearRow')"
@@ -449,7 +449,6 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                   @keydown="onKeydown($event, item)"
                   @blur="onBlurSubmit(item)"
                 />
-                <PronunciationRecorder :text="item.answer" suppress-blur-on-pointer @interact="suppressBlurSubmit" />
               </div>
             </div>
           </article>

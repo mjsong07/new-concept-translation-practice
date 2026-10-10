@@ -231,6 +231,7 @@ button.sentence-number:focus-visible { outline: 2px solid rgba(47,128,237,.4); o
 .sentence-prompt-row { display: flex; align-items: flex-start; gap: 9px; }
 .sentence-chinese, .sentence-english { margin: 0; color: #233633; line-height: 1.35; }
 .sentence-chinese { flex: 1; font-family: "Noto Sans SC", sans-serif; font-size: 15px; font-weight: 550; transition: color .2s ease; }
+.sentence-prompt-row .sentence-chinese > .pronunciation-recorder { margin-left: .35em; vertical-align: middle; }
 .sentence-chinese strong, .sentence-english strong { font-weight: 700; }
 .sentence-english { font-size: 16px; }
 .sentence-with-recorder { position: relative; }
