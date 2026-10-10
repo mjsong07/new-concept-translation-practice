@@ -74,6 +74,9 @@ function collect() {
   // 奇数课：朗读参考答案（TranslationExercise）
   for (const lesson of lessons) for (const item of lesson.items) push(item.answer, item.speakerEn);
 
+  // 课文标题（TranslationExercise 标题朗读按钮，无说话人 → 默认女声音色）
+  for (const lesson of lessons) push(lesson.title, "");
+
   // 偶数课书面练习：写句子模式读 prompt 与 answer；填空模式读还原后的完整句
   for (const lesson of writtenExercises) {
     for (const item of lesson.items) {
