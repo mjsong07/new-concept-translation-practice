@@ -169,7 +169,13 @@ async function evaluate(request: Request, env: Env, origin?: string): Promise<Re
       condition_on_previous_text: false
     });
   } catch (error) {
-    const details = error instanceof Error ? error.message : String(error);
+    const details = error instanceof Error
+      ? [error.name, error.message, ...Object.getOwnPropertyNames(error)
+        .filter((name) => name !== "stack")
+        .map((name) => `${name}=${String(Reflect.get(error, name))}`)]
+        .filter(Boolean)
+        .join(" ")
+      : String(error);
     console.error("Workers AI Whisper request failed.", details.slice(0, 500));
     const quotaExceeded = /quota|neurons|free tier|daily limit|rate.?limit|429|billing plan/i.test(details);
     return jsonResponse(
