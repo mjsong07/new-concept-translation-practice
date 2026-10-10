@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { Microphone, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluatePronunciation, PronunciationApiError } from "../services/pronunciation";
@@ -17,6 +17,8 @@ const recording = ref(false);
 const evaluating = ref(false);
 const result = ref<PronunciationEvaluation>();
 const errorMessage = ref("");
+const panelDismissed = ref(false);
+const rootEl = ref<HTMLElement | null>(null);
 const mediaSupported = typeof navigator !== "undefined"
   && !!navigator.mediaDevices?.getUserMedia
   && typeof MediaRecorder !== "undefined";
@@ -26,6 +28,8 @@ let stream: MediaStream | undefined;
 let chunks: BlobPart[] = [];
 let stopTimer: number | undefined;
 let recordingUrl = "";
+let evaluationController: AbortController | undefined;
+let starting = false;
 let disposed = false;
 
 function releaseStream() {
@@ -35,9 +39,38 @@ function releaseStream() {
   stream = undefined;
 }
 
+function dismissPanel() {
+  panelDismissed.value = true;
+}
+
+function onDocumentClick(event: MouseEvent) {
+  if (rootEl.value?.contains(event.target as Node)) return;
+  dismissPanel();
+}
+
+function cancelEvaluation() {
+  evaluationController?.abort();
+  evaluationController = undefined;
+  evaluating.value = false;
+}
+
+function handleMicClick() {
+  if (recording.value) {
+    stopRecording();
+    return;
+  }
+  if (evaluating.value) cancelEvaluation();
+  void startRecording();
+}
+
 async function startRecording() {
+  if (starting || recording.value) return;
+  starting = true;
   errorMessage.value = "";
+  result.value = undefined;
+  panelDismissed.value = false;
   if (!mediaSupported) {
+    starting = false;
     errorMessage.value = t("pronunciation.noMicrophoneSupport");
     return;
   }
@@ -76,6 +109,8 @@ async function startRecording() {
     errorMessage.value = error instanceof DOMException && error.name === "NotAllowedError"
       ? t("pronunciation.microphonePermission")
       : t("pronunciation.recordingError");
+  } finally {
+    starting = false;
   }
 }
 
@@ -87,11 +122,14 @@ async function submitRecording(blob: Blob) {
   recording.value = false;
   evaluating.value = true;
   errorMessage.value = "";
+  const controller = new AbortController();
+  evaluationController = controller;
   try {
-    result.value = await evaluatePronunciation(blob, props.text);
+    result.value = await evaluatePronunciation(blob, props.text, controller.signal);
     if (recordingUrl) URL.revokeObjectURL(recordingUrl);
     recordingUrl = URL.createObjectURL(blob);
   } catch (error) {
+    if (controller.signal.aborted) return;
     errorMessage.value = error instanceof PronunciationApiError
       ? error.message.startsWith("pronunciation.")
         ? t(error.message)
@@ -99,6 +137,8 @@ async function submitRecording(blob: Blob) {
       : t("pronunciation.networkError");
   } finally {
     evaluating.value = false;
+    panelDismissed.value = false;
+    if (evaluationController === controller) evaluationController = undefined;
   }
 }
 
@@ -115,8 +155,14 @@ function wordClass(word: PronunciationWordResult) {
   return `is-${word.status}`;
 }
 
+onMounted(() => {
+  window.addEventListener("click", onDocumentClick, true);
+});
+
 onBeforeUnmount(() => {
   disposed = true;
+  window.removeEventListener("click", onDocumentClick, true);
+  evaluationController?.abort();
   if (recorder?.state === "recording") recorder.stop();
   releaseStream();
   if (recordingUrl) URL.revokeObjectURL(recordingUrl);
@@ -124,20 +170,24 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="pronunciation-recorder">
+  <div ref="rootEl" class="pronunciation-recorder">
     <button
       class="pronunciation-mic-button"
       type="button"
       :class="{ 'is-recording': recording, 'is-busy': evaluating }"
-      :disabled="evaluating"
       :aria-label="recording ? t('pronunciation.stop') : t('pronunciation.record')"
       :title="recording ? t('pronunciation.stop') : t('pronunciation.record')"
       @pointerdown="props.suppressBlurOnPointer && emit('interact')"
-      @click="recording ? stopRecording() : startRecording()"
+      @click="handleMicClick"
     >
       <el-icon><Microphone /></el-icon>
     </button>
-    <section v-if="busy || result || errorMessage" class="pronunciation-panel" aria-live="polite">
+    <section
+      v-if="(busy || result || errorMessage) && !panelDismissed"
+      class="pronunciation-panel"
+      aria-live="polite"
+      @click="dismissPanel"
+    >
       <div class="pronunciation-panel-heading">
         <span v-if="recording">{{ t("pronunciation.recording") }}</span>
         <span v-else-if="evaluating">{{ t("pronunciation.waking") }}</span>
@@ -151,7 +201,7 @@ onBeforeUnmount(() => {
           <span>{{ t("pronunciation.total") }}</span>
           <span>{{ t("pronunciation.completeness") }} {{ result.completeness_score }}</span>
           <span>{{ t("pronunciation.fluency") }} {{ result.fluency_score }}</span>
-          <button class="pronunciation-replay" type="button" :aria-label="t('pronunciation.replay')" @click="playRecording">
+          <button class="pronunciation-replay" type="button" :aria-label="t('pronunciation.replay')" @click.stop="playRecording">
             <el-icon><VideoPlay /></el-icon>
           </button>
         </div>

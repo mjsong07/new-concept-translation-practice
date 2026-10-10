@@ -51,7 +51,8 @@ function isWordResult(value: unknown): value is PronunciationWordResult {
 
 export async function evaluatePronunciation(
   audio: Blob,
-  referenceText: string
+  referenceText: string,
+  signal?: AbortSignal
 ): Promise<PronunciationEvaluation> {
   const baseUrl = import.meta.env.VITE_PRONUNCIATION_API_URL?.trim().replace(/\/+$/, "");
   if (!baseUrl) {
@@ -64,7 +65,8 @@ export async function evaluatePronunciation(
     formData.append("reference_text", referenceText);
     const response = await fetch(`${baseUrl}/api/pronunciation/eval`, {
       method: "POST",
-      body: formData
+      body: formData,
+      signal
     });
     const payload: unknown = await response.json().catch(() => undefined);
     if (!response.ok) {
@@ -91,6 +93,7 @@ export async function evaluatePronunciation(
     return payload;
   } catch (error) {
     if (error instanceof PronunciationApiError) throw error;
+    if (error instanceof Error && error.name === "AbortError") throw error;
     throw new PronunciationApiError("pronunciation.networkError");
   }
 }
