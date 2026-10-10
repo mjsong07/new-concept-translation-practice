@@ -49,6 +49,8 @@ function isWordResult(value: unknown): value is PronunciationWordResult {
     && ["correct", "close", "wrong", "missing", "extra"].includes(word.status ?? "");
 }
 
+const REQUEST_TIMEOUT_MS = 30_000;
+
 export async function evaluatePronunciation(
   audio: Blob,
   referenceText: string,
@@ -59,6 +61,13 @@ export async function evaluatePronunciation(
     throw new PronunciationApiError("pronunciation.notConfigured");
   }
 
+  const controller = new AbortController();
+  const onExternalAbort = () => controller.abort();
+  if (signal) {
+    if (signal.aborted) controller.abort();
+    else signal.addEventListener("abort", onExternalAbort, { once: true });
+  }
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
     const formData = new FormData();
     formData.append("audio", audio, "recording");
@@ -66,7 +75,7 @@ export async function evaluatePronunciation(
     const response = await fetch(`${baseUrl}/api/pronunciation/eval`, {
       method: "POST",
       body: formData,
-      signal
+      signal: controller.signal
     });
     const payload: unknown = await response.json().catch(() => undefined);
     if (!response.ok) {
@@ -93,8 +102,14 @@ export async function evaluatePronunciation(
     return payload;
   } catch (error) {
     if (error instanceof PronunciationApiError) throw error;
-    if (error instanceof Error && error.name === "AbortError") throw error;
+    if (error instanceof Error && error.name === "AbortError") {
+      if (signal?.aborted) throw error;
+      throw new PronunciationApiError("pronunciation.timeout");
+    }
     throw new PronunciationApiError("pronunciation.networkError");
+  } finally {
+    clearTimeout(timeoutId);
+    signal?.removeEventListener("abort", onExternalAbort);
   }
 }
 
