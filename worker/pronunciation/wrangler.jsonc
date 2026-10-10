@@ -7,6 +7,14 @@
   "ai": {
     "binding": "AI"
   },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    }
+  },
   "vars": {
     "ALLOWED_ORIGINS": "https://mjsong07.github.io,http://localhost:5173"
   }
