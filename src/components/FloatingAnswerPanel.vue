@@ -5,7 +5,7 @@ const panelLayers = new Map<symbol, number>();
 
 <script setup lang="ts">
 import { computed, nextTick, ref, watch, onBeforeUnmount } from "vue";
-import { Close, ZoomIn, ZoomOut } from "@element-plus/icons-vue";
+import { Close, ZoomIn, ZoomOut, Rank } from "@element-plus/icons-vue";
 
 defineOptions({ inheritAttrs: false });
 
@@ -50,7 +50,7 @@ const viewportStyle = computed(() => ({
 const panelWidth = computed(() => contentWidth.value * scale.value + 16);
 // 大图可拖出屏幕，工具栏独立保持可见，避免看不到底部或拖丢窗口。
 const headerStyle = computed(() => {
-  const width = 106;
+  const width = 135;
   const x = Math.max(12, Math.min(screenWidth.value - width - 12, posX.value));
   const y = Math.max(12, Math.min(screenHeight.value - headerHeight.value - 12, posY.value));
   return {
@@ -121,8 +121,8 @@ let panelDrag: { pointerX: number; pointerY: number; posX: number; posY: number 
 
 function onHeaderPointerDown(e: PointerEvent) {
   if (e.pointerType === "mouse" && e.button !== 0) return;
-  // 点到按钮（缩放/关闭）时不触发拖拽。
-  if (!(e.target instanceof Element) || e.target.closest("button")) return;
+  // 移动按钮和工具栏留白可拖拽，缩放/关闭按钮保持点击操作。
+  if (!(e.target instanceof Element) || e.target.closest("button:not(.fap-move)")) return;
   if (!panelEl.value) return;
   panelDrag = { pointerX: e.clientX, pointerY: e.clientY, posX: posX.value, posY: posY.value };
   panelEl.value.classList.add("is-dragging");
@@ -282,6 +282,14 @@ onBeforeUnmount(cleanup);
           <div class="fap-controls">
             <button
               type="button"
+              class="fap-btn fap-move"
+              title="拖动以移动"
+              aria-label="移动"
+            >
+              <el-icon><Rank /></el-icon>
+            </button>
+            <button
+              type="button"
               class="fap-btn"
               title="缩小（Ctrl/⌘ + 滚轮向下）"
               aria-label="缩小"
@@ -392,6 +400,9 @@ onBeforeUnmount(cleanup);
   border-color: var(--coral);
   color: var(--coral);
 }
+
+.fap-btn.fap-move { cursor: grab; touch-action: none; }
+.floating-answer-panel.is-dragging .fap-move { cursor: grabbing; }
 
 .fap-viewport {
   position: relative;
