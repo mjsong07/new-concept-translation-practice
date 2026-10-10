@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from "vue";
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { CircleCheckFilled, Delete, Headset, Histogram, RefreshRight, VideoPause, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluateAnswer } from "../services/text";
@@ -357,6 +357,17 @@ function onTextClick(event: MouseEvent) {
   emit("speak-word", wordId, word);
   void loadPronunciation(word, target);
 }
+
+function clearPronunciationOnOutsidePointerDown(event: PointerEvent) {
+  if (!pronunciationTarget.value) return;
+  const target = event.target as HTMLElement | null;
+  if (target && (pronunciationTarget.value.contains(target) || target.closest("[data-word-id]"))) return;
+  pronunciationTarget.value = undefined;
+  pronunciationText.value = "";
+}
+
+onMounted(() => document.addEventListener("pointerdown", clearPronunciationOnOutsidePointerDown, true));
+onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronunciationOnOutsidePointerDown, true));
 </script>
 
 <template>
