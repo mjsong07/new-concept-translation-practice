@@ -218,6 +218,16 @@ const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || [
 const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
 const grammarAnswerImages = computed(() => lessonGrammarAnswerPages(props.lessonNumber));
 const grammarAnswerVisible = ref(false);
+const questionImage = ref<{ src: string; title: string }>();
+
+function showQuestionImage(src: string, title: string) {
+  questionImage.value = { src, title };
+}
+
+function onQuestionImageVisibility(visible: boolean) {
+  if (!visible) questionImage.value = undefined;
+}
+
 const cambridgeImages = computed(() => {
   const units = lessonGrammarCambridgeUnits(props.lessonNumber);
   // 渲染脚本按单元顺序依次生成讲解页、Exercises 页。
@@ -259,6 +269,7 @@ function showCambridgeAnswers(unit: number) {
 watch(() => [props.visible, props.lessonNumber, activeTab.value, activeGroup.value], () => {
   grammarAnswerVisible.value = false;
   cambridgeAnswerVisible.value = false;
+  questionImage.value = undefined;
 });
 
 // 用 viewerjs 接管原书截图点击预览，原生支持鼠标滚轮 / 触控双指捏合放大缩小、拖动、旋转。
@@ -427,16 +438,14 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
 </script>
 
 <template>
-  <component
-    :is="activeGroup === 'practice' ? FloatingAnswerPanel : ElDialog"
-    :class="activeGroup === 'practice' ? 'lesson-practice-window' : 'lesson-notes-dialog'"
+  <ElDialog
+    class="lesson-notes-dialog"
     :title="`${groupLabel} · Lesson ${lessonNumber} ${lessonTitle}`"
-    v-bind="activeGroup === 'practice'
-      ? { visible, placement: 'left' }
-      : { modelValue: visible, width: 'min(720px, calc(100% - 24px))', appendToBody: true,
-          closeOnPressEscape: !grammarAnswerVisible && !cambridgeAnswerVisible }"
-    @update:visible="emit('update:visible', $event)"
-    @update:model-value="emit('update:visible', $event as boolean)"
+    :model-value="visible"
+    width="min(720px, calc(100% - 24px))"
+    append-to-body
+    :close-on-press-escape="!grammarAnswerVisible && !cambridgeAnswerVisible && !questionImage"
+    @update:model-value="emit('update:visible', $event)"
   >
     <template #header>
       <div class="lesson-notes-header">
@@ -450,7 +459,6 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
     <el-tabs
       v-model="activeTab"
       class="lesson-notes-tabs"
-      :class="{ 'lesson-practice-content': activeGroup === 'practice' }"
     >
       <!-- 课文原文：教材 PDF 渲染的课文页，效果与“原书”一致，点击可放大。 -->
       <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabLessonText')" name="lesson-text">
@@ -500,6 +508,12 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
               :alt="`cambridge ${i + 1}`"
               :loading="i === 0 ? 'eager' : 'lazy'"
               class="class-notes-page"
+              :class="{ 'question-image-trigger': page.isExercise }"
+              :role="page.isExercise ? 'button' : undefined"
+              :tabindex="page.isExercise ? 0 : undefined"
+              @click="page.isExercise && showQuestionImage(page.src, `Unit ${page.unit} · ${t('notes.tabCambridge')}`)"
+              @keydown.enter.prevent="page.isExercise && showQuestionImage(page.src, `Unit ${page.unit} · ${t('notes.tabCambridge')}`)"
+              @keydown.space.prevent="page.isExercise && showQuestionImage(page.src, `Unit ${page.unit} · ${t('notes.tabCambridge')}`)"
             />
           </div>
         </div>
@@ -536,7 +550,12 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
               :src="src"
               :alt="`grammar ${i + 1}`"
               :loading="i === 0 ? 'eager' : 'lazy'"
-              class="class-notes-page"
+              class="class-notes-page question-image-trigger"
+              role="button"
+              tabindex="0"
+              @click="showQuestionImage(src, `Lesson ${lessonNumber} · ${t('notes.tabGrammar')} ${i + 1}`)"
+              @keydown.enter.prevent="showQuestionImage(src, `Lesson ${lessonNumber} · ${t('notes.tabGrammar')} ${i + 1}`)"
+              @keydown.space.prevent="showQuestionImage(src, `Lesson ${lessonNumber} · ${t('notes.tabGrammar')} ${i + 1}`)"
             />
           </div>
         </div>
@@ -648,7 +667,15 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       :image-size="100"
       class="lesson-notes-empty"
     />
-  </component>
+  </ElDialog>
+  <FloatingAnswerPanel
+    :visible="!!questionImage"
+    :title="questionImage?.title || ''"
+    placement="left"
+    @update:visible="onQuestionImageVisibility"
+  >
+    <img v-if="questionImage" :src="questionImage.src" :alt="questionImage.title" class="grammar-answer-image" />
+  </FloatingAnswerPanel>
   <FloatingAnswerPanel
     :visible="grammarAnswerVisible"
     :title="`Lesson ${lessonNumber} · ${t('notes.cambridgeAnswers')}`"
@@ -688,23 +715,13 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
 </template>
 
 <style scoped>
-.lesson-practice-content {
-  width: min(688px, calc(100vw - 48px));
+.question-image-trigger {
+  cursor: zoom-in;
 }
 
-.lesson-practice-content :deep(.el-tabs__content) {
-  max-height: none;
-  overflow: visible;
-}
-
-.lesson-practice-window .lesson-notes-header-title {
-  min-width: 0;
-  color: var(--ink);
-  font-size: 13px;
-}
-
-.lesson-practice-content :deep(.el-tabs__nav-wrap::after) {
-  background-color: var(--line);
+.question-image-trigger:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
 }
 
 .exercise-answer-toolbar {

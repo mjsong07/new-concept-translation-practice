@@ -5,7 +5,7 @@ const panelLayers = new Map<symbol, number>();
 
 <script setup lang="ts">
 import { computed, nextTick, ref, watch, onBeforeUnmount } from "vue";
-import { Close, ZoomIn, ZoomOut, RefreshLeft, Rank } from "@element-plus/icons-vue";
+import { Close, ZoomIn, ZoomOut } from "@element-plus/icons-vue";
 
 defineOptions({ inheritAttrs: false });
 
@@ -40,7 +40,6 @@ const headerHeight = ref(48);
 const posX = ref(0);
 const posY = ref(0);
 
-const zoomPercent = computed(() => `${Math.round(scale.value * 100)}%`);
 const contentStyle = computed(() => ({
   transform: `scale(${scale.value})`,
 }));
@@ -51,7 +50,7 @@ const viewportStyle = computed(() => ({
 const panelWidth = computed(() => contentWidth.value * scale.value + 16);
 // 大图可拖出屏幕，工具栏独立保持可见，避免看不到底部或拖丢窗口。
 const headerStyle = computed(() => {
-  const width = Math.min(Math.max(220, panelWidth.value), Math.max(220, screenWidth.value - 24));
+  const width = 106;
   const x = Math.max(12, Math.min(screenWidth.value - width - 12, posX.value));
   const y = Math.max(12, Math.min(screenHeight.value - headerHeight.value - 12, posY.value));
   return {
@@ -280,10 +279,6 @@ onBeforeUnmount(cleanup);
           @pointerup="onHeaderPointerUp"
           @pointercancel="onHeaderPointerUp"
         >
-          <el-icon class="fap-drag-icon" aria-hidden="true"><Rank /></el-icon>
-          <div class="fap-heading">
-            <slot name="header"><span class="fap-title">{{ title }}</span></slot>
-          </div>
           <div class="fap-controls">
             <button
               type="button"
@@ -294,7 +289,6 @@ onBeforeUnmount(cleanup);
             >
               <el-icon><ZoomOut /></el-icon>
             </button>
-            <span class="fap-zoom-percent" aria-label="当前缩放比例">{{ zoomPercent }}</span>
             <button
               type="button"
               class="fap-btn"
@@ -303,15 +297,6 @@ onBeforeUnmount(cleanup);
               @click="zoomBy(ZOOM_STEP)"
             >
               <el-icon><ZoomIn /></el-icon>
-            </button>
-            <button
-              type="button"
-              class="fap-btn"
-              title="重置缩放"
-              aria-label="重置"
-              @click="resetView"
-            >
-              <el-icon><RefreshLeft /></el-icon>
             </button>
             <button
               type="button"
@@ -359,9 +344,7 @@ onBeforeUnmount(cleanup);
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  padding: 8px 10px 8px 12px;
+  padding: 6px 10px;
   border: 1px solid var(--line);
   border-radius: 13px 13px 0 0;
   background: color-mix(in srgb, var(--green) 7%, var(--paper));
@@ -373,28 +356,6 @@ onBeforeUnmount(cleanup);
 
 .floating-answer-panel.is-dragging .fap-header {
   cursor: grabbing;
-}
-
-.fap-drag-icon {
-  flex: 0 0 auto;
-  color: var(--muted);
-  font-size: 15px;
-}
-
-.fap-heading {
-  flex: 1 1 100px;
-  min-width: 0;
-}
-
-.fap-title {
-  display: block;
-  min-width: 0;
-  overflow: hidden;
-  color: var(--ink);
-  font-size: 13px;
-  font-weight: 700;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .fap-controls {
@@ -430,14 +391,6 @@ onBeforeUnmount(cleanup);
 .fap-btn.fap-close:focus-visible {
   border-color: var(--coral);
   color: var(--coral);
-}
-
-.fap-zoom-percent {
-  min-width: 42px;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 700;
-  text-align: center;
 }
 
 .fap-viewport {

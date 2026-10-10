@@ -11,9 +11,9 @@ pnpm dev
 
 ## Practice Windows
 
-The practice group opens in a non-modal window. Drag its header to position the questions, and use the zoom controls, Ctrl/Cmd + mouse wheel, or a two-finger pinch to resize the content. Grammar and Cambridge answers open in separate windows with independent positions and zoom levels.
+The practice group opens in the regular notes dialog, without zoom controls. Click an individual grammar question image or Cambridge exercise image to open it in a separate non-modal window. Grammar and Cambridge answers open in their own windows, so questions and answers can be positioned and resized independently.
 
-When zooming out, each floating window's content area shrinks to fit the scaled content without leaving a wide blank background. The header and zoom controls remain available, leaving more of the underlying questions visible for comparison.
+Image windows show only three small toolbar icons: zoom out, zoom in, and close. Drag the toolbar's padding to move a window, or use Ctrl/Cmd + mouse wheel or a two-finger pinch to zoom. When zooming out, the content area shrinks to fit the image without leaving a wide blank background.
 
 Window borders follow the scaled content instead of keeping a fixed-size frame. Large windows can extend beyond the screen: drag the whole window to see another portion, while the toolbar stays accessible. Click a window to bring it forward; Esc closes the frontmost window. Study and summary dialogs keep their existing behavior.
 
