@@ -201,9 +201,9 @@ const visibleContentBlocks = computed(() =>
 const availableTabs = computed<string[]>(() => {
   if (activeGroup.value === "summary") return ["homework"];
   const tabs = activeGroup.value === "study" ? ["lesson-text", "original"] : ["grammar"];
-  if (activeGroup.value === "study" && teacherNotesImages.value.length) tabs.push("teacher-notes");
-  visibleContentBlocks.value.forEach(b => tabs.push(b.category));
   if (activeGroup.value === "study") tabs.push("cambridge");
+  if (activeGroup.value === "study" && props.lessonNumber % 2 === 1 && teacherNotesImages.value.length) tabs.push("teacher-notes");
+  visibleContentBlocks.value.forEach(b => tabs.push(b.category));
   return tabs;
 });
 
@@ -479,8 +479,32 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
       </el-tab-pane>
 
-      <!-- 老师版 repetition drill(a)：偶数课从 Play the examples... 到 (b) 前的截图。 -->
-      <el-tab-pane v-if="activeGroup === 'study' && teacherNotesImages.length" :label="t('notes.tabTeacherNotes')" name="teacher-notes">
+      <!-- 剑桥初级英语语法：学习组，紧跟笔记（original）之后。 -->
+      <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabCambridge')" name="cambridge">
+        <div v-if="cambridgeImages.length" class="class-notes-pages">
+          <div v-for="(page, i) in cambridgeImages" :key="page.src" class="cambridge-study-page">
+            <div v-if="page.isExercise" class="cambridge-exercise-toolbar">
+              <el-button
+                size="small"
+                plain
+                :icon="View"
+                :aria-label="`Unit ${page.unit} · ${t('exercise.showAnswers')}`"
+                @click="showCambridgeAnswers(page.unit)"
+              >{{ t("exercise.showAnswers") }}</el-button>
+            </div>
+            <img
+              :src="page.src"
+              :alt="`cambridge ${i + 1}`"
+              :loading="i === 0 ? 'eager' : 'lazy'"
+              class="class-notes-page"
+            />
+          </div>
+        </div>
+        <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
+      </el-tab-pane>
+
+      <!-- 老师版 repetition drill(a)：偶数课从 Play the examples... 到 (b) 前的截图，仅奇数课展示。 -->
+      <el-tab-pane v-if="activeGroup === 'study' && teacherNotesImages.length && lessonNumber % 2 === 1" :label="t('notes.tabTeacherNotes')" name="teacher-notes">
         <div ref="teacherNotesPagesEl" class="class-notes-pages">
           <img
             v-for="(src, i) in teacherNotesImages"
@@ -578,29 +602,6 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
             :class="lineClass(line)"
           >{{ displayLine(line) }}</p>
         </div>
-      </el-tab-pane>
-      <!-- 剑桥初级英语语法：学习组，紧跟 Grammar 之后。 -->
-      <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabCambridge')" name="cambridge">
-        <div v-if="cambridgeImages.length" class="class-notes-pages">
-          <div v-for="(page, i) in cambridgeImages" :key="page.src" class="cambridge-study-page">
-            <div v-if="page.isExercise" class="cambridge-exercise-toolbar">
-              <el-button
-                size="small"
-                plain
-                :icon="View"
-                :aria-label="`Unit ${page.unit} · ${t('exercise.showAnswers')}`"
-                @click="showCambridgeAnswers(page.unit)"
-              >{{ t("exercise.showAnswers") }}</el-button>
-            </div>
-            <img
-              :src="page.src"
-              :alt="`cambridge ${i + 1}`"
-              :loading="i === 0 ? 'eager' : 'lazy'"
-              class="class-notes-page"
-            />
-          </div>
-        </div>
-        <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
       </el-tab-pane>
       <!-- Homework：康奈尔笔记三栏，Questions / Homework / Summary & Recap。 -->
       <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabHomework')" name="homework">
