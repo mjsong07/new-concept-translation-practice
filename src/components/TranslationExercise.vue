@@ -376,7 +376,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
 
 <template>
   <main class="exercise-card lesson-practice">
-    <el-tooltip v-if="pronunciationTarget" :visible="true" trigger="manual" placement="top" virtual-triggering :virtual-ref="pronunciationTarget">
+    <el-tooltip v-if="pronunciationTarget" :visible="true" trigger="manual" placement="top" effect="light" popper-class="word-pronunciation-popper" virtual-triggering :virtual-ref="pronunciationTarget">
       <template #content>
         <div class="pronunciation-tooltip">
           <span v-if="pronunciationText">{{ pronunciationText }}</span>
@@ -471,7 +471,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
               :aria-label="t('exercise.speakItem', { item: itemAriaLabel(item, index) })"
               @click="speakFromSentence(item)"
             >{{ itemLabel(item, index) }}</button>
-            <div class="sentence-content"><p class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}</p><p class="sentence-english" @click="onTextClick"><strong v-if="item.speakerEn" class="speaker-inline">{{ item.speakerEn }}:</strong><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable, 'is-speaking-word': isSpeakingWord(item.id, tok) }">{{ tok.text }}</span></p><PronunciationRecorder :text="item.answer" /></div>
+            <div class="sentence-content"><p class="sentence-chinese"><strong v-if="item.speakerZh">{{ item.speakerZh }}：</strong>{{ item.prompt }}</p><div class="sentence-english sentence-with-recorder" @click="onTextClick"><strong v-if="item.speakerEn" class="speaker-inline">{{ item.speakerEn }}:</strong><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable, 'is-speaking-word': isSpeakingWord(item.id, tok) }">{{ tok.text }}</span><PronunciationRecorder :text="item.answer" @click.stop /></div></div>
           </article>
         </div>
       </el-tab-pane>
@@ -491,7 +491,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
               :aria-label="t('exercise.speakItem', { item: itemAriaLabel(item, index) })"
               @click="speakFromSentence(item)"
             >{{ itemLabel(item, index) }}</button>
-            <div class="sentence-content"><p class="sentence-english" @click="onTextClick"><strong v-if="item.speakerEn" class="speaker-inline">{{ item.speakerEn }}:</strong><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable, 'is-speaking-word': isSpeakingWord(item.id, tok) }">{{ tok.text }}</span></p><PronunciationRecorder :text="item.answer" /></div>
+            <div class="sentence-content"><div class="sentence-english sentence-with-recorder" @click="onTextClick"><strong v-if="item.speakerEn" class="speaker-inline">{{ item.speakerEn }}:</strong><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'is-word-active': activeWordId === tok.wordId, 'clickable-word': tok.clickable, 'is-speaking-word': isSpeakingWord(item.id, tok) }">{{ tok.text }}</span><PronunciationRecorder :text="item.answer" @click.stop /></div></div>
           </article>
         </div>
       </el-tab-pane>

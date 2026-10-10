@@ -176,15 +176,15 @@ onBeforeUnmount(() => {
 <style scoped>
 .pronunciation-recorder { position: relative; display: inline-flex; align-items: flex-start; gap: 5px; vertical-align: middle; }
 .pronunciation-mic-button, .pronunciation-replay {
-  display: inline-grid; place-items: center; width: 26px; height: 26px; border: 1px solid var(--border);
-  border-radius: 7px; color: var(--green); background: var(--surface); cursor: pointer;
+  display: inline-grid; place-items: center; width: 26px; height: 26px; border: 1px solid var(--line);
+  border-radius: 7px; color: var(--green); background: var(--paper); cursor: pointer;
 }
 .pronunciation-mic-button:hover, .pronunciation-replay:hover { color: #fff; border-color: var(--green); background: var(--green); }
 .pronunciation-mic-button:disabled { opacity: .55; cursor: not-allowed; }
 .pronunciation-mic-button.is-recording { color: #fff; border-color: #d65042; background: #d65042; animation: mic-pulse 1.2s infinite; }
 .pronunciation-panel {
   position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; width: min(380px, calc(100vw - 60px)); padding: 9px 11px;
-  border: 1px solid var(--border); border-radius: 10px; color: var(--text); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 10px; color: var(--ink); background: var(--paper);
   box-shadow: 0 8px 24px rgba(20, 35, 30, .14); font-size: 12px; text-align: left;
 }
 .pronunciation-panel-heading, .pronunciation-scores { display: flex; align-items: center; gap: 8px; }
@@ -192,7 +192,7 @@ onBeforeUnmount(() => {
 .pronunciation-scores { flex-wrap: wrap; margin-top: 6px; color: var(--muted); font-size: 11px; }
 .pronunciation-total { color: var(--green); font-size: 22px; line-height: 1; }
 .pronunciation-replay { width: 22px; height: 22px; margin-left: auto; }
-.pronunciation-transcript { margin: 7px 0 4px; color: var(--text); }
+.pronunciation-transcript { margin: 7px 0 4px; color: var(--ink); }
 .pronunciation-word-results { display: flex; flex-wrap: wrap; gap: 4px; }
 .pronunciation-word-results span { padding: 2px 5px; border-radius: 5px; background: #edf3ed; }
 .pronunciation-word-results .is-correct { color: #21804d; background: #e7f5ec; }

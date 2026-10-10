@@ -811,7 +811,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
 
 <template>
   <main class="exercise-card lesson-practice written-practice">
-    <el-tooltip v-if="pronunciationTarget" :visible="true" trigger="manual" placement="top" virtual-triggering :virtual-ref="pronunciationTarget">
+    <el-tooltip v-if="pronunciationTarget" :visible="true" trigger="manual" placement="top" effect="light" popper-class="word-pronunciation-popper" virtual-triggering :virtual-ref="pronunciationTarget">
       <template #content>
         <div class="pronunciation-tooltip">
           <span v-if="pronunciationText">{{ pronunciationText }}</span>
@@ -960,8 +960,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                 <button class="sentence-number" type="button" :aria-label="t('exercise.speakItem', { item: itemLabel(item) })" @click="speakBilingualLine(item)">{{ itemLabel(item) }}</button>
                 <div class="sentence-content">
                   <p class="sentence-chinese">{{ item.prompt }}</p>
-                  <p class="sentence-english" @click="onTextClick"><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable, 'is-speaking-word': isSpeakingWord(item.id, tok) }">{{ tok.text }}</span></p>
-                  <PronunciationRecorder :text="item.answer" />
+                  <div class="sentence-english sentence-with-recorder" @click="onTextClick"><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable, 'is-speaking-word': isSpeakingWord(item.id, tok) }">{{ tok.text }}</span><PronunciationRecorder :text="item.answer" @click.stop /></div>
                 </div>
               </article>
             </div>
@@ -992,7 +991,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                     @click="speakOriginalLine(line, lineIndex)"
                   >{{ lineIndex + 1 }}</button>
                   <div class="sentence-content">
-                    <p class="sentence-english" @click="onTextClick">
+                    <div class="sentence-english sentence-with-recorder" @click="onTextClick">
                       <span
                         v-for="tok in clickableWords(line, originalLineItemId(lineIndex))"
                         :key="tok.wordId"
@@ -1003,8 +1002,8 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                           'is-speaking-word': isSpeakingWord(originalLineItemId(lineIndex), tok)
                         }"
                       >{{ tok.text }}</span>
-                    </p>
-                    <PronunciationRecorder :text="line" />
+                      <PronunciationRecorder :text="line" @click.stop />
+                    </div>
                   </div>
                 </article>
               </div>

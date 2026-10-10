@@ -34,6 +34,8 @@ The repository includes a GitHub Pages workflow. After pushing to `main`, set So
 
 ### Speech Practice with Cloudflare Workers AI
 
+In original and bilingual reading views, use the microphone immediately after each English sentence to practice speaking. Clicking a word opens a light-themed phonetic tooltip with its own microphone (adapted to the selected color theme). Recording status and results appear in an opaque floating panel that may cover the following text.
+
 Pronunciation recording is sent directly from the browser to a Cloudflare Worker, which calls the hosted `@cf/openai/whisper-large-v3-turbo` model through a Workers AI binding. The Worker compares the transcript with the reference sentence and estimates speaking rate and pauses. It does **not** perform phoneme-level grading or measure actual pronunciation accuracy; the on-screen total is only a practice reference score based on completeness and fluency.
 
 Workers AI currently includes 10,000 Neurons per day at no charge. The allowance is shared across the account and resets daily; requests can fail after it is exhausted. Model usage is also priced per audio minute, so check the [current Workers AI pricing and limits](https://developers.cloudflare.com/workers-ai/platform/pricing/) before enabling paid overage. The Whisper model's current unit price is listed on its [model page](https://developers.cloudflare.com/workers-ai/models/whisper-large-v3-turbo/). Anyone can call the public Worker endpoint directly; CORS only controls browser origins and is not authentication. Do not put secrets in the frontend.

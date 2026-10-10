@@ -233,6 +233,12 @@ button.sentence-number:focus-visible { outline: 2px solid rgba(47,128,237,.4); o
 .sentence-chinese { flex: 1; font-family: "Noto Sans SC", sans-serif; font-size: 15px; font-weight: 550; transition: color .2s ease; }
 .sentence-chinese strong, .sentence-english strong { font-weight: 700; }
 .sentence-english { font-size: 16px; }
+.sentence-with-recorder { position: relative; }
+.sentence-english.sentence-with-recorder > .pronunciation-recorder { position: static; margin-left: .35em; vertical-align: middle; }
+.sentence-with-recorder .pronunciation-panel { max-width: 100%; }
+.word-pronunciation-popper.el-popper.is-light,
+.word-pronunciation-popper.el-popper.is-light .el-popper__arrow::before { color: var(--ink); background: var(--paper); border-color: var(--line); }
+.word-pronunciation-popper .pronunciation-tooltip { display: flex; align-items: center; gap: 8px; font-weight: 700; }
 .row-status-icon { flex: 0 0 auto; margin-top: 2px; font-size: 18px; }
 .error-info-button { flex: 0 0 auto; width: 24px; height: 24px; margin: 0; padding: 0; border: 0; border-radius: 50%; color: #fff; background: #d65042; font-size: 14px; font-weight: 800; line-height: 24px; cursor: pointer; box-shadow: 0 2px 7px rgba(198,62,49,.2); }
 .error-info-button:hover, .error-info-button:focus-visible { background: #bd3c31; outline: 3px solid rgba(214,80,66,.16); }
