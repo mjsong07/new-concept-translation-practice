@@ -7,6 +7,7 @@
  *
  * 覆盖的朗读文本（与 src/components 构造 SpeechSegment 的逻辑保持一致）：
  *   - 奇数课 items.answer（TranslationExercise）
+ *   - 奇数课理解问题句 questionEn（question 行朗读，无说话人）
  *   - 偶数课书面练习 items 的 prompt / answer / 填空还原句（filledSentence）
  *   - 偶数课教师原文（lessonTeacherTranslations 逐句原文 + lessonTeacherOriginalLines 整读，含 T:/S: 前缀）
  *   - 点读单词（从上述文本按 clickableWords 同款正则提取）
@@ -73,6 +74,9 @@ function collect() {
 
   // 奇数课：朗读参考答案（TranslationExercise）
   for (const lesson of lessons) for (const item of lesson.items) push(item.answer, item.speakerEn);
+
+  // 奇数课理解问题句（useTranslationPractice 的 question 行，speakerEn 为空 → 默认女声音色）
+  for (const lesson of lessons) push(lesson.questionEn, "");
 
   // 课文标题（TranslationExercise 标题朗读按钮，无说话人 → 默认女声音色）
   for (const lesson of lessons) push(lesson.title, "");
