@@ -164,7 +164,7 @@ async function evaluate(request: Request, env: Env, origin?: string): Promise<Re
     transcription = await env.AI.run(MODEL, {
       audio: bytesToBase64(audioBytes),
       task: "transcribe",
-      language: "english",
+      language: "en",
       vad_filter: true,
       condition_on_previous_text: false
     });
