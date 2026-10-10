@@ -5,6 +5,7 @@ import { useI18n } from "../composables/useI18n";
 import { lessonTeacherOriginalLines } from "../data/lessonTeacherOriginalLines";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, DisplayMode, ExerciseItem, MistakeHistoryEntry, SpeechSegment, WrittenSectionMeta } from "../types/practice";
+import PronunciationRecorder from "./PronunciationRecorder.vue";
 
 interface PracticeSection {
   key: string;
@@ -69,6 +70,7 @@ const activeSection = ref(sectionKeyOf(props.items[0]));
 const activeTab = ref<string>(props.displayMode);
 const pronunciationText = ref("");
 const pronunciationTarget = ref<HTMLElement>();
+const pronunciationWord = ref("");
 const pronunciationCache = new Map<string, string>();
 const requestedPronunciations = new Set<string>();
 let blurSubmitSuppressed = false;
@@ -789,6 +791,7 @@ function onTextClick(event: MouseEvent) {
   const wordId = target.dataset.wordId;
   const word = target.textContent || "";
   if (!wordId) return;
+  pronunciationWord.value = word;
   emit("speak-word", wordId, word);
   void loadPronunciation(word, target);
 }
@@ -796,9 +799,10 @@ function onTextClick(event: MouseEvent) {
 function clearPronunciationOnOutsidePointerDown(event: PointerEvent) {
   if (!pronunciationTarget.value) return;
   const target = event.target as HTMLElement | null;
-  if (target && (pronunciationTarget.value.contains(target) || target.closest("[data-word-id]"))) return;
+  if (target && (pronunciationTarget.value.contains(target) || target.closest("[data-word-id], .el-popper"))) return;
   pronunciationTarget.value = undefined;
   pronunciationText.value = "";
+  pronunciationWord.value = "";
 }
 
 onMounted(() => document.addEventListener("pointerdown", clearPronunciationOnOutsidePointerDown, true));
@@ -807,8 +811,13 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
 
 <template>
   <main class="exercise-card lesson-practice written-practice">
-    <el-tooltip v-if="pronunciationTarget && pronunciationText" :visible="true" trigger="manual" placement="top" virtual-triggering :virtual-ref="pronunciationTarget">
-      <template #content><span class="pronunciation-tooltip">{{ pronunciationText }}</span></template>
+    <el-tooltip v-if="pronunciationTarget" :visible="true" trigger="manual" placement="top" virtual-triggering :virtual-ref="pronunciationTarget">
+      <template #content>
+        <div class="pronunciation-tooltip">
+          <span v-if="pronunciationText">{{ pronunciationText }}</span>
+          <PronunciationRecorder v-if="pronunciationWord" :text="pronunciationWord" />
+        </div>
+      </template>
     </el-tooltip>
     <div class="exercise-topline">
       <div>
@@ -931,6 +940,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                         @blur="onBlurSubmit(item)"
                       />
                     </div>
+                    <PronunciationRecorder :text="item.answer" suppress-blur-on-pointer @interact="suppressBlurSubmit" />
                   </div>
                 </article>
               </div>
@@ -951,6 +961,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                 <div class="sentence-content">
                   <p class="sentence-chinese">{{ item.prompt }}</p>
                   <p class="sentence-english" @click="onTextClick"><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable, 'is-speaking-word': isSpeakingWord(item.id, tok) }">{{ tok.text }}</span></p>
+                  <PronunciationRecorder :text="item.answer" />
                 </div>
               </article>
             </div>
@@ -993,6 +1004,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                         }"
                       >{{ tok.text }}</span>
                     </p>
+                    <PronunciationRecorder :text="line" />
                   </div>
                 </article>
               </div>

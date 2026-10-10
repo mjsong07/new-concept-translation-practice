@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/pages.yml"
+      - ".github/workflows/deploy-pronunciation-space.yml"
       - "index.html"
       - "package.json"
       - "pnpm-lock.yaml"
@@ -37,6 +38,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+        env:
+          VITE_PRONUNCIATION_API_URL: ${{ vars.VITE_PRONUNCIATION_API_URL }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

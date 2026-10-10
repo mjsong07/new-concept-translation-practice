@@ -1,0 +1,48 @@
+name: Deploy pronunciation Space
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/deploy-pronunciation-space.yml"
+      - "README.md"
+      - "packages.txt"
+      - "requirements.txt"
+      - "server/pronunciation/app.py"
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: ${{ vars.HF_SPACE_REPO != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Upload Space files
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE_REPO: ${{ vars.HF_SPACE_REPO }}
+        run: |
+          if [ -z "$HF_TOKEN" ] || [ -z "$HF_SPACE_REPO" ]; then
+            echo "::error::Configure the HF_TOKEN secret and HF_SPACE_REPO repository variable before deploying."
+            exit 1
+          fi
+          python -m pip install --disable-pip-version-check huggingface_hub
+          python - <<'PY'
+          import os
+          from huggingface_hub import HfApi
+
+          api = HfApi(token=os.environ["HF_TOKEN"])
+          api.upload_folder(
+              folder_path=".",
+              repo_id=os.environ["HF_SPACE_REPO"],
+              repo_type="space",
+              allow_patterns=["README.md", "packages.txt", "requirements.txt", "server/pronunciation/app.py"],
+              commit_message="Deploy pronunciation evaluation service",
+          )
+          PY
