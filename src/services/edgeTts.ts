@@ -160,7 +160,8 @@ export async function speakEdgeSequence(
 
     let audio: HTMLAudioElement;
     let edgeBoundaries: EdgeBoundary[];
-    const entry = (await loadLocalManifest())?.[`${voice}|${segment.text}`];
+    const lookupText = segment.text.trim();
+    const entry = (await loadLocalManifest())?.[`${voice}|${lookupText}`];
     if (entry) {
       // 预生成音频（默认语速、满音量合成）：语速用 playbackRate 适配，边界时间同比缩放；音量直接控制。
       audio = new Audio(`${import.meta.env.BASE_URL}audio/${entry.f}`);
