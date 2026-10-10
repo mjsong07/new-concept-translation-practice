@@ -86,15 +86,19 @@ function collect() {
   }
 
   // 偶数课教师原文：双语阅读逐句原文 + 原文整读（含 T:/S: 前缀）
-  const SKIP_ORIGINAL = "Play the examples on the tape.";
+  // 与 getLessonTeacherTranslationItems 的过滤一致：录音示例句中英文两个变体都不朗读
+  const SKIP_ORIGINALS = new Set(["Play the examples on the tape.", "播放录音上的例子。"]);
   for (const pairs of Object.values(getLessonTeacherTranslationPairs())) {
     for (const pair of pairs) {
-      if (pair.original === SKIP_ORIGINAL) continue;
+      if (SKIP_ORIGINALS.has(pair.original)) continue;
       push(pair.original, "ORIGINAL");
     }
   }
   for (const lines of Object.values(lessonTeacherOriginalLines)) {
-    for (const line of lines) push(line, "ORIGINAL");
+    for (const line of lines) {
+      if (SKIP_ORIGINALS.has(line)) continue;
+      push(line, "ORIGINAL");
+    }
   }
 
   // 发音设置预览句（App.vue previewSpeechSettings）
