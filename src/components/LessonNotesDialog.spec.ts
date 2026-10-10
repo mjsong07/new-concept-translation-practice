@@ -108,17 +108,49 @@ describe("LessonNotesDialog 多 tab", () => {
     expect(inputs[1].value).toContain("**awful** 糟糕的");
     expect(inputs[1].value).toContain("核心：一般过去时");
   });
-  it("剑桥语法 tab：展示讲解页并关联显示书末练习答案页（Lesson 125 → Unit 33 答案 291/292）", async () => {
+  it("剑桥语法 tab：练习页点“显示答案”，浮动面板展示该 Unit 答案裁剪区（Lesson 125 → Unit 33 两个区域），关闭后移除", async () => {
     await mountDialog(125, "study");
     const cambridgeTab = tabs().find((i) => (i.textContent || "").trim() === "剑桥语法");
     await cambridgeTab!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
     await flushPromises();
 
-    const subheads = Array.from(document.body.querySelectorAll<HTMLElement>(".lesson-content-subhead"));
-    expect(subheads.some((h) => (h.textContent || "").trim() === "练习答案")).toBe(true);
+    // 练习页（每单元第二页）上的“显示答案”按钮
+    const showBtn = document.body.querySelector<HTMLElement>(".exercise-answer-toolbar .el-button");
+    expect(showBtn).toBeTruthy();
+    await showBtn!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushPromises();
 
-    const ansImgs = Array.from(document.body.querySelectorAll<HTMLImageElement>("img[alt^='cambridge answers']"));
-    expect(ansImgs.length).toBe(2);
+    const panel = document.body.querySelector<HTMLElement>(".floating-answer-panel");
+    expect(panel).toBeTruthy();
+    expect(panel!.textContent || "").toContain("Unit 33");
+    expect(panel!.querySelectorAll(".cambridge-answer-crop").length).toBe(2);
+
+    const closeBtn = panel!.querySelector<HTMLElement>(".fap-close");
+    await closeBtn!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushPromises();
+    await new Promise((r) => setTimeout(r, 0));
+    expect(document.body.querySelector(".floating-answer-panel")).toBeFalsy();
+  });
+
+  it("语法练习 tab：点“显示答案”弹出非模态浮动面板，展示答案图片并支持缩放（Lesson 71）", async () => {
+    await mountDialog(71, "practice");
+    const showBtn = document.body.querySelector<HTMLElement>(".exercise-answer-toolbar .el-button");
+    expect(showBtn).toBeTruthy();
+    await showBtn!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushPromises();
+
+    const panel = document.body.querySelector<HTMLElement>(".floating-answer-panel");
+    expect(panel).toBeTruthy();
+    expect(panel!.querySelectorAll(".grammar-answer-image").length).toBe(2);
+
+    const percent = panel!.querySelector<HTMLElement>(".fap-zoom-percent");
+    expect(percent!.textContent).toBe("100%");
+    const zoomInBtn = Array.from(panel!.querySelectorAll<HTMLElement>(".fap-btn")).find(
+      (b) => b.getAttribute("aria-label") === "放大",
+    );
+    await zoomInBtn!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    await flushPromises();
+    expect(percent!.textContent).toBe("120%");
   });
 
 });

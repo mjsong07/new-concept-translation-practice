@@ -14,6 +14,7 @@ import { lessonGrammarPages, lessonGrammarAnswerPages } from "../data/lessonGram
 import { lessonGrammarCambridgePages } from "../data/lessonGrammarCambridgePages";
 import { lessonGrammarCambridgeAnswerPages, lessonGrammarCambridgeUnits } from "../data/lessonGrammarCambridgeAnswers";
 import { renderMarkdown } from "../services/markdown";
+import FloatingAnswerPanel from "./FloatingAnswerPanel.vue";
 
 const { t } = useI18n();
 
@@ -232,7 +233,22 @@ const cambridgeAnswerCrops = computed(() => cambridgeAnswerImages.value.flatMap(
   page.regions.filter((region) => region.unit === selectedCambridgeUnit.value)
     .map((region) => ({ ...region, src: page.src, page: page.page }))
 ));
-const cambridgeAnswerMaxHeight = computed(() => Math.max(...cambridgeAnswerCrops.value.map((crop) => crop.height)));
+// 同一 Unit 的裁剪区来自同一比例尺原图，按最高区域归一化，保证各区域同比例显示。
+const cambridgeAnswerMaxHeight = computed(() =>
+  Math.max(0, ...cambridgeAnswerCrops.value.map((crop) => crop.height))
+);
+const viewportWidth = ref(window.innerWidth);
+function onViewportResize() {
+  viewportWidth.value = window.innerWidth;
+}
+window.addEventListener("resize", onViewportResize);
+onBeforeUnmount(() => window.removeEventListener("resize", onViewportResize));
+// 面板在桌面约 72vh 高、移动约 46vh 高，答案区分别预留 60/36vh。
+const cambridgeFitVh = computed(() => (viewportWidth.value <= 640 ? 36 : 60));
+function cambridgeCropStyle(crop: { width: number; height: number }) {
+  const fitWidth = (crop.width / Math.max(cambridgeAnswerMaxHeight.value, 1)) * cambridgeFitVh.value;
+  return { width: `min(${crop.width}px, ${fitWidth}vh)` };
+}
 
 function showCambridgeAnswers(unit: number) {
   selectedCambridgeUnit.value = unit;
@@ -647,15 +663,10 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       :image-size="100"
       class="lesson-notes-empty"
     />
-    <el-dialog
-      v-model="grammarAnswerVisible"
+    <FloatingAnswerPanel
+      :visible="grammarAnswerVisible"
       :title="`Lesson ${lessonNumber} · ${t('notes.cambridgeAnswers')}`"
-      width="fit-content"
-      style="max-width: min(900px, calc(100vw - 48px))"
-      append-to-body
-      align-center
-      destroy-on-close
-      :close-on-click-modal="true"
+      @update:visible="grammarAnswerVisible = $event"
     >
       <div class="grammar-answer-images">
         <img
@@ -666,16 +677,11 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           class="grammar-answer-image"
         />
       </div>
-    </el-dialog>
-    <el-dialog
-      v-model="cambridgeAnswerVisible"
+    </FloatingAnswerPanel>
+    <FloatingAnswerPanel
+      :visible="cambridgeAnswerVisible"
       :title="`Unit ${selectedCambridgeUnit} · ${t('notes.cambridgeAnswers')}`"
-      width="fit-content"
-      style="max-width: calc(100vw - 48px)"
-      append-to-body
-      align-center
-      destroy-on-close
-      :close-on-click-modal="true"
+      @update:visible="cambridgeAnswerVisible = $event"
     >
       <div class="cambridge-answer-crops">
         <svg
@@ -684,7 +690,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           :viewBox="`${crop.x} ${crop.y} ${crop.width} ${crop.height}`"
           :width="crop.width"
           :height="crop.height"
-          :style="{ width: `min(${crop.width}px, ${crop.width / cambridgeAnswerMaxHeight * 60}vh)` }"
+          :style="cambridgeCropStyle(crop)"
           role="img"
           :aria-label="`Unit ${crop.unit} · ${t('notes.cambridgeAnswers')} ${i + 1}`"
           class="cambridge-answer-crop"
@@ -692,7 +698,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           <image :href="crop.src" width="908" height="1366" />
         </svg>
       </div>
-    </el-dialog>
+    </FloatingAnswerPanel>
   </el-dialog>
 </template>
 
@@ -708,42 +714,43 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
   display: block;
 }
 
+/* 浮动答案面板内：语法练习答案（628px 宽长条）纵向排列，初始宽度贴合面板。 */
 .grammar-answer-images {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
-  max-height: 60vh;
-  overflow-y: auto;
+  gap: 12px;
 }
 
 .grammar-answer-image {
   display: block;
-  min-width: 0;
-  max-width: 100%;
+  width: 436px;
+  max-width: none;
   height: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
 }
 
-@media (max-width: 600px) {
-  .grammar-answer-images {
-    flex-direction: column;
-  }
-
-  .grammar-answer-image {
-    flex-shrink: 0;
-  }
-}
-
+/* 浮动答案面板内：剑桥语法答案裁剪区，高度贴合面板，多区域横向排列。 */
 .cambridge-answer-crops {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 12px;
 }
 
 .cambridge-answer-crop {
   display: block;
+  flex: 0 0 auto;
   min-width: 0;
   height: auto;
   overflow: hidden;
   border: 2px solid #e53935;
+  border-radius: 4px;
+}
+
+@media (max-width: 640px) {
+  .grammar-answer-image {
+    width: calc(100vw - 48px);
+  }
 }
 </style>
