@@ -231,6 +231,7 @@ const cambridgeAnswerCrops = computed(() => cambridgeAnswerImages.value.flatMap(
   page.regions.filter((region) => region.unit === selectedCambridgeUnit.value)
     .map((region) => ({ ...region, src: page.src, page: page.page }))
 ));
+const cambridgeAnswerMaxHeight = computed(() => Math.max(...cambridgeAnswerCrops.value.map((crop) => crop.height)));
 
 function showCambridgeAnswers(unit: number) {
   selectedCambridgeUnit.value = unit;
@@ -682,7 +683,8 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
     <el-dialog
       v-model="cambridgeAnswerVisible"
       :title="`Unit ${selectedCambridgeUnit} · ${t('notes.cambridgeAnswers')}`"
-      width="min(400px, calc(100% - 24px))"
+      width="fit-content"
+      style="max-width: calc(100vw - 48px)"
       append-to-body
       align-center
       destroy-on-close
@@ -695,6 +697,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           :viewBox="`${crop.x} ${crop.y} ${crop.width} ${crop.height}`"
           :width="crop.width"
           :height="crop.height"
+          :style="{ width: `min(${crop.width * 1.1}px, ${crop.width / cambridgeAnswerMaxHeight * 60}vh)` }"
           role="img"
           :aria-label="`Unit ${crop.unit} · ${t('notes.cambridgeAnswers')} ${i + 1}`"
           class="cambridge-answer-crop"
@@ -718,18 +721,16 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
 }
 
 .cambridge-answer-crops {
-  display: grid;
+  display: flex;
+  align-items: flex-start;
   gap: 14px;
-  justify-items: center;
-  max-height: 70vh;
-  overflow-y: auto;
+  overflow-x: auto;
   overscroll-behavior: contain;
 }
 
 .cambridge-answer-crop {
   display: block;
-  width: 100%;
-  max-width: 320px;
+  flex-shrink: 0;
   height: auto;
   overflow: hidden;
   border: 2px solid #e53935;
