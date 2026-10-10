@@ -3,12 +3,14 @@ import { flushPromises, mount } from "@vue/test-utils";
 import { h, reactive, ref } from "vue";
 import WrittenExercise from "./WrittenExercise.vue";
 import { writtenExercises } from "../data/writtenExercises";
+import { lessonTeacherOriginalLines } from "../data/lessonTeacherOriginalLines";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback } from "../types/practice";
 
 const lesson66 = writtenExercises.find((lesson) => lesson.number === 66)!;
 const lesson8 = writtenExercises.find((lesson) => lesson.number === 8)!;
 const lesson16 = writtenExercises.find((lesson) => lesson.number === 16)!;
+const lesson8OriginalLines = lessonTeacherOriginalLines[lesson8.number] || [];
 
 const baseProps = {
   lessonNumber: lesson66.number,
@@ -223,7 +225,8 @@ describe("WrittenExercise sections and inline blanks", () => {
       lessonTitleZh: lesson8.titleZh,
       sections: lesson8.sections || [],
       items: lesson8.items,
-      displayMode: "original"
+      displayMode: "original",
+      teacherOriginalLines: lesson8OriginalLines
     });
 
     const lineRow = wrapper.find(".written-original .sentence-row");
@@ -261,7 +264,8 @@ describe("WrittenExercise sections and inline blanks", () => {
       lessonTitleZh: lesson8.titleZh,
       sections: lesson8.sections || [],
       items: lesson8.items,
-      displayMode: "original"
+      displayMode: "original",
+      teacherOriginalLines: lesson8OriginalLines
     });
 
     expect(originalWrapper.find(".written-original").exists()).toBe(true);

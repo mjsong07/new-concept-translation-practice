@@ -12,8 +12,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          vue: ["vue"],
-          element: ["element-plus", "@element-plus/icons-vue"]
+          vue: ["vue"]
         }
       }
     }

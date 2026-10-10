@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, onBeforeUnmount } from "vue";
+import { computed, ref, watch, nextTick, onBeforeUnmount, type Ref } from "vue";
 import { Check, Edit, View, Hide, ArrowLeft, ArrowRight } from "@element-plus/icons-vue";
-import { ElDialog } from "element-plus";
+import { ElDialog } from "element-plus/es/components/dialog/index.mjs";
+import "element-plus/es/components/dialog/style/css.mjs";
 import Viewer from "viewerjs";
 import "viewerjs/dist/viewer.css";
 import { useI18n } from "../composables/useI18n";
 import { lessonNotes } from "../data/lessonNotes";
-import { lessonContent } from "../data/lessonContent";
-import { lessonNotesPages } from "../data/lessonNotesPages";
-import { lessonTeacherNotesPages } from "../data/lessonTeacherNotesPages";
-import { lessonTextPages } from "../data/lessonTextPages";
+import { loadLessonPayload } from "../data/lessonPayloadLoader";
+import { loadLessonNotesPages } from "../data/lessonNotesPages";
+import { loadLessonTeacherNotesPages } from "../data/lessonTeacherNotesPages";
+import { loadLessonTextPages } from "../data/lessonTextPages";
 import { lessonHomework } from "../data/lessonHomework";
-import { lessonGrammarPages, lessonGrammarAnswerPages } from "../data/lessonGrammarPages";
-import { lessonGrammarCambridgePages } from "../data/lessonGrammarCambridgePages";
-import { lessonGrammarCambridgeAnswerPages, lessonGrammarCambridgeUnits } from "../data/lessonGrammarCambridgeAnswers";
+import { loadLessonGrammarPages, loadLessonGrammarAnswerPages } from "../data/lessonGrammarPages";
+import { loadLessonGrammarCambridgePages } from "../data/lessonGrammarCambridgePages";
+import { loadLessonGrammarCambridgeAnswerPages, lessonGrammarCambridgeUnits } from "../data/lessonGrammarCambridgeAnswers";
+import type { CambridgeAnswerPage } from "../data/lessonGrammarCambridgeAnswers";
 import { renderMarkdown } from "../services/markdown";
 import FloatingAnswerPanel from "./FloatingAnswerPanel.vue";
+import type { LessonContentBlock } from "../types/practice";
 
 const { t } = useI18n();
 
@@ -184,7 +187,8 @@ function reload() {
 const notesHtml = computed(() => renderMarkdown(savedText.value));
 
 // 课堂笔记正文：按类别（Words/Grammar/Comprehension/Asking questions/Story）切分，每类一个 tab，只读。
-const contentBlocks = computed(() => lessonContent[props.lessonNumber] || []);
+// 随课程 payload 按课懒加载。
+const contentBlocks = ref<LessonContentBlock[]>([]);
 // 当前分组下显示的文字类 tab（Words/Grammar 归学习，其余操练类归练习）
 // 该分组下、且确实有内容可渲染的文字块（Practices 等没有 Q§/A§ 时渲染为空，直接去掉）
 function blockHasContent(b: { category: string; lines: string[] }) {
@@ -209,16 +213,42 @@ const availableTabs = computed<string[]>(() => {
   return tabs;
 });
 
-// 原书课堂笔记截图：保留图片版，方便与提取文字对照。
-const classNotesImages = computed(() => lessonNotesPages[props.lessonNumber] || []);
-const teacherNotesImages = computed(() => lessonTeacherNotesPages[props.lessonNumber] || []);
+// 原书课堂笔记截图：保留图片版，方便与提取文字对照。URL 列表按课懒加载。
+const classNotesImages = ref<string[]>([]);
+const teacherNotesImages = ref<string[]>([]);
 
 // 课文原文：教材 PDF 渲染的课文页（对话 + 生词/注释/参考译文），与“原书”一致支持点击放大。
-const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
-const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
-const grammarAnswerImages = computed(() => lessonGrammarAnswerPages(props.lessonNumber));
+const lessonTextImages = ref<string[]>([]);
+const grammarImages = ref<string[]>([]);
+const grammarAnswerImages = ref<string[]>([]);
 const grammarAnswerVisible = ref(false);
 const questionImage = ref<{ src: string; title: string }>();
+
+// 弹窗打开或切课时按课懒加载正文与各类图片；带 token 防止快速切课时旧结果覆盖新结果。
+let resourcesToken = 0;
+watch(() => [props.visible, props.lessonNumber] as const, async ([visible, lessonNumber]) => {
+  if (!visible) return;
+  const token = ++resourcesToken;
+  const assign = <T,>(target: Ref<T>, value: T) => { if (token === resourcesToken) target.value = value; };
+  const [payload, classNotes, teacherNotes, textPages, grammar, grammarAnswers, cambridge, cambridgeAnswers] = await Promise.all([
+    loadLessonPayload(lessonNumber),
+    loadLessonNotesPages(lessonNumber),
+    loadLessonTeacherNotesPages(lessonNumber),
+    loadLessonTextPages(lessonNumber),
+    loadLessonGrammarPages(lessonNumber),
+    loadLessonGrammarAnswerPages(lessonNumber),
+    loadLessonGrammarCambridgePages(lessonNumber),
+    loadLessonGrammarCambridgeAnswerPages(lessonNumber)
+  ]);
+  assign(contentBlocks, payload?.content || []);
+  assign(classNotesImages, classNotes);
+  assign(teacherNotesImages, teacherNotes);
+  assign(lessonTextImages, textPages);
+  assign(grammarImages, grammar);
+  assign(grammarAnswerImages, grammarAnswers);
+  assign(cambridgeImages, buildCambridgeImages(cambridge));
+  assign(cambridgeAnswerImages, cambridgeAnswers);
+}, { immediate: true });
 
 function showQuestionImage(src: string, title: string) {
   questionImage.value = { src, title };
@@ -228,16 +258,17 @@ function onQuestionImageVisibility(visible: boolean) {
   if (!visible) questionImage.value = undefined;
 }
 
-const cambridgeImages = computed(() => {
-  const units = lessonGrammarCambridgeUnits(props.lessonNumber);
-  // 渲染脚本按单元顺序依次生成讲解页、Exercises 页。
-  return lessonGrammarCambridgePages(props.lessonNumber).map((src, index) => ({
+const cambridgeImages = ref<{ src: string; unit: number; isExercise: boolean }[]>([]);
+// 渲染脚本按单元顺序依次生成讲解页、Exercises 页。
+function buildCambridgeImages(srcs: string[], lessonNumber: number) {
+  const units = lessonGrammarCambridgeUnits(lessonNumber);
+  return srcs.map((src, index) => ({
     src,
     unit: units[Math.floor(index / 2)],
     isExercise: index % 2 === 1,
   }));
-});
-const cambridgeAnswerImages = computed(() => lessonGrammarCambridgeAnswerPages(props.lessonNumber));
+}
+const cambridgeAnswerImages = ref<CambridgeAnswerPage[]>([]);
 const cambridgeAnswerVisible = ref(false);
 const selectedCambridgeUnit = ref<number | null>(null);
 const cambridgeAnswerCrops = computed(() => cambridgeAnswerImages.value.flatMap((page) =>

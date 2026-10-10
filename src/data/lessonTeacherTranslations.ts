@@ -2736,9 +2736,13 @@ const lessonTeacherTranslationPairs: Record<number, TeacherTranslationPair[]> = 
 };
 
 
-export function getLessonTeacherTranslationItems(lessonNumber: number, lessonTitle: string): ExerciseItem[] {
+export function getLessonTeacherTranslationItems(
+  lessonNumber: number,
+  lessonTitle: string,
+  pairs: TeacherTranslationPair[] = lessonTeacherTranslationPairs[lessonNumber] || []
+): ExerciseItem[] {
   // 先生成 ID 再过滤，避免已有答题记录对应到其他句子。
-  return (lessonTeacherTranslationPairs[lessonNumber] || []).map<ExerciseItem>(({ original, translation }, index) => ({
+  return pairs.map<ExerciseItem>(({ original, translation }, index) => ({
     id: `lesson-${lessonNumber}-original-${index}`,
     lesson: lessonNumber,
     lessonTitle,

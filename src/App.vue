@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import { ElMessage, ElMessageBox } from "element-plus";
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref, watch } from "vue";
+import ElMessage from "element-plus/es/components/message/index.mjs";
+import { ElMessageBox } from "element-plus/es/components/message-box/index.mjs";
+import "element-plus/es/components/message/style/css.mjs";
+import "element-plus/es/components/message-box/style/css.mjs";
 import en from "element-plus/es/locale/lang/en";
 import zhCn from "element-plus/es/locale/lang/zh-cn";
-import LessonNotesDialog from "./components/LessonNotesDialog.vue";
 import PracticeControls from "./components/PracticeControls.vue";
 import MobileSettings from "./components/MobileSettings.vue";
 import TranslationExercise from "./components/TranslationExercise.vue";
@@ -16,6 +18,9 @@ import type { LessonFilter, SpeechSegment } from "./types/practice";
 
 const { locale, t } = useI18n();
 const colorScheme = useColorScheme();
+// 讲义弹窗（含 viewerjs、笔记图片等重资源）首次打开时才加载，不进首屏包。
+const LessonNotesDialog = defineAsyncComponent(() => import("./components/LessonNotesDialog.vue"));
+const notesDialogMounted = ref(false);
 const savedCharacterMatchPercentValue = localStorage.getItem("new-concept-character-match-percent");
 const savedCharacterMatchPercent = savedCharacterMatchPercentValue === null ? Number.NaN : Number(savedCharacterMatchPercentValue);
 const characterMatchPercent = ref(Number.isFinite(savedCharacterMatchPercent) && savedCharacterMatchPercent >= 0 && savedCharacterMatchPercent <= 100
@@ -60,6 +65,7 @@ function notesAdjacentLesson(offset: number) {
 const notesVisible = ref(false);
 const notesGroup = ref<"study" | "practice" | "summary">("study");
 function openNotesGroup(g: "study" | "practice" | "summary") {
+  notesDialogMounted.value = true;
   notesGroup.value = g;
   notesVisible.value = true;
 }
@@ -266,6 +272,7 @@ onUnmounted(() => {
         :sections="practice.lesson.value.sections || []"
         :items="practice.lessonItems.value"
         :translation-items="practice.lessonTeacherTranslationItems.value"
+        :teacher-original-lines="practice.teacherOriginalLines.value"
         :answers="practice.answers.value"
         :results="practice.results.value"
         :completed-ids="practice.progress.value.completed"
@@ -315,6 +322,7 @@ onUnmounted(() => {
       />
 
       <LessonNotesDialog
+        v-if="notesDialogMounted"
         v-model:visible="notesVisible"
         :lesson-number="practice.lesson.value.number"
         :lesson-title="practice.lesson.value.title"

@@ -10,7 +10,11 @@
     "test": "vitest run",
     "tts-server": "node server/edge-tts-proxy.mjs",
     "generate:data": "node scripts/generate-lessons.mjs",
-    "generate:audio": "node scripts/generate-audio.mjs"
+    "generate:audio": "node scripts/generate-audio.mjs",
+    "sync:lesson-data": "node scripts/split-lesson-data.mjs",
+    "predev": "pnpm sync:lesson-data",
+    "prebuild": "pnpm sync:lesson-data",
+    "pretest": "pnpm sync:lesson-data"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",

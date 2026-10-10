@@ -2,7 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { CircleCheckFilled, Delete, Headset, Histogram, RefreshRight, VideoPause, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
-import { lessonTeacherOriginalLines } from "../data/lessonTeacherOriginalLines";
+import { teacherWordLexicon as teacherWordLexiconData } from "../data/teacherWordLexicon";
 import { evaluateAnswer } from "../services/text";
 import type { AnswerFeedback, DisplayMode, ExerciseItem, MistakeHistoryEntry, SpeechSegment, WrittenSectionMeta } from "../types/practice";
 import PronunciationRecorder from "./PronunciationRecorder.vue";
@@ -29,6 +29,7 @@ const props = withDefaults(defineProps<{
   sections: WrittenSectionMeta[];
   items: ExerciseItem[];
   translationItems?: ExerciseItem[];
+  teacherOriginalLines?: string[];
   answers: Record<string, string>;
   results: Record<string, AnswerFeedback>;
   completedIds: string[];
@@ -43,6 +44,7 @@ const props = withDefaults(defineProps<{
   activeWordId: string;
 }>(), {
   translationItems: () => [],
+  teacherOriginalLines: () => [],
   activeSpeechCharacterOffset: -1,
   activeWordId: ""
 });
@@ -90,28 +92,9 @@ const splitMergeStopWords = new Set([
   "what", "when", "where", "why", "how", "who", "whom", "which", "no", "not", "yes"
 ]);
 
-function extractEnglishWords(text: string) {
-  return text.toLowerCase().match(/[a-z]+(?:'[a-z]+)?/g) || [];
-}
-
-function buildTeacherWordLexicon() {
-  const lexicon = new Set<string>([
-    "our", "blue", "colour", "blouse", "blouses", "yellow", "black", "brown", "grey", "green", "orange", "white"
-  ]);
-
-  Object.values(lessonTeacherOriginalLines).forEach((lines) => {
-    lines.forEach((line) => {
-      const normalized = normalizeOriginalLine(line)
-        .replace(/\bQur\b/gi, "our")
-        .replace(speakerPrefixPattern, "");
-      extractEnglishWords(normalized).forEach((word) => lexicon.add(word));
-    });
-  });
-
-  return lexicon;
-}
-
-const teacherWordLexicon = buildTeacherWordLexicon();
+// 词表由 scripts/split-lesson-data.mjs 预生成（逻辑与原 buildTeacherWordLexicon 一致），
+// 避免为构建词表全量引入 lessonTeacherOriginalLines。
+const teacherWordLexicon = new Set<string>(teacherWordLexiconData);
 
 function normalizeOriginalLine(line: string) {
   return line
@@ -184,7 +167,7 @@ function isTeacherOriginalSentence(line: string) {
 const teacherOriginalLines = computed(() => {
   if (props.lessonNumber % 2 !== 0) return [] as string[];
   if (props.translationItems.length) return props.translationItems.map((item) => item.answer);
-  const source = lessonTeacherOriginalLines[props.lessonNumber] || [];
+  const source = props.teacherOriginalLines;
   const lines = source
     .map(normalizeTeacherOriginalLine)
     .flatMap(splitOriginalSentences)

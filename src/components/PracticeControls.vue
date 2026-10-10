@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { Document } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
-import type { AppLocale, ColorSchemeMode, Lesson, LessonFilter } from "../types/practice";
+import type { AppLocale, ColorSchemeMode, LessonSummary, LessonFilter } from "../types/practice";
 
 const { locale, t } = useI18n();
 
 defineProps<{
-  lessons: Lesson[];
+  lessons: LessonSummary[];
   lessonNumber: number;
   lessonCompleted: number;
   lessonCount: number;

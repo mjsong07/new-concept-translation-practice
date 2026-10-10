@@ -37,6 +37,32 @@ export interface Lesson {
   items: ExerciseItem[];
 }
 
+// 首屏课程列表所需的轻量摘要；items 等大字段经 scripts/split-lesson-data.mjs
+// 拆分至 src/data/lesson-payloads/<课号>.ts，进入课程时再懒加载。
+export interface LessonSummary {
+  number: number;
+  title: string;
+  titleZh: string;
+  kind?: "translation" | "written";
+  sections?: WrittenSectionMeta[];
+}
+
+// 按课拆分的完整课程数据（src/data/lesson-payloads/<课号>.ts 的默认导出）。
+export interface LessonPayload {
+  items: ExerciseItem[];
+  questionEn?: string;
+  questionZh?: string;
+  teacherTranslationPairs?: { original: string; translation: string }[];
+  teacherOriginalLines?: string[];
+  content?: LessonContentBlock[];
+}
+
+// 课堂笔记正文块（与 src/data/lessonContent.ts 中的定义保持一致）。
+export interface LessonContentBlock {
+  category: "Words" | "Grammar" | "Practices" | "Comprehension" | "Asking questions" | "Story";
+  lines: string[];
+}
+
 export interface AnswerFeedback {
   level: ResultLevel;
   title: string;

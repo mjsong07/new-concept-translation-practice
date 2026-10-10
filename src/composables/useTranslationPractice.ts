@@ -1,22 +1,21 @@
 import { computed, ref, watch, type Ref } from "vue";
-import { lessons as oddLessons } from "../data/lessons";
+import { lessonSummaries } from "../data/lessonSummaries";
 import { getLessonTeacherTranslationItems } from "../data/lessonTeacherTranslations";
-import { writtenExercises } from "../data/writtenExercises";
+import { loadLessonPayload } from "../data/lessonPayloadLoader";
 import { evaluateAnswer } from "../services/text";
 import { useI18n } from "./useI18n";
-import type { AnswerFeedback, DisplayMode, ExerciseItem, Lesson, MistakeHistoryEntry, StoredProgress } from "../types/practice";
+import type { AnswerFeedback, DisplayMode, ExerciseItem, LessonPayload, LessonSummary, MistakeHistoryEntry, StoredProgress } from "../types/practice";
 
 const storageKey = "new-concept-translation-progress-v2";
 const selectedLessonStorageKey = "new-concept-translation-selected-lesson";
 
-const allLessons: Lesson[] = [
-  ...oddLessons.map((lesson): Lesson => ({ ...lesson, kind: "translation" })),
-  ...writtenExercises
-].sort((left, right) => left.number - right.number);
+// 首屏只带轻量摘要（number/title/titleZh/kind/sections），课文数据按课懒加载。
+const allLessons: LessonSummary[] = [...lessonSummaries].sort((left, right) => left.number - right.number);
 
-function getLessonItems(lesson: Lesson): ExerciseItem[] {
+function buildLessonItems(lesson: LessonSummary, payload: LessonPayload | null): ExerciseItem[] {
+  if (!payload) return [];
   if (lesson.kind === "written") {
-    return lesson.items.map((item) => ({ ...item, kind: "sentence" as const }));
+    return payload.items.map((item) => ({ ...item, kind: "sentence" as const }));
   }
   return [
     {
@@ -25,9 +24,9 @@ function getLessonItems(lesson: Lesson): ExerciseItem[] {
     },
     {
       id: `lesson-${lesson.number}-question`, lesson: lesson.number, lessonTitle: lesson.title,
-      kind: "question", speakerZh: "", speakerEn: "", prompt: lesson.questionZh, answer: lesson.questionEn
+      kind: "question", speakerZh: "", speakerEn: "", prompt: payload.questionZh || "", answer: payload.questionEn || ""
     },
-    ...lesson.items.map((item) => ({ ...item, kind: "sentence" as const }))
+    ...payload.items.map((item) => ({ ...item, kind: "sentence" as const }))
   ];
 }
 
@@ -60,20 +59,30 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
   const progress = ref(loadProgress());
   const answers = ref<Record<string, string>>({ ...progress.value.answers });
   const results = ref<Record<string, AnswerFeedback>>({});
+  const payload = ref<LessonPayload | null>(null);
 
   const lesson = computed(() => allLessons.find((item) => item.number === selectedLesson.value) || allLessons[0]);
-  const lessonItems = computed(() => getLessonItems(lesson.value));
-  const lessonTeacherTranslationItems = computed(() => lesson.value.kind === "written"
-    ? getLessonTeacherTranslationItems(lesson.value.number, lesson.value.title)
+  const lessonItems = computed(() => buildLessonItems(lesson.value, payload.value));
+  const lessonTeacherTranslationItems = computed(() => lesson.value.kind === "written" && payload.value
+    ? getLessonTeacherTranslationItems(lesson.value.number, lesson.value.title, payload.value.teacherTranslationPairs || [])
     : []);
+  const teacherOriginalLines = computed(() => payload.value?.teacherOriginalLines || []);
   const allLessonItems = computed(() => [...lessonItems.value, ...lessonTeacherTranslationItems.value]);
   const lessonCompleted = computed(() => lessonItems.value.filter((item) => progress.value.completed.includes(item.id)).length);
   const lessonPercent = computed(() => Math.round((lessonCompleted.value / Math.max(lessonItems.value.length, 1)) * 100));
   const lessonMistakeHistory = computed(() => progress.value.mistakeHistory.filter((entry) => entry.lesson === lesson.value.number));
 
-  restoreLessonResults();
+  let payloadToken = 0;
+  async function reloadPayload(number: number) {
+    const token = ++payloadToken;
+    payload.value = null;
+    const data = await loadLessonPayload(number);
+    if (token === payloadToken) payload.value = data;
+  }
+  void reloadPayload(selectedLesson.value);
 
   watch(selectedLesson, (value) => {
+    void reloadPayload(value);
     restoreLessonResults();
     try {
       localStorage.setItem(selectedLessonStorageKey, String(value));
@@ -81,6 +90,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
       // 浏览器禁用本地存储时仍允许继续练习。
     }
   });
+  watch(payload, restoreLessonResults);
   watch([locale, characterMatchPercent], restoreLessonResults);
   watch(progress, (value) => {
     try {
@@ -93,7 +103,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
   function restoreLessonResults() {
     const restored: Record<string, AnswerFeedback> = {};
     const activeLesson = allLessons.find((item) => item.number === selectedLesson.value) || allLessons[0];
-    [...getLessonItems(activeLesson), ...(activeLesson.kind === "written" ? getLessonTeacherTranslationItems(activeLesson.number, activeLesson.title) : [])].forEach((item) => {
+    [...buildLessonItems(activeLesson, payload.value), ...(activeLesson.kind === "written" ? getLessonTeacherTranslationItems(activeLesson.number, activeLesson.title, payload.value?.teacherTranslationPairs || []) : [])].forEach((item) => {
       const value = answers.value[item.id];
       if (value && (progress.value.mistakes[item.id] || 0) > 0) {
         const result = evaluateAnswer(value, item.answer, locale.value, characterMatchPercent.value / 100);
@@ -135,7 +145,7 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
       progress.value.lastCorrectAt[item.id] = timestamp;
       if (!progress.value.completed.includes(item.id)) progress.value.completed.push(item.id);
     } else {
-      progress.value.completed = progress.value.completed.filter((itemId) => itemId !== item.id);
+      progress.value.completed = progress.value.completed.filter((itemId) => itemId !== id);
       progress.value.mistakes[item.id] = (progress.value.mistakes[item.id] || 0) + 1;
       const latestEntry = progress.value.mistakeHistory[0];
       const lastCorrectAt = progress.value.lastCorrectAt[item.id] || 0;
@@ -181,8 +191,8 @@ export function useTranslationPractice(characterMatchPercent: Ref<number>) {
   }
 
   return {
-    lessons: allLessons, selectedLesson, lesson, lessonItems, lessonTeacherTranslationItems, answers, results,
-    displayMode, progress, lessonCompleted, lessonPercent, lessonMistakeHistory,
+    lessons: allLessons, selectedLesson, lesson, lessonItems, lessonTeacherTranslationItems, teacherOriginalLines,
+    answers, results, displayMode, progress, lessonCompleted, lessonPercent, lessonMistakeHistory,
     updateAnswer, clearAnswer, submit, resetLesson
   };
 }

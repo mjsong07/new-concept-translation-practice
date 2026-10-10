@@ -2,15 +2,19 @@
 // 由 PDF 答案区（书页 284-310）渲染生成：src/assets/grammar-cambridge-answers/page-{bookPage}.png
 // 每课通过语法单元号关联到对应的答案页（跨页单元含下一页，保证答案完整）。
 // 请勿手工修改本文件；重新生成需基于《剑桥初级英语语法(第3版中文)》答案区扫描。
-const answerModules = import.meta.glob("../assets/grammar-cambridge-answers/*.png", {
-  eager: true,
-  import: "default",
-}) as Record<string, string>;
+// 答案页图片 URL 懒加载：首次查询时才加载对应 chunk，不进入首屏包。
+const answerModules = import.meta.glob<string>("../assets/grammar-cambridge-answers/*.png", { import: "default" });
 
-const URL_BY_PAGE: Record<number, string> = {};
-for (const [path, url] of Object.entries(answerModules)) {
-  const m = path.match(/page-(\d+)\.png$/);
-  if (m) URL_BY_PAGE[Number(m[1])] = url;
+let urlByPagePromise: Promise<Record<number, string>> | undefined;
+
+function loadUrlByPage(): Promise<Record<number, string>> {
+  urlByPagePromise ??= Promise.all(
+    Object.entries(answerModules).map(async ([path, load]) => {
+      const m = path.match(/page-(\d+)\.png$/);
+      return m ? ([Number(m[1]), await load()] as const) : undefined;
+    })
+  ).then((entries) => Object.fromEntries(entries.filter((entry): entry is readonly [number, string] => !!entry)));
+  return urlByPagePromise;
 }
 
 // 单元号 -> 答案页书页码列表（跨页单元包含下一页）
@@ -189,7 +193,7 @@ const UNIT_REGIONS: Record<number, AnswerRegion[]> = {
   106: [[308, 607, 1152, 160, 196], [309, 43, 59, 235, 457]],
 };
 
-interface CambridgeAnswerPage {
+export interface CambridgeAnswerPage {
   page: number;
   src: string;
   regions: { unit: number; x: number; y: number; width: number; height: number }[];
@@ -277,15 +281,17 @@ export function lessonGrammarCambridgeUnits(lesson: number): number[] {
   return ODD_LESSON_UNITS[prev] || [];
 }
 
-export function lessonGrammarCambridgeAnswerPages(lesson: number): CambridgeAnswerPage[] {
+/** 懒加载剑桥语法答案页（含裁剪区域）；无对应答案页的课返回空数组。 */
+export async function loadLessonGrammarCambridgeAnswerPages(lesson: number): Promise<CambridgeAnswerPage[]> {
+  const urlByPage = await loadUrlByPage();
   const units = lessonGrammarCambridgeUnits(lesson);
   const pages = new Set<number>();
   for (const unit of units) {
     for (const p of UNIT_PAGES[unit] || []) pages.add(p);
   }
-  return [...pages].sort((a, b) => a - b).filter((page) => URL_BY_PAGE[page]).map((page) => ({
+  return [...pages].sort((a, b) => a - b).filter((page) => urlByPage[page]).map((page) => ({
     page,
-    src: URL_BY_PAGE[page],
+    src: urlByPage[page],
     regions: units.flatMap((unit) => (UNIT_REGIONS[unit] || [])
       .filter(([regionPage]) => regionPage === page)
       .map(([, x, y, width, height]) => ({ unit, x, y, width, height }))),
