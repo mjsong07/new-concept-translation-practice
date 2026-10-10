@@ -12,7 +12,7 @@ import { lessonTextPages } from "../data/lessonTextPages";
 import { lessonHomework } from "../data/lessonHomework";
 import { lessonGrammarPages, lessonGrammarAnswerPages } from "../data/lessonGrammarPages";
 import { lessonGrammarCambridgePages } from "../data/lessonGrammarCambridgePages";
-import { lessonGrammarCambridgeAnswerPages } from "../data/lessonGrammarCambridgeAnswers";
+import { lessonGrammarCambridgeAnswerPages, lessonGrammarCambridgeUnits } from "../data/lessonGrammarCambridgeAnswers";
 import { renderMarkdown } from "../services/markdown";
 
 const { t } = useI18n();
@@ -215,8 +215,31 @@ const teacherNotesImages = computed(() => lessonTeacherNotesPages[props.lessonNu
 const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
 const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
 const grammarAnswerImages = computed(() => lessonGrammarAnswerPages(props.lessonNumber));
-const cambridgeImages = computed(() => lessonGrammarCambridgePages(props.lessonNumber));
+const cambridgeImages = computed(() => {
+  const units = lessonGrammarCambridgeUnits(props.lessonNumber);
+  // 渲染脚本按单元顺序依次生成讲解页、Exercises 页。
+  return lessonGrammarCambridgePages(props.lessonNumber).map((src, index) => ({
+    src,
+    unit: units[Math.floor(index / 2)],
+    isExercise: index % 2 === 1,
+  }));
+});
 const cambridgeAnswerImages = computed(() => lessonGrammarCambridgeAnswerPages(props.lessonNumber));
+const cambridgeAnswerVisible = ref(false);
+const selectedCambridgeUnit = ref<number | null>(null);
+const cambridgeAnswerCrops = computed(() => cambridgeAnswerImages.value.flatMap((page) =>
+  page.regions.filter((region) => region.unit === selectedCambridgeUnit.value)
+    .map((region) => ({ ...region, src: page.src, page: page.page }))
+));
+
+function showCambridgeAnswers(unit: number) {
+  selectedCambridgeUnit.value = unit;
+  cambridgeAnswerVisible.value = true;
+}
+
+watch(() => [props.visible, props.lessonNumber, activeTab.value, activeGroup.value], () => {
+  cambridgeAnswerVisible.value = false;
+});
 
 // 用 viewerjs 接管原书截图点击预览，原生支持鼠标滚轮 / 触控双指捏合放大缩小、拖动、旋转。
 const notesPagesEl = ref<HTMLElement | null>(null);
@@ -558,14 +581,23 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       <!-- 剑桥初级英语语法：学习组，紧跟 Grammar 之后。 -->
       <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabCambridge')" name="cambridge">
         <div v-if="cambridgeImages.length" class="class-notes-pages">
-          <img
-            v-for="(src, i) in cambridgeImages"
-            :key="i"
-            :src="src"
-            :alt="`cambridge ${i + 1}`"
-            :loading="i === 0 ? 'eager' : 'lazy'"
-            class="class-notes-page"
-          />
+          <div v-for="(page, i) in cambridgeImages" :key="page.src" class="cambridge-study-page">
+            <div v-if="page.isExercise" class="cambridge-exercise-toolbar">
+              <el-button
+                size="small"
+                plain
+                :icon="View"
+                :aria-label="`Unit ${page.unit} · ${t('exercise.showAnswers')}`"
+                @click="showCambridgeAnswers(page.unit)"
+              >{{ t("exercise.showAnswers") }}</el-button>
+            </div>
+            <img
+              :src="page.src"
+              :alt="`cambridge ${i + 1}`"
+              :loading="i === 0 ? 'eager' : 'lazy'"
+              class="class-notes-page"
+            />
+          </div>
         </div>
         <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
         <!-- 关联的书末「练习答案」页：对应本课语法单元的练习答案截图。 -->
@@ -647,10 +679,61 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       :image-size="100"
       class="lesson-notes-empty"
     />
+    <el-dialog
+      v-model="cambridgeAnswerVisible"
+      :title="`Unit ${selectedCambridgeUnit} · ${t('notes.cambridgeAnswers')}`"
+      width="min(400px, calc(100% - 24px))"
+      append-to-body
+      align-center
+      destroy-on-close
+      :close-on-click-modal="true"
+    >
+      <div class="cambridge-answer-crops">
+        <svg
+          v-for="(crop, i) in cambridgeAnswerCrops"
+          :key="`${crop.page}-${i}`"
+          :viewBox="`${crop.x} ${crop.y} ${crop.width} ${crop.height}`"
+          :width="crop.width"
+          :height="crop.height"
+          role="img"
+          :aria-label="`Unit ${crop.unit} · ${t('notes.cambridgeAnswers')} ${i + 1}`"
+          class="cambridge-answer-crop"
+        >
+          <image :href="crop.src" width="908" height="1366" />
+        </svg>
+      </div>
+    </el-dialog>
   </el-dialog>
 </template>
 
 <style scoped>
+.cambridge-exercise-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
+.cambridge-study-page > img {
+  display: block;
+}
+
+.cambridge-answer-crops {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  max-height: 70vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.cambridge-answer-crop {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  overflow: hidden;
+  border: 2px solid #e53935;
+}
 .cambridge-answer-page {
   position: relative;
 }

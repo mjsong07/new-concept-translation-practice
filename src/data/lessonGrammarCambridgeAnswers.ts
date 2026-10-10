@@ -271,14 +271,14 @@ const ODD_LESSON_UNITS: Record<number, number[]> = {
     143: [21]
 };
 
-function lessonUnits(lesson: number): number[] {
+export function lessonGrammarCambridgeUnits(lesson: number): number[] {
   if (ODD_LESSON_UNITS[lesson]) return ODD_LESSON_UNITS[lesson];
   const prev = lesson - 1;
   return ODD_LESSON_UNITS[prev] || [];
 }
 
 export function lessonGrammarCambridgeAnswerPages(lesson: number): CambridgeAnswerPage[] {
-  const units = lessonUnits(lesson);
+  const units = lessonGrammarCambridgeUnits(lesson);
   const pages = new Set<number>();
   for (const unit of units) {
     for (const p of UNIT_PAGES[unit] || []) pages.add(p);
