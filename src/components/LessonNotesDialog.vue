@@ -10,7 +10,7 @@ import { lessonNotesPages } from "../data/lessonNotesPages";
 import { lessonTeacherNotesPages } from "../data/lessonTeacherNotesPages";
 import { lessonTextPages } from "../data/lessonTextPages";
 import { lessonHomework } from "../data/lessonHomework";
-import { lessonGrammarPages } from "../data/lessonGrammarPages";
+import { lessonGrammarPages, lessonGrammarAnswerPages } from "../data/lessonGrammarPages";
 import { lessonGrammarCambridgePages } from "../data/lessonGrammarCambridgePages";
 import { lessonGrammarCambridgeAnswerPages } from "../data/lessonGrammarCambridgeAnswers";
 import { renderMarkdown } from "../services/markdown";
@@ -214,6 +214,7 @@ const teacherNotesImages = computed(() => lessonTeacherNotesPages[props.lessonNu
 // 课文原文：教材 PDF 渲染的课文页（对话 + 生词/注释/参考译文），与“原书”一致支持点击放大。
 const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
 const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
+const grammarAnswerImages = computed(() => lessonGrammarAnswerPages(props.lessonNumber));
 const cambridgeImages = computed(() => lessonGrammarCambridgePages(props.lessonNumber));
 const cambridgeAnswerImages = computed(() => lessonGrammarCambridgeAnswerPages(props.lessonNumber));
 
@@ -318,7 +319,7 @@ function setupGrammarViewer() {
   });
 }
 watch(
-  () => [props.visible, classNotesImages.value, teacherNotesImages.value, lessonTextImages.value, grammarImages.value] as const,
+  () => [props.visible, classNotesImages.value, teacherNotesImages.value, lessonTextImages.value, grammarImages.value, grammarAnswerImages.value] as const,
   async ([visible]) => {
     if (!visible) { destroyViewer(); destroyTeacherNotesViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); return; }
     await nextTick();
@@ -468,7 +469,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         </div>
       </el-tab-pane>
 
-      <!-- 语法练习截图：教材《语法练习》对应课页，点击可放大。 -->
+      <!-- 语法练习截图：教材《语法练习》对应课页，问题页下方接书末「练习答案」对应段，点击可放大。 -->
       <el-tab-pane v-if="activeGroup === 'practice'" :label="t('notes.tabGrammar')" name="grammar">
         <div v-if="grammarImages.length" ref="grammarPagesEl" class="class-notes-pages">
           <img
@@ -479,6 +480,17 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
             :loading="i === 0 ? 'eager' : 'lazy'"
             class="class-notes-page"
           />
+          <template v-if="grammarAnswerImages.length">
+            <div class="lesson-content-subhead">{{ t("notes.cambridgeAnswers") }}</div>
+            <img
+              v-for="(src, i) in grammarAnswerImages"
+              :key="'a' + i"
+              :src="src"
+              :alt="`grammar answers ${i + 1}`"
+              :loading="i === 0 ? 'eager' : 'lazy'"
+              class="class-notes-page"
+            />
+          </template>
         </div>
         <el-empty v-else :description="t('notes.noPractice')" :image-size="80" />
       </el-tab-pane>
