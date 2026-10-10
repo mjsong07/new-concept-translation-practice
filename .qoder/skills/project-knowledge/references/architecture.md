@@ -20,19 +20,18 @@
 - 文件：package.json
 - 文件：pnpm-lock.yaml
 - 目录：scripts
-- 目录：server/pronunciation
+- 目录：worker/pronunciation
 - 目录：src
 - 文件：tsconfig.json
 - 文件：vite.config.ts
-- 文件：requirements.txt、packages.txt（Hugging Face Gradio Space 依赖）
+- 目录：worker/pronunciation（Cloudflare Workers AI 发音练习 API）
 
 ## 发音评测
 
-- `src/services/pronunciation.ts` 将录音发至构建时配置的 `VITE_PRONUNCIATION_API_URL`；服务地址不写入 `localStorage`。
-- `src/components/PronunciationRecorder.vue` 提供录音、评测结果、返听与英音/美音切换；句子练习及单词音标面板复用此组件。
-- `server/pronunciation/app.py` 提供 Gradio `evaluate_pronunciation` 队列 API，推理使用 Whisper 与 wav2vec2；输入音频仅由 Gradio 在临时处理期间解码，不持久化录音或评分结果。
-- 根目录 `README.md` frontmatter 声明 Gradio Space 入口；Python/系统依赖分别在 `requirements.txt`、`packages.txt`。`.github/workflows/deploy-pronunciation-space.yml` 通过 GitHub Actions secret `HF_TOKEN` 与变量 `HF_SPACE_REPO` 同步部署，仅上传评测服务文件。
-- GitHub Pages 构建需设置仓库 Actions 变量 `VITE_PRONUNCIATION_API_URL` 为 Space App URL。免费 ZeroGPU 使用有每日 GPU 配额和队列限制；参见 README。
+- `src/services/pronunciation.ts` 将录音以 multipart 请求发往构建时配置的 `VITE_PRONUNCIATION_API_URL`；服务地址不写入 `localStorage`。
+- `src/components/PronunciationRecorder.vue` 提供录音、ASR 逐词对照、完成度/流利度参考分和返听；句子练习及单词音标面板复用此组件。Cloudflare Whisper 不提供音素级发音评分。
+- `worker/pronunciation/src/index.ts` 通过 Workers AI binding 调用 Whisper large-v3-turbo；不持久化录音或评测结果。`worker/pronunciation/wrangler.jsonc` 配置 AI binding 和 CORS 来源。
+- `.github/workflows/deploy-pronunciation-worker.yml` 通过 `CLOUDFLARE_API_TOKEN` Secret 和 `CLOUDFLARE_ACCOUNT_ID` Variable 自动部署 Worker。GitHub Pages 构建需设置 `VITE_PRONUNCIATION_API_URL` 为 `workers.dev` URL。Workers AI 免费额度按每日 Neurons 计；参见 README。
 
 ## 维护要求
 

@@ -11,9 +11,6 @@ importers:
       '@element-plus/icons-vue':
         specifier: ^2.3.1
         version: 2.3.2(vue@3.5.42(typescript@5.9.3))
-      '@gradio/client':
-        specifier: ^2.7.1
-        version: 2.7.1
       element-plus:
         specifier: ^2.10.4
         version: 2.14.5(vue@3.5.42(typescript@5.9.3))
@@ -298,10 +295,6 @@ packages:
 
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
-
-  '@gradio/client@2.7.1':
-    resolution: {integrity: sha512-NdxHhkWKE+p+6NLgDrGKMoyF1Ldcl+tRKDyy2x9HKExqHUj/LpsR0UY46x6lLAM+QHAspHa2E6cFjkJMCVb6gQ==, tarball: http://nexus.saas.hand-china.com/repository/hzero-npm-group/@gradio/client/-/client-2.7.1.tgz}
-    engines: {node: '>=18.0.0'}
 
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
@@ -682,9 +675,6 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
-
-  fetch-event-stream@0.1.6:
-    resolution: {integrity: sha512-GREtJ5HNikdU2AXtZ6E/5bk+aslMU6ie5mPG6H9nvsdDkkHQ6m5lHwmmmDTOBexok9hApQ7EprsXCdmz9ZC68w==, tarball: http://nexus.saas.hand-china.com/repository/hzero-npm-group/fetch-event-stream/-/fetch-event-stream-0.1.6.tgz}
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==, tarball: http://nexus.saas.hand-china.com/repository/hzero-npm-group/fsevents/-/fsevents-2.3.3.tgz}
@@ -1188,10 +1178,6 @@ snapshots:
 
   '@floating-ui/utils@0.2.12': {}
 
-  '@gradio/client@2.7.1':
-    dependencies:
-      fetch-event-stream: 0.1.6
-
   '@jridgewell/resolve-uri@3.1.2': {}
 
   '@jridgewell/sourcemap-codec@1.5.5': {}
@@ -1549,8 +1535,6 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.7):
     optionalDependencies:
       picomatch: 4.0.7
-
-  fetch-event-stream@0.1.6: {}
 
   fsevents@2.3.3:
     optional: true

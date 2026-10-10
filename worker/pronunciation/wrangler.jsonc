@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "new-concept-pronunciation",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-10",
+  "workers_dev": true,
+  "ai": {
+    "binding": "AI"
+  },
+  "vars": {
+    "ALLOWED_ORIGINS": "https://mjsong07.github.io,http://localhost:5173"
+  }
+}

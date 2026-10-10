@@ -1,14 +1,3 @@
----
-title: Pronunciation Evaluation
-emoji: 🎙️
-colorFrom: blue
-colorTo: green
-sdk: gradio
-sdk_version: 5.50.0
-python_version: 3.12
-app_file: server/pronunciation/app.py
----
-
 # Sentence Workshop
 2026
 A Chinese-to-English translation practice app based on the odd-numbered lessons and reference translations from New Concept English Book 1. It uses the Vue 3 + Vite + TypeScript + Element Plus architecture from `learn english`, with sentence-level checking, error highlighting, pronunciation, mistake filtering, and locally persisted progress.
@@ -43,17 +32,21 @@ pnpm preview
 
 The repository includes a GitHub Pages workflow. After pushing to `main`, set Source to GitHub Actions under Settings → Pages. Vite uses relative asset paths, so no repository-specific `base` setting is required.
 
-### Pronunciation Evaluation Space
+### Speech Practice with Cloudflare Workers AI
 
-The pronunciation service uses the Hugging Face Gradio SDK with ZeroGPU, rather than Docker/FastAPI, so it can run on an eligible free personal account. In Hugging Face, create an **empty Gradio Space** (do not add a template README). This repository's README metadata points it to `server/pronunciation/app.py`, with Python dependencies in the root `requirements.txt` and system packages in `packages.txt`. Select ZeroGPU in the Space hardware settings.
+Pronunciation recording is sent directly from the browser to a Cloudflare Worker, which calls the hosted `@cf/openai/whisper-large-v3-turbo` model through a Workers AI binding. The Worker compares the transcript with the reference sentence and estimates speaking rate and pauses. It does **not** perform phoneme-level grading or measure actual pronunciation accuracy; the on-screen total is only a practice reference score based on completeness and fluency.
 
-The free ZeroGPU option is not an unlimited always-on API. Hugging Face currently documents a 5-minute daily GPU quota for free signed-in users and 2 minutes for unauthenticated users, with lower queue priority when unauthenticated. The GitHub Pages app does not pass users' Hugging Face login or token, so callers must expect the unauthenticated limits. Evaluations can queue or fail after quota is exhausted. Free Space eligibility also requires an account in good standing, verified email, and an account older than 30 days. Review the [ZeroGPU limits](https://huggingface.co/docs/hub/spaces-zerogpu#usage-tiers) before sharing the public endpoint. Do not switch to paid hardware unless you explicitly accept its costs.
+Workers AI currently includes 10,000 Neurons per day at no charge. The allowance is shared across the account and resets daily; requests can fail after it is exhausted. Model usage is also priced per audio minute, so check the [current Workers AI pricing and limits](https://developers.cloudflare.com/workers-ai/platform/pricing/) before enabling paid overage. The Whisper model's current unit price is listed on its [model page](https://developers.cloudflare.com/workers-ai/models/whisper-large-v3-turbo/). Anyone can call the public Worker endpoint directly; CORS only controls browser origins and is not authentication. Do not put secrets in the frontend.
 
-To deploy files from this GitHub repository, create a Hugging Face write token scoped only to the new Space, then add it as the GitHub Actions secret `HF_TOKEN`; set the Actions variable `HF_SPACE_REPO` to `<account>/<space-name>`. Run the **Deploy pronunciation Space** workflow once. It uploads only the Space README and its two dependency manifests and app file; subsequent relevant pushes redeploy automatically. Never put the token in source or Actions variables.
+To deploy:
 
-Set the GitHub repository Actions variable `VITE_PRONUNCIATION_API_URL` to the Space's app URL, such as `https://<account>-<space-name>.hf.space`. The Pages workflow embeds this public URL at build time; it is not a secret and is not stored in browser `localStorage`. The app uses `@gradio/client` to upload audio and call the `evaluate_pronunciation` Gradio API endpoint.
+1. In Cloudflare, create an API token using the **Edit Cloudflare Workers** template, scoped to the account where the Worker will run. Find the account ID in the Cloudflare dashboard.
+2. In this GitHub repository, add the token as the Actions secret `CLOUDFLARE_API_TOKEN` and the account ID as the Actions variable `CLOUDFLARE_ACCOUNT_ID`.
+3. Check `ALLOWED_ORIGINS` in [`worker/pronunciation/wrangler.jsonc`](./worker/pronunciation/wrangler.jsonc). Add the exact origin of the deployed GitHub Pages site (and local development origin if needed); origins contain only scheme and host, not paths.
+4. Run **Deploy pronunciation Worker** from GitHub Actions. The Worker name is `new-concept-pronunciation`; after deployment, use the `workers.dev` URL shown by Cloudflare, for example `https://new-concept-pronunciation.<your-subdomain>.workers.dev`.
+5. Set the GitHub Actions variable `VITE_PRONUNCIATION_API_URL` to that Worker URL, then manually run **Deploy to GitHub Pages** once so the frontend is rebuilt with it. Subsequent changes under `worker/pronunciation/` deploy automatically.
 
-The Space downloads and caches Whisper and wav2vec2 weights in its temporary filesystem. It does not retain recordings or evaluation results. If a restart loses the cache, weights need to be downloaded again. Persistent storage is not configured or required.
+The Worker exposes `GET /health` and `POST /api/pronunciation/eval` (multipart fields: `audio`, `reference_text`). Recordings are limited to 18 seconds in the UI and 2 MB at the Worker. Audio is forwarded to Workers AI for inference and is not written to persistent storage by this app. For local Worker development, use `npx wrangler dev` from `worker/pronunciation/`.
 
 ## Copyright and Source
 

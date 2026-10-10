@@ -3,11 +3,7 @@ import { computed, onBeforeUnmount, ref } from "vue";
 import { Microphone, VideoPlay } from "@element-plus/icons-vue";
 import { useI18n } from "../composables/useI18n";
 import { evaluatePronunciation, PronunciationApiError } from "../services/pronunciation";
-import type {
-  PronunciationAccent,
-  PronunciationEvaluation,
-  PronunciationWordResult
-} from "../services/pronunciation";
+import type { PronunciationEvaluation, PronunciationWordResult } from "../services/pronunciation";
 
 const props = withDefaults(defineProps<{
   text: string;
@@ -17,9 +13,6 @@ const props = withDefaults(defineProps<{
 });
 const emit = defineEmits<{ interact: [] }>();
 const { t } = useI18n();
-const accent = ref<PronunciationAccent>(
-  localStorage.getItem("new-concept-pronunciation-accent") === "en-GB" ? "en-GB" : "en-US"
-);
 const recording = ref(false);
 const evaluating = ref(false);
 const result = ref<PronunciationEvaluation>();
@@ -34,11 +27,6 @@ let chunks: BlobPart[] = [];
 let stopTimer: number | undefined;
 let recordingUrl = "";
 let disposed = false;
-
-function toggleAccent() {
-  accent.value = accent.value === "en-US" ? "en-GB" : "en-US";
-  localStorage.setItem("new-concept-pronunciation-accent", accent.value);
-}
 
 function releaseStream() {
   if (stopTimer !== undefined) window.clearTimeout(stopTimer);
@@ -100,7 +88,7 @@ async function submitRecording(blob: Blob) {
   evaluating.value = true;
   errorMessage.value = "";
   try {
-    result.value = await evaluatePronunciation(blob, props.text, accent.value);
+    result.value = await evaluatePronunciation(blob, props.text);
     if (recordingUrl) URL.revokeObjectURL(recordingUrl);
     recordingUrl = URL.createObjectURL(blob);
   } catch (error) {
@@ -154,9 +142,6 @@ onBeforeUnmount(() => {
         <span v-if="recording">{{ t("pronunciation.recording") }}</span>
         <span v-else-if="evaluating">{{ t("pronunciation.waking") }}</span>
         <span v-else>{{ t("pronunciation.result") }}</span>
-        <button class="pronunciation-accent-button" type="button" :disabled="busy" @click="toggleAccent">
-          {{ accent === "en-US" ? "US" : "UK" }}
-        </button>
       </div>
       <p v-if="evaluating" class="pronunciation-hint">{{ t("pronunciation.wakingHint") }}</p>
       <p v-if="errorMessage" class="pronunciation-error">{{ errorMessage }}</p>
@@ -164,20 +149,19 @@ onBeforeUnmount(() => {
         <div class="pronunciation-scores">
           <strong class="pronunciation-total">{{ result.overall_score }}</strong>
           <span>{{ t("pronunciation.total") }}</span>
-          <span>{{ t("pronunciation.accuracy") }} {{ result.pronunciation_score }}</span>
           <span>{{ t("pronunciation.completeness") }} {{ result.completeness_score }}</span>
           <span>{{ t("pronunciation.fluency") }} {{ result.fluency_score }}</span>
           <button class="pronunciation-replay" type="button" :aria-label="t('pronunciation.replay')" @click="playRecording">
             <el-icon><VideoPlay /></el-icon>
           </button>
         </div>
+        <p class="pronunciation-hint">{{ t("pronunciation.accuracyUnavailable") }}</p>
         <p class="pronunciation-transcript">{{ t("pronunciation.heard") }} {{ result.transcription }}</p>
         <div class="pronunciation-word-results">
           <span
             v-for="(word, index) in result.word_results"
             :key="`${word.expected || word.recognized}-${index}`"
             :class="wordClass(word)"
-            :title="word.phonemes?.map((phone) => `${phone.expected} → ${phone.heard}`).join(', ')"
           >{{ word.expected || `+${word.recognized}` }}</span>
         </div>
         <p class="pronunciation-hint">
@@ -205,8 +189,6 @@ onBeforeUnmount(() => {
 }
 .pronunciation-panel-heading, .pronunciation-scores { display: flex; align-items: center; gap: 8px; }
 .pronunciation-panel-heading { justify-content: space-between; font-weight: 650; }
-.pronunciation-accent-button { padding: 2px 7px; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); background: transparent; cursor: pointer; }
-.pronunciation-accent-button:disabled { opacity: .5; cursor: wait; }
 .pronunciation-scores { flex-wrap: wrap; margin-top: 6px; color: var(--muted); font-size: 11px; }
 .pronunciation-total { color: var(--green); font-size: 22px; line-height: 1; }
 .pronunciation-replay { width: 22px; height: 22px; margin-left: auto; }
