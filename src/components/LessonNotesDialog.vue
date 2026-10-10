@@ -601,39 +601,6 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           </div>
         </div>
         <el-empty v-else :description="t('notes.classNotesEmpty')" :image-size="80" />
-        <!-- 关联的书末「练习答案」页：对应本课语法单元的练习答案截图。 -->
-        <template v-if="cambridgeAnswerImages.length">
-          <div class="lesson-content-subhead">{{ t("notes.cambridgeAnswers") }}</div>
-          <div class="class-notes-pages">
-            <div
-              v-for="(answer, i) in cambridgeAnswerImages"
-              :key="answer.page"
-              class="class-notes-page cambridge-answer-page"
-            >
-              <img
-                :src="answer.src"
-                :alt="`cambridge answers ${i + 1}`"
-                :loading="i === 0 ? 'eager' : 'lazy'"
-                width="908"
-                height="1366"
-              />
-              <svg viewBox="0 0 908 1366" class="cambridge-answer-overlay" aria-hidden="true">
-                <rect
-                  v-for="(region, j) in answer.regions"
-                  :key="j"
-                  :x="region.x"
-                  :y="region.y"
-                  :width="region.width"
-                  :height="region.height"
-                  fill="none"
-                  stroke="#e53935"
-                  stroke-width="2"
-                  vector-effect="non-scaling-stroke"
-                />
-              </svg>
-            </div>
-          </div>
-        </template>
       </el-tab-pane>
       <!-- Homework：康奈尔笔记三栏，Questions / Homework / Summary & Recap。 -->
       <el-tab-pane v-if="activeGroup === 'summary'" :label="t('notes.tabHomework')" name="homework">
@@ -697,7 +664,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
           :viewBox="`${crop.x} ${crop.y} ${crop.width} ${crop.height}`"
           :width="crop.width"
           :height="crop.height"
-          :style="{ width: `min(${crop.width * 1.1}px, ${crop.width / cambridgeAnswerMaxHeight * 60}vh)` }"
+          :style="{ width: `min(${crop.width}px, ${crop.width / cambridgeAnswerMaxHeight * 60}vh)` }"
           role="img"
           :aria-label="`Unit ${crop.unit} · ${t('notes.cambridgeAnswers')} ${i + 1}`"
           class="cambridge-answer-crop"
@@ -724,33 +691,13 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  overflow-x: auto;
-  overscroll-behavior: contain;
 }
 
 .cambridge-answer-crop {
   display: block;
-  flex-shrink: 0;
+  min-width: 0;
   height: auto;
   overflow: hidden;
   border: 2px solid #e53935;
-}
-.cambridge-answer-page {
-  position: relative;
-}
-
-.cambridge-answer-page > img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: inherit;
-}
-
-.cambridge-answer-overlay {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
 }
 </style>
