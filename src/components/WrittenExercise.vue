@@ -950,7 +950,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                 <button class="sentence-number" type="button" :aria-label="t('exercise.speakItem', { item: itemLabel(item) })" @click="speakBilingualLine(item)">{{ itemLabel(item) }}</button>
                 <div class="sentence-content">
                   <p class="sentence-chinese">{{ item.prompt }}</p>
-                  <p class="sentence-english" @click="onTextClick"><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable }">{{ tok.text }}</span></p>
+                  <p class="sentence-english" @click="onTextClick"><span v-for="tok in clickableWords(item.answer, item.id)" :key="tok.wordId" :data-word-id="tok.clickable ? tok.wordId : undefined" :class="{ 'clickable-word': tok.clickable, 'is-speaking-word': isSpeakingWord(item.id, tok) }">{{ tok.text }}</span></p>
                 </div>
               </article>
             </div>
