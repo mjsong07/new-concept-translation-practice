@@ -886,7 +886,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                           />
                         </template>
                       </div>
-                      <p v-else class="sentence-chinese">{{ item.prompt }}</p>
+                      <div v-else class="sentence-chinese">{{ item.prompt }}<PronunciationRecorder v-if="tab.key === 'translation'" :text="item.answer" suppress-blur-on-pointer @interact="suppressBlurSubmit" /></div>
                       <el-button
                         v-if="!isFillMode(item)"
                         class="row-action-button newline-action" text circle size="small"
@@ -940,7 +940,7 @@ onBeforeUnmount(() => document.removeEventListener("pointerdown", clearPronuncia
                         @blur="onBlurSubmit(item)"
                       />
                     </div>
-                    <PronunciationRecorder :text="item.answer" suppress-blur-on-pointer @interact="suppressBlurSubmit" />
+                    <PronunciationRecorder v-if="tab.key !== 'translation'" :text="item.answer" suppress-blur-on-pointer @interact="suppressBlurSubmit" />
                   </div>
                 </article>
               </div>
