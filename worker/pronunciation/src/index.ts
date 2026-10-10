@@ -169,8 +169,8 @@ async function evaluate(request: Request, env: Env, origin?: string): Promise<Re
       condition_on_previous_text: false
     });
   } catch (error) {
-    console.error("Workers AI Whisper request failed.", error);
-    const details = error instanceof Error ? error.message : "";
+    const details = error instanceof Error ? error.message : String(error);
+    console.error("Workers AI Whisper request failed.", details.slice(0, 500));
     const quotaExceeded = /quota|neurons|free tier|daily limit|rate.?limit|429|billing plan/i.test(details);
     return jsonResponse(
       { code: quotaExceeded ? "quota_exceeded" : "transcription_failed" },
