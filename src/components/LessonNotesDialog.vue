@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick, onBeforeUnmount } from "vue";
 import { Check, Edit, View, Hide, ArrowLeft, ArrowRight } from "@element-plus/icons-vue";
+import { ElDialog } from "element-plus";
 import Viewer from "viewerjs";
 import "viewerjs/dist/viewer.css";
 import { useI18n } from "../composables/useI18n";
@@ -243,7 +244,7 @@ function onViewportResize() {
 }
 window.addEventListener("resize", onViewportResize);
 onBeforeUnmount(() => window.removeEventListener("resize", onViewportResize));
-// 面板在桌面约 72vh 高、移动约 46vh 高，答案区分别预留 60/36vh。
+// 未缩放裁剪区按统一高度显示，浮窗按实际内容尺寸缩放。
 const cambridgeFitVh = computed(() => (viewportWidth.value <= 640 ? 36 : 60));
 function cambridgeCropStyle(crop: { width: number; height: number }) {
   const fitWidth = (crop.width / Math.max(cambridgeAnswerMaxHeight.value, 1)) * cambridgeFitVh.value;
@@ -338,41 +339,18 @@ function setupLessonTextViewer() {
     hide: destroyLessonTextViewer,
   });
 }
-// 语法练习页同样用 viewerjs 点击放大。
-const grammarPagesEl = ref<HTMLElement | null>(null);
-let grammarViewer: Viewer | null = null;
-function destroyGrammarViewer() {
-  grammarViewer?.destroy();
-  grammarViewer = null;
-}
-function setupGrammarViewer() {
-  destroyGrammarViewer();
-  if (!grammarPagesEl.value || !grammarPagesEl.value.querySelector("img")) return;
-  grammarViewer = new Viewer(grammarPagesEl.value, {
-    inline: false,
-    navbar: false,
-    toolbar: { zoomIn: 1, zoomOut: 1, reset: 1, prev: 1, next: 1 },
-    movable: true,
-    zoomable: true,
-    scalable: false,
-    keyboard: false,
-    transition: false,
-    hide: destroyGrammarViewer,
-  });
-}
 watch(
   () => [props.visible, classNotesImages.value, teacherNotesImages.value, lessonTextImages.value, grammarImages.value] as const,
   async ([visible]) => {
-    if (!visible) { destroyViewer(); destroyTeacherNotesViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); return; }
+    if (!visible) { destroyViewer(); destroyTeacherNotesViewer(); destroyLessonTextViewer(); return; }
     await nextTick();
     setupViewer();
     setupTeacherNotesViewer();
     setupLessonTextViewer();
-    setupGrammarViewer();
   },
   { immediate: true }
 );
-onBeforeUnmount(() => { destroyViewer(); destroyTeacherNotesViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); });
+onBeforeUnmount(() => { destroyViewer(); destroyTeacherNotesViewer(); destroyLessonTextViewer(); });
 
 // Q§ 提问 / A§ 回答 / § 单词头词，做字体与颜色区分（原始 T:/S:/音标已在提取时剔除）。
 const DRILL = new Set(["Comprehension", "Asking questions", "Practices"]);
@@ -449,12 +427,15 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
 </script>
 
 <template>
-  <el-dialog
-    :model-value="visible"
-    class="lesson-notes-dialog"
+  <component
+    :is="activeGroup === 'practice' ? FloatingAnswerPanel : ElDialog"
+    :class="activeGroup === 'practice' ? 'lesson-practice-window' : 'lesson-notes-dialog'"
     :title="`${groupLabel} · Lesson ${lessonNumber} ${lessonTitle}`"
-    width="min(720px, calc(100% - 24px))"
-    append-to-body
+    v-bind="activeGroup === 'practice'
+      ? { visible, placement: 'left' }
+      : { modelValue: visible, width: 'min(720px, calc(100% - 24px))', appendToBody: true,
+          closeOnPressEscape: !grammarAnswerVisible && !cambridgeAnswerVisible }"
+    @update:visible="emit('update:visible', $event)"
     @update:model-value="emit('update:visible', $event as boolean)"
   >
     <template #header>
@@ -466,7 +447,11 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         </div>
       </div>
     </template>
-    <el-tabs v-model="activeTab" class="lesson-notes-tabs">
+    <el-tabs
+      v-model="activeTab"
+      class="lesson-notes-tabs"
+      :class="{ 'lesson-practice-content': activeGroup === 'practice' }"
+    >
       <!-- 课文原文：教材 PDF 渲染的课文页，效果与“原书”一致，点击可放大。 -->
       <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabLessonText')" name="lesson-text">
         <div v-if="lessonTextImages.length" ref="lessonTextPagesEl" class="class-notes-pages">
@@ -536,7 +521,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       </el-tab-pane>
 
       <el-tab-pane v-if="activeGroup === 'practice'" :label="t('notes.tabGrammar')" name="grammar">
-        <div v-if="grammarImages.length" ref="grammarPagesEl" class="class-notes-pages">
+        <div v-if="grammarImages.length" class="class-notes-pages">
           <div v-for="(src, i) in grammarImages" :key="src" class="grammar-study-page">
             <div v-if="grammarAnswerImages.length" class="exercise-answer-toolbar">
               <el-button
@@ -658,51 +643,70 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       </el-tab-pane>
     </el-tabs>
     <el-empty
-      v-if="activeGroup === 'practice' && visibleContentBlocks.length === 0"
+      v-if="activeGroup === 'practice' && !grammarImages.length && visibleContentBlocks.length === 0"
       :description="t('notes.noPractice')"
       :image-size="100"
       class="lesson-notes-empty"
     />
-    <FloatingAnswerPanel
-      :visible="grammarAnswerVisible"
-      :title="`Lesson ${lessonNumber} · ${t('notes.cambridgeAnswers')}`"
-      @update:visible="grammarAnswerVisible = $event"
-    >
-      <div class="grammar-answer-images">
-        <img
-          v-for="(src, i) in grammarAnswerImages"
-          :key="src"
-          :src="src"
-          :alt="`Lesson ${lessonNumber} · ${t('notes.cambridgeAnswers')} ${i + 1}`"
-          class="grammar-answer-image"
-        />
-      </div>
-    </FloatingAnswerPanel>
-    <FloatingAnswerPanel
-      :visible="cambridgeAnswerVisible"
-      :title="`Unit ${selectedCambridgeUnit} · ${t('notes.cambridgeAnswers')}`"
-      @update:visible="cambridgeAnswerVisible = $event"
-    >
-      <div class="cambridge-answer-crops">
-        <svg
-          v-for="(crop, i) in cambridgeAnswerCrops"
-          :key="`${crop.page}-${i}`"
-          :viewBox="`${crop.x} ${crop.y} ${crop.width} ${crop.height}`"
-          :width="crop.width"
-          :height="crop.height"
-          :style="cambridgeCropStyle(crop)"
-          role="img"
-          :aria-label="`Unit ${crop.unit} · ${t('notes.cambridgeAnswers')} ${i + 1}`"
-          class="cambridge-answer-crop"
-        >
-          <image :href="crop.src" width="908" height="1366" />
-        </svg>
-      </div>
-    </FloatingAnswerPanel>
-  </el-dialog>
+  </component>
+  <FloatingAnswerPanel
+    :visible="grammarAnswerVisible"
+    :title="`Lesson ${lessonNumber} · ${t('notes.cambridgeAnswers')}`"
+    @update:visible="grammarAnswerVisible = $event"
+  >
+    <div class="grammar-answer-images">
+      <img
+        v-for="(src, i) in grammarAnswerImages"
+        :key="src"
+        :src="src"
+        :alt="`Lesson ${lessonNumber} · ${t('notes.cambridgeAnswers')} ${i + 1}`"
+        class="grammar-answer-image"
+      />
+    </div>
+  </FloatingAnswerPanel>
+  <FloatingAnswerPanel
+    :visible="cambridgeAnswerVisible"
+    :title="`Unit ${selectedCambridgeUnit} · ${t('notes.cambridgeAnswers')}`"
+    @update:visible="cambridgeAnswerVisible = $event"
+  >
+    <div class="cambridge-answer-crops">
+      <svg
+        v-for="(crop, i) in cambridgeAnswerCrops"
+        :key="`${crop.page}-${i}`"
+        :viewBox="`${crop.x} ${crop.y} ${crop.width} ${crop.height}`"
+        :width="crop.width"
+        :height="crop.height"
+        :style="cambridgeCropStyle(crop)"
+        role="img"
+        :aria-label="`Unit ${crop.unit} · ${t('notes.cambridgeAnswers')} ${i + 1}`"
+        class="cambridge-answer-crop"
+      >
+        <image :href="crop.src" width="908" height="1366" />
+      </svg>
+    </div>
+  </FloatingAnswerPanel>
 </template>
 
 <style scoped>
+.lesson-practice-content {
+  width: min(688px, calc(100vw - 48px));
+}
+
+.lesson-practice-content :deep(.el-tabs__content) {
+  max-height: none;
+  overflow: visible;
+}
+
+.lesson-practice-window .lesson-notes-header-title {
+  min-width: 0;
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.lesson-practice-content :deep(.el-tabs__nav-wrap::after) {
+  background-color: var(--line);
+}
+
 .exercise-answer-toolbar {
   display: flex;
   justify-content: flex-end;
@@ -714,7 +718,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
   display: block;
 }
 
-/* 浮动答案面板内：语法练习答案（628px 宽长条）纵向排列，初始宽度贴合面板。 */
+/* 语法答案使用稳定的未缩放宽度，避免浮窗尺寸反向影响内容测量。 */
 .grammar-answer-images {
   display: flex;
   flex-direction: column;
@@ -731,7 +735,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
   border-radius: 8px;
 }
 
-/* 浮动答案面板内：剑桥语法答案裁剪区，高度贴合面板，多区域横向排列。 */
+/* 剑桥答案多区域按相同比例横向排列。 */
 .cambridge-answer-crops {
   display: flex;
   align-items: flex-start;

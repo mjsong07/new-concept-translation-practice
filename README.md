@@ -13,6 +13,8 @@ pnpm dev
 
 The practice group opens in a non-modal window. Drag its header to position the questions, and use the zoom controls, Ctrl/Cmd + mouse wheel, or a two-finger pinch to resize the content. Grammar and Cambridge answers open in separate windows with independent positions and zoom levels.
 
+When zooming out, each floating window's content area shrinks to fit the scaled content without leaving a wide blank background. The header and zoom controls remain available, leaving more of the underlying questions visible for comparison.
+
 Window borders follow the scaled content instead of keeping a fixed-size frame. Large windows can extend beyond the screen: drag the whole window to see another portion, while the toolbar stays accessible. Click a window to bring it forward; Esc closes the frontmost window. Study and summary dialogs keep their existing behavior.
 
 ## Updating Lesson Data

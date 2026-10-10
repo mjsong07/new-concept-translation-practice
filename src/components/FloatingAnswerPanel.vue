@@ -1,13 +1,18 @@
+<script lang="ts">
+let nextPanelLayer = 3000;
+const panelLayers = new Map<symbol, number>();
+</script>
+
 <script setup lang="ts">
-import { computed, ref, watch, onBeforeUnmount } from "vue";
+import { computed, nextTick, ref, watch, onBeforeUnmount } from "vue";
 import { Close, ZoomIn, ZoomOut, RefreshLeft, Rank } from "@element-plus/icons-vue";
 
-// 非模态浮动答案面板：无遮罩，可拖拽移动、缩放/平移内容，
-// 打开后不挡住题目，方便边看问题边对答案。
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps<{
   visible: boolean;
   title: string;
+  placement?: "left" | "right";
 }>();
 
 const emit = defineEmits<{
@@ -20,17 +25,52 @@ const ZOOM_STEP = 1.2;
 
 const panelEl = ref<HTMLElement | null>(null);
 const viewportEl = ref<HTMLElement | null>(null);
+const contentEl = ref<HTMLElement | null>(null);
+const headerEl = ref<HTMLElement | null>(null);
 const scale = ref(1);
-const translateX = ref(0);
-const translateY = ref(0);
+const contentWidth = ref(0);
+const contentHeight = ref(0);
+const layer = ref(3000);
+const panelId = Symbol("floating-panel");
+let contentObserver: ResizeObserver | null = null;
+const screenWidth = ref(window.innerWidth);
+const screenHeight = ref(window.innerHeight);
+const headerHeight = ref(48);
 // 面板左上角位置（fixed 坐标）
 const posX = ref(0);
 const posY = ref(0);
 
 const zoomPercent = computed(() => `${Math.round(scale.value * 100)}%`);
 const contentStyle = computed(() => ({
-  transform: `translate(${translateX.value}px, ${translateY.value}px) scale(${scale.value})`,
+  transform: `scale(${scale.value})`,
 }));
+const viewportStyle = computed(() => ({
+  width: "100%",
+  height: `${contentHeight.value * scale.value + 16}px`,
+}));
+const panelWidth = computed(() => contentWidth.value * scale.value + 16);
+// 大图可拖出屏幕，工具栏独立保持可见，避免看不到底部或拖丢窗口。
+const headerStyle = computed(() => {
+  const width = Math.min(Math.max(220, panelWidth.value), Math.max(220, screenWidth.value - 24));
+  const x = Math.max(12, Math.min(screenWidth.value - width - 12, posX.value));
+  const y = Math.max(12, Math.min(screenHeight.value - headerHeight.value - 12, posY.value));
+  return {
+    width: `${width}px`,
+    transform: `translate(${x - posX.value}px, ${y - posY.value}px)`,
+  };
+});
+
+function bringToFront() {
+  layer.value = ++nextPanelLayer;
+  panelLayers.set(panelId, layer.value);
+}
+
+function measureContent() {
+  if (!contentEl.value) return;
+  contentWidth.value = contentEl.value.offsetWidth;
+  contentHeight.value = contentEl.value.offsetHeight;
+  headerHeight.value = headerEl.value?.offsetHeight ?? 48;
+}
 
 function clampScale(value: number) {
   return Math.min(MAX_SCALE, Math.max(MIN_SCALE, value));
@@ -38,51 +78,42 @@ function clampScale(value: number) {
 
 function resetView() {
   scale.value = 1;
-  translateX.value = 0;
-  translateY.value = 0;
 }
 
 function close() {
   emit("update:visible", false);
 }
 
-// 以指定屏幕坐标为锚点缩放（锚点下的内容点保持不动）。
-function zoomAt(clientX: number, clientY: number, oldScale: number, newScale: number) {
+// 外框随缩放改变尺寸；移动整窗以保留光标下的内容位置。
+function zoomAt(clientX: number, clientY: number, newScale: number) {
   const el = viewportEl.value;
   if (!el) return;
   const rect = el.getBoundingClientRect();
-  const cx = clientX - rect.left;
-  const cy = clientY - rect.top;
-  translateX.value = cx - ((cx - translateX.value) / oldScale) * newScale;
-  translateY.value = cy - ((cy - translateY.value) / oldScale) * newScale;
+  const ratio = newScale / scale.value;
+  posX.value += (clientX - rect.left - 8) * (1 - ratio);
+  posX.value = Math.min(window.innerWidth - 80,
+    Math.max(80 - (contentWidth.value * newScale + 16), posX.value));
+  posY.value += (clientY - rect.top - 8) * (1 - ratio);
+  scale.value = newScale;
 }
 
 function zoomBy(factor: number) {
   const oldScale = scale.value;
   const newScale = clampScale(oldScale * factor);
   if (newScale === oldScale) return;
-  const el = viewportEl.value;
-  if (el) {
-    const rect = el.getBoundingClientRect();
-    zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, oldScale, newScale);
-  }
+  // 按钮缩放固定左上角，便于原题和答案保持各自的摆放位置。
   scale.value = newScale;
 }
 
 function onWheel(e: WheelEvent) {
-  // Ctrl/Cmd + 滚轮（含触控板双指缩放）：以光标为锚点缩放；普通滚轮：平移内容。
   if (e.ctrlKey || e.metaKey) {
+    bringToFront();
     e.preventDefault();
     const oldScale = scale.value;
     const newScale = clampScale(oldScale * Math.pow(1.0015, -e.deltaY));
     if (newScale !== oldScale) {
-      zoomAt(e.clientX, e.clientY, oldScale, newScale);
-      scale.value = newScale;
+      zoomAt(e.clientX, e.clientY, newScale);
     }
-  } else {
-    e.preventDefault();
-    translateX.value -= e.deltaX;
-    translateY.value -= e.deltaY;
   }
 }
 
@@ -92,7 +123,7 @@ let panelDrag: { pointerX: number; pointerY: number; posX: number; posY: number 
 function onHeaderPointerDown(e: PointerEvent) {
   if (e.pointerType === "mouse" && e.button !== 0) return;
   // 点到按钮（缩放/关闭）时不触发拖拽。
-  if ((e.target as HTMLElement).closest("button")) return;
+  if (!(e.target instanceof Element) || e.target.closest("button")) return;
   if (!panelEl.value) return;
   panelDrag = { pointerX: e.clientX, pointerY: e.clientY, posX: posX.value, posY: posY.value };
   panelEl.value.classList.add("is-dragging");
@@ -102,14 +133,13 @@ function onHeaderPointerDown(e: PointerEvent) {
 function onHeaderPointerMove(e: PointerEvent) {
   if (!panelDrag || !panelEl.value) return;
   const width = panelEl.value.offsetWidth;
-  const height = panelEl.value.offsetHeight;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
   let nextX = panelDrag.posX + e.clientX - panelDrag.pointerX;
   let nextY = panelDrag.posY + e.clientY - panelDrag.pointerY;
-  // 至少保留 80px 宽 / 48px 高在可视区内，防止拖丢。
+  // 可将长图向上拖至底部；工具栏通过独立偏移保持在屏幕内。
   nextX = Math.min(vw - 80, Math.max(80 - width, nextX));
-  nextY = Math.min(vh - 48, Math.max(0, nextY));
+  nextY = Math.min(vh - 48, Math.max(48 - panelEl.value.offsetHeight, nextY));
   posX.value = nextX;
   posY.value = nextY;
 }
@@ -118,26 +148,20 @@ function onHeaderPointerUp(e: PointerEvent) {
   if (!panelDrag) return;
   panelDrag = null;
   panelEl.value?.classList.remove("is-dragging");
-  try {
-    (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-  } catch {
-    // 指针已释放时忽略。
-  }
+  const handle = e.currentTarget as HTMLElement;
+  if (handle.hasPointerCapture(e.pointerId)) handle.releasePointerCapture(e.pointerId);
 }
 
-// ============ 内容平移 / 双指捏合缩放（viewport 区域） ============
+// 单指保留文字选择和按钮点击；双指才接管内容区手势。
 const activePointers = new Map<number, { x: number; y: number }>();
-let contentPan: { x: number; y: number; tx: number; ty: number } | null = null;
 let pinch: { dist: number; scale: number } | null = null;
 
 function onViewportPointerDown(e: PointerEvent) {
-  (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  if (e.pointerType === "mouse") return;
   activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  if (activePointers.size === 1) {
-    contentPan = { x: e.clientX, y: e.clientY, tx: translateX.value, ty: translateY.value };
-    pinch = null;
-  } else if (activePointers.size === 2) {
-    contentPan = null;
+  if (activePointers.size === 2) {
+    const viewport = e.currentTarget as HTMLElement;
+    for (const id of activePointers.keys()) viewport.setPointerCapture(id);
     const [p1, p2] = [...activePointers.values()];
     pinch = { dist: Math.max(Math.hypot(p1.x - p2.x, p1.y - p2.y), 1), scale: scale.value };
   }
@@ -154,62 +178,82 @@ function onViewportPointerMove(e: PointerEvent) {
     const oldScale = scale.value;
     const newScale = clampScale(pinch.scale * (dist / pinch.dist));
     if (newScale !== oldScale) {
-      zoomAt(midX, midY, oldScale, newScale);
-      scale.value = newScale;
+      zoomAt(midX, midY, newScale);
     }
-  } else if (activePointers.size === 1 && contentPan) {
-    translateX.value = contentPan.tx + e.clientX - contentPan.x;
-    translateY.value = contentPan.ty + e.clientY - contentPan.y;
   }
 }
 
 function onViewportPointerUp(e: PointerEvent) {
   activePointers.delete(e.pointerId);
-  if (activePointers.size === 1) {
-    const [p] = [...activePointers.values()];
-    contentPan = { x: p.x, y: p.y, tx: translateX.value, ty: translateY.value };
-    pinch = null;
-  } else if (activePointers.size === 0) {
-    contentPan = null;
-    pinch = null;
-  }
+  if (activePointers.size < 2) pinch = null;
 }
 
 // ============ 打开时复位到默认位置 ============
 function defaultPosition() {
   const vw = window.innerWidth;
-  const vh = window.innerHeight;
-  const mobile = vw <= 640;
-  const width = mobile ? vw - 24 : 460;
-  const height = mobile ? Math.min(vh * 0.46, 380) : Math.min(vh * 0.72, 760);
-  return {
-    x: mobile ? 12 : vw - width - 24,
-    y: mobile ? vh - height - 12 : Math.max(12, (vh - height) / 2),
-  };
+  const width = panelEl.value?.offsetWidth ?? 0;
+  posX.value = props.placement === "left" ? 12 : Math.max(12, vw - width - 12);
+  posY.value = props.placement === "left" ? 12 : 76;
+}
+
+function onResize() {
+  screenWidth.value = window.innerWidth;
+  screenHeight.value = window.innerHeight;
+  measureContent();
+  const width = panelEl.value?.offsetWidth ?? 0;
+  posX.value = Math.min(window.innerWidth - 80, Math.max(80 - width, posX.value));
+  const height = panelEl.value?.offsetHeight ?? 0;
+  posY.value = Math.min(window.innerHeight - 48, Math.max(48 - height, posY.value));
 }
 
 function onKeydown(e: KeyboardEvent) {
-  if (e.key === "Escape") close();
+  if (e.key !== "Escape" || e.defaultPrevented) return;
+  if (layer.value !== Math.max(...panelLayers.values())) return;
+  e.preventDefault();
+  e.stopPropagation();
+  close();
+}
+
+function cleanup() {
+  contentObserver?.disconnect();
+  contentObserver = null;
+  panelLayers.delete(panelId);
+  activePointers.clear();
+  pinch = null;
+  panelDrag = null;
+  window.removeEventListener("keydown", onKeydown, true);
+  window.removeEventListener("resize", onResize);
 }
 
 watch(
   () => props.visible,
-  (visible) => {
+  async (visible, _previous, onCleanup) => {
+    let cancelled = false;
+    onCleanup(() => {
+      cancelled = true;
+      cleanup();
+    });
     if (visible) {
       resetView();
-      const { x, y } = defaultPosition();
-      posX.value = x;
-      posY.value = y;
-      window.addEventListener("keydown", onKeydown);
-    } else {
-      window.removeEventListener("keydown", onKeydown);
+      bringToFront();
+      window.addEventListener("keydown", onKeydown, true);
+      window.addEventListener("resize", onResize);
+      await nextTick();
+      if (cancelled || !props.visible || !contentEl.value) return;
+      measureContent();
+      if (typeof ResizeObserver !== "undefined") {
+        contentObserver = new ResizeObserver(measureContent);
+        contentObserver.observe(contentEl.value);
+        if (headerEl.value) contentObserver.observe(headerEl.value);
+      }
+      await nextTick();
+      if (!cancelled && props.visible) defaultPosition();
     }
-  }
+  },
+  { immediate: true }
 );
 
-onBeforeUnmount(() => {
-  window.removeEventListener("keydown", onKeydown);
-});
+onBeforeUnmount(cleanup);
 </script>
 
 <template>
@@ -217,21 +261,29 @@ onBeforeUnmount(() => {
     <Transition name="fap-pop">
       <div
         v-if="visible"
+        v-bind="$attrs"
         ref="panelEl"
         class="floating-answer-panel"
-        :style="{ left: `${posX}px`, top: `${posY}px` }"
+        :style="{ left: `${posX}px`, top: `${posY}px`, width: `${panelWidth}px`, zIndex: layer }"
         role="dialog"
         aria-modal="false"
+        :aria-label="title"
+        @pointerdown.capture="bringToFront"
+        @focusin="bringToFront"
       >
         <div
+          ref="headerEl"
           class="fap-header"
+          :style="headerStyle"
           @pointerdown="onHeaderPointerDown"
           @pointermove="onHeaderPointerMove"
           @pointerup="onHeaderPointerUp"
           @pointercancel="onHeaderPointerUp"
         >
           <el-icon class="fap-drag-icon" aria-hidden="true"><Rank /></el-icon>
-          <span class="fap-title">{{ title }}</span>
+          <div class="fap-heading">
+            <slot name="header"><span class="fap-title">{{ title }}</span></slot>
+          </div>
           <div class="fap-controls">
             <button
               type="button"
@@ -255,7 +307,7 @@ onBeforeUnmount(() => {
             <button
               type="button"
               class="fap-btn"
-              title="重置缩放与位置"
+              title="重置缩放"
               aria-label="重置"
               @click="resetView"
             >
@@ -275,13 +327,14 @@ onBeforeUnmount(() => {
         <div
           ref="viewportEl"
           class="fap-viewport"
+          :style="viewportStyle"
           @pointerdown="onViewportPointerDown"
           @pointermove="onViewportPointerMove"
           @pointerup="onViewportPointerUp"
           @pointercancel="onViewportPointerUp"
           @wheel="onWheel"
         >
-          <div class="fap-content" :style="contentStyle">
+          <div ref="contentEl" class="fap-content" :style="contentStyle" @load.capture="measureContent">
             <slot />
           </div>
         </div>
@@ -293,26 +346,26 @@ onBeforeUnmount(() => {
 <style scoped>
 .floating-answer-panel {
   position: fixed;
-  z-index: 3000;
-  width: 460px;
-  height: min(72vh, 760px);
+  width: max-content;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--paper);
-  box-shadow: 0 24px 64px rgba(15, 35, 31, 0.28);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .fap-header {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
   padding: 8px 10px 8px 12px;
-  border-bottom: 1px solid var(--line);
+  border: 1px solid var(--line);
+  border-radius: 13px 13px 0 0;
   background: color-mix(in srgb, var(--green) 7%, var(--paper));
+  box-shadow: 0 8px 24px rgba(15, 35, 31, 0.16);
   cursor: grab;
   user-select: none;
   touch-action: none;
@@ -328,8 +381,13 @@ onBeforeUnmount(() => {
   font-size: 15px;
 }
 
+.fap-heading {
+  flex: 1 1 100px;
+  min-width: 0;
+}
+
 .fap-title {
-  flex: 1;
+  display: block;
   min-width: 0;
   overflow: hidden;
   color: var(--ink);
@@ -384,25 +442,21 @@ onBeforeUnmount(() => {
 
 .fap-viewport {
   position: relative;
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--ink) 4%, var(--paper));
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 13px 13px;
+  background: var(--paper);
+  box-shadow: 0 24px 64px rgba(15, 35, 31, 0.28);
   touch-action: none;
-  cursor: grab;
-}
-
-.fap-viewport:active {
-  cursor: grabbing;
+  user-select: text;
 }
 
 .fap-content {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 8px;
+  left: 8px;
   width: max-content;
   transform-origin: 0 0;
-  padding: 12px;
 }
 
 .fap-pop-enter-active,
@@ -414,12 +468,5 @@ onBeforeUnmount(() => {
 .fap-pop-leave-to {
   opacity: 0;
   transform: scale(0.96);
-}
-
-@media (max-width: 640px) {
-  .floating-answer-panel {
-    width: calc(100vw - 24px);
-    height: min(46vh, 380px);
-  }
 }
 </style>
