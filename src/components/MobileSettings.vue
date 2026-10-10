@@ -125,6 +125,23 @@ function resetLesson() {
 
       <div class="mobile-settings-form">
         <section>
+          <label>{{ t('settings.voice') }}</label>
+          <el-select :model-value="voiceUri" size="large" :placeholder="t('settings.systemVoice')" @update:model-value="emit('update:voiceUri', String($event))">
+            <el-option v-for="voice in voices" :key="voice.voiceURI" :label="`${voice.name} · ${voice.lang}`" :value="voice.voiceURI" />
+          </el-select>
+        </section>
+
+        <section>
+          <label>{{ t('settings.rate', { rate: speechRate.toFixed(2) }) }}</label>
+          <el-slider :model-value="speechRate" :min="0.1" :max="1.5" :step="0.05" @update:model-value="emit('update:speechRate', Number($event))" />
+        </section>
+
+        <section>
+          <label>{{ t('settings.volume', { volume: Math.round(speechVolume * 100) }) }}</label>
+          <el-slider :model-value="speechVolume" :min="0" :max="1" :step="0.05" @update:model-value="emit('update:speechVolume', Number($event))" />
+        </section>
+
+        <section>
           <label>{{ t('settings.language') }}</label>
           <el-segmented
             :model-value="locale"
@@ -155,23 +172,6 @@ function resetLesson() {
         <section>
           <label>{{ t('settings.errorNavigation') }}</label>
           <el-switch :model-value="autoAdvanceErrors" :active-text="t('settings.autoAdvanceErrors')" @update:model-value="emit('update:autoAdvanceErrors', $event)" />
-        </section>
-
-        <section>
-          <label>{{ t('settings.voice') }}</label>
-          <el-select :model-value="voiceUri" size="large" :placeholder="t('settings.systemVoice')" @update:model-value="emit('update:voiceUri', String($event))">
-            <el-option v-for="voice in voices" :key="voice.voiceURI" :label="`${voice.name} · ${voice.lang}`" :value="voice.voiceURI" />
-          </el-select>
-        </section>
-
-        <section>
-          <label>{{ t('settings.rate', { rate: speechRate.toFixed(2) }) }}</label>
-          <el-slider :model-value="speechRate" :min="0.1" :max="1.5" :step="0.05" @update:model-value="emit('update:speechRate', Number($event))" />
-        </section>
-
-        <section>
-          <label>{{ t('settings.volume', { volume: Math.round(speechVolume * 100) }) }}</label>
-          <el-slider :model-value="speechVolume" :min="0" :max="1" :step="0.05" @update:model-value="emit('update:speechVolume', Number($event))" />
         </section>
 
         <el-button class="mobile-reset-button" plain type="danger" @click="resetLesson">{{ t('settings.redoLong') }}</el-button>
