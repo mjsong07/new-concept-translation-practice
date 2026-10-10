@@ -3,4 +3,5 @@ dist
 .wrangler
 .DS_Store
 *.log
+.env.local
 .qoder/settings.local.json
