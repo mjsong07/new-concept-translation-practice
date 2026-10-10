@@ -9,7 +9,8 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
     "tts-server": "node server/edge-tts-proxy.mjs",
-    "generate:data": "node scripts/generate-lessons.mjs"
+    "generate:data": "node scripts/generate-lessons.mjs",
+    "generate:audio": "node scripts/generate-audio.mjs"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",

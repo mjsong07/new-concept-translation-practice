@@ -1,5 +1,8 @@
 import type { SpeechSegment, SpeechSettings } from "../types/practice";
 import { isEdgeSpeaking, speakEdgeSequence, stopEdgeSpeech, toggleEdgePause } from "./edgeTts";
+import { speakerGender } from "./speakerGender";
+
+export { speakerGender };
 
 // 系统 TTS 无声/无英文语音时使用的微软 Edge 音色（按说话人性别选择）。
 const edgeVoiceByGender: Record<"female" | "male" | "unknown", string> = {
@@ -23,16 +26,6 @@ function isGoogleEnglishVoice(voice: SpeechSynthesisVoice) {
   if (!voice.lang.toLowerCase().startsWith("en")) return false;
   return /\bGoogle\b/i.test(voice.name) || /google/i.test(voice.voiceURI);
 }
-const femaleSpeakers = new Set([
-  "AMY", "ANN", "ANNA", "CAROL", "CAROLINE", "CATHERINE", "CHARLOTTE", "CHRISTINE", "HELEN", "JANE",
-  "JEAN", "JENNY", "JILL", "JULIE", "KATE", "LINDA", "LIZ", "LOUISE", "LUCY", "MISS MARSH", "NAOKO",
-  "PAMELA", "PAULINE", "PENNY", "SANDRA", "SOPHIE", "SUSAN", "XIAOHUI"
-]);
-const maleSpeakers = new Set([
-  "ANDY", "BOB", "BRIAN", "CHANG-WOO", "DAN", "DAVE", "DIMITRI", "GARY", "GEORGE", "GRAHAM TURNER",
-  "HANS", "IAN", "JACK", "JIM", "JOHN SMITH", "KEN", "LUMING", "MARTIN", "MIKE", "NIGEL", "PETER",
-  "RICHARD", "ROBERT", "SAM", "SCOTT", "STEVEN", "TIM", "TOM"
-]);
 
 let speechGeneration = 0;
 let activeUtterance: SpeechSynthesisUtterance | null = null;
@@ -81,13 +74,6 @@ export function getEnglishVoices() {
     result.push(voice);
   }
   return result;
-}
-
-function speakerGender(speaker: string): "female" | "male" | "unknown" {
-  const normalized = speaker.trim().toUpperCase();
-  if (femaleSpeakers.has(normalized) || /\b(MRS|MISS|MOTHER|GRANDMOTHER|WOMAN|LADY|GIRLS?|NURSE)\b/.test(normalized)) return "female";
-  if (maleSpeakers.has(normalized) || /\b(MR|FATHER|MAN|BOY|POLICEMAN)\b/.test(normalized)) return "male";
-  return "unknown";
 }
 
 function assignSpeakerVoices(segments: SpeechSegment[], voices: SpeechSynthesisVoice[], preferred?: SpeechSynthesisVoice) {

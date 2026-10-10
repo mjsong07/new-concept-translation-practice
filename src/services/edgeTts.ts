@@ -1,11 +1,17 @@
 import type { SpeechSegment, SpeechSettings } from "../types/practice";
 
 /**
- * 在线 TTS 兜底（Microsoft Edge TTS 代理）。
+ * 在线 TTS 兜底（Microsoft Edge TTS 代理）+ 预生成本地音频优先。
  *
  * 当设备系统 TTS（speechSynthesis）不可用或没有英文语音时，前端无法直接连
  * Edge 在线朗读接口（其握手要求伪造 Origin，浏览器做不到），因此由后端代理
  * 完成合成，前端只 fetch 代理返回的 MP3 并播放。代理地址见 server/edge-tts-proxy.mjs。
+ *
+ * 播放优先级：
+ *   1. public/audio/ 下 scripts/generate-audio.mjs 预生成的 MP3（随站点/App 包
+ *      分发，离线可用，安卓设备不依赖代理可达性）——语速用 playbackRate 适配，
+ *      逐词边界时间按 playbackRate 反比缩放；
+ *   2. 未命中时回退在线代理，按当前语速/音量实时合成。
  *
  * 每个朗读单元（utterance）经 WordBoundary 元数据映射到音频时间轴，驱动
  * onWordStart 实现逐词高亮；支持暂停/继续与停止。
@@ -42,6 +48,29 @@ const DEFAULT_EDGE_TTS_BASE = "https://new-concept-translation-practice.onrender
 /** 代理 base URL。默认走 Render 线上代理；可经 localStorage 覆盖。 */
 export function edgeBaseUrl(): string {
   return localStorage.getItem("new-concept-edge-tts-base") || DEFAULT_EDGE_TTS_BASE;
+}
+
+/** 预生成音频清单条目：文件名 + 逐词边界 [word, offset, duration]（100ns 刻度，默认语速合成）。 */
+interface LocalAudioEntry {
+  f: string;
+  b: [string, number, number][];
+}
+
+let localManifest: Record<string, LocalAudioEntry> | null | undefined;
+
+/** 加载预生成音频清单（每个会话一次）；无清单时返回 null，全部回退在线代理。 */
+async function loadLocalManifest(): Promise<Record<string, LocalAudioEntry> | null> {
+  if (localManifest !== undefined) return localManifest;
+  let loaded: Record<string, LocalAudioEntry> | null = null;
+  try {
+    const resp = await fetch(`${import.meta.env.BASE_URL}audio/manifest.json`);
+    if (!resp.ok) throw new Error(`manifest 返回 ${resp.status}`);
+    loaded = await resp.json();
+  } catch {
+    loaded = null;
+  }
+  localManifest = loaded;
+  return localManifest;
 }
 
 let edgeGeneration = 0;
@@ -129,25 +158,41 @@ export async function speakEdgeSequence(
     const { segment, voice } = segments[index];
     callbacks.onSegmentStart?.(segment, index);
 
-    const url =
-      `${edgeBaseUrl()}/tts?text=${encodeURIComponent(segment.text)}&voice=${encodeURIComponent(voice)}` +
-      `&rate=${ratePercent(settings.rate)}&volume=${volumePercent(settings.volume)}`;
+    let audio: HTMLAudioElement;
+    let edgeBoundaries: EdgeBoundary[];
+    const entry = (await loadLocalManifest())?.[`${voice}|${segment.text}`];
+    if (entry) {
+      // 预生成音频（默认语速、满音量合成）：语速用 playbackRate 适配，边界时间同比缩放；音量直接控制。
+      audio = new Audio(`${import.meta.env.BASE_URL}audio/${entry.f}`);
+      audio.playbackRate = settings.rate;
+      audio.volume = settings.volume;
+      edgeBoundaries = entry.b.map(([text, offset, duration]) => ({
+        text,
+        offset: offset / settings.rate,
+        duration
+      }));
+    } else {
+      const url =
+        `${edgeBaseUrl()}/tts?text=${encodeURIComponent(segment.text)}&voice=${encodeURIComponent(voice)}` +
+        `&rate=${ratePercent(settings.rate)}&volume=${volumePercent(settings.volume)}`;
 
-    let data: { audio?: string; boundaries?: EdgeBoundary[] };
-    try {
-      const resp = await fetch(url);
-      if (!resp.ok) throw new Error(`Edge TTS 代理返回 ${resp.status}`);
-      data = await resp.json();
-    } catch (e) {
-      // 代理不可达：静默失败，停止整段朗读，不中断调用方。
-      callbacks.onEnd?.();
-      return;
+      let data: { audio?: string; boundaries?: EdgeBoundary[] };
+      try {
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`Edge TTS 代理返回 ${resp.status}`);
+        data = await resp.json();
+      } catch (e) {
+        // 代理不可达：静默失败，停止整段朗读，不中断调用方。
+        callbacks.onEnd?.();
+        return;
+      }
+      if (gen !== edgeGeneration || !data.audio) return;
+
+      audio = new Audio(`data:audio/mpeg;base64,${data.audio}`);
+      audio.volume = 1; // 已由合成端 prosody 控制音量
+      edgeBoundaries = data.boundaries || [];
     }
-    if (gen !== edgeGeneration || !data.audio) return;
-
-    const audio = new Audio(`data:audio/mpeg;base64,${data.audio}`);
     edgeAudio = audio;
-    audio.volume = 1; // 已由合成端 prosody 控制音量
 
     try {
       await audio.play();
@@ -161,7 +206,7 @@ export async function speakEdgeSequence(
     callbacks.onStart?.();
 
     // 调度逐词高亮：边界 offset 为 100ns 时间刻度 → 秒。
-    const boundaries = (data.boundaries || []).map((b) => ({
+    const boundaries = edgeBoundaries.map((b) => ({
       time: b.offset / 1e7,
       charIndex: charIndexOf(segment, b.text, 0)
     }));
