@@ -215,6 +215,7 @@ const teacherNotesImages = computed(() => lessonTeacherNotesPages[props.lessonNu
 const lessonTextImages = computed(() => lessonTextPages[props.lessonNumber] || []);
 const grammarImages = computed(() => lessonGrammarPages(props.lessonNumber));
 const grammarAnswerImages = computed(() => lessonGrammarAnswerPages(props.lessonNumber));
+const grammarAnswerVisible = ref(false);
 const cambridgeImages = computed(() => {
   const units = lessonGrammarCambridgeUnits(props.lessonNumber);
   // 渲染脚本按单元顺序依次生成讲解页、Exercises 页。
@@ -239,6 +240,7 @@ function showCambridgeAnswers(unit: number) {
 }
 
 watch(() => [props.visible, props.lessonNumber, activeTab.value, activeGroup.value], () => {
+  grammarAnswerVisible.value = false;
   cambridgeAnswerVisible.value = false;
 });
 
@@ -343,7 +345,7 @@ function setupGrammarViewer() {
   });
 }
 watch(
-  () => [props.visible, classNotesImages.value, teacherNotesImages.value, lessonTextImages.value, grammarImages.value, grammarAnswerImages.value] as const,
+  () => [props.visible, classNotesImages.value, teacherNotesImages.value, lessonTextImages.value, grammarImages.value] as const,
   async ([visible]) => {
     if (!visible) { destroyViewer(); destroyTeacherNotesViewer(); destroyLessonTextViewer(); destroyGrammarViewer(); return; }
     await nextTick();
@@ -483,7 +485,7 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       <el-tab-pane v-if="activeGroup === 'study'" :label="t('notes.tabCambridge')" name="cambridge">
         <div v-if="cambridgeImages.length" class="class-notes-pages">
           <div v-for="(page, i) in cambridgeImages" :key="page.src" class="cambridge-study-page">
-            <div v-if="page.isExercise" class="cambridge-exercise-toolbar">
+            <div v-if="page.isExercise" class="exercise-answer-toolbar">
               <el-button
                 size="small"
                 plain
@@ -517,28 +519,25 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
         </div>
       </el-tab-pane>
 
-      <!-- 语法练习截图：教材《语法练习》对应课页，问题页下方接书末「练习答案」对应段，点击可放大。 -->
       <el-tab-pane v-if="activeGroup === 'practice'" :label="t('notes.tabGrammar')" name="grammar">
         <div v-if="grammarImages.length" ref="grammarPagesEl" class="class-notes-pages">
-          <img
-            v-for="(src, i) in grammarImages"
-            :key="i"
-            :src="src"
-            :alt="`grammar ${i + 1}`"
-            :loading="i === 0 ? 'eager' : 'lazy'"
-            class="class-notes-page"
-          />
-          <template v-if="grammarAnswerImages.length">
-            <div class="lesson-content-subhead">{{ t("notes.cambridgeAnswers") }}</div>
+          <div v-for="(src, i) in grammarImages" :key="src" class="grammar-study-page">
+            <div v-if="grammarAnswerImages.length" class="exercise-answer-toolbar">
+              <el-button
+                size="small"
+                plain
+                :icon="View"
+                :aria-label="`Lesson ${lessonNumber} · ${t('exercise.showAnswers')} ${i + 1}`"
+                @click.stop="grammarAnswerVisible = true"
+              >{{ t("exercise.showAnswers") }}</el-button>
+            </div>
             <img
-              v-for="(src, i) in grammarAnswerImages"
-              :key="'a' + i"
               :src="src"
-              :alt="`grammar answers ${i + 1}`"
+              :alt="`grammar ${i + 1}`"
               :loading="i === 0 ? 'eager' : 'lazy'"
               class="class-notes-page"
             />
-          </template>
+          </div>
         </div>
         <el-empty v-else :description="t('notes.noPractice')" :image-size="80" />
       </el-tab-pane>
@@ -649,6 +648,26 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
       class="lesson-notes-empty"
     />
     <el-dialog
+      v-model="grammarAnswerVisible"
+      :title="`Lesson ${lessonNumber} · ${t('notes.cambridgeAnswers')}`"
+      width="fit-content"
+      style="max-width: min(900px, calc(100vw - 48px))"
+      append-to-body
+      align-center
+      destroy-on-close
+      :close-on-click-modal="true"
+    >
+      <div class="grammar-answer-images">
+        <img
+          v-for="(src, i) in grammarAnswerImages"
+          :key="src"
+          :src="src"
+          :alt="`Lesson ${lessonNumber} · ${t('notes.cambridgeAnswers')} ${i + 1}`"
+          class="grammar-answer-image"
+        />
+      </div>
+    </el-dialog>
+    <el-dialog
       v-model="cambridgeAnswerVisible"
       :title="`Unit ${selectedCambridgeUnit} · ${t('notes.cambridgeAnswers')}`"
       width="fit-content"
@@ -678,14 +697,40 @@ const homeworkTasks = computed(() => lessonHomework[props.lessonNumber] || []);
 </template>
 
 <style scoped>
-.cambridge-exercise-toolbar {
+.exercise-answer-toolbar {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 8px;
 }
 
-.cambridge-study-page > img {
+.cambridge-study-page > img,
+.grammar-study-page > img {
   display: block;
+}
+
+.grammar-answer-images {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.grammar-answer-image {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .grammar-answer-images {
+    flex-direction: column;
+  }
+
+  .grammar-answer-image {
+    flex-shrink: 0;
+  }
 }
 
 .cambridge-answer-crops {
